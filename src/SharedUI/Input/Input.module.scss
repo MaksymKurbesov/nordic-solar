@@ -1,0 +1,20 @@
+.input {
+  display: flex;
+  flex-direction: column;
+}
+
+.input label {
+  color: #777;
+  font-family: GilroySemiBold;
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+
+.input input {
+  background: none;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 15px;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 20px;
+}

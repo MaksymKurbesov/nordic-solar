@@ -1,0 +1,141 @@
+.transaction-confirmation {
+  margin-bottom: 65px;
+}
+
+.success-notification {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid $green;
+  padding: 12px 24px;
+  border-radius: 8px;
+  margin-bottom: 50px;
+}
+
+.success-notification svg {
+  background: $green;
+  width: 48px;
+  height: 48px;
+  padding: 13px;
+  border-radius: 50%;
+}
+
+.columns-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+}
+
+.left-column {
+
+}
+
+.title {
+  color: #777;
+  font-family: GilroySemiBold;
+  margin-bottom: 8px;
+}
+
+.invoice-number {
+  display: inline-block;
+  font-size: 50px;
+  margin-bottom: 10px;
+}
+
+.invoice-subtitle {
+  margin-bottom: 50px;
+  color: #777;
+}
+
+.amount {
+  font-size: 32px;
+}
+
+.amount span {
+  color: #777;
+}
+
+.amount-subtitle {
+  display: inline-block;
+  font-size: 14px;
+  color: #777;
+  margin-bottom: 50px;
+}
+
+.wallet-address {
+  display: flex;
+  align-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 12px 24px;
+  font-size: 30px;
+  border-radius: 8px;
+  font-family: GilroyRegular;
+}
+
+.wallet-address svg {
+  margin-left: auto;
+}
+
+// RIGHT COLUMN //
+
+.fields {
+  margin-bottom: 50px;
+}
+
+.field {
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 16px 24px;
+  border-radius: 8px;
+}
+
+.field:not(:last-child) {
+  margin-bottom: 10px;
+}
+
+.field span {
+  flex-basis: 250px;
+  color: #777;
+}
+
+.qr-code {
+  height: 246px;
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  color: #777;
+  font-family: GilroySemiBold;
+  padding-bottom: 50px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.secure-connection {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-left: 100px;
+}
+
+.secure-connection p {
+  margin-top: auto;
+}
+
+.secure-connection svg:nth-child(3) {
+  margin-top: auto;
+}
+
+.disclaimer {
+  padding-top: 40px;
+  font-family: GilroyRegular;
+  line-height: 1.5;
+  color: #777;
+  margin-bottom: 50px;
+}
+
+.buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+

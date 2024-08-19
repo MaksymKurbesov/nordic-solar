@@ -1,0 +1,65 @@
+.referrals {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 1fr 1fr;
+  gap: 40px;
+  width: 100%;
+  margin-bottom: 60px;
+}
+
+.statistic {
+  display: grid;
+  grid-template-columns: max-content max-content;
+  align-items: center;
+  padding: 24px;
+  background: white;
+  color: $black;
+  border-radius: 8px;
+  gap: 15px;
+}
+
+.referral-link {
+  display: flex;
+  flex-direction: column;
+  grid-column: span 2;
+  border: 1px solid $green;
+  border-radius: 8px;
+  padding: 24px;
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  margin-top: auto;
+  text-decoration: underline;
+}
+
+.link svg {
+  margin-left: auto;
+}
+
+.icon-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: $green;
+  width: 45px;
+  height: 45px;
+  padding: 5px;
+  border-radius: 50%;
+}
+
+.value {
+  grid-column: span 2;
+  font-size: 32px;
+}
+
+.referral-levels {
+  margin-bottom: 50px;
+}

@@ -1,0 +1,36 @@
+.offerBannerWrapper {
+  height: 50vw;
+  background-image: url("@assets/images/offer-banner.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  border-radius: 16px;
+  padding: 45px;
+  margin-bottom: 15vw;
+}
+
+.offerBanner {
+  display: flex;
+  align-items: center;
+}
+
+.offerBanner h2 {
+  display: inline-block;
+  font-size: clamp(1.5rem, 0.7rem + 2vw, 3.75rem);
+}
+
+.offerBanner h2 span {
+  opacity: 0.65;
+}
+
+@media screen and (max-width: 767px) {
+  .offerBannerWrapper {
+    padding: 30px;
+    height: auto;
+  }
+
+  .offerBanner {
+    gap: 100px;
+    flex-direction: column;
+  }
+}

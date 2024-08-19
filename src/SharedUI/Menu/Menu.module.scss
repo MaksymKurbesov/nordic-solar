@@ -1,0 +1,66 @@
+.menu {
+  width: 100%;
+  display: flex;
+  padding: 30px 20px;
+  justify-content: center;
+  align-items: center;
+  font-family: GilroySemiBold;
+}
+
+.menuIndex {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.navigation {
+  margin: 0 auto;
+}
+
+.logotype {
+  position: relative;
+  margin-right: 20px;
+  z-index: 56;
+  width: max-content;
+}
+
+.navigation ul {
+  display: flex;
+  gap: 3vw;
+}
+
+
+.signInButton {
+  margin-left: 55px;
+
+}
+
+.contactUsButton {
+  margin-left: 25px;
+  text-decoration: underline;
+}
+
+
+
+@media screen and (max-width: 767px) {
+  .logotype {
+    //flex-grow: 1;
+  }
+
+
+  .mobile-menu {
+    display: flex;
+  }
+
+
+  .navigation ul {
+    display: none;
+  }
+
+  .contactUsButton {
+    margin-left: 40px;
+    display: none;
+  }
+
+}

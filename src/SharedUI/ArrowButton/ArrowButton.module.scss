@@ -1,0 +1,15 @@
+.arrowButton {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $green;
+  padding: 10px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.arrowButton svg {
+  transform: rotateZ(-90deg);
+}

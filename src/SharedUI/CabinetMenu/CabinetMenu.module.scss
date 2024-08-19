@@ -1,0 +1,126 @@
+.menu {
+  width: calc(100% - 120px);
+  margin: 0 auto;
+  background: $green;
+  color: #222;
+  border-bottom-left-radius: 15px;
+  border-bottom-RIGHT-radius: 15px;
+  margin-bottom: 60px;
+}
+
+.top-row {
+  display: flex;
+  align-items: center;
+  padding: 15px 40px;
+  font-family: GilroySemiBold;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.logotype svg path, .logotype svg rect {
+  //filter: invert(1);
+  fill: #222;
+}
+
+.navigation {
+  margin: 0 auto;
+}
+
+.navigation ul {
+  display: flex;
+  gap: 50px;
+}
+
+.user {
+  width: 200px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.user > img {
+  border-radius: 50%;
+  border: 2px solid white;
+  width: 45px;
+  height: 45px;
+}
+
+.user-wrapper a {
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: underline;
+}
+
+.quit-button {
+  margin-left: calc(20vw - 180px);
+  color: rgba(75, 75, 75, 0.7);
+  cursor: pointer;
+}
+
+// BOTTOM ROW //
+
+.bottom-row {
+  padding: 15px 40px;
+  padding-bottom: 40px;
+}
+
+.statistic-button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: $black;
+  margin-bottom: 15px;
+}
+
+.statistic-button svg {
+  transform: rotateZ(180deg);
+  background: white;
+  width: 30px;
+  height: 30px;
+  padding: 9px;
+  border-radius: 50%;
+}
+
+.statistic-button svg path {
+  fill: #222;
+}
+
+.statistic-list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.statistic-list li {
+  padding: 20px;
+  background: white;
+  border-radius: 8px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.header svg {
+  width: 40px;
+  height: 40px;
+  background: $green;
+  padding: 10px;
+  border-radius: 50%;
+}
+
+.values {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  font-family: GilroySemiBold;
+}
+
+.values p {
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.values span {
+  font-size: 24px;
+}

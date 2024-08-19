@@ -1,0 +1,37 @@
+.deposits-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.header {
+  color: #777;
+  font-size: 14px;
+  font-family: GilroySemiBold;
+  margin-bottom: 15px;
+}
+
+.deposits-list li {
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  border-radius: 15px;
+  padding-left: 15px;
+  font-size: 14px;
+}
+
+.deposit {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 15px 0;
+}
+
+.success {
+  color: $green;
+}
+
+.pending {
+  color: $yellow;
+}
+
+.canceled {
+  color: $red;
+}

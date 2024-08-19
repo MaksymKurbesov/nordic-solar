@@ -1,0 +1,132 @@
+.about-us {
+  padding-top: 70px;
+}
+
+.about-us h2 {
+  margin-bottom: 50px;
+}
+
+.about-us > button {
+  margin-bottom: 10vw;
+}
+
+.expert-text {
+  max-width: 500px;
+  font-size: 30px;
+  margin-bottom: 50px;
+}
+
+.tabs {
+  margin-bottom: 150px;
+}
+
+.text-after-tabs {
+  font-size: 50px;
+  margin-bottom: 100px;
+}
+
+.text-after-tabs span {
+  color: #777;
+}
+
+.goals {
+  margin-bottom: 150px;
+}
+
+.goals h4 {
+  margin-bottom: 40px;
+  color: #777;
+  font-family: GilroySemiBold;
+}
+
+.goals ul {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+}
+
+
+.goal-number {
+  display: block;
+  margin-bottom: 20px;
+  color: #777;
+}
+
+.goal {
+  display: grid;
+  grid-template-rows: 50px max-content 1fr;
+}
+
+.goal h5 {
+  font-size: 30px;
+  border-bottom: 1px solid #777;
+  margin-bottom: 25px;
+  padding-bottom: 25px;
+}
+
+.goal p {
+  color: #777;
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+.slider {
+  margin-bottom: 150px;
+}
+
+.text-after-team {
+  font-size: 50px;
+  margin-bottom: 70px;
+}
+
+.text-after-team span {
+  color: #777;
+}
+
+.text-after-team span.green {
+  color: $green;
+}
+
+.text-after-team2 {
+  display: flex;
+  width: 100%;
+  margin-bottom: 13vw;
+
+}
+
+.text-after-team2 p {
+  color: #777;
+  max-width: 45%;
+  line-height: 1.4;
+  font-size: 20px;
+  margin-left: auto;
+}
+
+@media screen and (max-width: 1200px) {
+  .goal {
+    display: grid;
+    grid-template-rows: 50px max-content 1fr;
+  }
+}
+
+
+@media screen and (max-width: 767px) {
+  .text-after-tabs {
+    font-size: 24px;
+    text-align: center;
+  }
+
+  .goals ul {
+    grid-template-columns: 1fr;
+  }
+
+  .text-after-team {
+    font-size: 32px;
+  }
+
+  .text-after-team2 p {
+    font-size: 16px;
+    margin-left: initial;
+    max-width: 100%;
+  }
+}

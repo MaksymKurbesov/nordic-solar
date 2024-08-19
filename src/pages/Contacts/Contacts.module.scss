@@ -1,0 +1,76 @@
+.contacts {
+  padding-top: 70px;
+}
+
+.contacts h2 {
+  font-size: 72px;
+  margin-bottom: 75px;
+}
+
+.contacts h2 span {
+  color: $green;
+}
+
+.subtitle {
+  font-size: 26px;
+  margin-bottom: 50px;
+}
+
+.wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-bottom: 200px;
+  gap: 50px;
+}
+
+// OFFICE //
+.office-title {
+  color: #777;
+  font-family: GilroySemiBold;
+  margin-bottom: 20px;
+}
+
+.address {
+  font-size: 40px;
+  margin-bottom: 50px;
+}
+
+.map {
+  width: 100%;
+}
+
+// FORM
+
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.form-input {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-input label {
+  color: #777;
+  font-family: GilroySemiBold;
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+
+.form-input input, .form-input textarea {
+  background: none;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 15px;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 20px;
+}
+
+//.form-input textarea {
+//  background: none;
+//  border: 1px solid rgba(255, 255, 255, 0.1);
+//  border-radius: 8px;
+//}

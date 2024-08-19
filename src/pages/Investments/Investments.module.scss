@@ -1,0 +1,95 @@
+.investments {
+  padding-top: 70px;
+}
+
+.investments h2 {
+  margin-bottom: 100px;
+}
+
+.subtitle {
+  color: $gray;
+  margin-bottom: 40px;
+}
+
+.plans-list {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  margin-bottom: 100px;
+}
+
+.plans-list li a {
+  display: grid;
+  grid-template-columns: max-content 1fr 60px;
+  align-items: center;
+  padding-bottom: 50px;
+}
+
+.plans-list li:not(:last-child) {
+  border-bottom: 1px solid #777;
+}
+
+.plans-list li img {
+  width: 90%;
+  margin-right: 40px;
+}
+
+.info {
+  max-width: 800px;
+  flex-grow: 1;
+  margin-right: 20px;
+}
+
+.info h3 {
+  font-size: 50px;
+  margin-bottom: 30px;
+}
+
+.info p {
+  line-height: 1.6;
+  color: #777;
+}
+
+.plans-list li button {
+  display: block;
+  //margin-left: auto;
+
+}
+
+@media screen and (max-width: 1000px) {
+  .plans-list li a {
+    grid-template-columns: 300px 1fr 60px;
+  }
+
+  .info h3 {
+    font-size: 36px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .plans-list li a {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .plans-list li img {
+    width: 100%;
+    margin-right: 0;
+    height: 200px;
+    object-fit: cover;
+    object-position: bottom;
+    border-radius: 8px;
+    margin-bottom: 30px;
+  }
+
+  .plans-list li button {
+    position: absolute;
+    top: 120px;
+    right: 15px;
+  }
+
+  .info h3 {
+    margin-bottom: 10px;
+  }
+}

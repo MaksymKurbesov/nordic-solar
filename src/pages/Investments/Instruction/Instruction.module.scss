@@ -1,0 +1,63 @@
+.instruction {
+  margin-bottom: 15vw;
+}
+
+.instruction h3 {
+  font-size: 20px;
+  margin-bottom: 50px;
+}
+
+.step-list {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.step {
+  display: flex;
+  //align-items: center;
+}
+
+.step > span {
+  width: 50px;
+  //flex-basis: 20px;
+  color: #777;
+  font-family: GilroySemiBold;
+}
+
+.step-info {
+  max-width: 70%;
+  flex-grow: 1;
+  margin-left: auto;
+}
+
+.step-info h4 {
+  font-size: 36px;
+  line-height: 1;
+  margin-bottom: 25px;
+  padding-bottom: 25px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.step-info ul {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  color: #777;
+}
+
+@media screen and (max-width: 767px) {
+
+  .step {
+    flex-direction: column;
+  }
+
+  .step span {
+    margin-bottom: 15px;
+  }
+
+  .step-info {
+    max-width: 100%;
+    margin-left: initial;
+  }
+}

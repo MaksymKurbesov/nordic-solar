@@ -1,0 +1,38 @@
+.sign-up {
+  display: flex;
+  padding-top: 70px;
+  margin-bottom: 200px;
+}
+
+.sign-up h2 {
+  flex-basis: 50%;
+  font-size: 48px;
+}
+
+.form-wrapper {
+  padding-top: 20px;
+  min-width: 500px;
+}
+
+.form-wrapper form {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.new-user {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 100px;
+}
+
+.new-user p {
+  color: #777;
+  font-size: 20px;
+  //margin-left: auto;
+}
+
+.sign-in-link {
+  font-size: 20px;
+  text-decoration: underline;
+}

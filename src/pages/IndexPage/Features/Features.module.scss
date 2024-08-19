@@ -1,0 +1,49 @@
+.features {
+  display: flex;
+  margin-bottom: 13vw !important;
+}
+
+.features > img {
+  margin-right: 5vw;
+  max-width: 50%;
+}
+
+.features h3 {
+  color: $gray;
+  margin-bottom: 50px;
+}
+
+.featuresWrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.featuresList li:first-child{
+  font-size: clamp(1.875rem, 1.3248rem + 1.7606vw, 3.4375rem);
+  color: $white;
+}
+
+.featuresList li {
+  font-size: 30px;
+  color: $gray;
+  margin-bottom: 30px;
+  cursor: pointer;
+
+}
+
+.featuresContent {
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  padding-top: 30px;
+  font-family: GilroyRegular;
+  font-size: 20px;
+  margin-top: auto;
+  line-height: 1.5;
+}
+
+.featuresContent li:not(:last-child) {
+  margin-bottom: 10px;
+}
+
+.featuresContent li span {
+  color: $gray;
+}

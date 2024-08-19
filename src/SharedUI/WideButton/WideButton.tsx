@@ -1,0 +1,34 @@
+import styles from "./WideButton.module.scss";
+import ArrowIcon from "@assets/icons/arrow.svg?react";
+import PlusIcon from "@assets/icons/plus.svg?react";
+import CheckIcon from "@assets/icons/check.svg?react";
+
+interface IWideButton {
+  text: string;
+}
+
+const ICON_MAP = {};
+
+const WideButton = ({
+  text,
+  type,
+  onClickHandler = () => {},
+  isTransparent,
+  isCancelButton,
+  isCheckButton,
+}: IWideButton) => {
+  return (
+    <button
+      onClick={onClickHandler}
+      className={`${styles.wideButton} ${isTransparent ? styles["transparent"] : ""}`}
+      type={type === "submit" ? type : "button"}
+    >
+      {text}
+      {isCancelButton && <PlusIcon className={styles["plus-icon"]} />}
+      {isCheckButton && <CheckIcon />}
+      {!isCheckButton && !isCancelButton && <ArrowIcon />}
+    </button>
+  );
+};
+
+export default WideButton;

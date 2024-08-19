@@ -1,0 +1,23 @@
+.wallets {
+  margin-bottom: 50px;
+}
+
+.wallets h3 {
+  font-size: 16px;
+  font-family: GilroySemiBold;
+  color: #777;
+  margin-bottom: 30px;
+}
+
+
+.values {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
+}
+
+.values p {
+  margin-bottom: 5px;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.3);
+}

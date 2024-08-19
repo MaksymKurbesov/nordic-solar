@@ -1,0 +1,46 @@
+.wideButton {
+  padding: 10px;
+  padding-left: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 370px;
+  background: $white;
+  color: $black;
+  border-radius: 50px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.wideButton.transparent {
+  background: none;
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.wideButton svg {
+  width: 40px;
+  height: 40px;
+  background-color: $green;
+  padding: 13px;
+  //transform: rotateZ(-90deg);
+  border-radius: 50%;
+}
+
+svg.plus-icon {
+  transform: rotateZ(45deg);
+  background: white
+}
+
+svg.plus-icon line {
+  stroke: $black;
+}
+
+@media screen and (max-width: 767px) {
+  .wideButton {
+    padding: 6px;
+    width: 230px;
+    padding-left: 20px;
+    font-size: 14px;
+  }
+}

@@ -1,0 +1,47 @@
+.weBelieve{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20vw !important;
+}
+
+.weBelieve h2 {
+  font-size: clamp(1.875rem, 0.2rem + 3vw, 3.5rem);
+  margin-right: 30px;
+}
+
+
+.gray {
+  color: $gray;
+}
+
+.green {
+  color: $green;
+}
+
+@media screen and (max-width: 1200px) {
+  .weBelieve {
+    flex-direction: column-reverse;
+  }
+
+  .weBelieve img {
+    margin-bottom: 40px;
+  }
+
+  .weBelieve h2 {
+    text-align: center;
+    margin-right: 0;
+    content: " "
+  }
+
+}
+
+@media screen and (max-width: 767px) {
+  .weBelieve img {
+    width: 100%;
+  }
+
+  .green br {
+    content: " ";
+  }
+}

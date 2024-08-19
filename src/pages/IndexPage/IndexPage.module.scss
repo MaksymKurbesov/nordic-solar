@@ -1,0 +1,16 @@
+.heroContainer {
+  height: 100vh;
+  background-image: url("@assets/images/hero-banner.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  margin-bottom: 15vw;
+  padding-top: 200px;
+}
+
+@media screen and (max-width: 767px){
+  .heroContainer {
+    padding-top: 120px;
+    background-position: left 80% center;
+  }
+}

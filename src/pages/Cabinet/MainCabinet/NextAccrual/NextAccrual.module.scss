@@ -1,0 +1,50 @@
+.next-accrual {
+  max-width: 50%;
+  margin-bottom: 50px;
+}
+
+.next-accrual h3 {
+  color: #777;
+  font-size: 16px;
+  font-family: GilroySemiBold;
+  margin-bottom: 20px;
+}
+
+.timer-wrapper {
+  background-image: url("/next-accrual.png");
+  background-repeat: no-repeat;
+  border-radius: 8px;
+  padding: 40px;
+}
+
+.title {
+  text-align: center;
+  font-size: 30px;
+  margin-bottom: 50px;
+}
+
+.timer {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.timer > div {
+  justify-self: center;
+}
+
+.timer span {
+  display: inline-block;
+  border-radius: 50px;
+  font-size: 32px;
+  padding: 25px 17px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 10px;
+}
+
+.timer span:first-child {
+  margin-right: 8px;
+}
+
+.timer > div p {
+  text-align: center;
+}

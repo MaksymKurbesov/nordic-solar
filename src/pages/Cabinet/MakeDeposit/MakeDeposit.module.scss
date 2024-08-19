@@ -1,0 +1,43 @@
+.make-deposit h3 {
+  margin-bottom: 30px;
+}
+
+.step-title span {
+  color: #777;
+  margin-right: 5px;
+}
+
+.wallets-list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 40px;
+  margin-bottom: 70px;
+}
+
+.balance p {
+  font-size: 14px;
+  color: #777;
+  font-family: GilroySemiBold;
+  margin-bottom: 5px;
+}
+
+.balance span {
+  font-size: 26px;
+}
+
+.amount-input {
+  max-width: 400px;
+}
+
+.amount-input input {
+  margin-bottom: 10px;
+}
+
+.tax {
+  color: #777;
+  margin-bottom: 50px;
+}
+
+.make-deposit > button {
+  margin-bottom: 70px;
+}
