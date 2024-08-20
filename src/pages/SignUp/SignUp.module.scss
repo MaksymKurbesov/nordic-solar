@@ -1,7 +1,7 @@
 .sign-up {
   display: flex;
   padding-top: 70px;
-  margin-bottom: 200px;
+  margin-bottom: 15vw;
 }
 
 .sign-up h2 {
@@ -11,7 +11,8 @@
 
 .form-wrapper {
   padding-top: 20px;
-  min-width: 500px;
+  max-width: 450px;
+  width: 100%;
 }
 
 .form-wrapper form {
@@ -35,4 +36,14 @@
 .sign-in-link {
   font-size: 20px;
   text-decoration: underline;
+}
+
+@media screen and (max-width: 767px) {
+  .sign-up {
+    flex-direction: column;
+  }
+
+  .form-wrapper {
+    max-width: 100%;
+  }
 }

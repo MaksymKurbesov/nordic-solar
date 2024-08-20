@@ -8,3 +8,22 @@
   font-family: GilroySemiBold;
   margin-bottom: 30px;
 }
+
+@media screen and (max-width: 767px) {
+  .last-transactions ul li:first-child {
+    display: none;
+  }
+
+  .last-transactions ul li {
+    gap: 5px;
+    grid-template-columns: 80px 60px 20% 130px 80px !important
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .last-transactions ul li {
+    gap: 15px;
+    grid-template-columns: 1fr 1fr 1fr !important;
+  }
+
+}

@@ -19,7 +19,7 @@
 .wrapper {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  margin-bottom: 200px;
+  margin-bottom: 15vw;
   gap: 50px;
 }
 
@@ -69,8 +69,28 @@
   font-size: 20px;
 }
 
-//.form-input textarea {
-//  background: none;
-//  border: 1px solid rgba(255, 255, 255, 0.1);
-//  border-radius: 8px;
-//}
+@media screen and (max-width: 1200px) {
+  .contacts h2 {
+    font-size: 54px;
+  }
+
+  .wrapper {
+    grid-template-columns: 1fr;
+  }
+
+  .map {
+    width: 100%;
+    max-width: 500px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .contacts h2 {
+    font-size: 40px;
+  }
+
+
+  .subtitle {
+    font-size: 20px;
+  }
+}

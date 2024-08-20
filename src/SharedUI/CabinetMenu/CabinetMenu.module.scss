@@ -1,6 +1,8 @@
 .menu {
-  width: calc(100% - 120px);
+  //width: calc(100% - 120px);
+  max-width: 1720px;
   margin: 0 auto;
+  padding: 20px;
   background: $green;
   color: #222;
   border-bottom-left-radius: 15px;
@@ -9,11 +11,14 @@
 }
 
 .top-row {
+  max-width: 1720px;
   display: flex;
   align-items: center;
-  padding: 15px 40px;
-  font-family: GilroySemiBold;
+  padding-bottom: 15px;
+  //padding: 15px 40px;
+  font-family: GilroySemiBold, 'sans-serif';
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  margin: 0 auto;
 }
 
 .logotype svg path, .logotype svg rect {
@@ -27,7 +32,7 @@
 
 .navigation ul {
   display: flex;
-  gap: 50px;
+  gap: 30px;
 }
 
 .user {
@@ -50,7 +55,8 @@
 }
 
 .quit-button {
-  margin-left: calc(20vw - 180px);
+  //margin-left: calc(20vw - 260px);
+  margin-left: auto;
   color: rgba(75, 75, 75, 0.7);
   cursor: pointer;
 }
@@ -58,8 +64,22 @@
 // BOTTOM ROW //
 
 .bottom-row {
-  padding: 15px 40px;
-  padding-bottom: 40px;
+  padding-top: 0px;
+  max-width: 1720px;
+  margin: 0 auto;
+
+  height: 0;
+  overflow: hidden;
+  transition: 0.35s ease all;
+  //padding: 15px 40px;
+  //padding-bottom: 40px;
+}
+
+
+.bottom-row.opened {
+  height: 155px;
+  padding-top: 15px;
+
 }
 
 .statistic-button {
@@ -67,26 +87,26 @@
   align-items: center;
   gap: 10px;
   color: $black;
-  margin-bottom: 15px;
+  margin-top: 15px;
+
+}
+
+.statistic-button.opened svg {
+  transform: rotateZ(180deg);
+  transition: 0.35s ease all;
 }
 
 .statistic-button svg {
-  transform: rotateZ(180deg);
   background: white;
   width: 30px;
   height: 30px;
   padding: 9px;
   border-radius: 50%;
+  transition: 0.35s ease all;
 }
 
 .statistic-button svg path {
   fill: #222;
-}
-
-.statistic-list {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
 }
 
 .statistic-list li {
@@ -113,6 +133,7 @@
 .values {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  gap: 5px;
   font-family: GilroySemiBold;
 }
 
@@ -122,5 +143,41 @@
 }
 
 .values span {
-  font-size: 24px;
+  font-size: 20px;
+}
+
+
+@media screen and (max-width: 1200px) {
+  .navigation {
+    display: none;
+  }
+
+  .user {
+    margin-left: auto;
+    margin-right: 30px;
+  }
+
+  .quit-button {
+    margin-left: initial;
+    display: none;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .user {
+    margin-right: 0;
+  }
+
+  .user img {
+    width: 35px;
+    height: 35px;
+  }
+
+  .user p {
+    font-size: 14px;
+  }
+
+  .user-wrapper {
+    font-size: 14px;
+  }
 }

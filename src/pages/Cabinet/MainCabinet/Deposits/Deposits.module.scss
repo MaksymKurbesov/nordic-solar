@@ -3,6 +3,42 @@
 }
 
 
-.deposits button {
+.deposits-buttons {
+  display: flex;
+  gap: 15px;
   margin-bottom: 25px;
+}
+
+.deposits button {
+  color: white;
+}
+
+@media screen and (max-width: 1200px) {
+  .deposits ul li:first-child p:last-child {
+    display: none;
+  }
+
+  .deposits ul li:first-child p:nth-child(8) {
+    display: none;
+  }
+
+
+  .deposits ul li div:last-child {
+    display: none;
+  }
+
+  .deposits ul li div:nth-child(8) {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .deposits ul li:first-child {
+    display: none;
+  }
+
+  .deposits ul li:not(:first-child) {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 20px;
+  }
 }

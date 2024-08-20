@@ -1,16 +1,15 @@
-import styles from "./MobileMenu.module.scss";
+import styles from "./MobileCabinetMenu.module.scss";
 import { NavLink, useLocation } from "react-router-dom";
 import Logo from "@assets/logo.svg?react";
 import { useEffect, useState } from "react";
 import useWindowSize from "@/hooks/useWindowSize.ts";
+import { LINKS } from "@SharedUI/CabinetMenu/CabinetMenu";
 
 const MobileMenu = () => {
   const [menuIsOpened, setMenuIsOpened] = useState(false);
   const windowSize = useWindowSize();
   const location = useLocation();
-  const isMobile = windowSize.width < 767;
-
-  console.log(windowSize.width);
+  const isMobile = windowSize.width < 1200;
 
   useEffect(() => {
     setMenuIsOpened(false);
@@ -21,29 +20,23 @@ const MobileMenu = () => {
   return (
     <>
       <div
-        className={`${styles["menu-overlay"]} ${menuIsOpened ? styles["menu-opened"] : ""}`}
+        className={`${styles["menu-overlay"]} ${
+          menuIsOpened ? styles["menu-opened"] : ""
+        }`}
       >
         <div className={styles["menu-content"]}>
-          <nav className={styles['navigation']}>
+          <nav className={styles["navigation"]}>
             <NavLink className={styles["logotype"]} to={"/"}>
               <Logo />
             </NavLink>
             <ul className={styles["navigation-list"]}>
-              <li>
-                <NavLink to={"/products"}>Продукты</NavLink>
-              </li>
-              <li>
-                <NavLink to={"/investments"}>Инвестиции</NavLink>
-              </li>
-              <li>
-                <NavLink to={"/about-us"}>О нас</NavLink>
-              </li>
-              <li>
-                <NavLink to={"/faq"}>FAQ</NavLink>
-              </li>
-              <li>
-                <NavLink to={"/contacts"}>Контакты</NavLink>
-              </li>
+              {LINKS.map((item) => {
+                return (
+                  <li key={item.link}>
+                    <NavLink to={item.link}>{item.text}</NavLink>
+                  </li>
+                );
+              })}
             </ul>
           </nav>
         </div>

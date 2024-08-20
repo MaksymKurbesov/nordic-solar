@@ -5,6 +5,7 @@ import CabinetMenu from "@SharedUI/CabinetMenu/CabinetMenu.tsx";
 import { useEffect } from "react";
 import { useAuthState } from "@/hooks/useAuthState.ts";
 import { auth } from "@/main.tsx";
+import MobileCabinetMenu from "@SharedUI/CabinetMenu/MobileCabinetMenu";
 
 const Cabinet = () => {
   const [user, userLoading] = useAuthState(auth, { onUserChanged: true });
@@ -21,6 +22,7 @@ const Cabinet = () => {
         <Outlet />
       </div>
       <Footer />
+      <MobileCabinetMenu />
     </div>
   );
 };

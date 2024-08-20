@@ -5,7 +5,7 @@ const DEPOSITS = [
   {
     region: "Limassol",
     progress: "2/12",
-    nextAccrual: "23:55",
+    nextAccrual: "23:55:00",
     paymentSystem: "TRC20 Tether",
     amount: "$432.00",
     received: "$12.24",
@@ -16,7 +16,7 @@ const DEPOSITS = [
   {
     region: "Limassol",
     progress: "2/12",
-    nextAccrual: "23:55",
+    nextAccrual: "23:55:00",
     paymentSystem: "TRC20 Tether",
     amount: "$432.00",
     received: "$12.24",
@@ -27,7 +27,7 @@ const DEPOSITS = [
   {
     region: "Limassol",
     progress: "2/12",
-    nextAccrual: "23:55",
+    nextAccrual: "23:55:00",
     paymentSystem: "TRC20 Tether",
     amount: "$432.00",
     received: "$12.24",
@@ -38,7 +38,7 @@ const DEPOSITS = [
   {
     region: "Limassol",
     progress: "2/12",
-    nextAccrual: "23:55",
+    nextAccrual: "23:55:00",
     paymentSystem: "TRC20 Tether",
     amount: "$432.00",
     received: "$12.24",
@@ -58,7 +58,7 @@ const DEPOSIT_COLUMNS = [
     key: "progress",
   },
   {
-    title: "След. начисление",
+    title: "Начисление",
     key: "nextAccrual",
   },
   {
@@ -90,9 +90,11 @@ const DEPOSIT_COLUMNS = [
 const Deposits = () => {
   return (
     <div className={styles["deposits"]}>
-      <button>Активные депозиты</button>
-      <button>Завершенные депозиты</button>
-      <Table columns={DEPOSIT_COLUMNS} data={DEPOSITS} />
+      <div className={styles["deposits-buttons"]}>
+        <button>Активные депозиты</button>
+        <button>Завершенные депозиты</button>
+      </div>
+      <Table columns={DEPOSIT_COLUMNS} data={DEPOSITS} isDeposit />
     </div>
   );
 };

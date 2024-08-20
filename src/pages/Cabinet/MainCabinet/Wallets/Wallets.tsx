@@ -1,6 +1,5 @@
 import styles from "./Wallets.module.scss";
 import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
 import Wallet from "@SharedUI/Wallet/Wallet.tsx";
 import { WALLETS } from "@/utils/const.tsx";
 
@@ -9,8 +8,19 @@ const Wallets = () => {
     <div className={styles["wallets"]}>
       <h3>Кошельки</h3>
       <Swiper
-        spaceBetween={50}
-        slidesPerView={4}
+        breakpoints={{
+          600: {
+            slidesPerView: 2,
+          },
+          800: {
+            slidesPerView: 3,
+          },
+          1200: {
+            slidesPerView: 4,
+          },
+        }}
+        spaceBetween={10}
+        slidesPerView={1}
         onSlideChange={() => console.log("slide change")}
         onSwiper={(swiper) => console.log(swiper)}
       >

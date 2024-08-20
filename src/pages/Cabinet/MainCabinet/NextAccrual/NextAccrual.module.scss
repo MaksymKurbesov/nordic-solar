@@ -1,5 +1,5 @@
 .next-accrual {
-  max-width: 50%;
+  max-width: 100%;
   margin-bottom: 50px;
 }
 
@@ -15,6 +15,8 @@
   background-repeat: no-repeat;
   border-radius: 8px;
   padding: 40px;
+  max-width: 840px;
+  width: 100%;
 }
 
 .title {
@@ -26,6 +28,7 @@
 .timer {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
 }
 
 .timer > div {
@@ -42,9 +45,26 @@
 }
 
 .timer span:first-child {
-  margin-right: 8px;
+  margin-right: 3px;
 }
 
 .timer > div p {
   text-align: center;
+}
+
+
+@media screen and (max-width: 767px) {
+  .title {
+    font-size: 20px;
+    margin-bottom: 25px;
+  }
+
+  .timer-wrapper {
+    padding: 15px;
+  }
+
+  .timer span {
+    font-size: 18px;
+    padding: 15px 10px;
+  }
 }

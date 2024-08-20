@@ -7,6 +7,7 @@ import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import UserService from "@/services/User.ts";
+import "swiper/css";
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_API_KEY,
@@ -26,5 +27,5 @@ export const userService = new UserService(db);
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <RouterProvider router={routes} />
-  </React.StrictMode>,
+  </React.StrictMode>
 );

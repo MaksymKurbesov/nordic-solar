@@ -9,8 +9,9 @@ import EarnedIcon from "@assets/icons/earned.svg?react";
 import ReferralsIcon from "@assets/icons/referrals.svg?react";
 import WithdrawnIcon from "@assets/icons/withdrawn.svg?react";
 import { userService } from "@/main.tsx";
+import { Swiper, SwiperSlide } from "swiper/react";
 
-const LINKS = [
+export const LINKS = [
   {
     text: "Кабинет",
     link: "/cabinet/main",
@@ -55,6 +56,7 @@ const STATISTIC = [
 const Menu = () => {
   const [isIndexPage, setIsIndexPage] = useState(false);
   const location = useLocation();
+  const [menuIsOpened, setMenuIsOpened] = useState(false);
 
   useEffect(() => {
     if (location.pathname === "/") {
@@ -65,7 +67,7 @@ const Menu = () => {
   }, [location]);
 
   return (
-    <div className={`${styles.menu} ${isIndexPage ? styles.menuIndex : ""}`}>
+    <div className={`${styles.menu} ${isIndexPage ? styles["menuIndex"] : ""}`}>
       <div className={styles["top-row"]}>
         <NavLink to={"/"} className={styles["logotype"]}>
           <Logo />
@@ -97,32 +99,63 @@ const Menu = () => {
           Выйти
         </button>
       </div>
-      <div className={styles["bottom-row"]}>
-        <button className={styles["statistic-button"]}>
-          <ArrowIcon />
-          Статистика кабинета
-        </button>
+      <button
+        className={`${styles["statistic-button"]} ${
+          menuIsOpened ? styles["opened"] : ""
+        }`}
+        onClick={() => {
+          setMenuIsOpened((prevState) => !prevState);
+        }}
+      >
+        <ArrowIcon />
+        Статистика кабинета
+      </button>
+      <div
+        className={`${styles["bottom-row"]} ${
+          menuIsOpened ? styles["opened"] : ""
+        }`}
+      >
         <ul className={styles["statistic-list"]}>
-          {STATISTIC.map((item) => {
-            return (
-              <li key={item.name}>
-                <div className={styles["header"]}>
-                  {item.icon}
-                  {item.name}
-                </div>
-                <div className={styles["values"]}>
-                  <div className={styles["last-month"]}>
-                    <p>За последний месяц</p>
-                    <span>$4 534.60</span>
-                  </div>
-                  <div className={styles["total"]}>
-                    <p>Всего</p>
-                    <span>$4 534.60</span>
-                  </div>
-                </div>
-              </li>
-            );
-          })}
+          <Swiper
+            spaceBetween={10}
+            breakpoints={{
+              600: {
+                slidesPerView: 2,
+              },
+              850: {
+                slidesPerView: 3,
+              },
+              1200: {
+                slidesPerView: 4,
+              },
+            }}
+            slidesPerView={1}
+            onSlideChange={() => console.log("slide change")}
+            onSwiper={(swiper) => console.log(swiper)}
+          >
+            {STATISTIC.map((item, index) => {
+              return (
+                <SwiperSlide key={index}>
+                  <li key={item.name}>
+                    <div className={styles["header"]}>
+                      {item.icon}
+                      <p>{item.name}</p>
+                    </div>
+                    <div className={styles["values"]}>
+                      <div className={styles["last-month"]}>
+                        <p>За месяц</p>
+                        <span>$4 534.60</span>
+                      </div>
+                      <div className={styles["total"]}>
+                        <p>Всего</p>
+                        <span>$4 534.60</span>
+                      </div>
+                    </div>
+                  </li>
+                </SwiperSlide>
+              );
+            })}
+          </Swiper>
         </ul>
       </div>
     </div>

@@ -1,4 +1,6 @@
 import styles from "./Table.module.scss";
+import useWindowSize from "@/hooks/useWindowSize";
+import "swiper/css/effect-creative";
 
 const STATUS_MAP = {
   Успешно: "success",
@@ -6,11 +8,15 @@ const STATUS_MAP = {
   Отменено: "canceled",
 };
 
-const Table = ({ columns, data }) => {
-  const gridColumns = `repeat(${columns.length}, 1fr)`;
+const Table = ({ columns, data, isDeposit }) => {
+  const windowSize = useWindowSize();
+  const isMobile = windowSize.width < 1200;
+
+  const columnsLength = isMobile && isDeposit ? 7 : columns.length;
+  const gridColumns = `repeat(${columnsLength}, 1fr)`;
 
   return (
-    <ul className={styles["deposits-list"]}>
+    <ul className={styles["table-list"]}>
       <li
         className={styles["header"]}
         style={{ gridTemplateColumns: gridColumns }}
@@ -23,21 +29,24 @@ const Table = ({ columns, data }) => {
         return (
           <li
             key={index}
-            className={styles["deposit"]}
+            className={`${styles["table-row"]}`}
             style={{ gridTemplateColumns: gridColumns }}
           >
-            {columns.map((column) => {
+            {columns.map((column, index) => {
               return (
-                <p
-                  key={column.key}
-                  className={
-                    column.key === "status"
-                      ? styles[STATUS_MAP[item[column.key]]]
-                      : ""
-                  }
-                >
-                  {item[column.key]}
-                </p>
+                <div key={index} className={styles["cell"]}>
+                  <span className={styles["label"]}>{column.title}</span>
+                  <p
+                    key={column.key}
+                    className={
+                      column.key === "status"
+                        ? styles[STATUS_MAP[item[column.key]]]
+                        : ""
+                    }
+                  >
+                    {item[column.key]}
+                  </p>
+                </div>
               );
             })}
           </li>

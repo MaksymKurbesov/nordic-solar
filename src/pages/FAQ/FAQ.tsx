@@ -2,6 +2,7 @@ import styles from "./FAQ.module.scss";
 import WideButton from "@SharedUI/WideButton/WideButton.tsx";
 import ContactUs from "@SharedUI/ContactUs/ContactUs.tsx";
 import { useEffect, useRef, useState } from "react";
+import useWindowSize from "@/hooks/useWindowSize";
 
 const QUESTIONS = [
   {
@@ -38,8 +39,11 @@ const QUESTIONS = [
 
 const FAQ = () => {
   const [openedQuestion, setOpenedQuestion] = useState<number | null>(null);
+  const windowSize = useWindowSize();
+  const isMobile = windowSize.width < 1200;
 
   const contentRefs = useRef<HTMLElement[]>([]);
+  const questionHeight = isMobile ? 70 : 87;
 
   useEffect(() => {
     // Обновляем maxHeight после рендера, когда вопрос открыт
@@ -69,7 +73,7 @@ const FAQ = () => {
                 key={question.question}
                 ref={(el) => (contentRefs.current[index] = el as HTMLLIElement)}
                 className={`${styles["question"]}`}
-                style={{ height: isOpenedQuestion ? "none" : "87px" }}
+                style={{ height: isOpenedQuestion ? "none" : isMobile ? questionHeight : 87 }}
                 onClick={() => {
                   if (isOpenedQuestion) {
                     setOpenedQuestion(null);

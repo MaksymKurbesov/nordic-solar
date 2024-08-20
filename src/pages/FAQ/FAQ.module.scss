@@ -48,7 +48,7 @@
 
 
 .question-title {
-  font-size: clamp(1rem, 1.4rem + 0.1vw, 2rem);
+  font-size: 34px;
   margin-bottom: 43px;
 }
 
@@ -107,4 +107,25 @@
 .toggle-button.opened span:nth-child(2) {
   transform: translateY(-50%) rotateZ(-45deg);
   background: black;
+}
+
+@media screen and (max-width: 1200px) {
+  .question {
+    //height: 70px !important;
+  }
+
+  .question-title {
+    font-size: 24px;
+    //margin-bottom: 30px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .question-title {
+    font-size: 18px;
+  }
+
+  .answer {
+    max-width: 100%
+  }
 }
