@@ -59,9 +59,19 @@ button {
   content: none;
 }
 
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+
+.swiper-pagination-bullet-active {
+  background: $green !important;
+}
 
 @media screen and (max-width: 767px) {
   .page-title {
     font-size: 40px;
   }
 }
+

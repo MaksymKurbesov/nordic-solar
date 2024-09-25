@@ -1,0 +1,68 @@
+.plans-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-bottom: 50px;
+}
+
+.plans-list-wrapper h2 {
+  font-size: 20px;
+}
+
+.plans-list li {
+  background: rgba(255, 255, 255, 0.04);
+  padding: 10px;
+  border-radius: 8px;
+  transition: 0.35s ease all;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.plans-list li button {
+  transition: 0.35s ease all;
+  text-decoration: underline;
+}
+
+.active {
+  background: rgba(20, 204, 116, 1) !important;
+  color: $black;
+}
+
+.active button {
+  transition: 0.35s ease all;
+  color: $black;
+}
+
+
+.plans-list li input {
+  display: none;
+}
+
+.plans-list li img {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.plans-list li p {
+  font-size: 20px;
+}
+
+.plan-text p {
+  margin-bottom: 10px;
+}
+
+@media screen and (max-width: 1000px) {
+  .plans-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 585px) {
+  .plans-list {
+    grid-template-columns: 1fr;
+  }
+
+  .plans-list li img {
+    height: 150px;
+    object-fit: cover;
+  }
+}

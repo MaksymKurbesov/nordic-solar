@@ -3,8 +3,8 @@ import useWindowSize from "@/hooks/useWindowSize";
 import "swiper/css/effect-creative";
 
 const STATUS_MAP = {
-  Успешно: "success",
-  "В ожидание": "pending",
+  Выполнено: "success",
+  Ожидание: "pending",
   Отменено: "canceled",
 };
 

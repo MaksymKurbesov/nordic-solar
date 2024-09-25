@@ -16,11 +16,12 @@ const WideButton = ({
   isTransparent,
   isCancelButton,
   isCheckButton,
+  isDisabled,
 }: IWideButton) => {
   return (
     <button
       onClick={onClickHandler}
-      className={`${styles.wideButton} ${isTransparent ? styles["transparent"] : ""}`}
+      className={`${styles.wideButton} ${isTransparent ? styles["transparent"] : ""} ${isDisabled ? styles["disabled"] : ""}`}
       type={type === "submit" ? type : "button"}
     >
       {text}

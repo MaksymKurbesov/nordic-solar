@@ -3,38 +3,33 @@ import TonIcon from "@assets/icons/ton.svg?react";
 import BitcoinIcon from "@assets/icons/bitcoin.svg?react";
 import EthereumIcon from "@assets/icons/ethereum.svg?react";
 
-export const WALLETS = [
-  {
+export const WALLETS = {
+  trc20: {
     icon: <TRC20Icon />,
     name: "TRC20 Tether",
     currency: "USDT",
   },
-  {
+  ton: {
     icon: <TonIcon />,
     name: "TON",
     currency: "TON",
   },
-  {
+  bitcoin: {
     icon: <BitcoinIcon />,
     name: "Bitcoin",
     currency: "BTC",
   },
-  {
+  ethereum: {
     icon: <EthereumIcon />,
     name: "Ethereum",
     currency: "ETH",
   },
-  {
-    icon: <BitcoinIcon />,
-    name: "Bitcoin",
-    currency: "BTC",
-  },
-  {
+  PM: {
     icon: <EthereumIcon />,
-    name: "Ethereum",
-    currency: "ETH",
+    name: "PM",
+    currency: "PM",
   },
-];
+};
 
 export const TRANSACTION_COLUMNS = [
   {
@@ -47,7 +42,7 @@ export const TRANSACTION_COLUMNS = [
   },
   {
     title: "Платежная система",
-    key: "paymentSystem",
+    key: "executor",
   },
   {
     title: "Дата",

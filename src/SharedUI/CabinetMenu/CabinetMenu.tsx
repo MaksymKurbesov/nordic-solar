@@ -1,7 +1,7 @@
 import Logo from "@assets/logo.svg?react";
 import styles from "./CabinetMenu.module.scss";
 import { NavLink, useLocation } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import UserAvatar from "@assets/images/user.png";
 import ArrowIcon from "@assets/icons/arrow.svg?react";
 import InvestedIcon from "@assets/icons/invested.svg?react";
@@ -10,11 +10,16 @@ import ReferralsIcon from "@assets/icons/referrals.svg?react";
 import WithdrawnIcon from "@assets/icons/withdrawn.svg?react";
 import { userService } from "@/main.tsx";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { useUser } from "@/hooks/useUser.ts";
 
 export const LINKS = [
   {
     text: "Кабинет",
     link: "/cabinet/main",
+  },
+  {
+    text: "Открыть план",
+    link: "/cabinet/open-plan/plans",
   },
   {
     text: "Пополнить счет",
@@ -38,18 +43,22 @@ const STATISTIC = [
   {
     icon: <InvestedIcon width={24} height={24} />,
     name: "Инвестировано",
+    db: "invested",
   },
   {
     icon: <EarnedIcon width={24} height={24} />,
     name: "Заработано",
+    db: "earned",
   },
   {
     icon: <WithdrawnIcon width={24} height={24} />,
     name: "Выведено",
+    db: "withdrawn",
   },
   {
     icon: <ReferralsIcon width={24} height={24} />,
     name: "Реферальной программой",
+    db: "referrals",
   },
 ];
 
@@ -57,6 +66,8 @@ const Menu = () => {
   const [isIndexPage, setIsIndexPage] = useState(false);
   const location = useLocation();
   const [menuIsOpened, setMenuIsOpened] = useState(false);
+  const sliderRef = useRef(null);
+  const { user } = useUser();
 
   useEffect(() => {
     if (location.pathname === "/") {
@@ -65,6 +76,8 @@ const Menu = () => {
       setIsIndexPage(false);
     }
   }, [location]);
+
+  if (!user) return null;
 
   return (
     <div className={`${styles.menu} ${isIndexPage ? styles["menuIndex"] : ""}`}>
@@ -77,7 +90,18 @@ const Menu = () => {
             {LINKS.map((item) => {
               return (
                 <li key={item.link}>
-                  <NavLink to={item.link}>{item.text}</NavLink>
+                  <NavLink
+                    className={({ isActive, isPending }) =>
+                      isPending
+                        ? styles["pending"]
+                        : isActive
+                          ? styles["active"]
+                          : ""
+                    }
+                    to={item.link}
+                  >
+                    {item.text}
+                  </NavLink>
                 </li>
               );
             })}
@@ -111,12 +135,31 @@ const Menu = () => {
         Статистика кабинета
       </button>
       <div
+        className={`${styles["slider-buttons"]} ${
+          menuIsOpened ? styles["opened"] : ""
+        }`}
+      >
+        <button
+          onClick={() => sliderRef.current.slidePrev()}
+          className={styles["prev-button"]}
+        >
+          <ArrowIcon />
+        </button>
+        <button
+          onClick={() => sliderRef.current.slideNext()}
+          className={styles["next-button"]}
+        >
+          <ArrowIcon />
+        </button>
+      </div>
+      <div
         className={`${styles["bottom-row"]} ${
           menuIsOpened ? styles["opened"] : ""
         }`}
       >
         <ul className={styles["statistic-list"]}>
           <Swiper
+            loop
             spaceBetween={10}
             breakpoints={{
               600: {
@@ -131,7 +174,7 @@ const Menu = () => {
             }}
             slidesPerView={1}
             onSlideChange={() => console.log("slide change")}
-            onSwiper={(swiper) => console.log(swiper)}
+            onSwiper={(swiper) => (sliderRef.current = swiper)}
           >
             {STATISTIC.map((item, index) => {
               return (
@@ -148,7 +191,7 @@ const Menu = () => {
                       </div>
                       <div className={styles["total"]}>
                         <p>Всего</p>
-                        <span>$4 534.60</span>
+                        <span>${user[item.db]}</span>
                       </div>
                     </div>
                   </li>

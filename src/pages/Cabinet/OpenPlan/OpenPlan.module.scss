@@ -1,0 +1,31 @@
+.open-plan {
+  margin-bottom: 100px;
+}
+
+.open-plan h2 {
+  font-size: 50px;
+  margin-bottom: 35px;
+}
+
+
+.variants {
+  margin-bottom: 50px;
+}
+
+.buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.variants input {
+  display: none;
+  opacity: 0;
+}
+
+
+@media screen and (max-width: 767px) {
+  .open-plan h2 {
+    font-size: 30px;
+  }
+}
+

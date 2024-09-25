@@ -30,6 +30,14 @@
   gap: 3vw;
 }
 
+.navigation ul li a {
+  transition: 0.35s ease all;
+}
+
+.active {
+  transition: 0.35s ease all;
+  color: $green;
+}
 
 .signInButton {
   margin-left: 55px;

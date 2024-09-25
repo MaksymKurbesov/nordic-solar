@@ -25,19 +25,54 @@ const Menu = () => {
       <nav className={styles.navigation}>
         <ul className={styles["navigation-list"]}>
           <li>
-            <NavLink to={"/products"}>Продукты</NavLink>
+            <NavLink
+              to={"/products"}
+              className={({ isActive, isPending }) =>
+                isPending ? styles["pending"] : isActive ? styles["active"] : ""
+              }
+            >
+              Продукты
+            </NavLink>
           </li>
           <li>
-            <NavLink to={"/investments"}>Инвестиции</NavLink>
+            <NavLink
+              to={"/investments"}
+              className={({ isActive, isPending }) =>
+                isPending ? styles["pending"] : isActive ? styles["active"] : ""
+              }
+            >
+              Инвестиции
+            </NavLink>
           </li>
           <li>
-            <NavLink to={"/about-us"}>О нас</NavLink>
+            <NavLink
+              to={"/about-us"}
+              className={({ isActive, isPending }) =>
+                isPending ? styles["pending"] : isActive ? styles["active"] : ""
+              }
+            >
+              О нас
+            </NavLink>
           </li>
           <li>
-            <NavLink to={"/faq"}>FAQ</NavLink>
+            <NavLink
+              to={"/faq"}
+              className={({ isActive, isPending }) =>
+                isPending ? styles["pending"] : isActive ? styles["active"] : ""
+              }
+            >
+              FAQ
+            </NavLink>
           </li>
           <li>
-            <NavLink to={"/contacts"}>Контакты</NavLink>
+            <NavLink
+              to={"/contacts"}
+              className={({ isActive, isPending }) =>
+                isPending ? styles["pending"] : isActive ? styles["active"] : ""
+              }
+            >
+              Контакты
+            </NavLink>
           </li>
         </ul>
       </nav>

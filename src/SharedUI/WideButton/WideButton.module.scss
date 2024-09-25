@@ -36,6 +36,11 @@ svg.plus-icon line {
   stroke: $black;
 }
 
+.disabled {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
 @media screen and (max-width: 767px) {
   .wideButton {
     padding: 6px;

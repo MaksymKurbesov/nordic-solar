@@ -1,86 +1,38 @@
 import styles from "./Transactions.module.scss";
 import Table from "@SharedUI/Table/Table.tsx";
 import { TRANSACTION_COLUMNS } from "@/utils/const.tsx";
-
-const TRANSACTIONS = [
-  {
-    id: "63871863",
-    amount: "$1 219",
-    paymentSystem: "TRC20 Tether",
-    date: "23 июля, 2024, 10:11",
-    status: "Успешно",
-  },
-  {
-    id: "14623863",
-    amount: "$2 219",
-    paymentSystem: "Bitcoin",
-    date: "21 мая, 2024, 12:26",
-    status: "В ожидание",
-  },
-  {
-    id: "27765432",
-    amount: "$5 119",
-    paymentSystem: "TRC20 Tether",
-    date: "22 июля, 2024, 23:01",
-    status: "Отменено",
-  },
-  {
-    id: "63871863",
-    amount: "$1 219",
-    paymentSystem: "TRC20 Tether",
-    date: "23 июля, 2024, 10:11",
-    status: "Успешно",
-  },
-  {
-    id: "63871863",
-    amount: "$1 219",
-    paymentSystem: "TRC20 Tether",
-    date: "23 июля, 2024, 10:11",
-    status: "Успешно",
-  },
-  {
-    id: "14623863",
-    amount: "$2 219",
-    paymentSystem: "Bitcoin",
-    date: "21 мая, 2024, 12:26",
-    status: "В ожидание",
-  },
-  {
-    id: "27765432",
-    amount: "$5 119",
-    paymentSystem: "TRC20 Tether",
-    date: "22 июля, 2024, 23:01",
-    status: "Отменено",
-  },
-  {
-    id: "63871863",
-    amount: "$1 219",
-    paymentSystem: "TRC20 Tether",
-    date: "23 июля, 2024, 10:11",
-    status: "Успешно",
-  },
-  {
-    id: "63871863",
-    amount: "$1 219",
-    paymentSystem: "TRC20 Tether",
-    date: "23 июля, 2024, 10:11",
-    status: "Успешно",
-  },
-  {
-    id: "14623863",
-    amount: "$2 219",
-    paymentSystem: "Bitcoin",
-    date: "21 мая, 2024, 12:26",
-    status: "В ожидание",
-  },
-];
+import { useUser } from "@/hooks/useUser.ts";
+import { useEffect, useState } from "react";
+import { transactionService } from "@/main.tsx";
+import { transformTransaction } from "@/utils/helpers.ts";
 
 const Transactions = () => {
+  const { user } = useUser();
+
+  const [transactions, setTransactions] = useState(null);
+
+  useEffect(() => {
+    if (!user) return;
+
+    const unsubscribe = transactionService.subscribeToLastTenTransactions(
+      user?.nickname,
+      (updatedTransactions) => {
+        setTransactions(updatedTransactions.map(transformTransaction));
+      },
+    );
+
+    return () => unsubscribe();
+  }, [user]);
+
+  if (!transactions) {
+    return null;
+  }
+
   return (
     <div className={styles["transactions"]}>
       <h3>Последние транзакции</h3>
       <div className={styles["table-wrapper"]}>
-        <Table columns={TRANSACTION_COLUMNS} data={TRANSACTIONS} />
+        <Table columns={TRANSACTION_COLUMNS} data={transactions} />
       </div>
 
       <button className={styles["load-more-button"]}>Смотреть еще 10</button>

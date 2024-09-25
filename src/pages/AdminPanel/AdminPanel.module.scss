@@ -1,0 +1,63 @@
+.admin-panel {
+  margin-bottom: 20px;
+}
+
+.admin-panel h2 {
+  font-size: 40px;
+}
+
+.admin-panel ul {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+.admin-panel ul li {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(6, 1fr);
+  border: 1px solid #777;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.admin-panel ul li > div {
+  display: flex;
+  flex-direction: column;
+}
+
+.buttons {
+  display: flex;
+  gap: 10px;
+  flex-direction: row !important;
+  grid-column: span 6;
+}
+
+.buttons button {
+  width: 50%;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.buttons button:first-child {
+  background: $red;
+}
+
+.buttons button:last-child {
+  background: $green;
+}
+
+.admin-panel ul li div span:first-child {
+  color: #777;
+  font-size: 12px;
+}
+
+@media screen and (max-width: 600px) {
+  .admin-panel ul li {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .buttons {
+    grid-column: span 3;
+  }
+}

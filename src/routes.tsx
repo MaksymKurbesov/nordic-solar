@@ -14,10 +14,16 @@ import Cabinet from "@/pages/Cabinet/Cabinet.tsx";
 import MainCabinet from "@/pages/Cabinet/MainCabinet/MainCabinet.tsx";
 import MakeDeposit from "@/pages/Cabinet/MakeDeposit/MakeDeposit.tsx";
 import Transactions from "@/pages/Cabinet/Transactions/Transactions.tsx";
-import TransactionConfirmation from "@SharedUI/TransactionConfirmation/TransactionConfirmation.tsx";
 import Referrals from "@/pages/Cabinet/Referrals/Referrals.tsx";
 import Withdrawn from "@/pages/Cabinet/Withdrawn/Withdrawn.tsx";
 import Settings from "@/pages/Cabinet/Settings/Settings.tsx";
+import ConfirmTransaction from "@/pages/ConfirmTransaction/ConfirmTransaction.tsx";
+import AdminPanel from "@/pages/AdminPanel/AdminPanel.tsx";
+import OpenPlan from "@/pages/Cabinet/OpenPlan/OpenPlan.tsx";
+import Variants from "@/pages/Cabinet/OpenPlan/Variants.tsx";
+import Plans from "@/pages/Cabinet/OpenPlan/Plans/Plans.tsx";
+import OpenPlanConfirm from "@/pages/Cabinet/OpenPlan/OpenPlanConfirm.tsx";
+import WalletAmount from "@/pages/Cabinet/OpenPlan/WalletAmount/WalletAmount.tsx";
 
 const routes = createBrowserRouter([
   {
@@ -71,16 +77,42 @@ const routes = createBrowserRouter([
     element: <Cabinet />,
     children: [
       {
+        path: "admin-panel",
+        element: <AdminPanel />,
+      },
+      {
         path: "main",
         element: <MainCabinet />,
+      },
+      {
+        path: "open-plan",
+        element: <OpenPlan />,
+        children: [
+          {
+            path: "plans",
+            element: <Plans />,
+          },
+          {
+            path: "wallet-amount",
+            element: <WalletAmount />,
+          },
+          {
+            path: "variants",
+            element: <Variants />,
+          },
+          {
+            path: "confirmation",
+            element: <OpenPlanConfirm />,
+          },
+        ],
       },
       {
         path: "make-deposit",
         element: <MakeDeposit />,
       },
       {
-        path: "make-deposit/transaction-confirmation",
-        element: <TransactionConfirmation />,
+        path: "make-deposit/confirm-transaction",
+        element: <ConfirmTransaction />,
       },
       {
         path: "withdrawn",

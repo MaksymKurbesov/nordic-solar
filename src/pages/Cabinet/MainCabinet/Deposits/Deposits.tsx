@@ -1,5 +1,6 @@
 import styles from "./Deposits.module.scss";
 import Table from "@SharedUI/Table/Table.tsx";
+import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 
 const DEPOSITS = [
   {
@@ -87,14 +88,32 @@ const DEPOSIT_COLUMNS = [
   },
 ];
 
-const Deposits = () => {
+const Deposits = ({ deposits }) => {
   return (
     <div className={styles["deposits"]}>
-      <div className={styles["deposits-buttons"]}>
-        <button>Активные депозиты</button>
-        <button>Завершенные депозиты</button>
-      </div>
-      <Table columns={DEPOSIT_COLUMNS} data={DEPOSITS} isDeposit />
+      <Tabs defaultFocus>
+        <TabList className={styles["deposits-buttons"]}>
+          <Tab
+            className={styles["tab"]}
+            selectedClassName={styles["selected-tab"]}
+          >
+            Активные депозиты
+          </Tab>
+          <Tab
+            className={styles["tab"]}
+            selectedClassName={styles["selected-tab"]}
+          >
+            Завершенные депозиты
+          </Tab>
+        </TabList>
+
+        <TabPanel>
+          <Table columns={DEPOSIT_COLUMNS} data={deposits} isDeposit />
+        </TabPanel>
+        <TabPanel>
+          <h2>Any content 2</h2>
+        </TabPanel>
+      </Tabs>
     </div>
   );
 };

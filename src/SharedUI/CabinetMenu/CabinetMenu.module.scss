@@ -8,6 +8,7 @@
   border-bottom-left-radius: 15px;
   border-bottom-RIGHT-radius: 15px;
   margin-bottom: 60px;
+  position: relative;
 }
 
 .top-row {
@@ -56,14 +57,57 @@
 
 .quit-button {
   //margin-left: calc(20vw - 260px);
-  margin-left: auto;
   color: rgba(75, 75, 75, 0.7);
   cursor: pointer;
 }
 
+.active {
+  color: white;
+}
+
 // BOTTOM ROW //
 
+.slider-buttons {
+  display: flex;
+  position: absolute;
+  gap: 15px;
+  top: 96px;
+  right: 20px;
+  z-index: 55;
+  height: 30px;
+  opacity: 0;
+  transition: 0.35s ease all;
+}
+
+.slider-buttons.opened {
+  opacity: 1;
+}
+
+.slider-buttons button:first-child {
+  transform: rotateZ(90deg);
+  //width: 35px;
+  //height: 35px;
+  //padding: 45px;
+}
+
+.slider-buttons button:last-child {
+  transform: rotateZ(-90deg);
+}
+
+.slider-buttons svg {
+  background: white;
+  width: 30px;
+  height: 30px;
+  padding: 9px;
+  border-radius: 50%;
+}
+
+.slider-buttons svg path {
+  fill: $black;
+}
+
 .bottom-row {
+  position: relative;
   padding-top: 0px;
   max-width: 1720px;
   margin: 0 auto;
@@ -179,5 +223,9 @@
 
   .user-wrapper {
     font-size: 14px;
+  }
+
+  .slider-buttons {
+    top: 86px;
   }
 }

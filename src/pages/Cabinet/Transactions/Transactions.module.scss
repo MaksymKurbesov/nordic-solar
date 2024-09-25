@@ -15,3 +15,15 @@
   margin: 0 auto 50px;
   width: 100%;
 }
+
+@media screen and (max-width: 767px) {
+  .transactions ul li:first-child {
+    display: none;
+  }
+
+  .transactions ul li {
+    gap: 15px;
+    grid-template-columns:1fr 1fr 1fr !important;
+  }
+
+}

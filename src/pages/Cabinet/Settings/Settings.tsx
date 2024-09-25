@@ -9,12 +9,30 @@ const Settings = () => {
       <h3>Мои настройки</h3>
       <Tabs focusTabOnClick={false}>
         <TabList className={styles["tab-list"]}>
-          <Tab selectedClassName={styles["selected-tab"]}>
+          <Tab
+            className={styles["tab"]}
+            selectedClassName={styles["selected-tab"]}
+          >
             Личная информация
           </Tab>
-          <Tab selectedClassName={styles["selected-tab"]}>Пароль</Tab>
-          <Tab selectedClassName={styles["selected-tab"]}>Платежные данные</Tab>
-          <Tab selectedClassName={styles["selected-tab"]}>Безопасность</Tab>
+          <Tab
+            className={styles["tab"]}
+            selectedClassName={styles["selected-tab"]}
+          >
+            Пароль
+          </Tab>
+          <Tab
+            className={styles["tab"]}
+            selectedClassName={styles["selected-tab"]}
+          >
+            Платежные данные
+          </Tab>
+          <Tab
+            className={styles["tab"]}
+            selectedClassName={styles["selected-tab"]}
+          >
+            Безопасность
+          </Tab>
         </TabList>
 
         <TabPanel>

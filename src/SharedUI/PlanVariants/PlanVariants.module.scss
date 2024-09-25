@@ -1,0 +1,88 @@
+.plans-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 35px;
+}
+
+.plans-list li {
+  background: linear-gradient(135deg, #222222 20%, rgba(121, 20, 57, 0.1) 60%);
+  border-radius: 8px;
+  padding: 35px;
+  border: 1px solid rgba(119, 119, 119, 0.5);
+  background-clip: padding-box;
+}
+
+.plans-list li:nth-child(2) {
+  background: linear-gradient(135deg, #222222 20%, rgba(121, 101, 20, 0.1) 60%);
+}
+.plans-list li:nth-child(3) {
+  background: linear-gradient(135deg, #222222 20%, rgba(31, 168, 68, 0.1) 60%);
+}
+.plans-list li:nth-child(4) {
+  background: linear-gradient(135deg, #222222 20%, rgba(20, 82, 121, 0.1) 60%);
+}
+
+.plan-name {
+  font-size: 26px;
+  padding-bottom: 25px;
+}
+
+.plan-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  font-size: 22px;
+}
+
+.plan-row span {
+  display: inline-block;
+  font-size: 14px;
+  color: #777;
+  font-family: GilroySemiBold;
+  margin-bottom: 15px;
+}
+
+.plans-list li .plan-row:nth-child(2) {
+  padding: 20px 0;
+  border-bottom: 1px solid rgba(119, 119, 119, 0.5);
+  border-top: 1px solid rgba(119, 119, 119, 0.5);
+  margin-bottom: 20px;
+}
+
+.plans-list li .plan-row:nth-child(3) {
+  grid-template-columns: repeat(4, 1fr)
+}
+
+
+.region span {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  line-height: 0;
+}
+
+.accruals span {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  line-height: 0;
+}
+
+.active {
+  outline: 1px solid $green !important;
+  //transition: 0.35s ease all;
+}
+
+
+@media screen and (max-width: 767px) {
+  .plans-list {
+    grid-template-columns: 1fr;
+  }
+
+  .plans-list li {
+    padding: 20px;
+  }
+
+  .plan-name {
+    padding-bottom: 15px;
+  }
+}

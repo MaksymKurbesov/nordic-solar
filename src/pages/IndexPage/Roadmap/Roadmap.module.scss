@@ -1,7 +1,14 @@
 .roadmap {
-  display: flex;
+  height: 480px;
   margin-bottom: 15vw !important;
-  justify-content: space-between;
+  //justify-content: space-between;
+}
+
+
+.roadmap-slide {
+  background: none;
+  display: flex !important;
+  align-items: center;
 }
 
 .year {
@@ -12,21 +19,27 @@
   margin-right: 50px;
 }
 
+
 .yearContent {
-  padding-top: 50px;
-  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  //border-top: 1px solid rgba(255, 255, 255, 0.15);
   max-width: 600px;
   font-size: 18px;
+  color: white;
+}
 
+
+.yearContent span {
+  color: #777;
 }
 
 .yearContent h3 {
-  font-size: 50px;
+  font-size: 36px;
   margin-bottom: 30px;
 }
 
 .yearContent ul {
   color: $gray;
+  text-align: left;
 }
 
 .yearContent ul li {
@@ -41,8 +54,45 @@
   margin-right: 25px;
 }
 
+
+@media screen and (max-width: 900px) {
+  .roadmap-slide {
+    flex-direction: column;
+  }
+
+  .roadmap {
+    height: 500px;
+  }
+}
+
 @media screen and (max-width: 767px) {
- .roadmap {
-   flex-direction: column;
- }
+   .roadmap {
+     flex-direction: column;
+   }
+
+
+  .year {
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+
+  .yearContent {
+    padding-right: 25px;
+  }
+
+  .yearContent h3 {
+    font-size: 24px;
+  }
+
+  .yearContent > span {
+    display: none;
+  }
+
+  .yearContent ul {
+    font-size: 16px
+  }
+
+  .yearContent ul li:not(:last-child) {
+    margin-bottom: 15px;
+  }
 }

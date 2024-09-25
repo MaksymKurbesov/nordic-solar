@@ -68,7 +68,7 @@ const Footer = ({ isFullFooter }) => {
           </p>
         </div>
         <p className={styles["mobile-copyright-text"]}>
-          Copyright © Nordic Solutions 2020
+          Copyright © Nordic Solutions {new Date().getFullYear()}
         </p>
       </div>
     </div>

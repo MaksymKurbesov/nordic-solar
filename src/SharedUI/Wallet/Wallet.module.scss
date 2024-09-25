@@ -109,9 +109,6 @@
 
 .wallet-slide {
   padding: 20px;
-  border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-
 }
 
 .header {
@@ -149,4 +146,20 @@
   font-size: 14px;
   font-family: GilroyRegular;
   border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+@media screen and (max-width: 767px) {
+  .header {
+    gap: 10px;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+  }
+
+  .header p {
+    font-size: 16px;
+  }
+
+  .balance p {
+    margin-bottom: 0px;
+  }
 }

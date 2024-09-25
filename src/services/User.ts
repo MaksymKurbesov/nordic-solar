@@ -5,6 +5,7 @@ import {
   updateDoc,
   deleteDoc,
   Firestore,
+  getDoc,
   CollectionReference,
 } from "firebase/firestore";
 import { generateUserData } from "@/utils/helpers.ts";
@@ -12,6 +13,8 @@ import {
   signInWithEmailAndPassword,
   signOut,
   createUserWithEmailAndPassword,
+  updateProfile,
+  User,
 } from "firebase/auth";
 import { auth } from "@/main.tsx";
 
@@ -36,13 +39,11 @@ class UserService implements IUserService {
     password: string,
   ): Promise<void> {
     try {
-      const res = await createUserWithEmailAndPassword(
-        auth,
-        email.trim(),
-        password,
-      );
+      await createUserWithEmailAndPassword(auth, email.trim(), password);
 
-      console.log(res, "res");
+      await updateProfile(auth.currentUser as User, {
+        displayName: nickname,
+      }).catch((err) => console.log(err));
 
       const user = generateUserData(nickname, email);
       const userRef = doc(this.userCollection, nickname);
@@ -60,6 +61,23 @@ class UserService implements IUserService {
 
   async logout() {
     await signOut(auth);
+  }
+
+  async getUser(nickname: string) {
+    try {
+      const userDocRef = doc(this.userCollection, nickname); // Предположим, что у вас есть коллекция 'users'
+      const userDoc = await getDoc(userDocRef);
+
+      if (userDoc.exists()) {
+        return userDoc.data(); // Возвращаем данные пользователя
+      } else {
+        console.log("No such document!");
+        return null;
+      }
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+      return null;
+    }
   }
 
   // async updateUser(userId: string, updatedData: Partial<IUser>): Promise<void> {

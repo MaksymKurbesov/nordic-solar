@@ -8,6 +8,9 @@ import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import UserService from "@/services/User.ts";
 import "swiper/css";
+import TransactionService from "@/services/Transaction.ts";
+import { UserProvider } from "./UserContext";
+import DepositService from "@/services/Deposit.ts";
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_API_KEY,
@@ -23,9 +26,13 @@ export const db = getFirestore();
 export const auth = getAuth(app);
 
 export const userService = new UserService(db);
+export const transactionService = new TransactionService(db);
+export const depositService = new DepositService(db);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <RouterProvider router={routes} />
-  </React.StrictMode>
+    <UserProvider>
+      <RouterProvider router={routes} />
+    </UserProvider>
+  </React.StrictMode>,
 );
