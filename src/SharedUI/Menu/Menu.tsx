@@ -79,7 +79,10 @@ const Menu = () => {
       <NavLink to={"/sign-in"} className={styles.signInButton}>
         Войти
       </NavLink>
-      <button className={styles.contactUsButton}>Связаться с нами</button>
+      <NavLink to={"/contacts"}>
+        <button className={styles.contactUsButton}>Связаться с нами</button>
+      </NavLink>
+
     </div>
   );
 };

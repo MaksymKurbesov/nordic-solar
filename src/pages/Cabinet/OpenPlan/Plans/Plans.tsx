@@ -6,37 +6,32 @@ import PlanImage4 from "@assets/images/investments/corporative.webp";
 import PlanImage5 from "@assets/images/investments/crowdfunding.webp";
 import PlanImage6 from "@assets/images/investments/pension.webp";
 import { useFormContext } from "react-hook-form";
+import { NavLink } from 'react-router-dom';
 
-const PLANS = [
+export const PLANS = [
   {
     title: "Индивидуальные инвестиционные планы",
     image: PlanImage1,
     value: "individual",
+    moreLink: "individual-investment-plans"
   },
   {
     title: "Взаимные фонды зеленой энергетики",
     image: PlanImage2,
     value: "mutual-fonds",
-  },
-  {
-    title: "Программы прямых инвестиций",
-    image: PlanImage3,
-    value: "direct",
-  },
-  {
-    title: "Корпоративные инвестиционные планы",
-    image: PlanImage4,
-    value: "corporative",
+    moreLink: "mutual-fonds"
   },
   {
     title: "Программы коллективных инвестиций (Crowdfunding)",
     image: PlanImage5,
     value: "crowdfunding",
+    moreLink: "crowdfunding-investment-programs"
   },
   {
     title: "Пенсионные инвестиционные планы",
     image: PlanImage6,
     value: "pension",
+    moreLink: "pension-investment-plans"
   },
 ];
 
@@ -46,7 +41,7 @@ const Plans = () => {
 
   return (
     <div className={styles["plans-list-wrapper"]}>
-      <h2>Выберите тип плана</h2>
+      {/*<h2>Выберите тип плана</h2>*/}
       <ul className={styles["plans-list"]}>
         {PLANS.map((plan, index) => {
           return (
@@ -58,12 +53,14 @@ const Plans = () => {
                 value={plan.value}
                 id={plan.value}
                 type={"radio"}
-                {...register("plan")}
+                {...register("plan", {
+                  required: "Выберите план",
+                })}
               />
               <label htmlFor={plan.value} className={styles["plan-text"]}>
                 <img src={plan.image} alt={""} />
                 <p>{plan.title}</p>
-                <button>Подробнее</button>
+                <NavLink target={"_blank"} to={`/investments/${plan.moreLink}`} className={styles['more-button']}>Подробнее</NavLink>
               </label>
             </li>
           );

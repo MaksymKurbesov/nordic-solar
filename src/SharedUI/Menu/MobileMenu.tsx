@@ -10,7 +10,6 @@ const MobileMenu = () => {
   const location = useLocation();
   const isMobile = windowSize.width < 767;
 
-  console.log(windowSize.width);
 
   useEffect(() => {
     setMenuIsOpened(false);

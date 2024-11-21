@@ -58,10 +58,16 @@ const Settings = () => {
             <Input label={"TON"} name={"ton-wallet"} />
             <Input label={"Bitcoin"} name={"bitcoin-wallet"} />
             <Input label={"Ethereum"} name={"ethereum-wallet"} />
+            <Input label={"Perfect Money"} name={"pm-wallet"} />
           </div>
         </TabPanel>
         <TabPanel>
-          <h2>Any content 2</h2>
+          <div className={styles["safe-inputs"]}>
+            <Input label={"Ваш часовой пояс (от UTC)"} name={"utc-time"} />
+            <Input label={"IP-контроль"} name={"ip-control"} />
+            <Input label={"Выход из системы через"} name={"exit"} />
+            <Input label={"Введите код из GA"} name={"ga"} />
+          </div>
         </TabPanel>
       </Tabs>
 

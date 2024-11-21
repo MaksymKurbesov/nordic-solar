@@ -1,5 +1,6 @@
 import styles from "./ContactUs.module.scss";
 import WideButton from "@SharedUI/WideButton/WideButton.tsx";
+import { NavLink } from 'react-router-dom';
 
 const ContactUs = () => {
   return (
@@ -7,7 +8,9 @@ const ContactUs = () => {
       <h2>
         Мы вас <br /> заинтересовали?
       </h2>
-      <WideButton text={"Связаться с нами"} />
+      <NavLink target="_blank" to={"/contacts"}>
+        <WideButton text={"Связаться с нами"} />
+      </NavLink>
       <p className={styles.subtitle}>
         Эксперты в солнечной энергетике, и сфере альтернативного питания <br />
         <span>

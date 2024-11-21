@@ -34,7 +34,7 @@ class TransactionService implements ITransactionService {
     ) as CollectionReference<any>;
   }
 
-  async addTransaction({ type, amount, executor, nickname }) {
+  async addTransaction({ type, amount, executor, nickname, status }) {
     const id = uuidv4();
     const transactionsDoc = doc(this.transactionCollection, id);
 
@@ -42,10 +42,10 @@ class TransactionService implements ITransactionService {
       await setDoc(transactionsDoc, {
         type,
         amount: +amount,
-        status: "Ожидание",
         date: serverTimestamp(),
         executor,
         nickname,
+        status
       });
     } catch (e) {
       alert(e);

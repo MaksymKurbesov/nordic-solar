@@ -1,5 +1,6 @@
 import styles from "./OfferBanner.module.scss";
 import { CircleButton } from "@SharedUI/CirlceButton/CircleButton.tsx";
+import { NavLink } from 'react-router-dom';
 
 const OfferBanner = () => {
   return (
@@ -9,7 +10,9 @@ const OfferBanner = () => {
           Прямые инвестиции в проекты по <br />{" "}
           <span>возобновляемым источникам энергии</span>
         </h2>
-        <CircleButton text={"Смотреть предложения"} cn={"offer-button"} />
+        <NavLink target="_blank" to={"/investments"}>
+          <CircleButton text={"Смотреть предложения"} cn={"offer-button"} />
+        </NavLink>
       </div>
     </div>
   );

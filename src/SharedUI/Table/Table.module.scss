@@ -43,7 +43,21 @@
   color: $red;
 }
 
+.table-div {
+  display: block !important;
+}
+
 @media screen and (max-width: 767px) {
+  .table-list li {
+    display: grid;
+    justify-content: space-between;
+    grid-template-columns: repeat(9, 1fr);
+    border-radius: 15px;
+    padding-left: 15px;
+    padding-right: 5px;
+    font-size: 12px;
+  }
+
   .table-list li span {
     display: block;
     color: #777;

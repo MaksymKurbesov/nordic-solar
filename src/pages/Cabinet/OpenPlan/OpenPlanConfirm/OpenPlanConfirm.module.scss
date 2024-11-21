@@ -1,0 +1,21 @@
+.open-plan-confirm {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 40px;
+}
+
+.open-plan-confirm p {
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 16px 24px;
+    border-radius: 8px;
+}
+
+.open-plan-confirm p span {
+    flex-basis: 250px;
+    color: #777;
+}
+

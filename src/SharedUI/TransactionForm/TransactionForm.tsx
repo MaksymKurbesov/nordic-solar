@@ -3,7 +3,7 @@ import Wallet from "@SharedUI/Wallet/Wallet.tsx";
 import { WALLETS } from "@/utils/const.tsx";
 import Input from "@SharedUI/Input/Input.tsx";
 
-const TransactionForm = ({ wallets, selectedWallet, register, inputText }) => {
+const TransactionForm = ({ wallets, selectedWallet, register, inputText, trigger }) => {
   return (
     <div className={styles["transaction-form"]}>
       <h3 className={styles["step-title"]}>
@@ -11,6 +11,8 @@ const TransactionForm = ({ wallets, selectedWallet, register, inputText }) => {
       </h3>
       <ul className={styles["wallets-list"]}>
         {Object.entries(wallets).map((wallet, index) => {
+          // console.log(wallet, 'wallet')
+
           return (
             <li
               key={index}
@@ -26,7 +28,7 @@ const TransactionForm = ({ wallets, selectedWallet, register, inputText }) => {
                 <Wallet wallet={WALLETS[wallet[0]]}>
                   <div className={styles["balance"]}>
                     <p>Баланс</p>
-                    <span>$4 123.60</span>
+                    <span>${wallet[1].available.toFixed(2)}</span>
                   </div>
                 </Wallet>
               </label>
@@ -38,7 +40,7 @@ const TransactionForm = ({ wallets, selectedWallet, register, inputText }) => {
         <span>2</span> {inputText}
       </h3>
       <div className={styles["amount-input"]}>
-        <Input register={register} name={"amount"} />
+        <Input register={register} name={"amount"} trigger={trigger}/>
         <p className={styles["tax"]}>Комиссия: 0%</p>
       </div>
     </div>

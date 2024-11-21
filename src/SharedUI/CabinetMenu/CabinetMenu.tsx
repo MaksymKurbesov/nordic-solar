@@ -110,7 +110,7 @@ const Menu = () => {
         <div className={styles["user"]}>
           <img src={UserAvatar} alt={""} />
           <div className={styles["user-wrapper"]}>
-            <p>Джон Ватсон</p>
+            <p>{user.nickname}</p>
             <NavLink to={"/cabinet/settings"}>Настройки</NavLink>
           </div>
         </div>
@@ -159,7 +159,7 @@ const Menu = () => {
       >
         <ul className={styles["statistic-list"]}>
           <Swiper
-            loop
+            loop={false}
             spaceBetween={10}
             breakpoints={{
               600: {
@@ -173,7 +173,6 @@ const Menu = () => {
               },
             }}
             slidesPerView={1}
-            onSlideChange={() => console.log("slide change")}
             onSwiper={(swiper) => (sliderRef.current = swiper)}
           >
             {STATISTIC.map((item, index) => {
@@ -185,13 +184,13 @@ const Menu = () => {
                       <p>{item.name}</p>
                     </div>
                     <div className={styles["values"]}>
-                      <div className={styles["last-month"]}>
-                        <p>За месяц</p>
-                        <span>$4 534.60</span>
-                      </div>
+                      {/*<div className={styles["last-month"]}>*/}
+                      {/*  <p>За месяц</p>*/}
+                      {/*  <span>$0</span>*/}
+                      {/*</div>*/}
                       <div className={styles["total"]}>
                         <p>Всего</p>
-                        <span>${user[item.db]}</span>
+                        <span>${user[item.db].toFixed(2)}</span>
                       </div>
                     </div>
                   </li>

@@ -3,88 +3,55 @@ import LinkIcon from "@assets/icons/link.svg?react";
 import PartnersIcon from "@assets/icons/partners.svg?react";
 import ActivePartnersIcon from "@assets/icons/active-partners.svg?react";
 import StructureAmountIcon from "@assets/icons/structure-amount.svg?react";
-import ReferralClicksIcon from "@assets/icons/referral-clicks.svg?react";
-import TestIcon from "@assets/icons/test-icon.svg?react";
 import DateIcon from "@assets/icons/date.svg?react";
 import CopyIcon from "@assets/icons/copy.svg?react";
-import Table from "@SharedUI/Table/Table.tsx";
+import { useUser } from "@/hooks/useUser";
+import { parseTimestamp } from "@/utils/helpers";
+import { useEffect, useState } from "react";
+import { referralService } from "@/main";
+import LevelAccordion from '@/pages/Cabinet/Referrals/LevelAccordion/LevelAccordion';
 
-const STATISTIC = [
-  {
-    icon: <PartnersIcon />,
-    text: "Количество партнеров",
-  },
-  {
-    icon: <ActivePartnersIcon />,
-    text: "Количество активных партнеров",
-  },
-  {
-    icon: <StructureAmountIcon />,
-    text: "Оборот вашей структуры",
-  },
-  {
-    icon: <ReferralClicksIcon />,
-    text: "Переходов по реферальной ссылке",
-  },
-  {
-    icon: <TestIcon />,
-    text: "Вас пригласили",
-  },
-  {
-    icon: <DateIcon />,
-    text: "Дата регистрации",
-  },
-];
-
-const REFERRAL_COLUMNS = [
-  {
-    title: "Уровень",
-    key: "level",
-  },
-  {
-    title: "Рефералов",
-    key: "total_referrals",
-  },
-  {
-    title: "Активных",
-    key: "active_referrals",
-  },
-  {
-    title: "Общий доход",
-    key: "total_income",
-  },
-];
-
-const REFERRAL_DATA = [
-  {
-    level: 1,
-    total_referrals: 5,
-    active_referrals: 3,
-    total_income: "$4 523",
-  },
-  {
-    level: 2,
-    total_referrals: 1,
-    active_referrals: 0,
-    total_income: "$1 223",
-  },
-  {
-    level: 3,
-    total_referrals: 11,
-    active_referrals: 5,
-    total_income: "$14 523",
-  },
-  {
-    level: 4,
-    total_referrals: 15,
-    active_referrals: 13,
-    total_income: "$24 523",
-  },
-];
 
 const Referrals = () => {
+  const { user } = useUser();
+  const [referrals, setReferrals] = useState({});
+  const [referralsCount, setReferralsCount] = useState(0);
+  const [activeReferralsCount, setActiveReferralsCount] = useState(0);
+  const [totalIncome, setTotalIncome] = useState(0);
+
+  useEffect(() => {
+    if (!user) return;
+
+    const fetchActiveReferrals = async () => {
+      const currentUserReferrals = await referralService.fetchReferralsData(user.nickname);
+
+      const refsCount = Object.values(currentUserReferrals).reduce((acc, array) => {
+        return acc + array.length;
+      }, 0)
+      const activeRefsCount =Object.values(currentUserReferrals).reduce((acc, array) => {
+        return acc + array.filter(item => item.invested > 0).length;
+      }, 0)
+      const totalDeposited = Object.values(currentUserReferrals).reduce((acc, array) => {
+        return acc + array.reduce((sum, item) => {
+          return sum + item.invested; // Добавляем только если есть поле deposited
+        }, 0);
+      }, 0);
+
+      setReferralsCount(refsCount)
+      setReferrals(currentUserReferrals);
+      setActiveReferralsCount(activeRefsCount);
+      setTotalIncome(totalDeposited);
+    };
+
+    fetchActiveReferrals();
+  }, [user]);
+
+
+  if (!user) return;
+
   return (
     <>
+      <h1 className={styles["title"]}>Рефералы</h1>
       <div className={styles["referrals"]}>
         <div className={styles["referral-link"]}>
           <div className={styles["icon-wrapper"]}>
@@ -94,21 +61,51 @@ const Referrals = () => {
             <p>Ссылка для приглашений</p>
           </div>
           <p className={styles["link"]}>
-            http://nordic.solar/?user=johndoe <CopyIcon />
+            {`https://nordic-solar.tech/?referral=${user.nickname}`} <CopyIcon />
           </p>
         </div>
-        {STATISTIC.map((item) => {
-          return (
-            <div className={styles["statistic"]} key={item.text}>
-              <span className={styles["icon"]}>{item.icon}</span>
-              <p>{item.text}</p>
-              <p className={styles["value"]}>10</p>
-            </div>
-          );
-        })}
+        <div className={styles["statistic"]}>
+          <span className={styles["icon"]}>
+            <PartnersIcon />
+          </span>
+          <p>Количество партнеров</p>
+          <p className={styles["value"]}>{referralsCount}</p>
+        </div>
+        <div className={styles["statistic"]}>
+          <span className={styles["icon"]}>
+            <ActivePartnersIcon />
+          </span>
+          <p>Количество активных партнеров</p>
+          <p className={styles["value"]}>{activeReferralsCount}</p>
+        </div>
+        <div className={styles["statistic"]}>
+          <span className={styles["icon"]}>
+            <StructureAmountIcon />
+          </span>
+          <p>Оборот вашей структуры</p>
+          <p className={styles["value"]}>${totalIncome}</p>
+        </div>
+        <div className={styles["statistic"]}>
+          <span className={styles["icon"]}>
+            <DateIcon />
+          </span>
+          <p>Дата регистрации</p>
+          <p className={styles["value"]}>{parseTimestamp(user.registrationDate, true)}</p>
+        </div>
       </div>
       <div className={styles["referral-levels"]}>
-        <Table columns={REFERRAL_COLUMNS} data={REFERRAL_DATA} />
+        <div className={styles["table-header"]}>
+          <span>Уровень</span>
+          <span>Рефералов</span>
+          <span>Активных</span>
+          <span>Общий доход</span>
+        </div>
+        {Object.entries(referrals).map(item => {
+          const level = item[0];
+
+          return <LevelAccordion key={level} level={level} referrals={referrals[level]}/>
+        })}
+        {/*<Table columns={REFERRAL_COLUMNS} data={REFERRAL_DATA} />*/}
       </div>
     </>
   );

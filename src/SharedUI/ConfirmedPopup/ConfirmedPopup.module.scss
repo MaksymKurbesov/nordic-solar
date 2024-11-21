@@ -13,6 +13,9 @@
 }
 
 .popup-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   background: rgba(255, 255, 255, 0.035);
   width: 95%;
   max-width: 700px;
@@ -22,7 +25,6 @@
 }
 
 .popup-content h3 {
-  width: 80%;
   margin: 0 auto 30px;
   display: grid;
   align-items: center;
@@ -41,7 +43,7 @@
 
 .popup-content h3 span {
   //width:50%;
-  text-align: left;
+  //text-align: left;
 }
 
 .text {
@@ -62,6 +64,7 @@
 .buttons button {
   background: $green;
   padding: 10px 30px;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 767px) {

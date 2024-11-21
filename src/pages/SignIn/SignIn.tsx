@@ -1,53 +1,64 @@
-import styles from "./SignIn.module.scss";
-import Input from "@SharedUI/Input/Input.tsx";
-import WideButton from "@SharedUI/WideButton/WideButton.tsx";
-import { NavLink, useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
-import { auth, userService } from "@/main.tsx";
-import { useAuthState } from "@/hooks/useAuthState.ts";
-import { useEffect } from "react";
+import styles from './SignIn.module.scss'
+import Input from '@SharedUI/Input/Input.tsx'
+import WideButton from '@SharedUI/WideButton/WideButton.tsx'
+import { NavLink, useNavigate } from 'react-router-dom'
+import { useForm } from 'react-hook-form'
+import { auth, userService } from '@/main.tsx'
+import { useAuthState } from '@/hooks/useAuthState.ts'
+import { useEffect, useState } from 'react'
 
 const SignIn = () => {
-  const methods = useForm();
-  const { register, handleSubmit } = methods;
-  const [user, userLoading] = useAuthState(auth);
-  const navigate = useNavigate();
+  const methods = useForm()
+  const { register, handleSubmit, trigger } = methods
+  const [user, userLoading] = useAuthState(auth)
+  const navigate = useNavigate()
+  const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
-    if (user) navigate("/cabinet/main");
-  }, [user]);
+    if (user) navigate('/cabinet/main')
+  }, [user])
 
   const onSubmit = async (data) => {
-    await userService.logIn(data.email, data.password);
-  };
+    setLoading(true)
+    await userService.logIn(data.email, data.password, setError)
+    setLoading(false)
+  }
 
   if (userLoading) {
-    return <div>Loading...</div>;
+    return <div>Loading...</div>
   }
 
   return (
-    <div className={`${styles["sign-in"]} container`}>
+    <div className={`${styles['sign-in']} container`}>
       <h2>Войти</h2>
-      <div className={styles["form-wrapper"]}>
-        <div className={styles["new-user"]}>
+      <div className={styles['form-wrapper']}>
+        <div className={styles['new-user']}>
           <p>Новый пользователь?</p>
-          <NavLink className={styles["register-link"]} to={"/sign-up"}>
+          <NavLink className={styles['register-link']} to={'/sign-up'}>
             Создать учетную запись
           </NavLink>
         </div>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <Input name={"email"} label={"Email*"} register={register} />
           <Input
-            type={"password"}
-            name={"password"}
-            label={"Пароль*"}
+            trigger={trigger}
+            name={'email'}
+            label={'Email*'}
             register={register}
           />
-          <WideButton text={"Войти"} type={"submit"} />
+          <Input
+            type={'password'}
+            name={'password'}
+            label={'Пароль*'}
+            register={register}
+            trigger={trigger}
+          />
+          {error && <p className={styles['error']}>{error}</p>}
+          <WideButton isDisabled={loading} text={'Войти'} type={'submit'} />
         </form>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default SignIn;
+export default SignIn

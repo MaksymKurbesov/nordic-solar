@@ -1,10 +1,17 @@
-import React, { createContext, useState, ReactNode } from "react";
+import { createContext, useState, ReactNode } from "react";
 
 // Определяем интерфейс для данных пользователя
 interface User {
   id: string;
   name: string;
   email: string;
+  wallets?: any;
+  earned: number,
+  invested: number;
+  withdrawn: number,
+  referrals: number,
+  nickname: string,
+  registrationDate: any,
   // Добавьте любые другие поля, которые вам нужны
 }
 

@@ -1,0 +1,94 @@
+.questions {
+  margin-bottom: 200px;
+}
+
+.title {
+  color: $gray;
+  margin-bottom: 50px;
+}
+
+
+.collapses {
+  //width: 90%;
+}
+
+.collapse {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.collapse:not(:last-child) {
+  margin-bottom: 50px;
+}
+
+.collapse h3 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 32px;
+  margin-bottom: 30px;
+}
+
+.collapse h3 button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  background: $green;
+  border-radius: 50%;
+  transition: 0.25s ease all;
+  margin-left: 20px;
+}
+
+.collapse h3 svg {
+  width: 15px;
+  height: 15px;
+  transition: 0.25s ease all;
+}
+
+.collapse p {
+  color: $gray;
+  line-height: 1.5;
+
+
+  height: 0;
+  overflow: hidden;
+}
+
+
+.collapseOpen p {
+  height: initial;
+  margin-bottom: 30px;
+}
+
+.collapseOpen h3 button {
+  background: white;
+  transition: 0.25s ease all;
+}
+
+.collapseOpen h3 svg {
+  transition: 0.25s ease all;
+  transform: rotateZ(45deg);
+}
+
+.collapseOpen h3 svg line {
+  stroke: $gray;
+}
+
+
+@media screen and (max-width: 767px) {
+  .questions {
+    margin-bottom: 75px;
+  }
+
+  .collapses {
+    width: 100%;
+  }
+
+  .collapse h3 {
+    font-size: 22px;
+  }
+
+  .collapse h3 button {
+    margin-left: 20px;
+  }
+}

@@ -39,6 +39,7 @@ svg.plus-icon line {
 .disabled {
   background: rgba(255, 255, 255, 0.1);
   color: white;
+  cursor: not-allowed;
 }
 
 @media screen and (max-width: 767px) {

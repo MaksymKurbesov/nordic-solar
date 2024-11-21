@@ -123,7 +123,7 @@ const Roadmap = () => {
       >
         {ROADMAP.map((slide, index) => {
           return (
-            <SwiperSlide className={styles["roadmap-slide"]}>
+            <SwiperSlide className={styles["roadmap-slide"]} key={index}>
               <p className={styles["year"]}>{slide.year}</p>
               <div className={styles["yearContent"]}>
                 <span>0{index}</span>
@@ -131,7 +131,7 @@ const Roadmap = () => {
                 <ul>
                   {slide.description.map((item, index) => {
                     return (
-                      <li>
+                      <li key={index}>
                         <span>Q{index + 1}</span>
                         {item}
                       </li>

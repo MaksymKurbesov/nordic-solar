@@ -39,7 +39,6 @@ const Wallets = ({ wallets }) => {
         }}
         spaceBetween={10}
         slidesPerView={1}
-        onSlideChange={() => console.log("slide change")}
         onSwiper={(swiper) => (sliderRef.current = swiper)}
       >
         {Object.entries(wallets).map((wallet, index) => {
@@ -49,19 +48,19 @@ const Wallets = ({ wallets }) => {
                 <div className={styles["values"]}>
                   <div>
                     <p>Доступно</p>
-                    <span>${wallet[1].available}</span>
+                    <span>${wallet[1].available.toFixed(2)}</span>
                   </div>
                   <div>
                     <p>Пополнено</p>
-                    <span>${wallet[1].deposited}</span>
+                    <span>${wallet[1].deposited.toFixed(2)}</span>
                   </div>
                   <div>
                     <p>Выведено</p>
-                    <span>${wallet[1].withdrawn}</span>
+                    <span>${wallet[1].withdrawn.toFixed(2)}</span>
                   </div>
                   <div>
                     <p>Реферальные</p>
-                    <span>${wallet[1].referrals}</span>
+                    <span>${wallet[1].referrals.toFixed(2)}</span>
                   </div>
                 </div>
               </Wallet>

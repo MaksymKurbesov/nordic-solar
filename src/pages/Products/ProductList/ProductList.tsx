@@ -20,7 +20,7 @@ const ProductList = () => {
         </NavLink>
       </li>
       <li>
-        <NavLink to={"#"}>
+        <NavLink to={"/products/mining-farms"}>
           <img src={MiningFarm} alt={""} />
           Майнинговые фермы
           <div className={styles["arrow-button"]}>
@@ -29,7 +29,7 @@ const ProductList = () => {
         </NavLink>
       </li>
       <li>
-        <NavLink to={"#"}>
+        <NavLink to={"/products/hydrogen-tech"}>
           <img src={HydrogenTech} alt={""} />
           Водородные технологии
           <div className={styles["arrow-button"]}>
@@ -38,7 +38,7 @@ const ProductList = () => {
         </NavLink>
       </li>
       <li>
-        <NavLink to={"#"}>
+        <NavLink to={"/products/wind-turbines"}>
           <img src={WindTurbines} alt={""} />
           Ветровые турбины
           <div className={styles["arrow-button"]}>
@@ -47,7 +47,7 @@ const ProductList = () => {
         </NavLink>
       </li>
       <li>
-        <NavLink to={"#"}>
+        <NavLink to={"/products/hydro-energy"}>
           <img src={Hydroelectric} alt={""} />
           Гидроэлектростанции
           <div className={styles["arrow-button"]}>

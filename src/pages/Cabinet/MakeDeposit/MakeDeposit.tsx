@@ -5,6 +5,7 @@ import { useUser } from "@/hooks/useUser.ts";
 import TransactionForm from "@SharedUI/TransactionForm/TransactionForm.tsx";
 import styles from "./MakeDeposit.module.scss";
 import WideButton from "@SharedUI/WideButton/WideButton.tsx";
+import { sortByAvailable } from '@/utils/helpers';
 
 const MakeDeposit = () => {
   const { user } = useUser();
@@ -45,7 +46,7 @@ const MakeDeposit = () => {
       <h2>Пополнить счёт</h2>
 
       <TransactionForm
-        wallets={user.wallets}
+        wallets={sortByAvailable(user.wallets)}
         selectedWallet={selectedWallet}
         register={register}
         inputText={"Введите сумму пополнения"}

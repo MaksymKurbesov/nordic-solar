@@ -4,7 +4,7 @@ import { TRANSACTION_COLUMNS } from "@/utils/const.tsx";
 import { useUser } from "@/hooks/useUser.ts";
 import { useEffect, useState } from "react";
 import { transactionService } from "@/main.tsx";
-import { transformTransaction } from "@/utils/helpers.ts";
+import { transformTransaction } from "@/utils/helpers.tsx";
 
 const Transactions = () => {
   const { user } = useUser();

@@ -2,7 +2,6 @@ import { createBrowserRouter } from "react-router-dom";
 import Products from "./pages/Products/Products.tsx";
 import App from "@/App.tsx";
 import { IndexPage } from "@/pages/IndexPage/IndexPage.tsx";
-import SolarEnergy from "@/pages/SolarEnergy/SolarEnergy.tsx";
 import AboutUs from "@/pages/AboutUs/AboutUs.tsx";
 import Investments from "@/pages/Investments/Investments.tsx";
 import FAQ from "@/pages/FAQ/FAQ.tsx";
@@ -20,10 +19,12 @@ import Settings from "@/pages/Cabinet/Settings/Settings.tsx";
 import ConfirmTransaction from "@/pages/ConfirmTransaction/ConfirmTransaction.tsx";
 import AdminPanel from "@/pages/AdminPanel/AdminPanel.tsx";
 import OpenPlan from "@/pages/Cabinet/OpenPlan/OpenPlan.tsx";
-import Variants from "@/pages/Cabinet/OpenPlan/Variants.tsx";
+import Variants from "@/pages/Cabinet/OpenPlan/Variants/Variants.tsx";
 import Plans from "@/pages/Cabinet/OpenPlan/Plans/Plans.tsx";
-import OpenPlanConfirm from "@/pages/Cabinet/OpenPlan/OpenPlanConfirm.tsx";
+import OpenPlanConfirm from "@/pages/Cabinet/OpenPlan/OpenPlanConfirm/OpenPlanConfirm.tsx";
 import WalletAmount from "@/pages/Cabinet/OpenPlan/WalletAmount/WalletAmount.tsx";
+import Product from "@/pages/Products/Product/Product";
+import Investment from '@/pages/Investments/Investment/Investment';
 
 const routes = createBrowserRouter([
   {
@@ -39,16 +40,16 @@ const routes = createBrowserRouter([
         element: <Products />,
       },
       {
-        path: "/products/solar-energy",
-        element: <SolarEnergy />,
+        path: "/products/:product",
+        element: <Product />,
       },
       {
         path: "/investments",
         element: <Investments />,
       },
       {
-        path: "/investments/individual-investment-plans",
-        element: <Individual />,
+        path: "/investments/:investment",
+        element: <Investment />,
       },
       {
         path: "/about-us",
@@ -85,26 +86,8 @@ const routes = createBrowserRouter([
         element: <MainCabinet />,
       },
       {
-        path: "open-plan",
+        path: "open-plan/plans",
         element: <OpenPlan />,
-        children: [
-          {
-            path: "plans",
-            element: <Plans />,
-          },
-          {
-            path: "wallet-amount",
-            element: <WalletAmount />,
-          },
-          {
-            path: "variants",
-            element: <Variants />,
-          },
-          {
-            path: "confirmation",
-            element: <OpenPlanConfirm />,
-          },
-        ],
       },
       {
         path: "make-deposit",
@@ -117,6 +100,10 @@ const routes = createBrowserRouter([
       {
         path: "withdrawn",
         element: <Withdrawn />,
+      },
+      {
+        path: "withdrawn/confirm-transaction",
+        element: <ConfirmTransaction />,
       },
       {
         path: "transactions",

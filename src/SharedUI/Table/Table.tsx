@@ -1,24 +1,24 @@
-import styles from "./Table.module.scss";
-import useWindowSize from "@/hooks/useWindowSize";
-import "swiper/css/effect-creative";
+import styles from './Table.module.scss'
+import useWindowSize from '@/hooks/useWindowSize'
+import 'swiper/css/effect-creative'
 
 const STATUS_MAP = {
-  Выполнено: "success",
-  Ожидание: "pending",
-  Отменено: "canceled",
-};
+  Выполнено: 'success',
+  Ожидание: 'pending',
+  Отменено: 'canceled',
+}
 
 const Table = ({ columns, data, isDeposit }) => {
-  const windowSize = useWindowSize();
-  const isMobile = windowSize.width < 1200;
+  const windowSize = useWindowSize()
+  const isMobile = windowSize.width < 1200
 
-  const columnsLength = isMobile && isDeposit ? 7 : columns.length;
-  const gridColumns = `repeat(${columnsLength}, 1fr)`;
+  const columnsLength = isMobile && isDeposit ? 7 : columns.length
+  const gridColumns = `repeat(${columnsLength}, 1fr)`
 
   return (
-    <ul className={styles["table-list"]}>
+    <ul className={styles['table-list']}>
       <li
-        className={styles["header"]}
+        className={styles['header']}
         style={{ gridTemplateColumns: gridColumns }}
       >
         {columns.map((column) => (
@@ -29,31 +29,35 @@ const Table = ({ columns, data, isDeposit }) => {
         return (
           <li
             key={index}
-            className={`${styles["table-row"]}`}
+            className={`${styles['table-row']}`}
             style={{ gridTemplateColumns: gridColumns }}
           >
             {columns.map((column, index) => {
               return (
-                <div key={index} className={styles["cell"]}>
-                  <span className={styles["label"]}>{column.title}</span>
-                  <p
+                <div key={index} className={styles['cell']}>
+                  <span className={styles['label']}>{column.title}</span>
+                  <div
                     key={column.key}
                     className={
-                      column.key === "status"
+                      column.key === 'status'
                         ? styles[STATUS_MAP[item[column.key]]]
-                        : ""
+                        : styles['table-div']
                     }
                   >
-                    {item[column.key]}
-                  </p>
+                    {column.key === 'nextAccrual' && !item.isActive ? (
+                      <p>Выполнено</p>
+                    ) : (
+                      item[column.key]
+                    )}
+                  </div>
                 </div>
-              );
+              )
             })}
           </li>
-        );
+        )
       })}
     </ul>
-  );
-};
+  )
+}
 
-export default Table;
+export default Table

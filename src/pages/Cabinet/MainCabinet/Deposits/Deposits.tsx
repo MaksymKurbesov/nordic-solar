@@ -1,121 +1,91 @@
-import styles from "./Deposits.module.scss";
-import Table from "@SharedUI/Table/Table.tsx";
-import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
-
-const DEPOSITS = [
-  {
-    region: "Limassol",
-    progress: "2/12",
-    nextAccrual: "23:55:00",
-    paymentSystem: "TRC20 Tether",
-    amount: "$432.00",
-    received: "$12.24",
-    willReceived: "$42.24",
-    openDate: "11 июля",
-    closeDate: "13 августа",
-  },
-  {
-    region: "Limassol",
-    progress: "2/12",
-    nextAccrual: "23:55:00",
-    paymentSystem: "TRC20 Tether",
-    amount: "$432.00",
-    received: "$12.24",
-    willReceived: "$42.24",
-    openDate: "11 июля",
-    closeDate: "13 августа",
-  },
-  {
-    region: "Limassol",
-    progress: "2/12",
-    nextAccrual: "23:55:00",
-    paymentSystem: "TRC20 Tether",
-    amount: "$432.00",
-    received: "$12.24",
-    willReceived: "$42.24",
-    openDate: "11 июля",
-    closeDate: "13 августа",
-  },
-  {
-    region: "Limassol",
-    progress: "2/12",
-    nextAccrual: "23:55:00",
-    paymentSystem: "TRC20 Tether",
-    amount: "$432.00",
-    received: "$12.24",
-    willReceived: "$42.24",
-    openDate: "11 июля",
-    closeDate: "13 августа",
-  },
-];
+import styles from './Deposits.module.scss'
+import Table from '@SharedUI/Table/Table.tsx'
+import { Tab, TabList, TabPanel, Tabs } from 'react-tabs'
+import { transformDeposit } from '@/utils/helpers'
 
 const DEPOSIT_COLUMNS = [
   {
-    title: "Регион",
-    key: "region",
+    title: 'Вариант',
+    key: 'variant',
   },
   {
-    title: "Прогресс",
-    key: "progress",
+    title: 'Прогресс',
+    key: 'progress',
   },
   {
-    title: "Начисление",
-    key: "nextAccrual",
+    title: 'Начисление',
+    key: 'nextAccrual',
   },
   {
-    title: "Способ оплаты",
-    key: "paymentSystem",
+    title: 'Способ оплаты',
+    key: 'wallet',
   },
   {
-    title: "Сумма",
-    key: "amount",
+    title: 'Сумма',
+    key: 'amount',
   },
   {
-    title: "Получено",
-    key: "received",
+    title: 'Получено',
+    key: 'received',
   },
   {
-    title: "Будет получено",
-    key: "willReceived",
+    title: 'Будет получено',
+    key: 'willReceived',
   },
   {
-    title: "Дата открытия",
-    key: "openDate",
+    title: 'Дата открытия',
+    key: 'openDate',
   },
   {
-    title: "Дата закрытия",
-    key: "closeDate",
+    title: 'Дата закрытия',
+    key: 'closeDate',
   },
-];
+]
 
 const Deposits = ({ deposits }) => {
+  const modifiedDeposits = deposits.map(transformDeposit)
+  const activeDeposits = modifiedDeposits.filter((item) => item.isActive)
+  const completedDeposits = modifiedDeposits.filter((item) => !item.isActive)
+
   return (
-    <div className={styles["deposits"]}>
+    <div className={styles['deposits']}>
       <Tabs defaultFocus>
-        <TabList className={styles["deposits-buttons"]}>
+        <TabList className={styles['deposits-buttons']}>
           <Tab
-            className={styles["tab"]}
-            selectedClassName={styles["selected-tab"]}
+            className={styles['tab']}
+            selectedClassName={styles['selected-tab']}
           >
             Активные депозиты
           </Tab>
           <Tab
-            className={styles["tab"]}
-            selectedClassName={styles["selected-tab"]}
+            className={styles['tab']}
+            selectedClassName={styles['selected-tab']}
           >
             Завершенные депозиты
           </Tab>
         </TabList>
 
         <TabPanel>
-          <Table columns={DEPOSIT_COLUMNS} data={deposits} isDeposit />
+          {activeDeposits.length === 0 ? (
+            'У вас нет открытых депозитов'
+          ) : (
+            <Table columns={DEPOSIT_COLUMNS} data={activeDeposits} isDeposit />
+          )}
         </TabPanel>
         <TabPanel>
-          <h2>Any content 2</h2>
+          {completedDeposits.length === 0 ? (
+            'У вас нет завершенных депозитов'
+          ) : (
+            <Table
+              columns={DEPOSIT_COLUMNS}
+              data={completedDeposits}
+              isDeposit
+            />
+          )}
         </TabPanel>
       </Tabs>
     </div>
-  );
-};
+  )
+}
 
-export default Deposits;
+export default Deposits

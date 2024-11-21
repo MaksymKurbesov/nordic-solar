@@ -1,5 +1,5 @@
 import React from "react";
-import ReactDOM from "react-dom/client";
+import  { createRoot } from 'react-dom/client';
 import { RouterProvider } from "react-router-dom";
 import "./main.scss";
 import routes from "./routes.tsx";
@@ -11,6 +11,7 @@ import "swiper/css";
 import TransactionService from "@/services/Transaction.ts";
 import { UserProvider } from "./UserContext";
 import DepositService from "@/services/Deposit.ts";
+import ReferralService from '@/services/Referral';
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_API_KEY,
@@ -28,8 +29,9 @@ export const auth = getAuth(app);
 export const userService = new UserService(db);
 export const transactionService = new TransactionService(db);
 export const depositService = new DepositService(db);
+export const referralService = new ReferralService(db);
 
-ReactDOM.createRoot(document.getElementById("root")!).render(
+createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <UserProvider>
       <RouterProvider router={routes} />

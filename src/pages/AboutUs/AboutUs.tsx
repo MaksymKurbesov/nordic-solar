@@ -2,6 +2,14 @@ import styles from "./AboutUs.module.scss";
 import WideButton from "@SharedUI/WideButton/WideButton.tsx";
 import Team from "@/pages/AboutUs/Team/Team.tsx";
 import { ScrollRestoration } from "react-router-dom";
+import InDigits from "@/pages/AboutUs/InDigits/InDigits";
+import Features from "@/SharedUI/Features/Features";
+import Image1 from "@assets/images/about-us-image1.webp";
+import Image2 from "@assets/images/about-us-image2.webp";
+import Image3 from "@assets/images/about-us-image3.webp";
+import Image4 from "@assets/images/about-us-image4.webp";
+import useWindowSize from "@/hooks/useWindowSize";
+import MobileFeatures from "@SharedUI/Features/MobileFeatures";
 
 const GOALS = [
   {
@@ -26,7 +34,42 @@ const GOALS = [
   },
 ];
 
+const FEATURES = [
+  {
+    title: "Зарождение идеи",
+    description: [
+      "Наша компания, Nordic Solar, была основана в 2018 году с ясной миссией: внести значительный вклад в борьбу с изменением климата и создать более устойчивое будущее для всех. Идея родилась из стремления основателей найти реальные и практические решения для глобальных энергетических проблем, возникших из-за исчерпания традиционных невозобновляемых источников энергии и их пагубного воздействия на окружающую среду.",
+    ],
+    image: Image1
+  },
+  {
+    title: "Почему мы появились",
+    description: [
+      "Идея создания компании возникла у группы инженеров и экологов, которые были обеспокоены быстрым ухудшением экологической ситуации на планете. Видя, как использование ископаемого топлива приводит к разрушительным последствиям, они решили объединить свои усилия и знания для разработки и внедрения инновационных решений в области зеленой энергетики.",
+    ],
+    image: Image2
+  },
+  {
+    title: "Наша миссия",
+    description: [
+      "Наша миссия заключается в том, чтобы содействовать устойчивому развитию и обеспечивать будущее нашей планеты за счет инвестиций в возобновляемые источники энергии. Мы стремимся минимизировать углеродный след, поддерживая экологические инициативы и предоставляя нашим клиентам надежные и выгодные инвестиционные возможности в зеленую энергетику.",
+    ],
+    image: Image3
+  },
+  {
+    title: "Наше видение",
+    description: [
+      "Мы видим будущее, где энергия производится исключительно из экологически чистых и возобновляемых источников. Нашей целью является лидерство на глобальном рынке зеленой энергетики, внедрение инновационных технологий и развитие устойчивых энергетических решений. Мы стремимся вдохновить другие компании и общество на переход к зеленой энергетике, способствуя глобальному снижению выбросов парниковых газов и улучшению качества жизни людей по всему миру.",
+    ],
+    image: Image4
+  },
+];
+const IMAGES = [Image1, Image2, Image3, Image4];
+
 const AboutUs = () => {
+  const windowSize = useWindowSize();
+  const isMobile = windowSize.width < 900;
+
   return (
     <>
       <div className={`${styles["about-us"]} container`}>
@@ -35,7 +78,13 @@ const AboutUs = () => {
         <p className={styles["expert-text"]}>
           Эксперты в солнечной энергетике, и сфере альтернативного питания
         </p>
-        <div className={styles["tabs"]}>tabs</div>
+        <div className={styles["tabs"]}>
+          {isMobile ? (
+            <MobileFeatures features={FEATURES} />
+          ) : (
+            <Features features={FEATURES} images={IMAGES} />
+          )}
+        </div>
         <h3 className={styles["text-after-tabs"]}>
           <span>Мы стремимся не только</span> продолжать расширение и улучшение
           наших текущих проектов, <span>но и ставим перед собой</span>{" "}
@@ -55,7 +104,9 @@ const AboutUs = () => {
             })}
           </ul>
         </div>
-        <div className={styles["slider"]}>slider</div>
+        <div className={styles["slider"]}>
+          <InDigits />
+        </div>
         <Team />
         <p className={styles["text-after-team"]}>
           <span>Nordic Solar верит в будущее, где</span>{" "}

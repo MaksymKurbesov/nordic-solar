@@ -4,7 +4,7 @@ import Footer from "@SharedUI/Footer/Footer.tsx";
 import CabinetMenu from "@SharedUI/CabinetMenu/CabinetMenu.tsx";
 import { useEffect } from "react";
 import { useAuthState } from "@/hooks/useAuthState.ts";
-import { auth, userService } from "@/main.tsx";
+import {auth, depositService, userService} from "@/main.tsx";
 import MobileCabinetMenu from "@SharedUI/CabinetMenu/MobileCabinetMenu";
 import { useUser } from "@/hooks/useUser.ts";
 
@@ -14,12 +14,19 @@ const Cabinet = () => {
 
   const { setUser } = useUser();
 
+
   useEffect(() => {
     if (!user && !userLoading) navigate("/");
 
-    const fetchUserData = async () => {
-      if (!user) return;
+    if (!user) return;
 
+    const checkDeposits = async () => {
+      return await depositService.checkDepositsForAccruals(user.displayName);
+    }
+
+    checkDeposits()
+
+    const fetchUserData = async () => {
       const userData = await userService.getUser(user.displayName);
       setUser(userData);
     };

@@ -1,76 +1,138 @@
 import styles from "./OpenPlan.module.scss";
 import { FormProvider, useForm } from "react-hook-form";
-import WideButton from "@SharedUI/WideButton/WideButton.tsx";
-import {
-  Outlet,
-  ScrollRestoration,
-  useLocation,
-  useNavigate,
-} from "react-router-dom";
-import { useState } from "react";
+import { ScrollRestoration } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { depositService } from "@/main.tsx";
+import ConfirmedPopup from "@SharedUI/ConfirmedPopup/ConfirmedPopup";
+import { calculateTotalIncome } from "@/utils/helpers";
+import { PLAN_VARIANT } from "@SharedUI/PlanVariants/PlanVariants";
+import { useUser } from "@/hooks/useUser";
+import { Box } from "@mui/material";
+import Plans from "@/pages/Cabinet/OpenPlan/Plans/Plans";
+import WalletAmount from "@/pages/Cabinet/OpenPlan/WalletAmount/WalletAmount";
+import Variants from "@/pages/Cabinet/OpenPlan/Variants/Variants";
+import OpenPlanConfirm from "@/pages/Cabinet/OpenPlan/OpenPlanConfirm/OpenPlanConfirm";
 
-const STEPS = [
+import MyStepper from "@/pages/Cabinet/OpenPlan/Stepper";
+import NavigationButtons from "@/pages/Cabinet/OpenPlan/NavigationButtons";
+import { createPortal } from "react-dom";
+
+const steps = [
   {
-    button_text: "Далее",
-    link: "/cabinet/open-plan/wallet-amount",
+    title: "Тип плана",
+    component: <Plans />,
+    type: "plan",
   },
   {
-    button_text: "Далее",
-    link: "/cabinet/open-plan/variants",
+    title: "Вариант плана",
+    component: <Variants />,
+    type: "variant",
   },
   {
-    button_text: "Открыть план",
-    link: "/cabinet/open-plan/confirmation",
+    title: "Сумма и кошелёк",
+    component: <WalletAmount />,
+    type: "wallet",
+  },
+  {
+    title: "Подтверждение",
+    component: <OpenPlanConfirm />,
+    type: "final",
   },
 ];
 
 const OpenPlan = () => {
-  const [step, setStep] = useState(0);
-  const navigate = useNavigate();
-  const location = useLocation();
+  const { user } = useUser();
+  const [confirmPopupIsOpen, setConfirmPopupIsOpen] = useState(false);
+
+  const [activeStep, setActiveStep] = useState(0);
 
   const form = useForm({
     defaultValues: {
       plan: "",
       variant: "",
+      amount: 0,
+      wallet: "",
     },
     mode: "onChange",
   });
 
+  useEffect(() => {
+    return () => {
+      document.body.style.overflow = "visible";
+    };
+  }, []);
+
+  const submitHandler = async ({
+                                 amount,
+                                 variant,
+                                 plan,
+                                 wallet,
+                                 selectedVariant,
+                               }) => {
+    const willReceived = Number(
+      calculateTotalIncome(amount, variant.inDay, variant.days),
+    );
+
+    const depositData = {
+      amount,
+      plan,
+      variant: selectedVariant,
+      days: variant.days,
+      inDay: variant.inDay,
+      wallet,
+      willReceived,
+    };
+    window.scrollTo(0, 0);
+    setConfirmPopupIsOpen(true);
+    document.body.style.overflow = "hidden";
+    return await depositService.openPlan(user.nickname, depositData);
+  };
+
+  const handleNext = () => {
+    const stepType = steps[activeStep].type;
+    const currentValue = form.watch(stepType);
+    const wallet = form.watch("wallet");
+    const amount = form.watch("amount");
+    const selectedVariant = form.watch("variant");
+    const plan = form.watch("plan");
+
+    if (activeStep === 2 && wallet) {
+      const variant = PLAN_VARIANT[plan][selectedVariant];
+      const userBalance = user?.wallets[wallet].available;
+
+      if (userBalance < amount || amount < variant.minDeposit) return;
+    }
+
+    if (activeStep === steps.length - 1) {
+      const variant = PLAN_VARIANT[plan][selectedVariant];
+      submitHandler({ amount, variant, plan, wallet, selectedVariant });
+    }
+
+    if (!currentValue) return;
+
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  };
+
+  const handleBack = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+  };
+
   return (
-    <div className={styles["open-plan"]}>
+    <Box sx={{ width: "100%" }}>
       <h2>Открыть план</h2>
-      <FormProvider {...form}>
-        <Outlet />
-      </FormProvider>
-      <div className={styles["buttons"]}>
-        <WideButton
-          isDisabled={location.pathname === "/cabinet/open-plan/plans"}
-          text={"Назад"}
-          onClickHandler={() => {
-            if (step === 0) return;
-
-            navigate(-1);
-            setStep((prev) => prev - 1);
-          }}
-        />
-        <WideButton
-          text={STEPS[step - 1]?.button_text || "Далее"}
-          onClickHandler={async () => {
-            if (step >= STEPS.length) {
-              console.log("test");
-              await depositService.openPlan("_admin", { amount: 123 });
-              return;
-            }
-
-            setStep((prev) => prev + 1);
-            navigate(STEPS[step].link);
-          }}
-        />
+      <MyStepper steps={steps} activeStep={activeStep} />
+      <div className={styles["open-plan"]}>
+        <FormProvider {...form}>{steps[activeStep].component}</FormProvider>
+        {confirmPopupIsOpen && createPortal(<ConfirmedPopup />, document.body)}
+        <ScrollRestoration />
       </div>
-      <ScrollRestoration />
-    </div>
+      <NavigationButtons
+        activeStep={activeStep}
+        handleBack={handleBack}
+        handleNext={handleNext}
+        steps={steps}
+      />
+    </Box>
   );
 };
 

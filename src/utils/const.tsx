@@ -2,6 +2,7 @@ import TRC20Icon from "@assets/icons/tether.svg?react";
 import TonIcon from "@assets/icons/ton.svg?react";
 import BitcoinIcon from "@assets/icons/bitcoin.svg?react";
 import EthereumIcon from "@assets/icons/ethereum.svg?react";
+import PMIcon from "@assets/icons/pm.svg?react";
 
 export const WALLETS = {
   trc20: {
@@ -24,14 +25,18 @@ export const WALLETS = {
     name: "Ethereum",
     currency: "ETH",
   },
-  PM: {
-    icon: <EthereumIcon />,
+  pm: {
+    icon: <PMIcon />,
     name: "PM",
     currency: "PM",
   },
 };
 
 export const TRANSACTION_COLUMNS = [
+  {
+    title: "Тип",
+    key: "type",
+  },
   {
     title: "ID",
     key: "id",

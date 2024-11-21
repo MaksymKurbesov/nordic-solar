@@ -1,0 +1,107 @@
+.success-modal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 68;
+    backdrop-filter: blur(4px);
+    padding: 0 20px;
+}
+
+.modal-content {
+    width: 100%;
+    max-width: 650px;
+    margin: auto;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.1);
+    //background: rgba(0, 0, 0, 0.78);
+    border-radius: 8px;
+}
+
+.modal-content img {
+    object-fit: cover;
+    object-position: right;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.text {
+    margin: 0 auto;
+    width: 80%;
+    padding: 30px 0;
+}
+
+.text h2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 25px;
+}
+
+.green {
+    color: $green;
+}
+
+.check-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: $green;
+    border-radius: 50%;
+    width: 31px;
+    height: 31px;
+    margin-right: 10px;
+    padding: 9px;
+}
+
+.text p {
+    margin-bottom: 10px;
+    //color: $gray;
+}
+
+
+.text > span {
+    display: block;
+    color: $gray;
+    margin-top: 25px;
+}
+
+.cabinet-button {
+    display: block;
+    background: $green;
+    color: white;
+    padding: 10px 0;
+    border-radius: 8px;
+    margin-top: 35px;
+}
+
+@media screen and (max-width: 767px) {
+    .check-icon {
+        width: 25px;
+        height: 25px;
+        padding: 7px;
+    }
+
+    .text {
+        padding: 15px 0;
+        width: 90%;
+    }
+
+    .text h2 {
+        font-size: 22px;
+    }
+
+    .text p {
+        font-size: 14px;
+    }
+
+    .text span {
+        font-size: 14px;
+    }
+}

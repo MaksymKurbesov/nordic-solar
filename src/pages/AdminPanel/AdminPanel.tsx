@@ -1,7 +1,7 @@
 import styles from "./AdminPanel.module.scss";
 import { transactionService } from "@/main.tsx";
 import { useEffect, useState } from "react";
-import { parseTimestamp } from "@/utils/helpers.ts";
+import { parseTimestamp } from "@/utils/helpers.tsx";
 
 const AdminPanel = () => {
   const [transactions, setTransactions] = useState(null);
@@ -22,8 +22,6 @@ const AdminPanel = () => {
       <h2>АДМИН ПАНЕЛЬ</h2>
       <ul>
         {transactions.map((transaction) => {
-          console.log(transaction.id, "transaction.id");
-
           return (
             <li key={transaction.id}>
               <div>

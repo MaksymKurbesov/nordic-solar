@@ -42,11 +42,16 @@ button {
 }
 
 
+input {
+  color: white;
+}
+
 .container {
   padding: 0 20px;
   margin: 0 auto;
   max-width: 1720px;
 }
+
 
 
 .page-title {
@@ -64,7 +69,6 @@ button {
   height: 100%;
 }
 
-
 .swiper-pagination-bullet-active {
   background: $green !important;
 }
@@ -75,3 +79,8 @@ button {
   }
 }
 
+@media screen and (max-width: 579px) {
+  .page-title {
+    font-size: 30px;
+  }
+}
