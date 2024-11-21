@@ -1,0 +1,91 @@
+.deposits-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+    margin-bottom: 45px;
+}
+
+.deposits-list li {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 15px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+
+    row-gap: 23px;
+    position: relative;
+}
+
+.deposits-list li:before {
+    content: "";
+    width: 95%;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.1);
+    position: absolute;
+    top: 73px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.deposits-list li:after {
+    content: "";
+    width: 95%;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.1);
+    position: absolute;
+    top: 137px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+
+.cell {
+    display: flex;
+    flex-direction: column;
+}
+
+.label {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    font-size: 12px;
+    opacity: 0.4;
+}
+
+.value {
+    font-size: 14px;
+}
+
+
+
+@media screen and (max-width: 900px) {
+    .deposits-list {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .deposits-list li {
+        padding: 15px;
+    }
+
+    .label {
+        font-size: 10px;
+    }
+
+    .value {
+        font-size: 12px;
+    }
+
+    .nextAccrual .value {
+        width: 105px;
+    }
+
+    .deposits-list li:before {
+        top: 65px;
+    }
+
+    .deposits-list li:after {
+        top: 128px;
+    }
+}

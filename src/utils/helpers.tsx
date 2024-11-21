@@ -136,7 +136,11 @@ export const transformDeposit = (deposit) => {
     willReceived: `$${deposit.willReceived}`,
     received: `$${deposit.received.toFixed(2)}`,
     variant: variant.name,
-    nextAccrual: <AccrualTimer nextAccrual={nextAccrual} />,
+    nextAccrual: deposit.isActive ? (
+      <AccrualTimer nextAccrual={nextAccrual} />
+    ) : (
+      'Завершено'
+    ),
     progress: (
       <p>
         {deposit.charges} / {deposit.days}
@@ -182,7 +186,7 @@ export const getClosestDeposit = (deposits) => {
 
     if (
       timeToAccrual > 0 &&
-      (!closest || timeToAccrual < closest.timeToAccrual)
+      (!closest || (timeToAccrual < closest.timeToAccrual && deposit.isActive))
     ) {
       return { deposit, timeToAccrual }
     }

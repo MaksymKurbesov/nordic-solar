@@ -17,6 +17,7 @@
   color: #777;
   transition: 0.35s ease all;
   cursor: pointer;
+  font-size: 14px;
 }
 
 .selected-tab {
@@ -26,58 +27,7 @@
 }
 
 
-
-.selected-tab::after {
-  //content: '';
-  //position: absolute;
-  //bottom: -10px;
-  //left: 0;
-  //height: 1px;
-  //width: 100%;
-  //background: white;
-}
-
-
-
-//.selected-tab:not(:focus-visible) {
-//  content: none;
-//}
-//
 .selected-tab:focus:after {
   content: none;
 }
 
-
-@media screen and (max-width: 1200px) {
-  .deposits ul li:first-child p:last-child {
-    display: none;
-  }
-
-  .deposits ul li:first-child p:nth-child(8) {
-    display: none;
-  }
-
-
-  .deposits ul li div:last-child {
-    display: none;
-  }
-
-  .deposits ul li div:nth-child(8) {
-    display: none;
-  }
-}
-
-@media screen and (max-width: 767px) {
-  .deposits > div div ul li:first-child {
-    display: none;
-  }
-
-  .deposits ul li:not(:first-child) {
-    grid-template-columns: repeat(3, 1fr) !important;
-    gap: 20px;
-  }
-
-  .tab {
-    font-size: 14px;
-  }
-}

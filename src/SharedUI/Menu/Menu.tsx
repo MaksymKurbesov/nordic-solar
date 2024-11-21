@@ -1,34 +1,34 @@
-import Logo from "@assets/logo.svg?react";
-import styles from "./Menu.module.scss";
-import { NavLink, useLocation } from "react-router-dom";
-import { useEffect, useState } from "react";
+import Logo from '@assets/logo.svg?react'
+import styles from './Menu.module.scss'
+import { NavLink, useLocation } from 'react-router-dom'
+import { useEffect, useState } from 'react'
 
 const Menu = () => {
-  const [isIndexPage, setIsIndexPage] = useState(false);
-  const location = useLocation();
+  const [isIndexPage, setIsIndexPage] = useState(false)
+  const location = useLocation()
 
   useEffect(() => {
-    if (location.pathname === "/") {
-      setIsIndexPage(true);
+    if (location.pathname === '/') {
+      setIsIndexPage(true)
     } else {
-      setIsIndexPage(false);
+      setIsIndexPage(false)
     }
-  }, [location]);
+  }, [location])
 
   return (
     <div
-      className={`${styles.menu} ${isIndexPage ? styles.menuIndex : ""} container`}
+      className={`${styles.menu} ${isIndexPage ? styles.menuIndex : ''} container`}
     >
-      <NavLink className={styles["logotype"]} to={"/"}>
-        <Logo />
+      <NavLink className={styles['logotype']} to={'/'}>
+        <Logo width={120} />
       </NavLink>
       <nav className={styles.navigation}>
-        <ul className={styles["navigation-list"]}>
+        <ul className={styles['navigation-list']}>
           <li>
             <NavLink
-              to={"/products"}
+              to={'/products'}
               className={({ isActive, isPending }) =>
-                isPending ? styles["pending"] : isActive ? styles["active"] : ""
+                isPending ? styles['pending'] : isActive ? styles['active'] : ''
               }
             >
               Продукты
@@ -36,9 +36,9 @@ const Menu = () => {
           </li>
           <li>
             <NavLink
-              to={"/investments"}
+              to={'/investments'}
               className={({ isActive, isPending }) =>
-                isPending ? styles["pending"] : isActive ? styles["active"] : ""
+                isPending ? styles['pending'] : isActive ? styles['active'] : ''
               }
             >
               Инвестиции
@@ -46,9 +46,9 @@ const Menu = () => {
           </li>
           <li>
             <NavLink
-              to={"/about-us"}
+              to={'/about-us'}
               className={({ isActive, isPending }) =>
-                isPending ? styles["pending"] : isActive ? styles["active"] : ""
+                isPending ? styles['pending'] : isActive ? styles['active'] : ''
               }
             >
               О нас
@@ -56,9 +56,9 @@ const Menu = () => {
           </li>
           <li>
             <NavLink
-              to={"/faq"}
+              to={'/faq'}
               className={({ isActive, isPending }) =>
-                isPending ? styles["pending"] : isActive ? styles["active"] : ""
+                isPending ? styles['pending'] : isActive ? styles['active'] : ''
               }
             >
               FAQ
@@ -66,9 +66,9 @@ const Menu = () => {
           </li>
           <li>
             <NavLink
-              to={"/contacts"}
+              to={'/contacts'}
               className={({ isActive, isPending }) =>
-                isPending ? styles["pending"] : isActive ? styles["active"] : ""
+                isPending ? styles['pending'] : isActive ? styles['active'] : ''
               }
             >
               Контакты
@@ -76,15 +76,14 @@ const Menu = () => {
           </li>
         </ul>
       </nav>
-      <NavLink to={"/sign-in"} className={styles.signInButton}>
+      <NavLink to={'/sign-in'} className={styles.signInButton}>
         Войти
       </NavLink>
-      <NavLink to={"/contacts"}>
+      <NavLink to={'/contacts'}>
         <button className={styles.contactUsButton}>Связаться с нами</button>
       </NavLink>
-
     </div>
-  );
-};
+  )
+}
 
-export default Menu;
+export default Menu

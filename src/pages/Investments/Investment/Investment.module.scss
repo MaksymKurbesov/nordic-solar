@@ -7,11 +7,13 @@
 }
 
 .back-button {
-    background: white;
+    background: none;
+    color: white;
+    border: 1px solid white;
     width: 100px;
     padding: 10px;
     border-radius: 50px;
-    margin-bottom: 15px;
+    margin-bottom: 25px;
     cursor: pointer;
 }
 

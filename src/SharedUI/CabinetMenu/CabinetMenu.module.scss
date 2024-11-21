@@ -208,6 +208,10 @@
 }
 
 @media screen and (max-width: 767px) {
+  .logotype svg {
+    width: 80px;
+  }
+
   .user {
     margin-right: 0;
   }

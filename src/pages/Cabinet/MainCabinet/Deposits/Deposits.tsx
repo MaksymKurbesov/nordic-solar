@@ -2,6 +2,8 @@ import styles from './Deposits.module.scss'
 import Table from '@SharedUI/Table/Table.tsx'
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs'
 import { transformDeposit } from '@/utils/helpers'
+import { Avatar, List } from '@mui/material'
+import DepositsList from '@/pages/Cabinet/MainCabinet/Deposits/DepositsList/DepositsList.tsx'
 
 const DEPOSIT_COLUMNS = [
   {
@@ -17,20 +19,21 @@ const DEPOSIT_COLUMNS = [
     key: 'nextAccrual',
   },
   {
-    title: 'Способ оплаты',
-    key: 'wallet',
-  },
-  {
     title: 'Сумма',
     key: 'amount',
   },
+  {
+    title: 'Будет получено',
+    key: 'willReceived',
+  },
+
   {
     title: 'Получено',
     key: 'received',
   },
   {
-    title: 'Будет получено',
-    key: 'willReceived',
+    title: 'Способ оплаты',
+    key: 'wallet',
   },
   {
     title: 'Дата открытия',
@@ -69,17 +72,16 @@ const Deposits = ({ deposits }) => {
           {activeDeposits.length === 0 ? (
             'У вас нет открытых депозитов'
           ) : (
-            <Table columns={DEPOSIT_COLUMNS} data={activeDeposits} isDeposit />
+            <DepositsList deposits={activeDeposits} columns={DEPOSIT_COLUMNS} />
           )}
         </TabPanel>
         <TabPanel>
           {completedDeposits.length === 0 ? (
             'У вас нет завершенных депозитов'
           ) : (
-            <Table
+            <DepositsList
+              deposits={completedDeposits}
               columns={DEPOSIT_COLUMNS}
-              data={completedDeposits}
-              isDeposit
             />
           )}
         </TabPanel>

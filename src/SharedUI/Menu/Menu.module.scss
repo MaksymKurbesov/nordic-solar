@@ -23,11 +23,12 @@
   margin-right: 20px;
   z-index: 56;
   width: max-content;
+  height: 42px;
 }
 
 .navigation ul {
   display: flex;
-  gap: 3vw;
+  gap: 2vw;
 }
 
 .navigation ul li a {
@@ -55,8 +56,13 @@
 
 @media screen and (max-width: 767px) {
   .logotype {
-    //flex-grow: 1;
+    height: 28px;
   }
+
+  .logotype svg {
+    width: 80px;
+  }
+
 
 
   .mobile-menu {
