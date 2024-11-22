@@ -1,0 +1,39 @@
+.documents {
+    padding: 50px 0;
+}
+
+.subtitle {
+    opacity: 0.4;
+    margin-bottom: 50px;
+}
+
+.documents-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 35px;
+    margin-bottom: 50px;
+}
+
+.documents-list li {
+    display: flex;
+    flex-direction: column;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 40px;
+    border-radius: 15px;
+}
+
+.documents-list li p {
+    font-size: 28px;
+    margin-bottom: 8px;
+}
+
+.documents-list li span {
+    margin-bottom: 25px;
+    opacity: 0.35;
+    font-weight: 400;
+}
+
+.documents-list li button {
+    width: 150px;
+    background: #14cc74;
+}

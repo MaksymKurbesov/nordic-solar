@@ -1,12 +1,28 @@
 .last-transactions {
   margin-bottom: 50px;
+  width: 100%;
 }
 
 .last-transactions h3 {
   color: #777;
   font-size: 16px;
   font-family: GilroySemiBold;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
+}
+
+.last-transactions-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 10px;
+}
+
+.last-transactions-list li {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
 }
 
 @media screen and (max-width: 767px) {

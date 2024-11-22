@@ -1,6 +1,8 @@
 import styles from './Footer.module.scss'
 import Logo from '@assets/logo.svg?react'
 import { CircleButton } from '../CirlceButton/CircleButton.tsx'
+import React from 'react'
+import { NavLink } from 'react-router-dom'
 
 const Footer = ({ isFullFooter }) => {
   return (
@@ -31,19 +33,28 @@ const Footer = ({ isFullFooter }) => {
           <h3>Навигация</h3>
           <ul>
             <li>
-              <a href={'#'}>Продукты</a>
+              <NavLink to={'/products'}>Продукты</NavLink>
             </li>
             <li>
-              <a href={'#'}>Инвестиции</a>
+              <NavLink to={'/investments'}>Инвестиции</NavLink>
             </li>
             <li>
-              <a href={'#'}>О нас</a>
+              <NavLink to={'/about-us'}>О нас</NavLink>
             </li>
             <li>
-              <a href={'#'}>FAQ</a>
+              <NavLink to={'/faq'}>FAQ</NavLink>
             </li>
             <li>
-              <a href={'#'}>Контакты</a>
+              <NavLink to={'/contacts'}>Контакты</NavLink>
+            </li>
+            <li>
+              <NavLink to={'/company-documents'}>Документы компании</NavLink>
+            </li>
+            <li>
+              <a href={'#'}>Политика конфиденциальности</a>
+            </li>
+            <li>
+              <a href={'#'}>Условия эксплуатации</a>
             </li>
           </ul>
         </nav>

@@ -52,8 +52,10 @@ const MainCabinet = () => {
     <div className={styles['main-cabinet']}>
       <Wallets wallets={sortByAvailable(user.wallets)} />
       <Deposits deposits={deposits} />
-      <NextAccrual nextAccrual={nextAccrual} />
-      <LastTransactions transactions={transactions.slice(0, 4)} />
+      <div className={styles['accrual-wrapper']}>
+        <NextAccrual nextAccrual={nextAccrual} />
+        <LastTransactions transactions={transactions.slice(0, 4)} />
+      </div>
     </div>
   )
 }

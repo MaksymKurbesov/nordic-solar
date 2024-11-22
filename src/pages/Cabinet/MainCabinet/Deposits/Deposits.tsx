@@ -1,8 +1,6 @@
 import styles from './Deposits.module.scss'
-import Table from '@SharedUI/Table/Table.tsx'
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs'
 import { transformDeposit } from '@/utils/helpers'
-import { Avatar, List } from '@mui/material'
 import DepositsList from '@/pages/Cabinet/MainCabinet/Deposits/DepositsList/DepositsList.tsx'
 
 const DEPOSIT_COLUMNS = [

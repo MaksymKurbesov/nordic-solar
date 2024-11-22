@@ -16,13 +16,6 @@ export const generateUserData = (nickname: string, email: string) => {
     withdrawn: 0,
     referrals: 0,
     wallets: {
-      pm: {
-        available: 0,
-        deposited: 0,
-        referrals: 0,
-        withdrawn: 0,
-        number: '',
-      },
       bitcoin: {
         available: 0,
         deposited: 0,

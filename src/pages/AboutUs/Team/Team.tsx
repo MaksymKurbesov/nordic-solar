@@ -1,67 +1,67 @@
-import styles from "./Team.module.scss";
-import TeamMember1 from "@assets/images/team/1.png";
-import TeamMember2 from "@assets/images/team/2.png";
-import TeamMember3 from "@assets/images/team/3.png";
-import TeamMember4 from "@assets/images/team/4.png";
-import TeamMember5 from "@assets/images/team/5.png";
-import TeamMember6 from "@assets/images/team/6.png";
-import TeamMember7 from "@assets/images/team/7.png";
+import styles from './Team.module.scss'
+import TeamMember1 from '@assets/images/team/1.png'
+import TeamMember2 from '@assets/images/team/2.png'
+import TeamMember3 from '@assets/images/team/3.png'
+import TeamMember4 from '@assets/images/team/4.png'
+import TeamMember5 from '@assets/images/team/5.png'
+import TeamMember6 from '@assets/images/team/6.png'
+import TeamMember7 from '@assets/images/team/7.png'
 
 const TEAM = [
   {
     photo: TeamMember1,
-    name: "Иван Иванов",
-    position: "Генеральный директор",
+    name: 'Jochen Wermuth',
+    position: 'Генеральный директор (CEO)',
   },
   {
     photo: TeamMember2,
-    name: "Мария Смирнова",
-    position: "Финансовый директор",
+    name: 'Mark Dooley',
+    position: 'Финансовый директор (CFO)',
   },
   {
     photo: TeamMember3,
-    name: "Александр Кузнецов",
-    position: "Технический директор",
+    name: 'Vladimir Grachev',
+    position: 'Технический директор (CTO)',
   },
   {
     photo: TeamMember4,
-    name: "Елена Петрова",
-    position: "Директор по маркетингу",
+    name: 'Michael Liebreich',
+    position: 'Директор по маркетингу',
   },
   {
     photo: TeamMember5,
-    name: "Дмитрий Соколов",
-    position: "Главный инженер",
+    name: 'Martin Green',
+    position: 'Главный инженер',
   },
   {
     photo: TeamMember6,
-    name: "Наталья Сергеева",
-    position: "Менеджер по устойчивому развитию",
+    name: 'Specialists from Eurasian Development Bank (EDB)',
+    position: '',
   },
   {
     photo: TeamMember7,
-    name: "Олег Васильев",
-    position: "Руководитель отдела по работе с инвесторами",
+    name: 'Representatives of Green Investment Group',
+    position: '',
   },
-];
+]
 
 const Team = () => {
   return (
-    <div className={styles["team"]}>
+    <div className={styles['team']}>
       <h4>Руководство компании</h4>
-      <ul className={styles["team-list"]}>
+      <ul className={styles['team-list']}>
         {TEAM.map((member) => {
           return (
             <li key={member.name}>
-              <img src={member.photo} alt={""} height={560} />
+              <img src={member.photo} alt={''} height={560} />
               <p>{member.name}</p>
               <span>{member.position}</span>
             </li>
-          );
+          )
         })}
       </ul>
     </div>
-  );
-};
+  )
+}
 
-export default Team;
+export default Team

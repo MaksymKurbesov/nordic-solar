@@ -2,6 +2,7 @@ import styles from './Contacts.module.scss'
 import Map from '@assets/images/map.png'
 import WideButton from '@SharedUI/WideButton/WideButton.tsx'
 import Input from '@SharedUI/Input/Input.tsx'
+import { ScrollRestoration } from 'react-router-dom'
 
 const Contacts = () => {
   return (
@@ -34,6 +35,7 @@ const Contacts = () => {
           <WideButton text={'Отправить сообщение'} />
         </div>
       </div>
+      <ScrollRestoration />
     </div>
   )
 }
