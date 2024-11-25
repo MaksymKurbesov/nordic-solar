@@ -99,6 +99,10 @@
 }
 
 @media screen and (max-width: 500px) {
+  .deposits-list {
+    gap: 10px;
+  }
+
   .deposits-list li > div:after {
     top: 131px;
   }

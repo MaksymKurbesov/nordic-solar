@@ -129,9 +129,9 @@ const OpenPlan = () => {
         {confirmPopupIsOpen && createPortal(<ConfirmedPopup />, document.body)}
         <ScrollRestoration />
       </div>
-      {!error && (
-        <p className={styles['error-message']}>Тестовое еррор сообщение</p>
-      )}
+      {/*{!error && (*/}
+      {/*  <p className={styles['error-message']}>Тестовое еррор сообщение</p>*/}
+      {/*)}*/}
       <NavigationButtons
         activeStep={activeStep}
         handleBack={handleBack}
