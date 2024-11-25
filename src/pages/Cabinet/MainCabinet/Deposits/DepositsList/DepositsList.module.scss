@@ -1,91 +1,129 @@
 .deposits-list {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 25px;
-    margin-bottom: 45px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
+  margin-bottom: 45px;
 }
 
 .deposits-list li {
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 20px;
-    border-radius: 15px;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-
-    row-gap: 23px;
-    position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
 }
 
-.deposits-list li:before {
-    content: "";
-    width: 95%;
-    height: 1px;
-    background: rgba(255, 255, 255, 0.1);
-    position: absolute;
-    top: 73px;
-    left: 50%;
-    transform: translateX(-50%);
+.deposits-list li > div {
+  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  //background: rgba(20, 204, 116, 1);
+  row-gap: 23px;
+  position: relative;
 }
 
-.deposits-list li:after {
-    content: "";
-    width: 95%;
-    height: 1px;
-    background: rgba(255, 255, 255, 0.1);
-    position: absolute;
-    top: 137px;
-    left: 50%;
-    transform: translateX(-50%);
+.active-deposits ul li {
+  background: linear-gradient(
+    to bottom right,
+    hsla(146, 100%, 50%, 0) 0%,
+    hsla(146, 100%, 50%, 0.001) 8.1%,
+    hsla(146, 100%, 50%, 0.005) 15.5%,
+    hsla(146, 100%, 50%, 0.01) 22.5%,
+    hsla(146, 100%, 50%, 0.018) 29%,
+    hsla(146, 100%, 50%, 0.026) 35.3%,
+    hsla(146, 100%, 50%, 0.035) 41.2%,
+    hsla(146, 100%, 50%, 0.045) 47.1%,
+    hsla(146, 100%, 50%, 0.055) 52.9%,
+    hsla(146, 100%, 50%, 0.065) 58.8%,
+    hsla(146, 100%, 50%, 0.074) 64.7%,
+    hsla(146, 100%, 50%, 0.082) 71%,
+    hsla(146, 100%, 50%, 0.09) 77.5%,
+    hsla(146, 100%, 50%, 0.095) 84.5%,
+    hsla(146, 100%, 50%, 0.099) 91.9%,
+    hsla(146, 100%, 50%, 0.1) 100%
+  );
+  background-clip: padding-box;
 }
 
+.deposits-list li > div:before {
+  content: '';
+  width: 95%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.1);
+  position: absolute;
+  top: 73px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.deposits-list li > div:after {
+  content: '';
+  width: 95%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.1);
+  position: absolute;
+  top: 137px;
+  left: 50%;
+  transform: translateX(-50%);
+}
 
 .cell {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .label {
-    display: flex;
-    align-items: center;
-    gap: 3px;
-    font-size: 12px;
-    opacity: 0.4;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 12px;
+  opacity: 0.4;
 }
 
 .value {
-    font-size: 14px;
+  font-size: 14px;
 }
 
-
-
 @media screen and (max-width: 900px) {
-    .deposits-list {
-        grid-template-columns: 1fr;
-    }
+  .deposits-list {
+    grid-template-columns: 1fr;
+  }
+
+  .deposits-list li {
+    height: 85px;
+    overflow: hidden;
+    transition: 0.35s ease all;
+  }
+
+  .opened {
+    height: 210px !important;
+  }
 }
 
 @media screen and (max-width: 500px) {
-    .deposits-list li {
-        padding: 15px;
-    }
+  .deposits-list li > div:after {
+    top: 131px;
+  }
 
-    .label {
-        font-size: 10px;
-    }
+  .deposits-list li > div:before {
+    top: 70px;
+  }
 
-    .value {
-        font-size: 12px;
-    }
+  .label {
+    font-size: 10px;
+  }
 
-    .nextAccrual .value {
-        width: 105px;
-    }
+  .value {
+    font-size: 12px;
+  }
 
-    .deposits-list li:before {
-        top: 65px;
-    }
+  .nextAccrual .value {
+    width: 105px;
+  }
 
-    .deposits-list li:after {
-        top: 128px;
-    }
+  .deposits-list li:before {
+    top: 65px;
+  }
+
+  .deposits-list li:after {
+    top: 128px;
+  }
 }

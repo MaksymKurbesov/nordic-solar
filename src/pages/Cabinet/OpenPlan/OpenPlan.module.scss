@@ -7,7 +7,6 @@
   margin-bottom: 35px;
 }
 
-
 .variants {
   margin-bottom: 50px;
 }
@@ -22,10 +21,17 @@
   opacity: 0;
 }
 
+.error-message {
+  margin-bottom: 20px;
+  color: $red;
+}
 
 @media screen and (max-width: 767px) {
   .open-plan h2 {
     font-size: 30px;
   }
-}
 
+  .stepper {
+    margin: 10px 0 15px 0 !important;
+  }
+}

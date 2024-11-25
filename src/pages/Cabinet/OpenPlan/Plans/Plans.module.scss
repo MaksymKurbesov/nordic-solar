@@ -33,7 +33,6 @@
   color: $black;
 }
 
-
 .plans-list li input {
   display: none;
 }
@@ -69,7 +68,15 @@
   }
 
   .plans-list li img {
-    height: 150px;
+    height: 100px;
     object-fit: cover;
+  }
+
+  .plans-list li p {
+    font-size: 16px;
+  }
+
+  .plans-list li a {
+    font-size: 12px;
   }
 }

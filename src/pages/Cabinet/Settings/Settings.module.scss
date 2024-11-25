@@ -7,24 +7,25 @@
   margin-bottom: 50px;
 }
 
-
 .tab-list {
   display: flex;
-  gap: 100px;
+  gap: 10vw;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   //padding-bottom: 10px;
   margin-bottom: 50px;
   color: #777;
 }
 
-.inputs, .safe-inputs {
+.inputs,
+.safe-inputs {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 40px;
+  gap: 20px;
   margin-bottom: 100px;
 }
 
-.inputs input, .safe-inputs input {
+.inputs input,
+.safe-inputs input {
   color: white;
 }
 
@@ -38,14 +39,18 @@
   cursor: pointer;
 }
 
-
 .selected-tab {
   color: white;
   position: relative;
   border-bottom: 1px solid white;
 }
 
-
 .selected-tab:focus:after {
   content: none;
+}
+
+@media screen and (max-width: 700px) {
+  .inputs {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }

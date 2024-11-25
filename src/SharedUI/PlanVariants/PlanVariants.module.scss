@@ -49,9 +49,8 @@
 }
 
 .plans-list li .plan-row:nth-child(3) {
-  grid-template-columns: repeat(4, 1fr)
+  grid-template-columns: repeat(4, 1fr);
 }
-
 
 .region span {
   display: flex;
@@ -72,10 +71,10 @@
   //transition: 0.35s ease all;
 }
 
-
 @media screen and (max-width: 767px) {
   .plans-list {
     grid-template-columns: 1fr;
+    gap: 15px;
   }
 
   .plans-list li {
@@ -84,5 +83,28 @@
 
   .plan-name {
     padding-bottom: 15px;
+    font-size: 20px;
+  }
+
+  .plan-row {
+    //margin-bottom: 10px;
+    padding: 10px 0;
+  }
+
+  .plans-list li .plan-row:nth-child(2) {
+    margin-bottom: 0;
+  }
+
+  .plan-row span {
+    font-size: 12px;
+    margin-bottom: 5px;
+  }
+
+  .region span svg {
+    width: 10px;
+  }
+
+  .region p {
+    font-size: 18px;
   }
 }

@@ -70,7 +70,11 @@ const Deposits = ({ deposits }) => {
           {activeDeposits.length === 0 ? (
             'У вас нет открытых депозитов'
           ) : (
-            <DepositsList deposits={activeDeposits} columns={DEPOSIT_COLUMNS} />
+            <DepositsList
+              isActive
+              deposits={activeDeposits}
+              columns={DEPOSIT_COLUMNS}
+            />
           )}
         </TabPanel>
         <TabPanel>

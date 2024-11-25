@@ -2,6 +2,12 @@ import styles from './LastTransactions.module.scss'
 import Table from '@SharedUI/Table/Table.tsx'
 import { TRANSACTION_COLUMNS } from '@/utils/const.tsx'
 
+const STYLES_MAP = {
+  Выполнено: 'success',
+  Ожидание: 'idle',
+  Отмена: 'cancel',
+}
+
 const LastTransactions = ({ transactions }) => {
   return (
     <div className={styles['last-transactions']}>
@@ -14,32 +20,24 @@ const LastTransactions = ({ transactions }) => {
           {transactions.map((transaction, index) => {
             return (
               <li key={index}>
-                <p>{transaction.type}</p>
-                <p>{transaction.id}</p>
-                <p>{transaction.amount}</p>
-                <p>{transaction.executor}</p>
-                <p>{transaction.date}</p>
-                <p>{transaction.status}</p>
+                {TRANSACTION_COLUMNS.map((column, index) => (
+                  <p
+                    key={index}
+                    className={`${styles['cell']} ${styles[column.key]}`}
+                  >
+                    <span>{column.title}</span>
+                    <span
+                      className={`${styles[STYLES_MAP[transaction[column.key]]]}`}
+                    >
+                      {transaction[column.key]}
+                    </span>
+                  </p>
+                ))}
               </li>
             )
           })}
         </ul>
       )}
-
-      {/*<ul>*/}
-      {/*  {transactions.map((transaction, index) => {*/}
-      {/*    return (*/}
-      {/*      <li key={index}>*/}
-      {/*        <p>{transaction.type}</p>*/}
-      {/*        <p>{transaction.id}</p>*/}
-      {/*        <p>{transaction.amount}</p>*/}
-      {/*        <p>{transaction.executor}</p>*/}
-      {/*        <p>{transaction.date}</p>*/}
-      {/*        <p>{transaction.status}</p>*/}
-      {/*      </li>*/}
-      {/*    );*/}
-      {/*  })}*/}
-      {/*</ul>*/}
     </div>
   )
 }
