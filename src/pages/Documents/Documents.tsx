@@ -16,12 +16,16 @@ const Documents = () => {
             Регистрация компании в Бруннёйсундетском регистре
             (Brønnøysundregistrene).
           </span>
-          <Button variant="contained">Скачать</Button>
+          <Button className={styles['download-button']} variant="contained">
+            Скачать
+          </Button>
         </li>
         <li>
           <p>Сертификаты</p>
           <span>Сертификаты соответствия экологическим стандартам</span>
-          <Button variant="contained">Скачать</Button>
+          <Button className={styles['download-button']} variant="contained">
+            Скачать
+          </Button>
         </li>
       </ul>
       <ScrollRestoration />

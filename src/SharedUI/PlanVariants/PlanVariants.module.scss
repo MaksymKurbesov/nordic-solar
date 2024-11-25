@@ -59,11 +59,19 @@
   line-height: 0;
 }
 
+.region span svg {
+  opacity: 0.5;
+}
+
 .accruals span {
   display: flex;
   align-items: center;
   gap: 5px;
   line-height: 0;
+}
+
+.accruals span svg {
+  opacity: 0.5;
 }
 
 .active {
@@ -89,14 +97,21 @@
   .plan-row {
     //margin-bottom: 10px;
     padding: 10px 0;
+    font-size: 16px;
   }
 
   .plans-list li .plan-row:nth-child(2) {
     margin-bottom: 0;
+    padding: 10px 0;
+  }
+
+  .plans-list li .plan-row:nth-child(3) {
+    padding: 0;
+    padding-top: 10px;
   }
 
   .plan-row span {
-    font-size: 12px;
+    font-size: 10px;
     margin-bottom: 5px;
   }
 
@@ -105,6 +120,6 @@
   }
 
   .region p {
-    font-size: 18px;
+    //font-size: 18px;
   }
 }

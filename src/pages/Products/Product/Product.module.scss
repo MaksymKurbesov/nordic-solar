@@ -1,150 +1,151 @@
 .product {
-    display: flex;
-    flex-direction: column;
-    padding-top: 70px;
+  display: flex;
+  flex-direction: column;
+  padding-top: 70px;
 }
 
 .product h2 {
-    margin-bottom: 50px;
+  margin-bottom: 50px;
 }
 
 .back-button {
-    background: white;
-    width: 100px;
-    padding: 10px;
-    border-radius: 50px;
-    margin-bottom: 15px;
-    cursor: pointer;
+  //background: white;
+  border: 1px solid white;
+  width: 100px;
+  padding: 10px;
+  border-radius: 50px;
+  margin-bottom: 15px;
+  cursor: pointer;
 }
 
 .product > button:nth-child(3) {
-    margin-bottom: 200px;
+  margin-bottom: 200px;
 }
 
 .subtitle {
-    font-size: 30px;
-    margin-bottom: 70px;
+  font-size: 30px;
+  margin-bottom: 70px;
 }
 
 .subtitle span {
-    color: $gray;
+  color: $gray;
 }
 
 .hero-image {
-    margin-bottom: 200px;
+  margin-bottom: 200px;
 }
 
 .main-text {
-    font-size: 50px;
-    max-width: 1200px;
-    color: $green;
-    margin-bottom: 50px;
+  font-size: 50px;
+  max-width: 1200px;
+  color: $green;
+  margin-bottom: 50px;
 }
 
 .main-text span {
-    color: $gray;
+  color: $gray;
 }
 
 .white {
-    color: $white !important;
+  color: $white !important;
 }
 
 .sub-text {
-    max-width: 600px;
-    margin-left: auto;
-    line-height: 1.6;
-    margin-bottom: 200px;
+  max-width: 600px;
+  margin-left: auto;
+  line-height: 1.6;
+  margin-bottom: 200px;
 }
 
 .sub-text span {
-    color: $gray;
+  color: $gray;
 }
 
 .gallery {
-    display: grid;
-    gap: 40px;
-    grid-template-columns: 40% 60%;
-    margin-bottom: 200px;
-    padding-right: 40px;
+  display: grid;
+  gap: 40px;
+  grid-template-columns: 40% 60%;
+  margin-bottom: 200px;
+  padding-right: 40px;
 }
 
 .gallery div {
-    //width: 50%;
-    display: flex;
-    gap: 40px;
+  //width: 50%;
+  display: flex;
+  gap: 40px;
 }
 
 .gallery > img {
-    width: 100%;
-    border-radius: 10px;
+  width: 100%;
+  border-radius: 10px;
 }
 
 .gallery div img {
-    width: 50%;
-    height: 50%;
-    display: block;
-    object-fit: cover;
-    border-radius: 10px;
+  width: 50%;
+  height: 50%;
+  display: block;
+  object-fit: cover;
+  border-radius: 10px;
 }
 
 .gallery div img:last-child {
-    align-self: flex-end;
-    //margin-left: 30px;
+  align-self: flex-end;
+  //margin-left: 30px;
 }
 
 @media screen and (max-width: 767px) {
-    .product {
-        padding-top: 35px;
-    }
+  .product {
+    padding-top: 35px;
+  }
 
-    .product > button:nth-child(3) {
-        margin-bottom: 75px;
-    }
+  .product > button:nth-child(3) {
+    margin-bottom: 75px;
+  }
 
-    .hero-image {
-        margin-bottom: 75px;
-        height: 600px;
-        object-fit: cover;
-        border-radius: 8px;
-    }
+  .hero-image {
+    margin-bottom: 75px;
+    height: 600px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
 
-    .subtitle {
-        font-size: 22px;
-    }
+  .subtitle {
+    font-size: 22px;
+  }
 
-    .gallery {
-        grid-template-columns: 1fr;
-        padding: 0;
-    }
+  .gallery {
+    grid-template-columns: 1fr;
+    padding: 0;
+  }
 
-    .gallery div {
-        display: flex;
-        flex-direction: column;
-        //gap: 20px;
-    }
+  .gallery div {
+    display: flex;
+    flex-direction: column;
+    //gap: 20px;
+  }
 
-    .gallery div img {
-        height: 300px;
-        width: 100%;
-    }
+  .gallery div img {
+    height: 300px;
+    width: 100%;
+  }
 
-    .gallery img {
-        object-fit: cover;
-        height: 300px;
-        border-radius: 8px;
-    }
+  .gallery img {
+    object-fit: cover;
+    height: 300px;
+    border-radius: 8px;
+  }
 
-    .main-text {
-        font-size: 26px;
-        text-align: center;
-    }
+  .main-text {
+    font-size: 26px;
+    text-align: center;
+  }
 
-    .sub-text {
-        margin-bottom: 75px;
-        font-family: GilroyRegular;
-    }
+  .sub-text {
+    margin-bottom: 75px;
+    font-family: GilroyRegular;
+  }
 
-    .gallery {
-        margin-bottom: 75px;
-    }
+  .gallery {
+    margin-bottom: 75px;
+  }
 }

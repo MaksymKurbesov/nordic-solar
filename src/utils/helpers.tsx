@@ -1,5 +1,5 @@
 import { serverTimestamp, Timestamp } from 'firebase/firestore'
-import { PLAN_VARIANTS } from '@SharedUI/PlanVariants/PlanVariants'
+import { PLAN_VARIANT } from '@SharedUI/PlanVariants/PlanVariants'
 import AccrualTimer from '@/pages/Cabinet/MainCabinet/Deposits/AccrualTimer'
 
 export const generateUserData = (nickname: string, email: string) => {
@@ -113,9 +113,13 @@ export const transformTransaction = (transaction) => {
 }
 
 export const transformDeposit = (deposit) => {
-  const variant = PLAN_VARIANTS.find(
-    (variant) => variant.value === deposit.variant,
-  )
+  const MAP_ITEM = {
+    beginner: 'Начинающий',
+    available: 'Доступный',
+    optimal: 'Оптимальный',
+    maximum: 'Максимальный',
+  }
+
   const nextAccrual = Timestamp.fromMillis(
     deposit.lastAccrual.toMillis() + 24 * 60 * 60 * 1000,
   )
@@ -128,7 +132,7 @@ export const transformDeposit = (deposit) => {
     closeDate: parseTimestamp(deposit.closeDate),
     willReceived: `$${deposit.willReceived}`,
     received: `$${deposit.received.toFixed(2)}`,
-    variant: variant.name,
+    variant: MAP_ITEM[deposit.variant],
     nextAccrual: deposit.isActive ? (
       <AccrualTimer nextAccrual={nextAccrual} />
     ) : (
@@ -160,10 +164,12 @@ export const addDays = (date, days) => {
   return new Date(result.getTime())
 }
 
-export const calculateTotalIncome = (initialAmount, dailyRate, days) => {
-  const finalAmount = initialAmount * Math.pow(1 + dailyRate / 100, days)
-  const income = finalAmount - initialAmount
-  return income.toFixed(2)
+export const calculateTotalIncome = (initialAmount, dailyPercentage, days) => {
+  if (isNaN(initialAmount)) {
+    return 0
+  }
+
+  return +(((initialAmount * dailyPercentage) / 100) * days).toFixed(2)
 }
 
 export const calculateDailyIncome = (initialAmount, dailyRate) => {

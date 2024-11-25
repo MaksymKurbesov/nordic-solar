@@ -9,7 +9,7 @@ import Contacts from '@/pages/Contacts/Contacts.tsx'
 import SignIn from '@/pages/SignIn/SignIn.tsx'
 import SignUp from '@/pages/SignUp/SignUp.tsx'
 import Individual from '@/pages/Investments/Individual/Individual.tsx'
-import Cabinet from '@/pages/Cabinet/Cabinet.tsx'
+import CabinetLayout from '@/pages/Cabinet/CabinetLayout.tsx'
 import MainCabinet from '@/pages/Cabinet/MainCabinet/MainCabinet.tsx'
 import MakeDeposit from '@/pages/Cabinet/MakeDeposit/MakeDeposit.tsx'
 import Transactions from '@/pages/Cabinet/Transactions/Transactions.tsx'
@@ -80,7 +80,7 @@ const routes = createBrowserRouter([
   },
   {
     path: '/cabinet',
-    element: <Cabinet />,
+    element: <CabinetLayout />,
     children: [
       {
         path: 'admin-panel',

@@ -5,7 +5,6 @@ import { useEffect, useState } from 'react'
 import { depositService } from '@/main.tsx'
 import ConfirmedPopup from '@SharedUI/ConfirmedPopup/ConfirmedPopup'
 import { calculateTotalIncome } from '@/utils/helpers'
-import { PLAN_VARIANT } from '@SharedUI/PlanVariants/PlanVariants'
 import { useUser } from '@/hooks/useUser'
 import { Box } from '@mui/material'
 import Plans from '@/pages/Cabinet/OpenPlan/Plans/Plans'
@@ -16,6 +15,7 @@ import OpenPlanConfirm from '@/pages/Cabinet/OpenPlan/OpenPlanConfirm/OpenPlanCo
 import MyStepper from '@/pages/Cabinet/OpenPlan/Stepper'
 import NavigationButtons from '@/pages/Cabinet/OpenPlan/NavigationButtons'
 import { createPortal } from 'react-dom'
+import { PLAN_VARIANT } from '@/utils/const.tsx'
 
 const steps = [
   {
@@ -72,6 +72,10 @@ const OpenPlan = () => {
     wallet,
     selectedVariant,
   }) => {
+    console.log(amount, 'amount')
+    console.log(variant.days, 'variant.days')
+    console.log(variant.inDay, 'variant.inDay')
+
     const willReceived = Number(
       calculateTotalIncome(amount, variant.inDay, variant.days),
     )
@@ -102,6 +106,7 @@ const OpenPlan = () => {
     if (activeStep === 2 && wallet) {
       const variant = PLAN_VARIANT[plan][selectedVariant]
       const userBalance = user?.wallets[wallet].available
+      console.log(variant, 'variant')
 
       if (userBalance < amount || amount < variant.minDeposit) return
     }
@@ -114,6 +119,7 @@ const OpenPlan = () => {
     if (!currentValue) return
 
     setActiveStep((prevActiveStep) => prevActiveStep + 1)
+    window.scrollTo(0, 0)
   }
 
   const handleBack = () => {
@@ -127,7 +133,6 @@ const OpenPlan = () => {
       <div className={styles['open-plan']}>
         <FormProvider {...form}>{steps[activeStep].component}</FormProvider>
         {confirmPopupIsOpen && createPortal(<ConfirmedPopup />, document.body)}
-        <ScrollRestoration />
       </div>
       {/*{!error && (*/}
       {/*  <p className={styles['error-message']}>Тестовое еррор сообщение</p>*/}

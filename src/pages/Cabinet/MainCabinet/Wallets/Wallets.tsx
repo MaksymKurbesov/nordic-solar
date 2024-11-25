@@ -1,26 +1,26 @@
-import styles from "./Wallets.module.scss";
-import { Swiper, SwiperSlide } from "swiper/react";
-import Wallet from "@SharedUI/Wallet/Wallet.tsx";
-import { WALLETS } from "@/utils/const.tsx";
-import { useRef } from "react";
-import ArrowIcon from "@assets/icons/arrow.svg?react";
+import styles from './Wallets.module.scss'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import Wallet from '@SharedUI/Wallet/Wallet.tsx'
+import { WALLETS } from '@/utils/const.tsx'
+import { useRef } from 'react'
+import ArrowIcon from '@assets/icons/arrow.svg?react'
 
 const Wallets = ({ wallets }) => {
-  const sliderRef = useRef(null);
+  const sliderRef = useRef(null)
 
   return (
-    <div className={styles["wallets"]}>
+    <div className={styles['wallets']}>
       <h3>Кошельки</h3>
-      <div className={`${styles["slider-buttons"]} `}>
+      <div className={`${styles['slider-buttons']} `}>
         <button
           onClick={() => sliderRef.current.slidePrev()}
-          className={styles["prev-button"]}
+          className={styles['prev-button']}
         >
           <ArrowIcon />
         </button>
         <button
           onClick={() => sliderRef.current.slideNext()}
-          className={styles["next-button"]}
+          className={styles['next-button']}
         >
           <ArrowIcon />
         </button>
@@ -42,34 +42,48 @@ const Wallets = ({ wallets }) => {
         onSwiper={(swiper) => (sliderRef.current = swiper)}
       >
         {Object.entries(wallets).map((wallet, index) => {
+          const walletName = wallet[0]
+          const walletData = wallet[1]
+          const additionalWalletData = WALLETS[walletName]
+
           return (
-            <SwiperSlide key={index} className={styles["wallet"]}>
-              <Wallet wallet={WALLETS[wallet[0]]}>
-                <div className={styles["values"]}>
-                  <div>
-                    <p>Доступно</p>
-                    <span>${wallet[1].available.toFixed(2)}</span>
-                  </div>
-                  <div>
-                    <p>Пополнено</p>
-                    <span>${wallet[1].deposited.toFixed(2)}</span>
-                  </div>
-                  <div>
-                    <p>Выведено</p>
-                    <span>${wallet[1].withdrawn.toFixed(2)}</span>
-                  </div>
-                  <div>
-                    <p>Реферальные</p>
-                    <span>${wallet[1].referrals.toFixed(2)}</span>
-                  </div>
+            <SwiperSlide
+              key={index}
+              className={`${styles['wallet']} ${styles[additionalWalletData.currency]}`}
+            >
+              {/*<Wallet wallet={WALLETS[wallet[0]]}>*/}
+              <div className={styles['header']}>
+                <div className={styles['icon']}>
+                  {additionalWalletData.icon}
                 </div>
-              </Wallet>
+                <p className={styles['name']}>{additionalWalletData.name}</p>
+                <span>{additionalWalletData.currency}</span>
+              </div>
+              <div className={styles['values']}>
+                <div>
+                  <p>Доступно</p>
+                  <span>${walletData.available.toFixed(2)}</span>
+                </div>
+                <div>
+                  <p>Пополнено</p>
+                  <span>${walletData.deposited.toFixed(2)}</span>
+                </div>
+                <div>
+                  <p>Выведено</p>
+                  <span>${walletData.withdrawn.toFixed(2)}</span>
+                </div>
+                <div>
+                  <p>Реферальные</p>
+                  <span>${walletData.referrals.toFixed(2)}</span>
+                </div>
+              </div>
+              {/*</Wallet>*/}
             </SwiperSlide>
-          );
+          )
         })}
       </Swiper>
     </div>
-  );
-};
+  )
+}
 
-export default Wallets;
+export default Wallets

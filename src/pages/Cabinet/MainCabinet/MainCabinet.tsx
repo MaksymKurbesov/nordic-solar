@@ -13,7 +13,7 @@ import {
 } from '@/utils/helpers.tsx'
 
 const MainCabinet = () => {
-  const { user } = useUser()
+  const { user, wallets } = useUser()
   const [transactions, setTransactions] = useState(null)
   const [deposits, setDeposits] = useState([])
   const closestDeposit = getClosestDeposit(deposits)
@@ -28,7 +28,7 @@ const MainCabinet = () => {
     )
 
     const unsubscribe = transactionService.subscribeToLastTenTransactions(
-      user?.nickname,
+      user.nickname,
       (updatedTransactions) => {
         setTransactions(updatedTransactions.map(transformTransaction))
       },
@@ -50,7 +50,7 @@ const MainCabinet = () => {
 
   return (
     <div className={styles['main-cabinet']}>
-      <Wallets wallets={sortByAvailable(user.wallets)} />
+      <Wallets wallets={sortByAvailable(wallets)} />
       <Deposits deposits={deposits} />
       <div className={styles['accrual-wrapper']}>
         <NextAccrual nextAccrual={nextAccrual} />

@@ -26,7 +26,6 @@
   //border: 2px solid $green;
 }
 
-
 .wallets-list li input {
   display: none;
 }
@@ -35,7 +34,6 @@
   font-size: 14px;
   color: #777;
   font-family: GilroySemiBold;
-  margin-bottom: 5px;
 }
 
 .balance span {
@@ -60,7 +58,6 @@
   margin-bottom: 70px;
 }
 
-
 @media screen and (max-width: 1200px) {
   .wallets-list {
     grid-template-columns: repeat(3, 1fr);
@@ -70,11 +67,24 @@
 @media screen and (max-width: 825px) {
   .wallets-list {
     grid-template-columns: repeat(2, 1fr);
+    margin-bottom: 35px;
   }
 }
 
 @media screen and (max-width: 600px) {
   .wallets-list {
     grid-template-columns: 1fr;
+  }
+
+  .balance {
+    margin-left: auto;
+  }
+
+  .balance span {
+    font-size: 20px;
+  }
+
+  .balance p {
+    text-align: right;
   }
 }

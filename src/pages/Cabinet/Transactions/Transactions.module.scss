@@ -1,9 +1,8 @@
 .transactions h3 {
   font-size: 16px;
   color: #777;
-  margin-bottom: 40px;
+  margin-bottom: 25px;
   position: relative;
-  left: 15px;
 }
 
 .table-wrapper {
@@ -24,7 +23,6 @@
 
   .transactions ul li {
     gap: 15px;
-    grid-template-columns:1fr 1fr 1fr !important;
+    grid-template-columns: 1fr 1fr 1fr !important;
   }
-
 }

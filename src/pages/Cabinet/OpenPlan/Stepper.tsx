@@ -14,8 +14,6 @@ const customStyles = {
 const MyStepper = ({ steps, activeStep }) => {
   const matches = useMediaQuery('(min-width:700px)')
 
-  console.log(matches, 'matches')
-
   return (
     <Stepper
       className={styles['stepper']}
