@@ -1,6 +1,6 @@
 import styles from './Documents.module.scss'
 import { Button } from '@mui/material'
-import { ScrollRestoration } from 'react-router-dom'
+import { Link, ScrollRestoration } from 'react-router-dom'
 
 const Documents = () => {
   return (
@@ -16,16 +16,24 @@ const Documents = () => {
             Регистрация компании в Бруннёйсундетском регистре
             (Brønnøysundregistrene).
           </span>
-          <Button className={styles['download-button']} variant="contained">
-            Скачать
-          </Button>
+          <Link to="/nordic-solar-documents.pdf" target="_blank" download>
+            <Button variant="contained">Скачать</Button>
+          </Link>
         </li>
         <li>
           <p>Сертификаты</p>
           <span>Сертификаты соответствия экологическим стандартам</span>
-          <Button className={styles['download-button']} variant="contained">
-            Скачать
-          </Button>
+          <div className={styles['cert-buttons']}>
+            <Link to="/ISO14001.pdf" target="_blank" download>
+              <Button variant="contained">ISO-14001</Button>
+            </Link>
+            <Link to="/ISO50001.pdf" target="_blank" download>
+              <Button variant="contained">ISO-50001</Button>
+            </Link>
+            <Link to="/climate-bonds-standart.pdf" target="_blank" download>
+              <Button variant="contained">Climate bonds standart</Button>
+            </Link>
+          </div>
         </li>
       </ul>
       <ScrollRestoration />
