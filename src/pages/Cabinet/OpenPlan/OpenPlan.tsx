@@ -92,10 +92,6 @@ const OpenPlan = () => {
     return await depositService.openPlan(user.nickname, depositData)
   }
 
-  const notify = () => {
-    toast.error('test')
-  }
-
   const handleNext = () => {
     const stepType = steps[activeStep].type
     const currentValue = form.watch(stepType)

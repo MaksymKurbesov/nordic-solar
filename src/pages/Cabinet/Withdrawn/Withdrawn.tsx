@@ -1,64 +1,73 @@
-import { useForm } from "react-hook-form";
-import { ScrollRestoration, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
-import { useUser } from "@/hooks/useUser.ts";
-import TransactionForm from "@SharedUI/TransactionForm/TransactionForm.tsx";
-import styles from "./Withdrawn.module.scss";
-import WideButton from "@SharedUI/WideButton/WideButton.tsx";
-import { sortByAvailable } from '@/utils/helpers';
+import { useForm } from 'react-hook-form'
+import { ScrollRestoration, useNavigate } from 'react-router-dom'
+import { useEffect } from 'react'
+import { useUser } from '@/hooks/useUser.ts'
+import TransactionForm from '@SharedUI/TransactionForm/TransactionForm.tsx'
+import styles from './Withdrawn.module.scss'
+import WideButton from '@SharedUI/WideButton/WideButton.tsx'
+import { sortByAvailable } from '@/utils/helpers'
+import { toast } from 'react-toastify'
 
 const Withdrawn = () => {
-  const { user } = useUser();
+  const { user } = useUser()
   const form = useForm({
     defaultValues: {
-      wallet: "",
+      wallet: '',
       amount: 0,
     },
-    mode: "onChange",
-  });
-  const { register, watch } = form;
-  const selectedWallet = watch().wallet;
-  const navigate = useNavigate();
+    mode: 'onChange',
+  })
+  const { register, watch } = form
+  const selectedWallet = watch().wallet
+  const navigate = useNavigate()
 
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+    window.scrollTo(0, 0)
+  }, [])
 
   const submitConfirm = () => {
-    const wallet = watch().wallet;
-    const amount = watch().amount;
+    const wallet = watch().wallet
+    const amount = watch().amount
 
-    if (user?.wallets[wallet].available < amount) {
-      console.log("нема денег")
-      return;
+    if (!wallet) {
+      toast.error('Выберите кошелёк')
+      return
     }
 
-    if (!wallet || !amount) return;
+    if (user?.wallets[wallet].available < amount) {
+      toast.error('Недостаточно средств на кошельке')
+      return
+    }
 
-    navigate("/cabinet/withdrawn/confirm-transaction", {
+    if (amount < 10) {
+      toast.error('Минимальная сумма вывода 10$')
+      return
+    }
+
+    navigate('/cabinet/withdrawn/confirm-transaction', {
       state: {
         wallet,
         amount,
-        type: "withdrawn",
+        type: 'withdrawn',
       },
-    });
-  };
+    })
+  }
 
-  if (!user) return;
+  if (!user) return
 
   return (
-    <div className={styles["withdrawn"]}>
+    <div className={styles['withdrawn']}>
       <h2>Вывод средств</h2>
       <TransactionForm
         wallets={sortByAvailable(user.wallets)}
         selectedWallet={selectedWallet}
         register={register}
-        inputText={"Введите сумму вывода"}
+        inputText={'Введите сумму вывода'}
       />
-      <WideButton text={"Вывести средства"} onClickHandler={submitConfirm} />
+      <WideButton text={'Вывести средства'} onClickHandler={submitConfirm} />
       <ScrollRestoration />
     </div>
-  );
-};
+  )
+}
 
-export default Withdrawn;
+export default Withdrawn
