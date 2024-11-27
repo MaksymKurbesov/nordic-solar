@@ -212,4 +212,24 @@ export const PLAN_VARIANT = {
       accruals: 'В конце срока',
     },
   },
+  mining: {
+    beginner: {
+      type: 'CryptoGrow',
+      days: 90,
+      minDeposit: 2000,
+      maxDeposit: 9999,
+      inDay: 0.45,
+      region: 'Африка',
+      accruals: 'В конце срока',
+    },
+    available: {
+      type: 'ProfitMine',
+      days: 45,
+      minDeposit: 10000,
+      maxDeposit: -1,
+      inDay: 0.23,
+      region: 'Европа',
+      accruals: 'В конце срока',
+    },
+  },
 }

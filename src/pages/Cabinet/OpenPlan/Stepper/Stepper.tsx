@@ -1,5 +1,5 @@
 import { Step, StepLabel, Stepper, useMediaQuery } from '@mui/material'
-import styles from './OpenPlan.module.scss'
+import styles from '../OpenPlan.module.scss'
 
 const customStyles = {
   '& .MuiStepLabel-label': {

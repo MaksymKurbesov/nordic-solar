@@ -7,6 +7,7 @@ import { useAuthState } from '@/hooks/useAuthState.ts'
 import { auth, depositService, userService } from '@/main.tsx'
 import MobileCabinetMenu from '@SharedUI/CabinetMenu/MobileCabinetMenu'
 import { useUser } from '@/hooks/useUser.ts'
+import { ToastContainer } from 'react-toastify'
 
 const CabinetLayout = () => {
   const [user, userLoading] = useAuthState(auth, { onUserChanged: true })
@@ -41,6 +42,7 @@ const CabinetLayout = () => {
       </div>
       <Footer />
       <MobileCabinetMenu />
+      <ToastContainer />
     </div>
   )
 }

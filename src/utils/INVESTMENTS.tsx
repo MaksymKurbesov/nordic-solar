@@ -6,6 +6,8 @@ import HydroPowerEdgeHero from '@assets/images/investments/hydro-hero.webp'
 import HydroPowerEdge from '@assets/images/investments/hydro.webp'
 import HydrogenHero from '@assets/images/investments/hydrogen-hero.webp'
 import Hydrogen from '@assets/images/investments/hydrogen.webp'
+import MiningHero from '@assets/images/investments/mining-farm-hero.webp'
+import Mining from '@assets/images/investments/mining-farm.webp'
 
 export const INVESTMENTS = [
   {
@@ -107,5 +109,31 @@ export const INVESTMENTS = [
     ),
     link: 'hydrogen-horizons',
     value: 'hydrogen',
+  },
+  {
+    title: 'Mining Farms',
+    subtitle: (
+      <>
+        <span>Получите доступ</span> к передовым технологиям добычи <br />{' '}
+        криптовалют с гарантированной поддержкой.
+      </>
+    ),
+    heroImage: MiningHero,
+    thumbImage: Mining,
+    mainText: (
+      <>
+        <span>Регулярные отчеты</span> и{' '}
+        <span>персонализированные консультации</span> <br /> помогут
+        максимизировать прибыль
+      </>
+    ),
+    subText: (
+      <>
+        Эффективное управление портфелем и <br />
+        стратегии для стабильного роста доходов от майнинга.
+      </>
+    ),
+    link: 'mining-farms',
+    value: 'mining',
   },
 ]

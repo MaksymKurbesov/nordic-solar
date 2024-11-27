@@ -3,6 +3,7 @@ import SolarFuture from '@assets/images/investments/solar-future.webp'
 import WindProsperity from '@assets/images/investments/wind-prosperity.webp'
 import HydroPowerEdge from '@assets/images/investments/hydro.webp'
 import Hydrogen from '@assets/images/investments/hydrogen.webp'
+import Mining from '@assets/images/investments/mining-farm.webp'
 import ArrowButton from '@SharedUI/ArrowButton/ArrowButton.tsx'
 import Instruction from '@/pages/Investments/Instruction/Instruction.tsx'
 import ContactUs from '@SharedUI/ContactUs/ContactUs.tsx'
@@ -36,6 +37,13 @@ const PLANS = [
     name: 'Hydrogen Horizons',
     description:
       'Инвестиции и проекты в области водородной энергетики, включая технологии производства, хранения и добычи водорода для перехода на экологически чистую энергетику.',
+  },
+  {
+    link: 'mining-farms',
+    image: Mining,
+    name: 'Mining Farms',
+    description:
+      'Проекты и инвестиции в майнинговые фермы, направленные на разработку, оптимизацию и масштабирование оборудования для эффективной добычи криптовалют и получения стабильной прибыли.',
   },
 ]
 

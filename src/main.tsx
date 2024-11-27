@@ -14,6 +14,7 @@ import DepositService from '@/services/DepositService.ts'
 import ReferralService from '@/services/ReferralService.ts'
 import Wallets from '@/pages/Cabinet/MainCabinet/Wallets/Wallets.tsx'
 import WalletsService from '@/services/WalletsService.ts'
+import 'react-toastify/dist/ReactToastify.css'
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_API_KEY,

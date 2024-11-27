@@ -1,8 +1,9 @@
-import Menu from "@SharedUI/Menu/Menu.tsx";
-import { Outlet } from "react-router-dom";
-import Footer from "@SharedUI/Footer/Footer.tsx";
-import "react-tabs/style/react-tabs.css";
-import MobileMenu from "@SharedUI/Menu/MobileMenu.tsx";
+import Menu from '@SharedUI/Menu/Menu.tsx'
+import { Outlet } from 'react-router-dom'
+import Footer from '@SharedUI/Footer/Footer.tsx'
+import 'react-tabs/style/react-tabs.css'
+import MobileMenu from '@SharedUI/Menu/MobileMenu.tsx'
+import { ToastContainer } from 'react-toastify'
 
 function App() {
   return (
@@ -11,8 +12,9 @@ function App() {
       <Outlet />
       <Footer isFullFooter />
       <MobileMenu />
+      <ToastContainer />
     </>
-  );
+  )
 }
 
-export default App;
+export default App

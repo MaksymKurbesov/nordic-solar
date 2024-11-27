@@ -12,10 +12,11 @@ import WalletAmount from '@/pages/Cabinet/OpenPlan/WalletAmount/WalletAmount'
 import Variants from '@/pages/Cabinet/OpenPlan/Variants/Variants'
 import OpenPlanConfirm from '@/pages/Cabinet/OpenPlan/OpenPlanConfirm/OpenPlanConfirm'
 
-import MyStepper from '@/pages/Cabinet/OpenPlan/Stepper'
+import MyStepper from '@/pages/Cabinet/OpenPlan/Stepper/Stepper.tsx'
 import NavigationButtons from '@/pages/Cabinet/OpenPlan/NavigationButtons'
 import { createPortal } from 'react-dom'
 import { PLAN_VARIANT } from '@/utils/const.tsx'
+import { toast, ToastContainer } from 'react-toastify'
 
 const steps = [
   {
@@ -72,10 +73,6 @@ const OpenPlan = () => {
     wallet,
     selectedVariant,
   }) => {
-    console.log(amount, 'amount')
-    console.log(variant.days, 'variant.days')
-    console.log(variant.inDay, 'variant.inDay')
-
     const willReceived = Number(
       calculateTotalIncome(amount, variant.inDay, variant.days),
     )
@@ -95,20 +92,32 @@ const OpenPlan = () => {
     return await depositService.openPlan(user.nickname, depositData)
   }
 
+  const notify = () => {
+    toast.error('test')
+  }
+
   const handleNext = () => {
     const stepType = steps[activeStep].type
     const currentValue = form.watch(stepType)
+    const plan = form.watch('plan')
+    const selectedVariant = form.watch('variant')
     const wallet = form.watch('wallet')
     const amount = form.watch('amount')
-    const selectedVariant = form.watch('variant')
-    const plan = form.watch('plan')
+
+    if (!plan) {
+      toast.error('Выберите тип плана', { autoClose: 3000 })
+    }
+
+    if (!selectedVariant && activeStep === 1)
+      toast.error('Выберите вариант плана', { autoClose: 3000 })
 
     if (activeStep === 2 && wallet) {
       const variant = PLAN_VARIANT[plan][selectedVariant]
       const userBalance = user?.wallets[wallet].available
-      console.log(variant, 'variant')
-
-      if (userBalance < amount || amount < variant.minDeposit) return
+      if (userBalance < amount || amount < variant.minDeposit) {
+        toast.error('Недостаточно средств')
+        return
+      }
     }
 
     if (activeStep === steps.length - 1) {
@@ -134,9 +143,6 @@ const OpenPlan = () => {
         <FormProvider {...form}>{steps[activeStep].component}</FormProvider>
         {confirmPopupIsOpen && createPortal(<ConfirmedPopup />, document.body)}
       </div>
-      {/*{!error && (*/}
-      {/*  <p className={styles['error-message']}>Тестовое еррор сообщение</p>*/}
-      {/*)}*/}
       <NavigationButtons
         activeStep={activeStep}
         handleBack={handleBack}
