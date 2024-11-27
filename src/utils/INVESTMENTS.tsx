@@ -1,135 +1,111 @@
-import IndividualImage from '@assets/images/investments/individual-hero.webp';
-import MutualFundsImage from '@assets/images/investments/mutual-fonds-hero.webp';
-import DirectInvestmentImage from '@assets/images/investments/direct-investments-hero.webp';
-import CorporateInvestmentImage from '@assets/images/investments/corporative-hero.webp';
-import CrowdfundingImage from '@assets/images/investments/crowdfunding-hero.webp';
-import PensionInvestmentImage from '@assets/images/investments/pension-hero.webp';
+import SolarFutureHero from '@assets/images/investments/solar-future-hero.webp'
+import SolarFuture from '@assets/images/investments/solar-future.webp'
+import WindProsperityHero from '@assets/images/investments/wind-prosperity-hero.webp'
+import WindProsperity from '@assets/images/investments/wind-prosperity.webp'
+import HydroPowerEdgeHero from '@assets/images/investments/hydro-hero.webp'
+import HydroPowerEdge from '@assets/images/investments/hydro.webp'
+import HydrogenHero from '@assets/images/investments/hydrogen-hero.webp'
+import Hydrogen from '@assets/images/investments/hydrogen.webp'
 
 export const INVESTMENTS = [
   {
-    title: 'Индивидуальные инвестиционные планы',
-    subtitle: <><span>Персонализированное</span> управление портфелем, <br />{' '}
-      индивидуальные консультации и регулярные отчеты</>,
-    heroImage: IndividualImage,
-    mainText: <><span>Индивидуальные планы,</span> разработанные с учетом <br /> ваших
-      целей и потребностей</>,
-    subText: <>Получите персонализированное управление портфелем, <br />
-      индивидуальные консультации и регулярные отчеты</>,
-    link: 'individual-investment-plans'
-  },
-  {
-    title: 'Взаимные фонды зеленой энергетики',
+    title: 'Solar Future',
     subtitle: (
       <>
-        <span>Инвестируйте</span> в будущее с помощью <br />{' '}
-        зеленых и устойчивых проектов
+        <span> Индивидуальные</span> инвестиционные стратегии для солнечной
+        энергетики, <br /> основанные на ваших целях.
       </>
     ),
-    heroImage: MutualFundsImage,
+    heroImage: SolarFutureHero,
+    thumbImage: SolarFuture,
     mainText: (
       <>
-        <span>Фонды зеленой энергетики</span> предоставляют возможность <br />
-        инвестировать в устойчивое развитие и чистую энергию
+        <span>Поддержите проекты,</span> преобразующие солнечную энергию <br />{' '}
+        в устойчивый доход.
       </>
     ),
     subText: (
       <>
-        Участвуйте в финансировании экологически чистых проектов, <br />
-        чтобы сделать мир лучше для будущих поколений
+        Инвестируйте в экологически чистое будущее <br /> с помощью
+        персонализированных решений.
       </>
     ),
-    link: 'mutual-fonds'
+    link: 'solar-future',
+    value: 'solar',
   },
   {
-    title: 'Программы прямых инвестиций',
+    title: 'Wind Prosperity',
     subtitle: (
       <>
-        <span>Прямые инвестиции</span> в компании и проекты, <br />{' '}
-        предоставляющие уникальные возможности
+        <span>Стратегии</span>, направленные на развитие <br /> устойчивых
+        ветроэнергетических проектов.
       </>
     ),
-    heroImage: DirectInvestmentImage,
+    heroImage: WindProsperityHero,
+    thumbImage: WindProsperity,
     mainText: (
       <>
-        <span>Программы прямых инвестиций</span> позволяют <br />
-        получить доступ к приватным сделкам и проектам
+        <span>Ваше участие</span> в проектах ветроэнергетики – <br />
+        шаг к глобальной экологической стабильности.
       </>
     ),
     subText: (
       <>
-        Откройте для себя инвестиционные возможности вне публичных рынков, <br />
-        выбирая проекты с высокой доходностью
+        Регулярные консультации и подробный анализ <br /> помогут вам управлять
+        инвестициями уверенно.
       </>
     ),
-    link: 'direct-investments'
+    link: 'wind-prosperity',
+    value: 'wind',
   },
   {
-    title: 'Корпоративные инвестиционные планы',
+    title: 'Hydro PowerEdge',
     subtitle: (
       <>
-        <span>Корпоративные инвестиционные решения</span> для <br />{' '}
-        компаний, стремящихся к устойчивому росту
+        <span>Решения для развития </span> гидроэлектростанций, <br />{' '}
+        основанные на коллективных инвестициях.
       </>
     ),
-    heroImage: CorporateInvestmentImage,
+    heroImage: HydroPowerEdgeHero,
+    thumbImage: HydroPowerEdge,
     mainText: (
       <>
-        <span>Корпоративные инвестиционные планы</span> нацелены на <br />
-        управление капиталом в интересах бизнеса
+        <span>Инвестируйте в проекты,</span> которые создают стабильные <br /> и
+        надежные источники энергии
       </>
     ),
     subText: (
       <>
-        Оптимизируйте корпоративные финансы, <br />
-        используя эффективные стратегии управления инвестициями
+        Получите доступ к инновациям в гидроэнергетике <br /> через детально
+        разработанные планы.
       </>
     ),
-    link: 'corporate-investment-plans'
+    link: 'hydro-poweredge',
+    value: 'hydro',
   },
   {
-    title: 'Программы коллективных инвестиций (Crowdfunding)',
+    title: 'Hydrogen Horizons',
     subtitle: (
       <>
-        <span>Инвестируйте коллективно</span> через краудфандинг, <br />{' '}
-        поддерживайте инновации и стартапы
+        <span>Инвестируйте</span> в проекты водородной энергетики <br /> для
+        устойчивого будущего.
       </>
     ),
-    heroImage: CrowdfundingImage,
+    heroImage: HydrogenHero,
+    thumbImage: Hydrogen,
     mainText: (
       <>
-        <span>Программы коллективных инвестиций</span> позволяют <br />
-        поддерживать проекты и получать прибыль вместе с другими
+        <span>Индивидуальные инвестиционные планы,</span> <br />
+        нацеленные на развитие водородных технологий.
       </>
     ),
     subText: (
       <>
-        Вложите свои средства в инновационные стартапы и проекты, <br />
-        используя силу краудфандинга
+        Станьте частью новой эры энергетики <br /> с поддержкой инновационных
+        решений.
       </>
     ),
-    link: 'crowdfunding-investment-programs'
+    link: 'hydrogen-horizons',
+    value: 'hydrogen',
   },
-  {
-    title: 'Пенсионные инвестиционные планы',
-    subtitle: (
-      <>
-        <span>Надежные инвестиционные</span> стратегии для <br />{' '}
-        обеспечения вашей финансовой независимости на пенсии
-      </>
-    ),
-    heroImage: PensionInvestmentImage,
-    mainText: (
-      <>
-        <span>Пенсионные инвестиционные планы</span> помогут <br />
-        вам сохранить и приумножить капитал для беззаботной пенсии
-      </>
-    ),
-    subText: (
-      <>
-        Долгосрочные инвестиции с акцентом на стабильность и рост, <br />
-        обеспечат вам достойный уровень жизни на пенсии
-      </>
-    ),
-    link: 'pension-investment-plans'
-  }
-];
+]

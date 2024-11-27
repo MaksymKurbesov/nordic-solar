@@ -1,8 +1,8 @@
 import styles from './Investments.module.scss'
-import Individual from '@assets/images/investments/individual.webp'
-import MutualFonds from '@assets/images/investments/mutual-fonds.webp'
-import Crowdfounding from '@assets/images/investments/crowdfunding.webp'
-import Pension from '@assets/images/investments/pension.webp'
+import SolarFuture from '@assets/images/investments/solar-future.webp'
+import WindProsperity from '@assets/images/investments/wind-prosperity.webp'
+import HydroPowerEdge from '@assets/images/investments/hydro.webp'
+import Hydrogen from '@assets/images/investments/hydrogen.webp'
 import ArrowButton from '@SharedUI/ArrowButton/ArrowButton.tsx'
 import Instruction from '@/pages/Investments/Instruction/Instruction.tsx'
 import ContactUs from '@SharedUI/ContactUs/ContactUs.tsx'
@@ -10,32 +10,32 @@ import { NavLink, ScrollRestoration } from 'react-router-dom'
 
 const PLANS = [
   {
-    link: 'individual-investment-plans',
-    image: Individual,
-    name: 'Индивидуальные инвестиционные планы',
+    link: 'solar-future',
+    image: SolarFuture,
+    name: 'Solar Future',
     description:
-      'Индивидуальные планы, разработанные с учетом ваших целей и потребностей. Получите персонализированное управление портфелем, индивидуальные консультации и регулярные отчеты',
+      'Перспективные проекты и инвестиционные решения в области солнечной энергетики, направленные на использование возобновляемых источников энергии для устойчивого будущего.',
   },
   {
-    link: 'mutual-fonds',
-    image: MutualFonds,
-    name: 'Взаимные фонды зеленой энергетики',
+    link: 'wind-prosperity',
+    image: WindProsperity,
+    name: 'Wind Prosperity',
     description:
-      'Инвестируйте в диверсифицированные фонды, включающие проекты в солнечной, ветровой, гидроэнергетике и водородных технологиях. Диверсификация снижает риски, а профессиональное управление активами обеспечивает стабильный доход',
+      'Разработка и реализация комплексных планов для создания эффективных ветроэнергетических установок, обеспечивающих надежное и экологичное энергоснабжение.',
   },
   {
-    link: 'crowdfunding-investment-programs',
-    image: Crowdfounding,
-    name: 'Программы коллективных инвестиций (Crowdfunding)',
+    link: 'hydro-poweredge',
+    image: HydroPowerEdge,
+    name: 'Hydro PowerEdge',
     description:
-      'Платформа для коллективных инвестиций, позволяющая частным лицам объединять средства для финансирования проектов зеленой энергетики. Доступные пороги входа, прозрачность и регулярные отчеты',
+      'Программы по развитию гидроэлектростанций с применением передовых технологий, ориентированные на повышение производительности и снижение экологического воздействия.',
   },
   {
-    link: 'pension-investment-plans',
-    image: Pension,
-    name: 'Пенсионные инвестиционные планы',
+    link: 'hydrogen-horizons',
+    image: Hydrogen,
+    name: 'Hydrogen Horizons',
     description:
-      'Долгосрочные планы для накопления пенсионных средств. Стабильный доход, минимальные риски и регулярные выплаты обеспечат надежное будущее',
+      'Инвестиции и проекты в области водородной энергетики, включая технологии производства, хранения и добычи водорода для перехода на экологически чистую энергетику.',
   },
 ]
 
@@ -57,7 +57,6 @@ const Investments = () => {
                   <h3>{plan.name}</h3>
                   <p>{plan.description}</p>
                 </div>
-
                 <ArrowButton />
               </NavLink>
             </li>

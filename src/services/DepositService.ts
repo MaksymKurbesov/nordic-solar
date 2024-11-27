@@ -89,7 +89,7 @@ class DepositService implements IDepositService {
       })
     } catch (e) {
       console.error(e)
-      alert(e)
+      alert(`${e} getAllDeposits`)
     }
   }
 
@@ -130,7 +130,7 @@ class DepositService implements IDepositService {
       })
     } catch (e) {
       console.error(e)
-      alert(e)
+      alert(`${e} makeAccrual`)
     }
   }
 
@@ -195,7 +195,7 @@ class DepositService implements IDepositService {
       })
     } catch (e) {
       console.error(e)
-      alert(e)
+      alert(`${e} makeAccruals`)
     }
   }
 
@@ -224,7 +224,7 @@ class DepositService implements IDepositService {
       })
     } catch (e) {
       console.error(e)
-      alert(e)
+      alert(`${e} checkDepositsForAccruals`)
     }
   }
 }

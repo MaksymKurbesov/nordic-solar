@@ -6,11 +6,7 @@ import { ScrollRestoration, useLocation, useNavigate } from 'react-router-dom'
 import { INVESTMENTS } from '@/utils/INVESTMENTS'
 
 const getPlanValue = (value) => {
-  if (value === 'mutual-fonds') {
-    return value
-  } else {
-    return value.split('-')[0]
-  }
+  return value.split('-')[0]
 }
 
 const Investment = () => {
@@ -20,8 +16,6 @@ const Investment = () => {
   const investment = INVESTMENTS.find((product) => product.link === productName)
   const { title, subtitle, heroImage, mainText, subText } = investment
   const planValue = getPlanValue(productName)
-
-  console.log(planValue, 'planValue')
 
   return (
     <div className={`${styles['investment']} container`}>

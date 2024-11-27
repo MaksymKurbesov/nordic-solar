@@ -1,39 +1,7 @@
 import styles from './Plans.module.scss'
-import PlanImage1 from '@assets/images/investments/individual.webp'
-import PlanImage2 from '@assets/images/investments/mutual-fonds.webp'
-import PlanImage3 from '@assets/images/investments/direct-investments.webp'
-import PlanImage4 from '@assets/images/investments/corporative.webp'
-import PlanImage5 from '@assets/images/investments/crowdfunding.webp'
-import PlanImage6 from '@assets/images/investments/pension.webp'
 import { useFormContext } from 'react-hook-form'
 import { NavLink } from 'react-router-dom'
-
-export const PLANS = [
-  {
-    title: 'Индивидуальные инвестиционные планы',
-    image: PlanImage1,
-    value: 'individual',
-    moreLink: 'individual-investment-plans',
-  },
-  {
-    title: 'Взаимные фонды зеленой энергетики',
-    image: PlanImage2,
-    value: 'mutual-fonds',
-    moreLink: 'mutual-fonds',
-  },
-  {
-    title: 'Программы коллективных инвестиций (Crowdfunding)',
-    image: PlanImage5,
-    value: 'crowdfunding',
-    moreLink: 'crowdfunding-investment-programs',
-  },
-  {
-    title: 'Пенсионные инвестиционные планы',
-    image: PlanImage6,
-    value: 'pension',
-    moreLink: 'pension-investment-plans',
-  },
-]
+import { INVESTMENTS } from '@/utils/INVESTMENTS.tsx'
 
 const Plans = () => {
   const { register, watch } = useFormContext()
@@ -42,7 +10,7 @@ const Plans = () => {
   return (
     <div className={styles['plans-list-wrapper']}>
       <ul className={styles['plans-list']}>
-        {PLANS.map((plan, index) => {
+        {INVESTMENTS.map((plan, index) => {
           return (
             <li
               key={index}
@@ -57,11 +25,11 @@ const Plans = () => {
                 })}
               />
               <label htmlFor={plan.value} className={styles['plan-text']}>
-                <img src={plan.image} alt={''} />
+                <img src={plan.thumbImage} alt={''} />
                 <p>{plan.title}</p>
                 <NavLink
                   target={'_blank'}
-                  to={`/investments/${plan.moreLink}`}
+                  to={`/investments/${plan.link}`}
                   className={styles['more-button']}
                 >
                   Подробнее

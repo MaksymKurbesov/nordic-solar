@@ -1,12 +1,12 @@
 import styles from './PlanVariants.module.scss'
 import GeoIcon from '@assets/icons/geo.svg?react'
 import MoneyIcon from '@assets/icons/money.svg?react'
-import { useFormContext } from 'react-hook-form'
 import { useEffect, useState } from 'react'
 import { PLAN_VARIANT } from '@/utils/const.tsx'
 
 const PlanVariants = ({ register, selectedPlan, selectedVariant }) => {
   const [variants, setVariants] = useState(null)
+  console.log(selectedPlan, 'selectedPlan')
 
   useEffect(() => {
     setVariants(PLAN_VARIANT[selectedPlan])

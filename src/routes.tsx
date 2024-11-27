@@ -1,31 +1,29 @@
 import { createBrowserRouter } from 'react-router-dom'
-import Products from './pages/Products/Products.tsx'
 import App from '@/App.tsx'
-import { IndexPage } from '@/pages/IndexPage/IndexPage.tsx'
-import AboutUs from '@/pages/AboutUs/AboutUs.tsx'
-import Investments from '@/pages/Investments/Investments.tsx'
-import FAQ from '@/pages/FAQ/FAQ.tsx'
-import Contacts from '@/pages/Contacts/Contacts.tsx'
-import SignIn from '@/pages/SignIn/SignIn.tsx'
-import SignUp from '@/pages/SignUp/SignUp.tsx'
-import Individual from '@/pages/Investments/Individual/Individual.tsx'
 import CabinetLayout from '@/pages/Cabinet/CabinetLayout.tsx'
-import MainCabinet from '@/pages/Cabinet/MainCabinet/MainCabinet.tsx'
-import MakeDeposit from '@/pages/Cabinet/MakeDeposit/MakeDeposit.tsx'
-import Transactions from '@/pages/Cabinet/Transactions/Transactions.tsx'
-import Referrals from '@/pages/Cabinet/Referrals/Referrals.tsx'
-import Withdrawn from '@/pages/Cabinet/Withdrawn/Withdrawn.tsx'
-import Settings from '@/pages/Cabinet/Settings/Settings.tsx'
-import ConfirmTransaction from '@/pages/ConfirmTransaction/ConfirmTransaction.tsx'
-import AdminPanel from '@/pages/AdminPanel/AdminPanel.tsx'
-import OpenPlan from '@/pages/Cabinet/OpenPlan/OpenPlan.tsx'
-import Variants from '@/pages/Cabinet/OpenPlan/Variants/Variants.tsx'
-import Plans from '@/pages/Cabinet/OpenPlan/Plans/Plans.tsx'
-import OpenPlanConfirm from '@/pages/Cabinet/OpenPlan/OpenPlanConfirm/OpenPlanConfirm.tsx'
-import WalletAmount from '@/pages/Cabinet/OpenPlan/WalletAmount/WalletAmount.tsx'
-import Product from '@/pages/Products/Product/Product'
-import Investment from '@/pages/Investments/Investment/Investment'
-import Documents from '@/pages/Documents/Documents.tsx'
+import {
+  AboutUsPage,
+  AdminPanelPage,
+  ConfirmTransactionPage,
+  ContactsPage,
+  DocumentsPage,
+  FAQPage,
+  IndexPage,
+  InvestmentPage,
+  InvestmentsPage,
+  MainCabinetPage,
+  MakeDepositPage,
+  OpenPlanPage,
+  ProductPage,
+  ProductsPage,
+  ReferralsPage,
+  SettingsPage,
+  SignInPage,
+  SignUpPage,
+  TransactionsPage,
+  WithdrawnPage,
+} from '@/lazyPages.ts'
+import { Suspense } from 'react'
 
 const routes = createBrowserRouter([
   {
@@ -34,47 +32,91 @@ const routes = createBrowserRouter([
     children: [
       {
         path: '/',
-        element: <IndexPage />,
+        element: (
+          <Suspense fallback={<div>Loading...</div>}>
+            <IndexPage />
+          </Suspense>
+        ),
       },
       {
         path: '/products',
-        element: <Products />,
+        element: (
+          <Suspense fallback={<div>Loading...</div>}>
+            <ProductsPage />
+          </Suspense>
+        ),
       },
       {
         path: '/products/:product',
-        element: <Product />,
+        element: (
+          <Suspense fallback={<div>Loading...</div>}>
+            <ProductPage />
+          </Suspense>
+        ),
       },
       {
         path: '/investments',
-        element: <Investments />,
+        element: (
+          <Suspense fallback={<div>Loading...</div>}>
+            <InvestmentsPage />
+          </Suspense>
+        ),
       },
       {
         path: '/investments/:investment',
-        element: <Investment />,
+        element: (
+          <Suspense fallback={<div>Loading...</div>}>
+            <InvestmentPage />
+          </Suspense>
+        ),
       },
       {
         path: '/about-us',
-        element: <AboutUs />,
+        element: (
+          <Suspense fallback={<div>Loading...</div>}>
+            <AboutUsPage />
+          </Suspense>
+        ),
       },
       {
         path: '/faq',
-        element: <FAQ />,
+        element: (
+          <Suspense fallback={<div>Loading...</div>}>
+            <FAQPage />
+          </Suspense>
+        ),
       },
       {
         path: '/contacts',
-        element: <Contacts />,
+        element: (
+          <Suspense fallback={<div>Loading...</div>}>
+            <ContactsPage />
+          </Suspense>
+        ),
       },
       {
         path: '/sign-in',
-        element: <SignIn />,
+        element: (
+          <Suspense fallback={<div>Loading...</div>}>
+            <SignInPage />
+          </Suspense>
+        ),
       },
       {
         path: '/sign-up',
-        element: <SignUp />,
+        element: (
+          <Suspense fallback={<div>Loading...</div>}>
+            <SignUpPage />
+          </Suspense>
+        ),
       },
       {
         path: '/company-documents',
-        element: <Documents />,
+        element: (
+          <Suspense fallback={<div>Loading...</div>}>
+            <DocumentsPage />
+          </Suspense>
+        ),
       },
     ],
   },
@@ -84,43 +126,83 @@ const routes = createBrowserRouter([
     children: [
       {
         path: 'admin-panel',
-        element: <AdminPanel />,
+        element: (
+          <Suspense fallback={<div>Loading...</div>}>
+            <AdminPanelPage />
+          </Suspense>
+        ),
       },
       {
         path: 'main',
-        element: <MainCabinet />,
+        element: (
+          <Suspense fallback={<div>Loading...</div>}>
+            <MainCabinetPage />
+          </Suspense>
+        ),
       },
       {
         path: 'open-plan/plans',
-        element: <OpenPlan />,
+        element: (
+          <Suspense fallback={<div>Loading...</div>}>
+            <OpenPlanPage />
+          </Suspense>
+        ),
       },
       {
         path: 'make-deposit',
-        element: <MakeDeposit />,
+        element: (
+          <Suspense fallback={<div>Loading...</div>}>
+            <MakeDepositPage />
+          </Suspense>
+        ),
       },
       {
         path: 'make-deposit/confirm-transaction',
-        element: <ConfirmTransaction />,
+        element: (
+          <Suspense fallback={<div>Loading...</div>}>
+            <ConfirmTransactionPage />
+          </Suspense>
+        ),
       },
       {
         path: 'withdrawn',
-        element: <Withdrawn />,
+        element: (
+          <Suspense fallback={<div>Loading...</div>}>
+            <WithdrawnPage />
+          </Suspense>
+        ),
       },
       {
         path: 'withdrawn/confirm-transaction',
-        element: <ConfirmTransaction />,
+        element: (
+          <Suspense fallback={<div>Loading...</div>}>
+            <ConfirmTransactionPage />
+          </Suspense>
+        ),
       },
       {
         path: 'transactions',
-        element: <Transactions />,
+        element: (
+          <Suspense fallback={<div>Loading...</div>}>
+            <TransactionsPage />
+          </Suspense>
+        ),
       },
       {
         path: 'referrals',
-        element: <Referrals />,
+        element: (
+          <Suspense fallback={<div>Loading...</div>}>
+            <ReferralsPage />
+          </Suspense>
+        ),
       },
       {
         path: 'settings',
-        element: <Settings />,
+        element: (
+          <Suspense fallback={<div>Loading...</div>}>
+            <SettingsPage />
+          </Suspense>
+        ),
       },
     ],
   },

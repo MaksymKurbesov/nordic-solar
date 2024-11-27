@@ -1,21 +1,100 @@
 .open-plan-confirm {
+    max-width: 550px;
+    width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 15px;
-    margin-bottom: 40px;
+    gap: 10px;
+    //margin-bottom: 40px;
+    margin: 70px auto 100px;
+    color: black;
+}
+
+.row {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    padding: 25px;
+    background: white;
+    border-radius: 20px;
+}
+
+.success-transaction {
+    font-size: 14px;
+}
+
+.icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    background: rgba(20, 204, 116, 0.25);
+    border-radius: 50%;
+}
+
+.icon svg {
+    z-index: 55;
+}
+
+.amount {
+    font-size: 40px;
+    font-family: GilroySemiBold;
+}
+
+.wallet, .total-income {
+    padding-bottom: 17px;
+    border-bottom: 1px dashed rgba(0, 0, 0, 0.3);
 }
 
 .open-plan-confirm p {
     display: flex;
     align-items: center;
-    font-size: 18px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 16px 24px;
-    border-radius: 8px;
+    justify-content: space-between;
 }
 
-.open-plan-confirm p span {
-    flex-basis: 250px;
-    color: #777;
+.receipt {
+    gap: 25px;
 }
 
+.receipt p {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.wallet {
+    text-transform: capitalize;
+}
+
+.open-plan-confirm p span:nth-child(2) {
+    font-family: GilroySemiBold;
+    text-align: right;
+}
+
+.trouble {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.trouble p {
+    display: flex;
+    flex-direction: column;
+    align-items: initial;
+}
+
+
+.trouble p span:nth-child(2) {
+    text-align: initial;
+}
+
+.chevron {
+    margin-left: auto;
+}
+
+@media screen and (max-width: 568px) {
+    .open-plan-confirm {
+        margin: 20px auto;
+    }
+}
