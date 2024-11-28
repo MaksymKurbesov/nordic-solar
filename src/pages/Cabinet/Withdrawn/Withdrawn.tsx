@@ -6,7 +6,7 @@ import TransactionForm from '@SharedUI/TransactionForm/TransactionForm.tsx'
 import styles from './Withdrawn.module.scss'
 import WideButton from '@SharedUI/WideButton/WideButton.tsx'
 import { sortByAvailable } from '@/utils/helpers'
-import { toast } from 'react-toastify'
+import toast from 'react-hot-toast'
 
 const Withdrawn = () => {
   const { user } = useUser()

@@ -2,12 +2,12 @@ import styles from './CabinetLayout.module.scss'
 import { Outlet, useNavigate } from 'react-router-dom'
 import Footer from '@SharedUI/Footer/Footer.tsx'
 import CabinetMenu from '@SharedUI/CabinetMenu/CabinetMenu.tsx'
-import React, { Suspense, useEffect } from 'react'
+import { useEffect } from 'react'
 import { useAuthState } from '@/hooks/useAuthState.ts'
 import { auth, depositService, userService } from '@/main.tsx'
 import MobileCabinetMenu from '@SharedUI/CabinetMenu/MobileCabinetMenu'
 import { useUser } from '@/hooks/useUser.ts'
-import { ToastContainer } from 'react-toastify'
+import { Toaster } from 'react-hot-toast'
 
 const CabinetLayout = () => {
   const [user, userLoading] = useAuthState(auth, { onUserChanged: true })
@@ -42,7 +42,7 @@ const CabinetLayout = () => {
       </div>
       <Footer />
       <MobileCabinetMenu />
-      <ToastContainer />
+      <Toaster />
     </div>
   )
 }

@@ -10,8 +10,7 @@ import { parseTimestamp } from '@/utils/helpers'
 import { useEffect, useState } from 'react'
 import { referralService } from '@/main'
 import LevelAccordion from '@/pages/Cabinet/Referrals/LevelAccordion/LevelAccordion'
-import { toast, ToastContainer } from 'react-toastify'
-import { Toast } from 'react-toastify/dist/components'
+import toast from 'react-hot-toast'
 
 const Referrals = () => {
   const { user } = useUser()
@@ -63,7 +62,7 @@ const Referrals = () => {
     fetchActiveReferrals()
   }, [user])
 
-  const CopyNotify = () => toast.success('Copied!')
+  const CopyNotify = () => toast.success('Скопировано!')
 
   if (!user) return
 
@@ -83,11 +82,11 @@ const Referrals = () => {
             onClick={() => {
               CopyNotify()
               navigator.clipboard.writeText(
-                `https://nordic-solar.tech/?referral=${user.nickname}`,
+                `https://nordic-solar.tech/sign-up?referral=${user.nickname}`,
               )
             }}
           >
-            {`https://nordic-solar.tech/?referral=${user.nickname}`}{' '}
+            {`https://nordic-solar.tech/sign-up?referral=${user.nickname}`}{' '}
             <CopyIcon />
           </p>
         </div>

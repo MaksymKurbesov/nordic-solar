@@ -16,7 +16,7 @@ import MyStepper from '@/pages/Cabinet/OpenPlan/Stepper/Stepper.tsx'
 import NavigationButtons from '@/pages/Cabinet/OpenPlan/NavigationButtons'
 import { createPortal } from 'react-dom'
 import { PLAN_VARIANT } from '@/utils/const.tsx'
-import { toast, ToastContainer } from 'react-toastify'
+import toast from 'react-hot-toast'
 
 const steps = [
   {

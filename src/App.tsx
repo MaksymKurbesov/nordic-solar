@@ -3,7 +3,7 @@ import { Outlet } from 'react-router-dom'
 import Footer from '@SharedUI/Footer/Footer.tsx'
 import 'react-tabs/style/react-tabs.css'
 import MobileMenu from '@SharedUI/Menu/MobileMenu.tsx'
-import { ToastContainer } from 'react-toastify'
+import { Toaster } from 'react-hot-toast'
 
 function App() {
   return (
@@ -12,7 +12,7 @@ function App() {
       <Outlet />
       <Footer isFullFooter />
       <MobileMenu />
-      <ToastContainer />
+      <Toaster />
     </>
   )
 }
