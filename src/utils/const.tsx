@@ -1,8 +1,15 @@
-import TRC20Icon from '@assets/icons/tether.svg?react'
-import TonIcon from '@assets/icons/ton.svg?react'
-import BitcoinIcon from '@assets/icons/bitcoin.svg?react'
-import EthereumIcon from '@assets/icons/ethereum.svg?react'
-import PMIcon from '@assets/icons/pm.svg?react'
+import TRC20Icon from '@assets/icons/crypto-wallets/tether.svg?react'
+import TonIcon from '@assets/icons/crypto-wallets/ton.svg?react'
+import BitcoinIcon from '@assets/icons/crypto-wallets/bitcoin.svg?react'
+import EthereumIcon from '@assets/icons/crypto-wallets/ethereum.svg?react'
+import SolanaIcon from '@assets/icons/crypto-wallets/solana.svg?react'
+
+export const REFERRAL_REWARDS_BY_LEVEL = {
+  1: 10,
+  2: 7,
+  3: 5,
+  4: 3,
+}
 
 export const WALLETS = {
   trc20: {
@@ -25,10 +32,10 @@ export const WALLETS = {
     name: 'Ethereum',
     currency: 'ETH',
   },
-  pm: {
-    icon: <PMIcon />,
-    name: 'PM',
-    currency: 'PM',
+  solana: {
+    icon: <SolanaIcon />,
+    name: 'Solana',
+    currency: 'SOL',
   },
 }
 

@@ -18,7 +18,8 @@ import {
   updateProfile,
   User,
 } from 'firebase/auth'
-import { auth } from '@/main.tsx'
+import { auth, transactionService } from '@/main.tsx'
+import { REFERRAL_REWARDS_BY_LEVEL } from '@/utils/const.tsx'
 
 interface IUserService {
   db: Firestore
@@ -57,17 +58,103 @@ class UserService implements IUserService {
     }
   }
 
-  async addReferralToUser(username: string, referralName: string) {
-    const referralRef = doc(this.userCollection, referralName)
-    const usernameRef = doc(this.userCollection, username)
+  addReferralRewards = async (
+    nickname: string,
+    amount: number,
+    executor: string,
+  ) => {
+    const referralLength = 4
 
-    await updateDoc(referralRef, {
-      [`referral.1`]: arrayUnion(usernameRef),
-    })
+    try {
+      let currentReferralLevel = 1
 
-    await updateDoc(usernameRef, {
-      referredBy: referralName,
-    })
+      const addReward = async (
+        referredBy: string,
+        amount: number,
+        wallet: string,
+      ) => {
+        const referredByDoc = doc(this.db, 'users', referredBy)
+        const referredBySnap = await getDoc(referredByDoc)
+        const referralNotFound = referredBy === '' || !referredBySnap.exists()
+
+        if (currentReferralLevel > referralLength || referralNotFound) {
+          return
+        }
+
+        const referralReward =
+          (amount / 100) * REFERRAL_REWARDS_BY_LEVEL[currentReferralLevel]
+
+        await updateDoc(referredByDoc, {
+          referrals: increment(referralReward),
+          [`wallets.${wallet}.referrals`]: increment(referralReward),
+          [`wallets.${wallet}.available`]: increment(referralReward),
+        })
+
+        await transactionService.addTransaction({
+          amount: referralReward,
+          executor: nickname,
+          nickname: referredBySnap.data().nickname,
+          status: 'Выполнено',
+          type: 'Реферальные',
+        })
+
+        currentReferralLevel++
+
+        await addReward(referredBySnap.data().referredBy, amount, wallet)
+      }
+
+      const userRef = doc(this.db, 'users', nickname)
+
+      await getDoc(userRef).then(async (user) => {
+        if (!user.exists()) return
+
+        await addReward(user.data().referredBy, amount, executor)
+      })
+    } catch (e) {
+      console.error(e)
+    }
+  }
+
+  addReferralToAllLevels = async (referredBy: string, signedUpUser: string) => {
+    if (referredBy === '') {
+      return
+    }
+
+    try {
+      let currentReferralLevel = 1
+
+      const signedUpUserDoc = doc(this.db, 'users', signedUpUser)
+      await updateDoc(signedUpUserDoc, {
+        referredBy,
+      })
+
+      const addReferral = async (referredBy: string) => {
+        const referredByDoc = doc(this.db, 'users', referredBy)
+        const nextReferredBy = await getDoc(referredByDoc)
+
+        const referralLength = 4
+
+        if (currentReferralLevel > referralLength || referredBy === '') {
+          return
+        }
+
+        if (!nextReferredBy.exists()) {
+          return
+        }
+
+        await updateDoc(referredByDoc, {
+          [`referredTo.${currentReferralLevel}`]: arrayUnion(signedUpUser),
+        })
+
+        currentReferralLevel++
+
+        await addReferral(nextReferredBy.data().referredBy)
+      }
+
+      await addReferral(referredBy)
+    } catch (e) {
+      console.error(e)
+    }
   }
 
   async logIn(email: string, password: string, setError) {

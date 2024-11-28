@@ -1,4 +1,4 @@
-import { createContext, useState, ReactNode, useEffect } from 'react'
+import { createContext, useState, ReactNode, useEffect, FC } from 'react'
 import { auth, walletsService } from '@/main.tsx'
 import { useAuthState } from '@/hooks/useAuthState.ts'
 
@@ -33,23 +33,22 @@ interface UserProviderProps {
 }
 
 // Создаем провайдер, который будет оборачивать компоненты и предоставлять доступ к контексту
-export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
+export const UserProvider: FC<UserProviderProps> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null)
   const [wallets, setWallets] = useState([])
-  const [firebaseUser] = useAuthState(auth)
 
   useEffect(() => {
-    const fetchUserData = async () => {
-      if (!auth.currentUser) return
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        // Действия при наличии пользователя
+        walletsService.subscribeOnWallets(user.displayName, setWallets)
+      } else {
+        setWallets([])
+      }
+    })
 
-      await walletsService.subscribeOnWallets(
-        firebaseUser.displayName,
-        setWallets,
-      )
-    }
-
-    fetchUserData()
-  }, [auth.currentUser])
+    return () => unsubscribe()
+  }, [])
 
   // Объект значений, который будет предоставлен всем компонентам
   const value = {

@@ -3,6 +3,8 @@ import styles from './Wallet.module.scss'
 const Wallet = ({ wallet, children }) => {
   if (!wallet) return
 
+  console.log(wallet.currency, 'wallet.currency')
+
   return (
     <div className={`${styles['wallet-slide']} ${styles[wallet.currency]}`}>
       <div className={styles['header']}>

@@ -115,10 +115,8 @@ const Referrals = () => {
           <span className={styles['icon']}>
             <DateIcon />
           </span>
-          <p>Дата регистрации</p>
-          <p className={styles['value']}>
-            {parseTimestamp(user.registrationDate, true)}
-          </p>
+          <p>Вас пригласил</p>
+          <p className={styles['value']}>{user.referredBy}</p>
         </div>
       </div>
       <div className={styles['referral-levels']}>

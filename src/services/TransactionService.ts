@@ -53,22 +53,29 @@ class TransactionService implements ITransactionService {
     }
   }
 
-  async getPendingTransactions() {
+  getPendingTransactions(onUpdate: (transactions: any[]) => void): () => void {
     try {
       const q = query(
         this.transactionCollection,
         where('status', '==', 'Ожидание'),
       )
-      const querySnapshot = await getDocs(q)
 
-      const transactions = querySnapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(), // Приводим данные документа к типу Transaction
-      }))
+      // Подписываемся на изменения
+      const unsubscribe = onSnapshot(q, (querySnapshot) => {
+        const transactions = querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(), // Приводим данные документа к типу Transaction
+        }))
 
-      return transactions
+        // Вызываем коллбек для передачи обновленных данных
+        onUpdate(transactions)
+      })
+
+      // Возвращаем функцию отписки для остановки слушателя
+      return unsubscribe
     } catch (e) {
       console.log(e, 'error in get pending transactions')
+      return () => {} // Возвращаем пустую функцию на случай ошибок
     }
   }
 
@@ -80,6 +87,8 @@ class TransactionService implements ITransactionService {
         [`wallets.${executor}.available`]: increment(amount),
         [`wallets.${executor}.deposited`]: increment(amount),
       })
+
+      await userService.addReferralRewards(nickname, amount, executor)
     }
 
     if (type === 'Вывод') {

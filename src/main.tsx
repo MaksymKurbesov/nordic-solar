@@ -1,4 +1,3 @@
-import React from 'react'
 import { createRoot } from 'react-dom/client'
 import { RouterProvider } from 'react-router-dom'
 import './main.scss'
@@ -12,7 +11,6 @@ import TransactionService from '@/services/TransactionService.ts'
 import { UserProvider } from './UserContext'
 import DepositService from '@/services/DepositService.ts'
 import ReferralService from '@/services/ReferralService.ts'
-import Wallets from '@/pages/Cabinet/MainCabinet/Wallets/Wallets.tsx'
 import WalletsService from '@/services/WalletsService.ts'
 
 const firebaseConfig = {
@@ -34,10 +32,25 @@ export const depositService = new DepositService(db)
 export const referralService = new ReferralService(db)
 export const walletsService = new WalletsService(db)
 
-createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
-    <UserProvider>
-      <RouterProvider router={routes} />
-    </UserProvider>
-  </React.StrictMode>,
-)
+let container = null
+
+document.addEventListener('DOMContentLoaded', (e) => {
+  if (!container) {
+    container = document.getElementById('root') as HTMLElement
+
+    const root = createRoot(container)
+    root.render(
+      <UserProvider>
+        <RouterProvider router={routes} />
+      </UserProvider>,
+    )
+  }
+})
+//
+// createRoot(container!).render(
+//   // <React.StrictMode>
+//   <UserProvider>
+//     <RouterProvider router={routes} />
+//   </UserProvider>,
+//   // </React.StrictMode>,
+// )

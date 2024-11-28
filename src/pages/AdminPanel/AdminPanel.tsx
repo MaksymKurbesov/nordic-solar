@@ -1,25 +1,33 @@
-import styles from "./AdminPanel.module.scss";
-import { transactionService } from "@/main.tsx";
-import { useEffect, useState } from "react";
-import { parseTimestamp } from "@/utils/helpers.tsx";
+import styles from './AdminPanel.module.scss'
+import { transactionService } from '@/main.tsx'
+import { useEffect, useState } from 'react'
+import { parseTimestamp } from '@/utils/helpers.tsx'
 
 const AdminPanel = () => {
-  const [transactions, setTransactions] = useState(null);
-
-  const fetchTransactions = async () => {
-    const data = await transactionService.getPendingTransactions();
-    setTransactions(data);
-  };
+  const [transactions, setTransactions] = useState(null)
 
   useEffect(() => {
-    fetchTransactions();
-  }, []);
+    const unsubscribe = transactionService.getPendingTransactions(
+      (transactions) => {
+        console.log('Обновленные транзакции:', transactions)
+        setTransactions(transactions)
+      },
+    )
 
-  if (!transactions) return null;
+    return () => {
+      unsubscribe()
+    }
+  }, [])
+
+  const confirmTransaction = (transaction) => {
+    transactionService.confirmTransaction(transaction)
+  }
+
+  if (!transactions) return null
 
   return (
-    <div className={styles["admin-panel"]}>
-      <h2>АДМИН ПАНЕЛЬ</h2>
+    <div className={styles['admin-panel']}>
+      <h2>Adminka</h2>
       <ul>
         {transactions.map((transaction) => {
           return (
@@ -30,7 +38,9 @@ const AdminPanel = () => {
               </div>
               <div>
                 <span>Сумма</span>
-                <span>{transaction.amount}</span>
+                <span>
+                  {transaction.amount ? transaction.amount : 'Ошибка'}
+                </span>
               </div>
               <div>
                 <span>Тип</span>
@@ -48,22 +58,18 @@ const AdminPanel = () => {
                 <span>Дата</span>
                 <span>{parseTimestamp(transaction.date)}</span>
               </div>
-              <div className={styles["buttons"]}>
+              <div className={styles['buttons']}>
                 <button>Отмена</button>
-                <button
-                  onClick={() => {
-                    transactionService.confirmTransaction(transaction);
-                  }}
-                >
+                <button onClick={() => confirmTransaction(transaction)}>
                   Подтвердить
                 </button>
               </div>
             </li>
-          );
+          )
         })}
       </ul>
     </div>
-  );
-};
+  )
+}
 
-export default AdminPanel;
+export default AdminPanel

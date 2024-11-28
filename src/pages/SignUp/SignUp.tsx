@@ -6,7 +6,6 @@ import { FormProvider, useForm } from 'react-hook-form'
 import { userService } from '@/main.tsx'
 import { useEffect, useState } from 'react'
 import SuccessModal from '@/pages/SignUp/SuccessModal/SuccessModal'
-import useQuery from '@/hooks/useQuery.ts'
 
 export interface IUserData {
   nickname: string
@@ -54,7 +53,7 @@ const SignUp = () => {
     await userService.registerUser(trimmedNickname, trimmedEmail, data.password)
 
     if (data.referral) {
-      await userService.addReferralToUser(trimmedNickname, data.referral)
+      await userService.addReferralToAllLevels(data.referral, trimmedNickname)
     }
 
     openModal()
@@ -148,7 +147,7 @@ const SignUp = () => {
               label={'Ник реферала'}
               register={register}
               trigger={trigger}
-              value={referralNickname}
+              referralNickname={referralNickname}
             />
 
             <div className={styles['input-wrapper']}>

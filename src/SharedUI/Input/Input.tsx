@@ -10,7 +10,7 @@ interface InputProps {
   register: UseFormRegister<IUserData> // Правильная типизация для register
   validation?: object
   trigger: (name: keyof IUserData) => Promise<boolean>
-  value?: string
+  referralNickname?: string
 }
 
 const Input: FC<InputProps> = ({
@@ -20,15 +20,15 @@ const Input: FC<InputProps> = ({
   register = () => {},
   validation,
   trigger,
-  value = '',
+  referralNickname = '',
 }) => {
   return (
     <div className={styles['input']}>
       {label && <label htmlFor={name}>{label}</label>}
       <input
         id={name}
-        value={value}
         type={type}
+        {...(referralNickname ? { value: referralNickname } : {})}
         {...register(name, {
           ...validation,
           onBlur: () => {

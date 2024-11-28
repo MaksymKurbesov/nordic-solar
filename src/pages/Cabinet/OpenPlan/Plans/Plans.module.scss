@@ -70,9 +70,14 @@
     gap: 10px;
   }
 
+  .plans-list li {
+    padding: 5px;
+  }
+
   .plans-list li img {
     height: 100px;
     object-fit: cover;
+    margin-bottom: 5px;
   }
 
   .plans-list li p {
@@ -81,5 +86,9 @@
 
   .plans-list li a {
     font-size: 12px;
+  }
+
+  .plan-text p {
+    margin-bottom: 0;
   }
 }

@@ -11,10 +11,10 @@ class WalletsService implements IWalletService {
     this.db = db
   }
 
-  async subscribeOnWallets(email, callback) {
-    const userRef = doc(this.db, 'users', email)
+  async subscribeOnWallets(nickname: string, callback) {
+    if (!nickname) return
 
-    console.log(email, 'email')
+    const userRef = doc(this.db, 'users', nickname)
 
     // Set up an onSnapshot listener
     const unsubscribe = onSnapshot(userRef, (doc) => {

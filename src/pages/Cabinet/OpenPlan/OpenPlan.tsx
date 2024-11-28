@@ -107,6 +107,10 @@ const OpenPlan = () => {
     if (!selectedVariant && activeStep === 1)
       toast.error('Выберите вариант плана', { autoClose: 3000 })
 
+    if (activeStep === 2 && !wallet) {
+      toast.error('Выберите кошелёк')
+    }
+
     if (activeStep === 2 && wallet) {
       const variant = PLAN_VARIANT[plan][selectedVariant]
       const userBalance = user?.wallets[wallet].available
