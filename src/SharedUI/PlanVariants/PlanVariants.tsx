@@ -53,7 +53,7 @@ const PlanVariants = ({ register, selectedPlan, selectedVariant }) => {
               <div className={styles['plan-row']}>
                 <div>
                   <span>В день</span>
-                  <p>{variant.inDay}%</p>
+                  <p>{variant.inDay ? `${variant.inDay}%` : 'Индивидуально'}</p>
                 </div>
                 <div>
                   <span>Дней</span>

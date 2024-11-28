@@ -97,7 +97,7 @@ export const PLAN_VARIANT = {
     },
     maximum: {
       type: 'Solar Innovate',
-      days: 15,
+      days: null,
       minDeposit: 30000,
       maxDeposit: -1,
       inDay: null,

@@ -54,7 +54,6 @@
 .plans-list li button {
   display: block;
   //margin-left: auto;
-
 }
 
 @media screen and (max-width: 1000px) {
@@ -68,6 +67,10 @@
 }
 
 @media screen and (max-width: 767px) {
+  .investments h2 {
+    margin-bottom: 35px;
+  }
+
   .plans-list li a {
     position: relative;
     display: flex;
