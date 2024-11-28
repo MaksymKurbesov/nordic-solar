@@ -120,13 +120,6 @@ export const transformTransaction = (transaction) => {
 }
 
 export const transformDeposit = (deposit) => {
-  const MAP_ITEM = {
-    beginner: 'Начинающий',
-    available: 'Доступный',
-    optimal: 'Оптимальный',
-    maximum: 'Максимальный',
-  }
-
   const nextAccrual = Timestamp.fromMillis(
     deposit.lastAccrual.toMillis() + 24 * 60 * 60 * 1000,
   )
@@ -139,7 +132,7 @@ export const transformDeposit = (deposit) => {
     closeDate: parseTimestamp(deposit.closeDate),
     willReceived: `$${deposit.willReceived}`,
     received: `$${deposit.received.toFixed(2)}`,
-    variant: MAP_ITEM[deposit.variant],
+    variant: deposit.variant,
     nextAccrual: deposit.isActive ? (
       <AccrualTimer nextAccrual={nextAccrual} />
     ) : (
@@ -187,6 +180,8 @@ export const getClosestDeposit = (deposits) => {
   const currentTime = new Date().getTime() / 1000
 
   return deposits.reduce((closest, deposit) => {
+    if (!deposit.lastAccrual) return
+
     const timeToAccrual =
       deposit.lastAccrual.seconds + deposit.days * 86400 - currentTime
 

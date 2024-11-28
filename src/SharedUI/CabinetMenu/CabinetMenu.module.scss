@@ -209,12 +209,17 @@
 }
 
 @media screen and (max-width: 767px) {
+  .menu {
+    margin-bottom: 30px;
+  }
+
   .logotype svg {
     width: 80px;
   }
 
   .user {
     margin-right: 0;
+    width: 160px;
   }
 
   .user img {

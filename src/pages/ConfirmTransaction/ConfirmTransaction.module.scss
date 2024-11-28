@@ -1,3 +1,15 @@
+.row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  padding: 25px;
+  background: white;
+  border-radius: 20px;
+  color: black;
+  margin-bottom: 20px;
+}
+
 .transaction-confirmation {
   margin-bottom: 65px;
 }
@@ -27,13 +39,11 @@
 }
 
 .left-column {
-
 }
 
 .title {
   color: #777;
   font-family: GilroySemiBold;
-  margin-bottom: 8px;
 }
 
 .invoice-number {
@@ -47,8 +57,23 @@
   color: #777;
 }
 
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  background: rgba(20, 204, 116, 0.25);
+  border-radius: 50%;
+}
+
+.icon svg {
+  z-index: 55;
+}
+
 .amount {
-  font-size: 32px;
+  font-size: 40px;
+  font-family: GilroySemiBold;
 }
 
 .amount span {
@@ -101,8 +126,7 @@
   color: #777;
 }
 
-.qr-code {
-  height: 246px;
+.qr-code-wrapper {
   display: flex;
   align-items: center;
   gap: 25px;
@@ -112,25 +136,26 @@
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.qr-code div {
+.qr-code {
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 10px;
 }
 
-.qr-code div img {
-  margin-bottom: 10px;
+.qr-code img {
+  border-radius: 10px;
 }
 
 .no-qr-code {
   display: none !important;
 }
 
-
 .secure-connection {
   height: 100%;
   display: flex;
-  flex-direction: column;
+  gap: 15px;
+  //flex-direction: column;
   margin-left: 100px;
 }
 
@@ -140,6 +165,8 @@
 
 .secure-connection p {
   margin-top: auto;
+  display: flex;
+  gap: 10px;
 }
 
 .secure-connection svg:nth-child(3) {
@@ -160,11 +187,10 @@
   gap: 15px;
 }
 
-
 @media screen and (max-width: 1500px) {
-    .columns-wrapper {
-      grid-template-columns: 1fr;
-    }
+  .columns-wrapper {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media screen and (max-width: 767px) {
@@ -174,6 +200,7 @@
 
   .success-notification {
     margin-bottom: 15px;
+    padding: 10px;
   }
 
   .success-notification span {
@@ -186,8 +213,29 @@
     padding: 10px;
   }
 
-  .qr-code {
-    height: auto;
+  .title {
+    font-size: 14px;
+  }
+
+  .amount-subtitle {
+    margin-bottom: 25px;
+  }
+
+  .wallet-address {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .invoice-number {
+    font-size: 40px;
+  }
+
+  .invoice-subtitle {
+    margin-bottom: 35px;
+    font-size: 14px;
+  }
+
+  .qr-code-wrapper {
     flex-direction: column;
     align-items: center;
   }
@@ -201,36 +249,57 @@
 
   .field {
     justify-content: space-between;
-    font-size: 16px;
+    font-size: 14px;
     padding: 10px;
   }
 }
 
 @media screen and (max-width: 500px) {
-
-  .wallet-address {
-    padding: 14px;
-
-  }
-
   .wallet-address span {
-    width: 250px;
-    //white-space: nowrap; /* Текст не переносится на новую строку */
-    //overflow: hidden; /* Скрывает текст, который выходит за пределы контейнера */
-    //text-overflow: ellipsis; /* Обрезает текст троеточием */
-    font-size: 14px;
+    font-size: 12px;
   }
 
+  .wallet-address svg {
+    width: 15px;
+    height: 15px;
+  }
 
-  .fields div:nth-child(4) p {
+  .fields {
+    margin-bottom: 25px;
+  }
+
+  .fields div:nth-child(3) p {
     width: 150px;
     white-space: nowrap; /* Текст не переносится на новую строку */
     overflow: hidden; /* Скрывает текст, который выходит за пределы контейнера */
     text-overflow: ellipsis; /* Обрезает текст троеточием */
   }
 
-  .field span  {
+  .field span {
     flex-basis: 160px;
+  }
+
+  .qr-code-wrapper {
+    flex-direction: row;
+    justify-content: center;
+    padding-bottom: 25px;
+  }
+
+  .qr-code p {
+    font-size: 12px;
+  }
+
+  .secure-connection {
+    flex-direction: column;
+  }
+
+  .secure-connection p {
+    font-size: 14px;
+  }
+
+  .qr-code img {
+    width: 100px;
+    height: 100px;
   }
 
   .disclaimer {

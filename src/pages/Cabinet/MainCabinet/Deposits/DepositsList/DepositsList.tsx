@@ -9,6 +9,50 @@ import WillReceivedIcon from '@assets/icons/deposit-icons/willReceived.svg?react
 import OpenDateIcon from '@assets/icons/deposit-icons/openDate.svg?react'
 import CloseDateIcon from '@assets/icons/deposit-icons/closeDate.svg?react'
 import { useState } from 'react'
+import SolarFutureImage from '@assets/images/investments/solar-future-hero.webp'
+import WindProsperityImage from '@assets/images/investments/wind-prosperity-hero.webp'
+import HydroImage from '@assets/images/investments/hydro-hero.webp'
+import HydrogenImage from '@assets/images/investments/hydrogen-hero.webp'
+import MiningFarmsImage from '@assets/images/investments/mining-farm-hero.webp'
+
+const PLANS_IMAGE_MAP = {
+  solar: SolarFutureImage,
+  wind: WindProsperityImage,
+  hydro: HydroImage,
+  hydrogen: HydrogenImage,
+  mining: MiningFarmsImage,
+}
+
+const PLANS_NAME_MAP = {
+  solar: {
+    beginner: 'Sunlight Start',
+    available: 'Solar Expansion',
+    optimal: 'Radiant Yield',
+    maximum: 'Solar Innovate',
+  },
+  wind: {
+    beginner: 'Breeze Start',
+    available: 'Wind Fields',
+    optimal: 'Aero Advantage',
+    maximum: 'Turbine Tech',
+  },
+  hydro: {
+    beginner: 'River Flow',
+    available: 'Hydro Expansion',
+    optimal: 'EcoHydro',
+    maximum: 'Blue Energy R&D',
+  },
+  hydrogen: {
+    beginner: 'H2 Mining Start',
+    available: 'Green Hydrogen Expansion',
+    optimal: 'Hydrogen Fuel Cells',
+    maximum: 'Mining Power',
+  },
+  mining: {
+    beginner: 'CryptoGrow',
+    available: 'ProfitMine',
+  },
+}
 
 const COLUMNS_ICON = {
   variant: <VariantIcon width={15} />,
@@ -27,12 +71,9 @@ const DepositsList = ({ deposits, columns, isActive }) => {
 
   const toggleItem = (index) => {
     setOpenedDeposits((prev) => {
-      // Проверяем, есть ли индекс уже в массиве
       if (prev.includes(index)) {
-        // Если есть, удаляем его (закрытие)
         return prev.filter((i) => i !== index)
       } else {
-        // Если нет, добавляем его (открытие)
         return [...prev, index]
       }
     })
@@ -43,41 +84,40 @@ const DepositsList = ({ deposits, columns, isActive }) => {
       className={`${styles['deposits-list-wrapper']} ${isActive ? styles['active-deposits'] : ''}`}
     >
       <ul className={styles['deposits-list']}>
-        {deposits.map((deposit, index) => (
-          <li
-            key={index}
-            className={`${openedDeposits.includes(index) ? styles['opened'] : ''}`}
-            onClick={
-              () => toggleItem(index)
-              // setOpenedDeposits((prev) => {
-              //   if (prev.includes(index)) {
-              //     setOpenedDeposits(prev.splice(prev.indexOf(index)))
-              //   } else {
-              //     setOpenedDeposits([...prev, index])
-              //   }
-              // })
-            }
-          >
-            <div>
-              {columns.map((column) => {
-                const value = deposit[column.key]
-                return (
-                  <div
-                    key={column.key}
-                    className={`${styles['cell']} ${styles[column.key]}`}
-                  >
-                    <span className={styles['label']}>
-                      {COLUMNS_ICON[column.key]}
+        {deposits.map((deposit, index) => {
+          const { plan, variant } = deposit
 
-                      {column.title}
-                    </span>
-                    <div className={styles['value']}>{value}</div>
-                  </div>
-                )
-              })}
-            </div>
-          </li>
-        ))}
+          return (
+            <li
+              key={index}
+              className={`${openedDeposits.includes(index) ? styles['opened'] : ''}`}
+              onClick={() => toggleItem(index)}
+            >
+              <img src={PLANS_IMAGE_MAP[plan]} alt={'SolarFutureImage'} />
+              <div>
+                {columns.map((column) => {
+                  const value = deposit[column.key]
+                  return (
+                    <div
+                      key={column.key}
+                      className={`${styles['cell']} ${styles[column.key]}`}
+                    >
+                      <span className={styles['label']}>
+                        {COLUMNS_ICON[column.key]}
+                        {column.title}
+                      </span>
+                      <div className={styles['value']}>
+                        {column.key === 'variant'
+                          ? PLANS_NAME_MAP[plan][variant]
+                          : value}
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
+            </li>
+          )
+        })}
       </ul>
     </div>
   )

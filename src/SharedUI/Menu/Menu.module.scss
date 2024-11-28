@@ -42,7 +42,6 @@
 
 .signInButton {
   margin-left: 55px;
-
 }
 
 .contactUsButton {
@@ -51,8 +50,6 @@
   color: white;
   cursor: pointer;
 }
-
-
 
 @media screen and (max-width: 767px) {
   .logotype {
@@ -63,12 +60,9 @@
     width: 80px;
   }
 
-
-
   .mobile-menu {
     display: flex;
   }
-
 
   .navigation ul {
     display: none;
@@ -78,5 +72,4 @@
     margin-left: 40px;
     display: none;
   }
-
 }

@@ -11,7 +11,7 @@ class WalletsService implements IWalletService {
     this.db = db
   }
 
-  async subscribeOnWallets(nickname: string, callback) {
+  async subscribeOnWallets(nickname: string | null, callback) {
     if (!nickname) return
 
     const userRef = doc(this.db, 'users', nickname)

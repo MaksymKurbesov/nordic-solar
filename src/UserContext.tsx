@@ -1,6 +1,5 @@
 import { createContext, useState, ReactNode, useEffect, FC } from 'react'
 import { auth, walletsService } from '@/main.tsx'
-import { useAuthState } from '@/hooks/useAuthState.ts'
 
 // Определяем интерфейс для данных пользователя
 interface User {
