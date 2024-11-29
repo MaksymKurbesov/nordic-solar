@@ -39,6 +39,11 @@ const Withdrawn = () => {
       return
     }
 
+    if (isNaN(amount)) {
+      toast.error('Некорректная сумма')
+      return
+    }
+
     if (amount < 10) {
       toast.error('Минимальная сумма вывода 10$')
       return

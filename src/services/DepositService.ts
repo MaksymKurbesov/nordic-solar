@@ -63,7 +63,7 @@ class DepositService implements IDepositService {
       wallet,
       variant,
       openDate: serverTimestamp(),
-      closeDate: Timestamp.fromMillis(Date.now() + 10 * 24 * 60 * 60 * 1000),
+      closeDate: Timestamp.fromMillis(Date.now() + days * 24 * 60 * 60 * 1000),
       received: 0,
       lastAccrual: serverTimestamp(),
       willReceived,

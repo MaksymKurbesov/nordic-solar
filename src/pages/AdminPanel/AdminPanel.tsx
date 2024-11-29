@@ -23,6 +23,10 @@ const AdminPanel = () => {
     transactionService.confirmTransaction(transaction)
   }
 
+  const cancelTransaction = (transaction) => {
+    transactionService.declineTransaction(transaction)
+  }
+
   if (!transactions) return null
 
   return (
@@ -59,7 +63,9 @@ const AdminPanel = () => {
                 <span>{parseTimestamp(transaction.date)}</span>
               </div>
               <div className={styles['buttons']}>
-                <button>Отмена</button>
+                <button onClick={() => cancelTransaction(transaction)}>
+                  Отмена
+                </button>
                 <button onClick={() => confirmTransaction(transaction)}>
                   Подтвердить
                 </button>

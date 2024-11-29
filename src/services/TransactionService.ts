@@ -104,6 +104,14 @@ class TransactionService implements ITransactionService {
     })
   }
 
+  async declineTransaction({ id }) {
+    const transactionRef = doc(this.transactionCollection, id)
+
+    await updateDoc(transactionRef, {
+      status: 'Отмена',
+    })
+  }
+
   subscribeToLastTenTransactions(nickname, callback) {
     try {
       const transactionQuery = query(

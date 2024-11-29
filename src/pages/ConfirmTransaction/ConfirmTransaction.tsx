@@ -81,12 +81,12 @@ const ConfirmTransaction = () => {
           {/*</span>*/}
 
           {isDepositType && (
-            <>
+            <div className={styles['wallet-address-wrapper']}>
               <p className={styles['title']}>Адрес кошелька ({wallet})</p>
               <p className={styles['wallet-address']} onClick={copyWallet}>
                 <span>{OUR_WALLETS[wallet]}</span> <CopyIcon />
               </p>
-            </>
+            </div>
           )}
         </div>
         <div className={styles['right-column']}>
