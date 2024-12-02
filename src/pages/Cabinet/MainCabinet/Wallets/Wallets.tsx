@@ -49,11 +49,10 @@ const Wallets = ({ wallets }) => {
           return (
             <SwiperSlide
               key={index}
-              className={`${styles['wallet']} ${styles[additionalWalletData.currency]}`}
+              className={`${styles['wallet']} ${additionalWalletData.currency}`}
             >
-              {/*<Wallet wallet={WALLETS[wallet[0]]}>*/}
               <div className={styles['header']}>
-                <div className={styles['icon']}>
+                <div className={`${styles['icon']} icon`}>
                   {additionalWalletData.icon}
                 </div>
                 <p className={styles['name']}>{additionalWalletData.name}</p>

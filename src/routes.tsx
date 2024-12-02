@@ -24,6 +24,7 @@ import {
   WithdrawnPage,
 } from '@/lazyPages.ts'
 import { Suspense } from 'react'
+import Partners from '@/pages/Partners/Partners.tsx'
 
 const routes = createBrowserRouter([
   {
@@ -67,6 +68,14 @@ const routes = createBrowserRouter([
         element: (
           <Suspense fallback={<div>Loading...</div>}>
             <InvestmentPage />
+          </Suspense>
+        ),
+      },
+      {
+        path: '/partner-program',
+        element: (
+          <Suspense fallback={<div>Loading...</div>}>
+            <Partners />
           </Suspense>
         ),
       },

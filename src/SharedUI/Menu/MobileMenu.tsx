@@ -1,54 +1,56 @@
-import styles from "./MobileMenu.module.scss";
-import { NavLink, useLocation } from "react-router-dom";
-import Logo from "@assets/logo.svg?react";
-import { useEffect, useState } from "react";
-import useWindowSize from "@/hooks/useWindowSize.ts";
+import styles from './MobileMenu.module.scss'
+import { NavLink, useLocation } from 'react-router-dom'
+import Logo from '@assets/logo.svg?react'
+import { useEffect, useState } from 'react'
+import useWindowSize from '@/hooks/useWindowSize.ts'
 
 const MobileMenu = () => {
-  const [menuIsOpened, setMenuIsOpened] = useState(false);
-  const windowSize = useWindowSize();
-  const location = useLocation();
-  const isMobile = windowSize.width < 767;
-
+  const [menuIsOpened, setMenuIsOpened] = useState(false)
+  const windowSize = useWindowSize()
+  const location = useLocation()
+  const isMobile = windowSize.width < 1051
 
   useEffect(() => {
-    setMenuIsOpened(false);
-  }, [location.pathname]);
+    setMenuIsOpened(false)
+  }, [location.pathname])
 
-  if (!isMobile) return null;
+  if (!isMobile) return null
 
   return (
     <>
       <div
-        className={`${styles["menu-overlay"]} ${menuIsOpened ? styles["menu-opened"] : ""}`}
+        className={`${styles['menu-overlay']} ${menuIsOpened ? styles['menu-opened'] : ''}`}
       >
-        <div className={styles["menu-content"]}>
+        <div className={styles['menu-content']}>
           <nav className={styles['navigation']}>
-            <NavLink className={styles["logotype"]} to={"/"}>
+            <NavLink className={styles['logotype']} to={'/'}>
               <Logo />
             </NavLink>
-            <ul className={styles["navigation-list"]}>
+            <ul className={styles['navigation-list']}>
               <li>
-                <NavLink to={"/products"}>Продукты</NavLink>
+                <NavLink to={'/products'}>Продукты</NavLink>
               </li>
               <li>
-                <NavLink to={"/investments"}>Инвестиции</NavLink>
+                <NavLink to={'/investments'}>Инвестиции</NavLink>
               </li>
               <li>
-                <NavLink to={"/about-us"}>О нас</NavLink>
+                <NavLink to={'/partners'}>Партнёрская программа</NavLink>
               </li>
               <li>
-                <NavLink to={"/faq"}>FAQ</NavLink>
+                <NavLink to={'/about-us'}>О нас</NavLink>
               </li>
               <li>
-                <NavLink to={"/contacts"}>Контакты</NavLink>
+                <NavLink to={'/faq'}>FAQ</NavLink>
+              </li>
+              <li>
+                <NavLink to={'/contacts'}>Контакты</NavLink>
               </li>
             </ul>
           </nav>
         </div>
         <div
           onClick={() => setMenuIsOpened(false)}
-          className={styles["close-button"]}
+          className={styles['close-button']}
         >
           <span></span>
           <span></span>
@@ -56,15 +58,15 @@ const MobileMenu = () => {
       </div>
       <div
         onClick={() => {
-          setMenuIsOpened(true);
+          setMenuIsOpened(true)
         }}
-        className={`${styles["mobile-menu"]}`}
+        className={`${styles['mobile-menu']}`}
       >
         <span></span>
         <span></span>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default MobileMenu;
+export default MobileMenu

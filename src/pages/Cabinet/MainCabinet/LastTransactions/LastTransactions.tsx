@@ -19,7 +19,7 @@ const LastTransactions = ({ transactions }) => {
         <ul className={styles['last-transactions-list']}>
           {transactions.map((transaction, index) => {
             return (
-              <li key={index} className={styles[transaction.status]}>
+              <li key={index} className={transaction.status}>
                 {TRANSACTION_COLUMNS.map((column, index) => (
                   <p
                     key={index}

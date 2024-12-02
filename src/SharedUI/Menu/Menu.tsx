@@ -46,6 +46,16 @@ const Menu = () => {
           </li>
           <li>
             <NavLink
+              to={'/partner-program'}
+              className={({ isActive, isPending }) =>
+                isPending ? styles['pending'] : isActive ? styles['active'] : ''
+              }
+            >
+              Партнёрская программа
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
               to={'/about-us'}
               className={({ isActive, isPending }) =>
                 isPending ? styles['pending'] : isActive ? styles['active'] : ''
