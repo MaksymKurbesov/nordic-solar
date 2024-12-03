@@ -28,8 +28,6 @@ const MakeDeposit = () => {
   const submitConfirm = () => {
     const wallet = watch().wallet
     const amount = watch().amount
-    console.log(amount, 'amount')
-    console.log(typeof amount, 'typeof amount')
     const isNumeric = !isNaN(amount) && !isNaN(parseFloat(amount))
 
     if (!wallet) {

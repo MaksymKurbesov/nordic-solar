@@ -16,8 +16,8 @@ class ReferralService implements IReferralService {
       const userDoc = await getDoc(doc(this.db, 'users', username))
       if (userDoc.exists()) {
         const userData = userDoc.data()
-        console.log(userData, 'userData')
-        const referrals = userData?.referral || {} // Проверяем, есть ли у пользователя поле referral
+        console.log(userData, 'FETCH REFERRAL DATA')
+        const referrals = userData?.referredTo || {} // Проверяем, есть ли у пользователя поле referral
 
         let referralData = {
           1: [],

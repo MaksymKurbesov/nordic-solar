@@ -36,9 +36,12 @@
 .link {
   display: flex;
   align-items: center;
-  margin-top: auto;
+  margin-top: 20px;
   text-decoration: underline;
   cursor: pointer;
+  border: 1px solid rgba(255, 255 ,255, 0.2);
+  padding: 10px;
+  border-radius: 8px;
 }
 
 .link svg {
@@ -73,11 +76,23 @@
 
 .table-header {
   display: grid;
-  grid-template-columns: repeat(4, 25%);
+  grid-template-columns: 15% 1fr 1fr 15%;
   font-size: 14px;
-  padding: 0 16px;
+  //padding: 0 16px;
   opacity: 0.4;
   margin-bottom: 10px;
+}
+
+.table-header span:first-child {
+  text-align: left;
+}
+
+.table-header span {
+  text-align: center;
+}
+
+.table-header span:last-child {
+  text-align: right;
 }
 
 @media screen and (max-width: 1200px) {
@@ -119,6 +134,7 @@
 
   .link {
     font-size: 12px;
+    margin-top: 0px;
   }
 
   .link svg {
@@ -127,6 +143,10 @@
 
   .icon-wrapper {
     margin-bottom: 10px;
+  }
+
+  .table-header {
+    font-size: 12px;
   }
 
   .statistic p:nth-child(2) {

@@ -143,7 +143,7 @@ class UserService implements IUserService {
         }
 
         await updateDoc(referredByDoc, {
-          [`referredTo.${currentReferralLevel}`]: arrayUnion(signedUpUser),
+          [`referredTo.${currentReferralLevel}`]: arrayUnion(signedUpUserDoc),
         })
 
         currentReferralLevel++

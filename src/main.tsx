@@ -12,6 +12,7 @@ import { UserProvider } from './UserContext'
 import DepositService from '@/services/DepositService.ts'
 import ReferralService from '@/services/ReferralService.ts'
 import WalletsService from '@/services/WalletsService.ts'
+import TelegramService from '@/services/TelegramService.ts'
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_API_KEY,
@@ -31,6 +32,7 @@ export const transactionService = new TransactionService(db)
 export const depositService = new DepositService(db)
 export const referralService = new ReferralService(db)
 export const walletsService = new WalletsService(db)
+export const telegramService = new TelegramService()
 
 let container = null
 

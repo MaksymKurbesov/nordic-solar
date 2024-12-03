@@ -1,0 +1,26 @@
+.privacy {
+    padding: 50px 20px;
+    color: $gray;
+    margin-bottom: 100px;
+}
+
+.privacy h1 {
+    color: white;
+    margin-bottom: 35px;
+}
+
+.privacy h2 {
+    margin: 45px 0 10px;
+    font-family: GilroySemiBold, "sans-serif";
+    color: white;
+}
+
+.privacy i {
+    font-style: italic;
+}
+
+@media screen and (max-width: 500px) {
+    .privacy {
+        margin-bottom: 50px;
+    }
+}

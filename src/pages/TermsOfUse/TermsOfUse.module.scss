@@ -1,0 +1,39 @@
+.terms-of-use {
+    padding: 50px 20px;
+    color: $gray;
+    margin-bottom: 100px;
+}
+
+
+.terms-of-use h1 {
+    color: white;
+    margin-bottom: 35px;
+}
+
+.terms-of-use h2 {
+    margin: 45px 0 10px;
+    font-family: GilroySemiBold, "sans-serif";
+    color: white;
+}
+
+.terms-of-use p {
+    line-height: 1.4;
+}
+
+.terms-of-use strong {
+    color: white;
+    margin: 10px 0;
+    display: inline-block;
+}
+
+.terms-of-use ul {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+@media screen and (max-width: 500px) {
+    .terms-of-use {
+        margin-bottom: 50px;
+    }
+}

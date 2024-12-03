@@ -33,6 +33,11 @@
   color: white;
 }
 
+.green {
+  color: $green;
+  display: inline-block;
+}
+
 @media screen and (max-width: 767px) {
   .title {
     line-height: 1;
@@ -47,6 +52,12 @@
   .subtitle {
     left: 20px;
     font-size: 18px;
+  }
+
+  .circle-button {
+    position: absolute;
+    bottom: 350px;
+    left: 100px;
   }
 
   .downButton {

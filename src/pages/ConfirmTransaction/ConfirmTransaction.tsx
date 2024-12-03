@@ -7,7 +7,7 @@ import SFCIcon from '@assets/icons/sfc-energy.svg?react'
 import WideButton from '@SharedUI/WideButton/WideButton.tsx'
 import { formatDate, generateSixDigitCode } from '@/utils/helpers.tsx'
 import { ScrollRestoration, useLocation, useNavigate } from 'react-router-dom'
-import { transactionService } from '@/main.tsx'
+import { telegramService, transactionService } from '@/main.tsx'
 import { useUser } from '@/hooks/useUser.ts'
 import { useEffect, useState } from 'react'
 import ConfirmedPopup from '@SharedUI/ConfirmedPopup/ConfirmedPopup.tsx'
@@ -34,13 +34,26 @@ const ConfirmTransaction = () => {
     await transactionService.addTransaction({
       type: isDepositType ? 'Пополнение' : 'Вывод',
       status: 'Ожидание',
-      amount: amount,
+      amount,
       nickname: user?.nickname,
       executor: wallet,
     })
     setConfirmedPopupIsOpen(true)
     document.body.style.overflow = 'hidden'
     window.scrollTo(0, 0)
+
+    if (isDepositType) {
+      await telegramService.depositNotification({
+        amount,
+        type: `Пополнение`,
+      })
+    } else {
+      await telegramService.withdrawnNotification({
+        amount,
+        type: 'Вывод',
+        walletNumber: 'test',
+      })
+    }
   }
 
   const copyWallet = () => {

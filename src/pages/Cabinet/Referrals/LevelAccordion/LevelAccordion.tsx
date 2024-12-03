@@ -1,32 +1,38 @@
 import { Accordion, AccordionDetails, AccordionSummary } from '@mui/material'
 import { DataGrid } from '@mui/x-data-grid'
 import { parseTimestamp } from '@/utils/helpers'
+import styles from './LevelAccordion.module.scss'
 
 const columns = [
   {
     field: 'nickname',
-    headerName: 'Nickname',
+    headerName: 'Никнейм',
     flex: 1,
+    resizable: false,
   },
   {
     field: 'referredBy',
-    headerName: 'Sponsor',
+    headerName: 'Спонсор',
     flex: 1,
+    resizable: false,
   },
   {
     field: 'referrals',
-    headerName: 'Referrals',
+    headerName: 'Рефералов',
     flex: 1,
+    resizable: false,
   },
   {
     field: 'registrationDate',
-    headerName: 'Registration Date',
+    headerName: 'Дата регистрации',
     flex: 1,
+    resizable: false,
   },
   {
     field: 'invested',
-    headerName: 'Deposited',
+    headerName: 'Инвестировано',
     flex: 1,
+    resizable: false,
   },
 ]
 
@@ -37,10 +43,13 @@ const LevelAccordion = ({ level, referrals }) => {
     0,
   )
 
+  console.log(referrals, 'referrals')
+
   return (
     <Accordion
       sx={{
         background: 'none',
+        // overflow: 'scroll',
         color: 'white',
         border: '1px solid rgba(255,255, 255, 0.1)',
         borderRadius: '10px',
@@ -48,12 +57,16 @@ const LevelAccordion = ({ level, referrals }) => {
       }}
     >
       <AccordionSummary
+        className={styles['accordion-summary']}
         aria-controls="panel1-content"
         id="panel1-header"
         sx={{
           '& > div': {
             display: 'grid',
-            gridTemplateColumns: '25% 25% 25% 25%',
+            gridTemplateColumns: '15% 1fr 1fr 15%',
+          },
+          '& > div p:last-child': {
+            textAlign: 'right',
           },
         }}
       >
@@ -62,8 +75,9 @@ const LevelAccordion = ({ level, referrals }) => {
         <p>{activeReferrals.length} шт.</p>
         <p>${totalIncome}</p>
       </AccordionSummary>
-      <AccordionDetails>
+      <AccordionDetails className={styles['accordion-details']}>
         <DataGrid
+          className={styles['data-grid']}
           sx={{
             color: 'white',
             '& .MuiDataGrid-columnHeaderTitleContainer': { color: 'white' },
@@ -71,6 +85,7 @@ const LevelAccordion = ({ level, referrals }) => {
             '& .MuiDataGrid-container--top [role=row]': {
               background: '#14cc74',
             },
+            '& .MuiDataGrid-virtualScroller': { overflow: 'initial' },
             '.MuiButtonBase-root': { color: 'white' },
             // '& .MuiDataGrid-columnHeaderTitleContainer': {color: "white"}
           }}

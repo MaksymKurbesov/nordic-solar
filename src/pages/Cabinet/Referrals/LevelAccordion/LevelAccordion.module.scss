@@ -1,0 +1,23 @@
+.accordion-summary p:first-child {
+    text-align: left;
+}
+
+.accordion-summary p {
+    text-align: center;
+}
+
+.accordion-summary p:last-child {
+    text-align: right;
+}
+
+
+
+@media screen and (max-width: 900px) {
+    .accordion-details {
+        overflow: scroll;
+    }
+
+    .data-grid {
+        width: 800px;
+    }
+}

@@ -51,10 +51,12 @@ const Footer = ({ isFullFooter }) => {
               <NavLink to={'/company-documents'}>Документы компании</NavLink>
             </li>
             <li>
-              <a href={'#'}>Политика конфиденциальности</a>
+              <NavLink to={'/privacy-policy'}>
+                Политика конфиденциальности
+              </NavLink>
             </li>
             <li>
-              <a href={'#'}>Условия эксплуатации</a>
+              <NavLink to={'/terms-of-use'}>Условия эксплуатации</NavLink>
             </li>
           </ul>
         </nav>

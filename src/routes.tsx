@@ -25,6 +25,8 @@ import {
 } from '@/lazyPages.ts'
 import { Suspense } from 'react'
 import Partners from '@/pages/Partners/Partners.tsx'
+import PrivacyPolicy from '@/pages/PrivacyPolicy/PrivacyPolicy.tsx'
+import TermsOfUse from '@/pages/TermsOfUse/TermsOfUse.tsx'
 
 const routes = createBrowserRouter([
   {
@@ -124,6 +126,22 @@ const routes = createBrowserRouter([
         element: (
           <Suspense fallback={<div>Loading...</div>}>
             <DocumentsPage />
+          </Suspense>
+        ),
+      },
+      {
+        path: '/privacy-policy',
+        element: (
+          <Suspense fallback={<div>Loading...</div>}>
+            <PrivacyPolicy />
+          </Suspense>
+        ),
+      },
+      {
+        path: '/terms-of-use',
+        element: (
+          <Suspense fallback={<div>Loading...</div>}>
+            <TermsOfUse />
           </Suspense>
         ),
       },
