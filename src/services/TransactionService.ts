@@ -15,7 +15,7 @@ import {
   onSnapshot,
 } from 'firebase/firestore'
 import { v4 as uuidv4 } from 'uuid'
-import { userService } from '@/main.tsx'
+import { referralService, userService } from '@/main.tsx'
 
 interface ITransactionService {
   db: Firestore
@@ -88,7 +88,7 @@ class TransactionService implements ITransactionService {
         [`wallets.${executor}.deposited`]: increment(amount),
       })
 
-      await userService.addReferralRewards(nickname, amount, executor)
+      await referralService.addReferralRewards(nickname, amount, executor)
     }
 
     if (type === 'Вывод') {

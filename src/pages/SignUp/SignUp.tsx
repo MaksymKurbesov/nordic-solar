@@ -3,7 +3,7 @@ import Input from '@SharedUI/Input/Input.tsx'
 import WideButton from '@SharedUI/WideButton/WideButton.tsx'
 import { NavLink, useLocation } from 'react-router-dom'
 import { FormProvider, useForm } from 'react-hook-form'
-import { userService } from '@/main.tsx'
+import { referralService, userService } from '@/main.tsx'
 import { useEffect, useState } from 'react'
 import SuccessModal from '@/pages/SignUp/SuccessModal/SuccessModal'
 
@@ -53,7 +53,10 @@ const SignUp = () => {
     await userService.registerUser(trimmedNickname, trimmedEmail, data.password)
 
     if (data.referral) {
-      await userService.addReferralToAllLevels(data.referral, trimmedNickname)
+      await referralService.addReferralToAllLevels(
+        data.referral,
+        trimmedNickname,
+      )
     }
 
     openModal()
