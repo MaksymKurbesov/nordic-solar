@@ -1,7 +1,5 @@
 import styles from './ConfirmTransaction.module.scss'
-import CheckIcon from '@assets/icons/check.svg?react'
 import CopyIcon from '@assets/icons/copy.svg?react'
-import QRCode from '@assets/images/qr.png'
 import ConnectionSecured from '@assets/icons/connection-secured.svg?react'
 import SFCIcon from '@assets/icons/sfc-energy.svg?react'
 import WideButton from '@SharedUI/WideButton/WideButton.tsx'
@@ -23,6 +21,7 @@ const ConfirmTransaction = () => {
   const { type, amount, wallet } = formData
   const isDepositType = type === 'deposit'
   const [confirmedPopupIsOpen, setConfirmedPopupIsOpen] = useState(false)
+  const [transactionHash, setTransactionHash] = useState('')
 
   useEffect(() => {
     return () => {
@@ -31,6 +30,11 @@ const ConfirmTransaction = () => {
   }, [])
 
   const onSubmitTransaction = async () => {
+    if (!transactionHash) {
+      toast.error('Укажите номер/хеш транзакции')
+      return
+    }
+
     await transactionService.addTransaction({
       type: isDepositType ? 'Пополнение' : 'Вывод',
       status: 'Ожидание',
@@ -46,6 +50,7 @@ const ConfirmTransaction = () => {
       await telegramService.depositNotification({
         amount,
         type: `Пополнение`,
+        transactionHash,
       })
     } else {
       await telegramService.withdrawnNotification({
@@ -79,26 +84,47 @@ const ConfirmTransaction = () => {
       </div>
       <div className={styles['columns-wrapper']}>
         <div className={styles['left-column']}>
-          <p className={styles['invoice-subtitle']}>
-            {isDepositType
-              ? `Если вы не оплатите заявку, депозит будет автоматически аннулирован`
-              : ''}
-          </p>
-
-          {/*<p className={styles['title']}>Транзакция</p>*/}
-          {/*<p className={styles['amount']}>*/}
-          {/*  {amount} <span>USDT</span>*/}
+          {/*<p className={styles['invoice-subtitle']}>*/}
+          {/*  {isDepositType*/}
+          {/*    ? `Если вы не оплатите заявку, депозит будет автоматически аннулирован`*/}
+          {/*    : ''}*/}
           {/*</p>*/}
-          {/*<span className={styles['amount-subtitle']}>*/}
-          {/*  {wallet.toUpperCase()}*/}
-          {/*</span>*/}
 
           {isDepositType && (
-            <div className={styles['wallet-address-wrapper']}>
-              <p className={styles['title']}>Адрес кошелька ({wallet})</p>
-              <p className={styles['wallet-address']} onClick={copyWallet}>
-                <span>{OUR_WALLETS[wallet]}</span> <CopyIcon />
-              </p>
+            <div className={styles['instruction']}>
+              <h2>Инструкции по переводу платежа</h2>
+              <ul>
+                <li className={styles['completed']}>
+                  <p>1. Выбор платежной системы</p>
+                  <IconCircleCheckFilled width={17} />
+                </li>
+                <li className={styles['completed']}>
+                  <p>2. Укажите сумму пополнения</p>
+                  <IconCircleCheckFilled width={17} />
+                </li>
+                <li>
+                  <p>3. Произведите оплату по указанным реквизитам</p>
+                  <div className={styles['wallet-address-wrapper']}>
+                    <p
+                      className={styles['wallet-address']}
+                      onClick={copyWallet}
+                    >
+                      <span>{OUR_WALLETS[wallet]}</span> <CopyIcon />
+                    </p>
+                    <p className={styles['title']}>Адрес кошелька ({wallet})</p>
+                  </div>
+                </li>
+                <li>
+                  <p>
+                    4. Подтвердите транзакцию, введя номер/хэш транзакции ниже
+                  </p>
+                  <input
+                    value={transactionHash}
+                    onChange={(e) => setTransactionHash(e.target.value)}
+                    placeholder={'Хеш транзакции'}
+                  />
+                </li>
+              </ul>
             </div>
           )}
         </div>
@@ -108,10 +134,6 @@ const ConfirmTransaction = () => {
               <span>Статус</span>
               <p>Ожидает</p>
             </div>
-            {/*<div className={styles['field']}>*/}
-            {/*  <span>Дата</span>*/}
-            {/*  <p>{formatDate(new Date())}</p>*/}
-            {/*</div>*/}
             <div className={styles['field']}>
               <span>Платежная система</span>
               <p>{wallet.toUpperCase()}</p>
@@ -129,27 +151,18 @@ const ConfirmTransaction = () => {
               <p>{formatDate(new Date())}</p>
             </div>
           </div>
-          <div className={`${styles['qr-code-wrapper']}`}>
-            <div
-              className={`${!isDepositType ? styles['no-qr-code'] : ''} ${styles['qr-code']}`}
-            >
-              <img src={QRCode} alt={''} width={196} height={196} />
-              <p>
-                QR-код <br />
-                номера кошелька
-              </p>
-            </div>
-            <div
-              className={`${styles['secure-connection']} ${!isDepositType ? styles['secure-connection-withdrawn'] : ''}`}
-            >
-              <p>
-                <ConnectionSecured />
-                Соединение <br />
-                защищено
-              </p>
-              <SFCIcon />
-            </div>
+
+          <div
+            className={`${styles['secure-connection']} ${!isDepositType ? styles['secure-connection-withdrawn'] : ''}`}
+          >
+            <p>
+              <ConnectionSecured />
+              Соединение <br />
+              защищено
+            </p>
+            <SFCIcon />
           </div>
+
           <p className={styles['disclaimer']}>
             {isDepositType
               ? `Убедитесь что вы отправляете именно то количество средств, которое

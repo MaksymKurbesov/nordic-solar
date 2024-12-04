@@ -13,19 +13,15 @@ import {
 } from '@/utils/helpers.tsx'
 
 const MainCabinet = () => {
-  const { user, wallets } = useUser()
+  const { user } = useUser()
   const [transactions, setTransactions] = useState(null)
-  const [deposits, setDeposits] = useState([])
-  const closestDeposit = getClosestDeposit(deposits)
+  const closestDeposit = getClosestDeposit(user?.deposits)
   const [nextAccrual, setNextAccrual] = useState(null)
+
+  console.log(user, 'MAIN CABINET USER')
 
   useEffect(() => {
     if (!user) return
-
-    const unsubscribeDeposits = depositService.getAllDeposits(
-      setDeposits,
-      user.nickname,
-    )
 
     const unsubscribe = transactionService.subscribeToLastTenTransactions(
       user.nickname,
@@ -50,8 +46,8 @@ const MainCabinet = () => {
 
   return (
     <div className={styles['main-cabinet']}>
-      <Wallets wallets={sortByAvailable(wallets)} />
-      <Deposits deposits={deposits} />
+      <Wallets wallets={sortByAvailable(user.wallets)} />
+      <Deposits deposits={user.deposits} />
       <div className={styles['accrual-wrapper']}>
         <NextAccrual nextAccrual={nextAccrual} />
         <LastTransactions transactions={transactions.slice(0, 4)} />

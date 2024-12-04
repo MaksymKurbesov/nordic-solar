@@ -73,7 +73,7 @@ class DepositService implements IDepositService {
     })
   }
 
-  getAllDeposits(setUserDeposits, nickname) {
+  async getAllDeposits(setUserDeposits, nickname) {
     try {
       const depositsCollection = query(
         collection(this.db, 'users', nickname, 'deposits'),
@@ -107,13 +107,13 @@ class DepositService implements IDepositService {
         const isDepositFinished = daysWithoutAccruals >= days
 
         if (isDepositFinished) {
-          await transaction.update(depositRef, {
+          transaction.update(depositRef, {
             charges: 1,
             received: willReceived,
             isActive: false,
           })
 
-          await transaction.update(userDoc, {
+          transaction.update(userDoc, {
             earned: willReceived,
             [`wallets.${wallet}.available`]: increment(willReceived + amount),
           })

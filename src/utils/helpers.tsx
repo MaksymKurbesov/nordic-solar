@@ -78,6 +78,15 @@ export const generateSixDigitCode = () => {
   return Math.floor(100000 + Math.random() * 900000)
 }
 
+export const getNowTime = () => {
+  const date = new Date()
+  const day = String(date.getDate()).padStart(2, '0')
+  const month = String(date.getMonth() + 1).padStart(2, '0') // Месяцы начинаются с 0
+  const year = date.getFullYear()
+
+  return `${day}/${month}/${year}`
+}
+
 export const formatDate = (date: Date) => {
   const day = String(date.getDate()).padStart(2, '0')
   const month = String(date.getMonth() + 1).padStart(2, '0') // месяцы начинаются с 0
@@ -177,6 +186,8 @@ export const calculateDailyIncome = (initialAmount, dailyRate) => {
 }
 
 export const getClosestDeposit = (deposits) => {
+  if (!deposits) return
+
   const currentTime = new Date().getTime() / 1000
 
   return deposits.reduce((closest, deposit) => {

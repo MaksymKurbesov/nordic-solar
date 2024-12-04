@@ -1,6 +1,10 @@
 import styles from './OpenPlanConfirm.module.scss'
 import { useFormContext } from 'react-hook-form'
-import { calculateDailyIncome, calculateTotalIncome } from '@/utils/helpers'
+import {
+  calculateDailyIncome,
+  calculateTotalIncome,
+  getNowTime,
+} from '@/utils/helpers'
 import { PLAN_VARIANT } from '@/utils/const.tsx'
 import IconCircleCheckFilled from '@/assets/icons/circle-check.svg?react'
 import QuestionIcon from '@/assets/icons/help-octagon.svg?react'
@@ -60,7 +64,7 @@ const OpenPlanConfirm = () => {
           </span>
         </p>
         <p>
-          <span>Дата:</span> <span>24/09/2024</span>
+          <span>Дата:</span> <span>{getNowTime()}</span>
         </p>
       </div>
       <div className={`${styles['row']} ${styles['trouble']}`}>

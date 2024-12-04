@@ -4,35 +4,47 @@ import Footer from '@SharedUI/Footer/Footer.tsx'
 import CabinetMenu from '@SharedUI/CabinetMenu/CabinetMenu.tsx'
 import { useEffect } from 'react'
 import { useAuthState } from '@/hooks/useAuthState.ts'
-import { auth, depositService, userService } from '@/main.tsx'
+import { auth, depositService, userService, walletsService } from '@/main.tsx'
 import MobileCabinetMenu from '@SharedUI/CabinetMenu/MobileCabinetMenu'
-import { useUser } from '@/hooks/useUser.ts'
 import { Toaster } from 'react-hot-toast'
+import { useUser } from '@/hooks/useUser.ts'
 
 const CabinetLayout = () => {
-  const [user, userLoading] = useAuthState(auth, { onUserChanged: true })
   const navigate = useNavigate()
 
-  const { setUser } = useUser()
+  const [firebaseUser, userLoading] = useAuthState(auth, {
+    onUserChanged: true,
+  })
+
+  const { user, setUser, setDeposits, setWallets } = useUser()
 
   useEffect(() => {
-    if (!user && !userLoading) navigate('/')
-
-    if (!user) return
-
-    const checkDeposits = async () => {
-      return await depositService.checkDepositsForAccruals(user.displayName)
-    }
-
-    checkDeposits()
+    if (userLoading) return
 
     const fetchUserData = async () => {
-      const userData = await userService.getUser(user.displayName)
+      const userNickname = firebaseUser.displayName
+      const userData = await userService.getUser(userNickname)
+      await depositService.getAllDeposits(setDeposits, userNickname)
+      await walletsService.subscribeOnWallets(setWallets, userNickname)
       setUser(userData)
     }
 
     fetchUserData()
-  }, [user])
+  }, [firebaseUser])
+
+  useEffect(() => {
+    if (!firebaseUser && !userLoading) navigate('/')
+
+    if (!firebaseUser) return
+
+    const checkDeposits = async () => {
+      return await depositService.checkDepositsForAccruals(
+        firebaseUser.displayName,
+      )
+    }
+
+    checkDeposits()
+  }, [firebaseUser])
 
   return (
     <div className={styles['cabinet']}>

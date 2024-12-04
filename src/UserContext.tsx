@@ -1,7 +1,5 @@
-import { createContext, useState, ReactNode, useEffect, FC } from 'react'
-import { auth, walletsService } from '@/main.tsx'
+import { createContext, ReactNode, FC, useReducer, Dispatch } from 'react'
 
-// Определяем интерфейс для данных пользователя
 interface User {
   id: string
   name: string
@@ -13,48 +11,57 @@ interface User {
   referrals: number
   nickname: string
   registrationDate: any
-  // Добавьте любые другие поля, которые вам нужны
+  deposits?: []
 }
 
-// Определяем интерфейс для контекста пользователя
-export interface UserContextType {
+export interface UserState {
   user: User | null
-  setUser: (user: User | null) => void
-  wallets: any
 }
 
-// Создаем контекст с типизацией
-export const UserContext = createContext<UserContextType | undefined>(undefined)
+type Action =
+  | { type: 'SET_USER'; payload: any }
+  | { type: 'SET_THEME'; payload: 'light' | 'dark' }
+  | { type: 'SET_DEPOSITS'; payload: any }
+  | { type: 'SET_WALLETS'; payload: any }
 
-// Тип для провайдера
+const initialState = {
+  user: null,
+}
+
+const reducer = (state: UserState, action: Action): UserState => {
+  switch (action.type) {
+    case 'SET_USER':
+      return { ...state, user: action.payload }
+    case 'SET_DEPOSITS':
+      return { ...state, user: { ...state.user, deposits: action.payload } }
+    case 'SET_WALLETS':
+      return { ...state, user: { ...state.user, wallets: action.payload } }
+    default:
+      return state
+  }
+}
+
+interface UserContextProps {
+  state: UserState
+  dispatch: Dispatch<Action>
+}
+
+export const UserContext = createContext<UserContextProps>({
+  state: initialState,
+  dispatch: () => null,
+})
+
 interface UserProviderProps {
   children: ReactNode
 }
 
 // Создаем провайдер, который будет оборачивать компоненты и предоставлять доступ к контексту
 export const UserProvider: FC<UserProviderProps> = ({ children }) => {
-  const [user, setUser] = useState<User | null>(null)
-  const [wallets, setWallets] = useState([])
+  const [state, dispatch] = useReducer(reducer, initialState)
 
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      if (user) {
-        // Действия при наличии пользователя
-        walletsService.subscribeOnWallets(user.displayName, setWallets)
-      } else {
-        setWallets([])
-      }
-    })
-
-    return () => unsubscribe()
-  }, [])
-
-  // Объект значений, который будет предоставлен всем компонентам
-  const value = {
-    user,
-    setUser,
-    wallets,
-  }
-
-  return <UserContext.Provider value={value}>{children}</UserContext.Provider>
+  return (
+    <UserContext.Provider value={{ state, dispatch }}>
+      {children}
+    </UserContext.Provider>
+  )
 }

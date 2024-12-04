@@ -1,10 +1,16 @@
-import { useContext } from "react";
-import { UserContext, UserContextType } from "@/UserContext.tsx";
+import { useContext } from 'react'
+import { UserContext } from '@/UserContext.tsx'
 
-export const useUser = (): UserContextType => {
-  const context = useContext(UserContext);
-  if (!context) {
-    throw new Error("useUser must be used within a UserProvider");
-  }
-  return context;
-};
+export const useUser = () => {
+  const { state, dispatch } = useContext(UserContext)
+
+  const setUser = (user) => dispatch({ type: 'SET_USER', payload: user })
+
+  const setDeposits = (deposits) =>
+    dispatch({ type: 'SET_DEPOSITS', payload: deposits })
+
+  const setWallets = (wallets) =>
+    dispatch({ type: 'SET_WALLETS', payload: wallets })
+
+  return { user: state.user, setUser, setDeposits, setWallets }
+}

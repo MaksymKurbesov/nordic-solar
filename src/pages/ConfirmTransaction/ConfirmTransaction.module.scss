@@ -7,7 +7,7 @@
   background: white;
   border-radius: 20px;
   color: black;
-  margin-bottom: 20px;
+  margin-bottom: 70px;
 }
 
 .transaction-confirmation {
@@ -39,6 +39,52 @@
 }
 
 .left-column {
+}
+
+.instruction {
+  padding: 25px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+}
+
+.completed {
+  color: $green;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.instruction h2 {
+  margin-bottom: 15px;
+  font-family: GilroySemiBold, "sans-serif";
+}
+
+.instruction ul {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.instruction ul li:nth-child(3) {
+  margin-bottom: 5px;
+}
+
+.instruction ul li:nth-child(3) > p, .instruction ul li:nth-child(4) > p {
+  margin-bottom: 10px;
+}
+
+.instruction svg {
+  fill: $green;
+}
+
+.instruction input {
+  width: 100%;
+  background: none;
+  padding: 12px 24px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  font-family: GilroyRegular, "sans-serif";
+  font-size: clamp(1rem, 1em + 0.5vw, 1.875rem);
 }
 
 .title {
@@ -129,38 +175,38 @@
   flex-basis: 250px;
   color: #777;
 }
-
-.qr-code-wrapper {
-  display: flex;
-  align-items: center;
-  gap: 25px;
-  color: #777;
-  font-family: GilroySemiBold;
-  padding-bottom: 50px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.qr-code {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-}
-
-.qr-code img {
-  border-radius: 10px;
-}
-
-.no-qr-code {
-  display: none !important;
-}
+//
+//.qr-code-wrapper {
+//  display: flex;
+//  align-items: center;
+//  gap: 25px;
+//  color: #777;
+//  font-family: GilroySemiBold;
+//  padding-bottom: 50px;
+//  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+//}
+//
+//.qr-code {
+//  display: flex;
+//  flex-direction: column;
+//  align-items: center;
+//  gap: 10px;
+//}
+//
+//.qr-code img {
+//  border-radius: 10px;
+//}
+//
+//.no-qr-code {
+//  display: none !important;
+//}
 
 .secure-connection {
-  height: 100%;
+  //height: 100%;
   display: flex;
   gap: 15px;
   //flex-direction: column;
-  margin-left: 100px;
+  //margin-left: 100px;
 }
 
 .secure-connection-withdrawn {
@@ -198,6 +244,14 @@
 }
 
 @media screen and (max-width: 767px) {
+  .row {
+    margin-bottom: 35px;
+  }
+
+  .columns-wrapper {
+    gap: 25px;
+  }
+
   .transaction-confirmation {
     margin-bottom: 25px;
   }
@@ -230,6 +284,16 @@
     font-size: 14px;
   }
 
+  .instruction {
+    padding: 20px 15px;
+  }
+
+
+  .instruction input {
+    padding: 10px;
+    font-size: 14px;
+  }
+
   .invoice-number {
     font-size: 40px;
   }
@@ -238,12 +302,7 @@
     margin-bottom: 35px;
     font-size: 14px;
   }
-
-  .qr-code-wrapper {
-    flex-direction: column;
-    align-items: center;
-  }
-
+  
   .secure-connection {
     flex-direction: row;
     align-items: center;
@@ -281,29 +340,6 @@
 
   .field span {
     flex-basis: 160px;
-  }
-
-  .qr-code-wrapper {
-    flex-direction: row;
-    justify-content: center;
-    padding-bottom: 25px;
-  }
-
-  .qr-code p {
-    font-size: 12px;
-  }
-
-  .secure-connection {
-    flex-direction: column;
-  }
-
-  .secure-connection p {
-    font-size: 14px;
-  }
-
-  .qr-code img {
-    width: 100px;
-    height: 100px;
   }
 
   .disclaimer {
