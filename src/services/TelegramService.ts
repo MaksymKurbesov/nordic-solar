@@ -3,7 +3,7 @@ import { auth } from '@/main.tsx'
 
 interface ITelegramService {}
 
-export const TELEGRAM_URL = `https://api.telegram.org/bot${import.meta.env.VITE_BOT_TOKEN}/sendMessage`
+const TELEGRAM_URL = `https://api.telegram.org/bot6143932905:AAFwzJ3pQGGMGVIRIbR7UlGua-NCzVXXgHg/sendMessage`
 
 class TelegramService implements ITelegramService {
   constructor() {}
