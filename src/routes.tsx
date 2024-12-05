@@ -27,6 +27,7 @@ import { Suspense } from 'react'
 import Partners from '@/pages/Partners/Partners.tsx'
 import PrivacyPolicy from '@/pages/PrivacyPolicy/PrivacyPolicy.tsx'
 import TermsOfUse from '@/pages/TermsOfUse/TermsOfUse.tsx'
+import SuspenseLoading from '@SharedUI/SuspenseLoading/SuspenseLoading.tsx'
 
 const routes = createBrowserRouter([
   {
@@ -36,7 +37,7 @@ const routes = createBrowserRouter([
       {
         path: '/',
         element: (
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense fallback={<SuspenseLoading />}>
             <IndexPage />
           </Suspense>
         ),
