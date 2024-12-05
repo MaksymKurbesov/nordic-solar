@@ -9,7 +9,7 @@ import {
   CollectionReference,
   increment,
 } from 'firebase/firestore'
-import { generateUserData } from '@/utils/helpers.tsx'
+import { generateUserData, logError } from '@/utils/helpers.tsx'
 import {
   signInWithEmailAndPassword,
   signOut,
@@ -49,10 +49,8 @@ class UserService implements IUserService {
       const user = generateUserData(nickname, email)
       const userRef = doc(this.userCollection, nickname)
       await setDoc(userRef, user)
-
-      console.log('UserService added successfully')
     } catch (error) {
-      console.error('Error adding user: ', error)
+      logError('Error adding user: ', error)
     }
   }
 
@@ -61,7 +59,7 @@ class UserService implements IUserService {
       await signInWithEmailAndPassword(auth, email, password)
       setError('')
     } catch (error) {
-      console.log(error.code, 'error.code')
+      logError('logIn: ', error)
 
       if (error.code === 'auth/invalid-credential') {
         setError('Неправильный пароль. Пожалуйста, попробуйте снова.')
@@ -89,7 +87,7 @@ class UserService implements IUserService {
         return null
       }
     } catch (error) {
-      console.error('Error fetching user data:', error)
+      logError('Error fetching user data: ', error)
       return null
     }
   }
@@ -101,7 +99,7 @@ class UserService implements IUserService {
       await updateDoc(userRef, updatedData)
       console.log('UserService updated successfully')
     } catch (error) {
-      console.error('Error updating user: ', error)
+      logError('Error updating user ', error)
     }
   }
 

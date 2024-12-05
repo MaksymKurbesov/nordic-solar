@@ -1,5 +1,4 @@
 import { serverTimestamp, Timestamp } from 'firebase/firestore'
-import { PLAN_VARIANT } from '@SharedUI/PlanVariants/PlanVariants'
 import AccrualTimer from '@/pages/Cabinet/MainCabinet/Deposits/AccrualTimer'
 
 export const generateUserData = (nickname: string, email: string) => {
@@ -214,4 +213,8 @@ export const sortByAvailable = (obj) => {
       sortedObj[key] = value
       return sortedObj
     }, {})
+}
+
+export const logError = (message: string, error: unknown): void => {
+  console.error(`[UserService] ${message}`, error)
 }

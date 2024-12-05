@@ -19,7 +19,7 @@
   justify-content: center;
   background: rgba(255, 255, 255, 1);
   width: 95%;
-  max-width: 600px;
+  max-width: 500px;
   padding: 40px 25px;
   border-radius: 8px;
   text-align: center;
@@ -59,7 +59,7 @@
   display: flex;
   justify-content: center;
   gap: 15px;
-  margin-top: 30px;
+  //margin-top: 30px;
 }
 
 .buttons button {
@@ -70,11 +70,26 @@
 }
 
 .buttons button:nth-child(1) {
-  background: #a7f3cf;
+  //background: #a7f3cf;
 }
 
 @media screen and (max-width: 767px) {
+  .popup-content {
+    padding: 25px 15px;
+  }
+
   .popup-content h3 {
-    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto 15px;
+  }
+
+  .popup-content h3 svg {
+    width: 30px;
+    height: 30px;
+  }
+
+  .text {
+    font-size: 14px;
   }
 }

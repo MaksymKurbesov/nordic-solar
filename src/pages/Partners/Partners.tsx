@@ -1,5 +1,6 @@
 import styles from './Partners.module.scss'
 import HeroImage from '@assets/images/partners-program.webp'
+import { ScrollRestoration } from 'react-router-dom'
 
 const Partners = () => {
   return (
@@ -19,28 +20,28 @@ const Partners = () => {
       <div className={styles['levels']}>
         <h3>Уровни реферальной программы</h3>
         <ul>
-          <li className={'Выполнено'}>
+          <li className={'TON'}>
             <span>1 уровень</span>
             <p>Друзья, которых пригласили вы</p>
             <p>
               <span>8%</span> вознаграждение
             </p>
           </li>
-          <li className={'Выполнено'}>
+          <li className={'BTC'}>
             <span>2 уровень</span>
             <p> Люди, приглашённые вашими друзьями</p>
             <p>
               <span>6%</span> вознаграждение
             </p>
           </li>
-          <li className={'Выполнено'}>
+          <li className={'USDT'}>
             <span>3 уровень</span>
             <p>Рефералы третьего уровня</p>
             <p>
               <span>4%</span> вознаграждение
             </p>
           </li>
-          <li className={'Выполнено'}>
+          <li className={'SOL'}>
             <span>4 уровень</span>
             <p>Рефералы четвёртого уровня</p>
             <p>
@@ -104,6 +105,7 @@ const Partners = () => {
         <span>активнее</span> твоя сеть, тем больше твой <span>доход</span>.
         Присоединяйся прямо сейчас и начни зарабатывать уже сегодня!
       </p>
+      <ScrollRestoration />
     </div>
   )
 }

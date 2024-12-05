@@ -1,20 +1,24 @@
 import styles from './OpenPlanConfirm.module.scss'
 import { useFormContext } from 'react-hook-form'
 import {
+  addDays,
   calculateDailyIncome,
   calculateTotalIncome,
+  formatDate,
   getNowTime,
 } from '@/utils/helpers'
 import { PLAN_VARIANT } from '@/utils/const.tsx'
 import IconCircleCheckFilled from '@/assets/icons/circle-check.svg?react'
 import QuestionIcon from '@/assets/icons/help-octagon.svg?react'
 import IconChevronRight from '@/assets/icons/chevron-right.svg?react'
+import { Link } from 'react-router-dom'
 
 const PLAN_MAP = {
   solar: 'Solar Future',
   wind: 'Wind Prosperity',
   hydro: 'Hydro PowerEdge',
   hydrogen: 'Hydrogen Horizons',
+  mining: 'Mining Farms',
 }
 
 const OpenPlanConfirm = () => {
@@ -64,19 +68,29 @@ const OpenPlanConfirm = () => {
           </span>
         </p>
         <p>
-          <span>Дата:</span> <span>{getNowTime()}</span>
+          <span>Дата открытия:</span> <span>{formatDate(new Date())}</span>
         </p>
-      </div>
-      <div className={`${styles['row']} ${styles['trouble']}`}>
-        <QuestionIcon width={30} height={30} />
         <p>
-          <span>Проблемы с оплатой?</span>
-          <span>Дайте нам знать!</span>
+          <span>Дата закрытия:</span>{' '}
+          <span>
+            {formatDate(
+              addDays({ seconds: new Date().getTime() / 1000 }, variant.days),
+            )}
+          </span>
         </p>
-        <span className={styles['chevron']}>
-          <IconChevronRight />
-        </span>
       </div>
+      <Link to={'https://t.me/nordic_solar'} target={'_blank'}>
+        <div className={`${styles['row']} ${styles['trouble']}`}>
+          <QuestionIcon width={30} height={30} />
+          <p>
+            <span>Проблемы с оплатой?</span>
+            <span>Дайте нам знать!</span>
+          </p>
+          <span className={styles['chevron']}>
+            <IconChevronRight />
+          </span>
+        </div>
+      </Link>
     </div>
   )
 }
