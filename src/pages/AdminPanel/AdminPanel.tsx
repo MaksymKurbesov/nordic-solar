@@ -1,7 +1,7 @@
 import styles from './AdminPanel.module.scss'
 import { transactionService } from '@/main.tsx'
 import { useEffect, useState } from 'react'
-import { parseTimestamp } from '@/utils/helpers.tsx'
+import { parseTimestamp } from '@/utils/helpers/date.tsx'
 
 const AdminPanel = () => {
   const [transactions, setTransactions] = useState(null)

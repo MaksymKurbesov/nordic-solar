@@ -3,7 +3,6 @@ import {
   CollectionReference,
   doc,
   Firestore,
-  getDoc,
   getDocs,
   onSnapshot,
   orderBy,
@@ -11,12 +10,11 @@ import {
   serverTimestamp,
   setDoc,
   Timestamp,
-  updateDoc,
   runTransaction,
   increment,
 } from 'firebase/firestore'
 import { v4 as uuidv4 } from 'uuid'
-import { addDays, daysPassedSince } from '@/utils/helpers'
+import { addDays, daysPassedSince, transformDeposit } from '@/utils/helpers'
 import { transactionService, userService } from '@/main'
 import { PLAN_VARIANT } from '@/utils/const.tsx'
 
@@ -73,23 +71,42 @@ class DepositService implements IDepositService {
     })
   }
 
-  async getAllDeposits(setUserDeposits, nickname) {
+  async processAndFetchDeposits(setDeposits, nickname: string) {
     try {
-      const depositsCollection = query(
+      const allDepositsQuery = query(
         collection(this.db, 'users', nickname, 'deposits'),
         orderBy('openDate', 'desc'),
       )
 
-      return onSnapshot(depositsCollection, (depositSnap) => {
-        setUserDeposits(
-          depositSnap.docs.map((deposit) => {
-            return deposit.data()
+      // Подписываемся на изменения с помощью onSnapshot
+      onSnapshot(allDepositsQuery, async (snapshot) => {
+        const results = await Promise.all(
+          snapshot.docs.map(async (item) => {
+            const depositData = item.data()
+
+            if (!depositData.isActive) {
+              return depositData
+            }
+
+            const depositWithOneAccrual = depositData.planNumber > 3
+
+            if (depositWithOneAccrual) {
+              await this.makeAccrual(item.ref, nickname)
+            } else {
+              await this.makeAccruals(item.ref, nickname)
+            }
+
+            return { ...depositData }
           }),
         )
+
+        const transformedDeposits = results.map(transformDeposit)
+
+        setDeposits(transformedDeposits)
       })
     } catch (e) {
       console.error(e)
-      alert(`${e} getAllDeposits`)
+      alert(`${e} processAndFetchDeposits`)
     }
   }
 
@@ -141,6 +158,8 @@ class DepositService implements IDepositService {
       await runTransaction(this.db, async (transaction) => {
         const deposit = await transaction.get(depositRef)
 
+        if (!deposit.exists()) return
+
         const {
           amount,
           lastAccrual,
@@ -171,7 +190,7 @@ class DepositService implements IDepositService {
           })
         }
 
-        await transaction.update(depositRef, {
+        transaction.update(depositRef, {
           charges: isLastCharge ? days : increment(daysWithoutAccruals),
           lastAccrual: updatedTime,
           received: isLastCharge
@@ -180,7 +199,7 @@ class DepositService implements IDepositService {
           isActive: !isLastCharge,
         })
 
-        await transaction.update(userDoc, {
+        transaction.update(userDoc, {
           earned: increment(receivedByOneCharge * daysWithoutAccruals),
           [`wallets.${wallet}.available`]: isLastCharge
             ? increment(receivedByOneCharge * (days - charges))
@@ -188,7 +207,7 @@ class DepositService implements IDepositService {
         })
 
         if (isActive && isLastCharge) {
-          await transaction.update(userDoc, {
+          transaction.update(userDoc, {
             [`wallets.${wallet}.available`]: increment(amount),
           })
         }
@@ -196,35 +215,6 @@ class DepositService implements IDepositService {
     } catch (e) {
       console.error(e)
       alert(`${e} makeAccruals`)
-    }
-  }
-
-  async checkDepositsForAccruals(nickname) {
-    const allDepositsQuery = query(
-      collection(this.db, 'users', nickname, 'deposits'),
-    )
-
-    try {
-      await getDocs(allDepositsQuery).then((snap) => {
-        snap.docs.forEach(async (item) => {
-          if (!item.data().isActive) {
-            return
-          }
-
-          const depositWithOneAccrual = item.data().planNumber > 3
-
-          if (depositWithOneAccrual) {
-            console.log('one accrual')
-            await this.makeAccrual(item.ref, nickname)
-          } else {
-            console.log('many accrual')
-            await this.makeAccruals(item.ref, nickname)
-          }
-        })
-      })
-    } catch (e) {
-      console.error(e)
-      alert(`${e} checkDepositsForAccruals`)
     }
   }
 }

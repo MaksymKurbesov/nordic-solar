@@ -36,7 +36,7 @@ export const telegramService = new TelegramService()
 
 let container = null
 
-document.addEventListener('DOMContentLoaded', (e) => {
+document.addEventListener('DOMContentLoaded', () => {
   if (!container) {
     container = document.getElementById('root') as HTMLElement
 

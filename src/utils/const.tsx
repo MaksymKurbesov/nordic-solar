@@ -80,7 +80,7 @@ export const PLAN_VARIANT = {
     available: {
       type: 'Solar Expansion',
       days: 30,
-      minDeposit: 2500,
+      minDeposit: 2000,
       maxDeposit: 9999,
       inDay: 1.8,
       region: 'Северная Америка',

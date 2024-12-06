@@ -4,14 +4,13 @@ import {
   addDays,
   calculateDailyIncome,
   calculateTotalIncome,
-  formatDate,
-  getNowTime,
 } from '@/utils/helpers'
 import { PLAN_VARIANT } from '@/utils/const.tsx'
 import IconCircleCheckFilled from '@/assets/icons/circle-check.svg?react'
 import QuestionIcon from '@/assets/icons/help-octagon.svg?react'
 import IconChevronRight from '@/assets/icons/chevron-right.svg?react'
 import { Link } from 'react-router-dom'
+import { formatDate } from '@/utils/helpers/date.tsx'
 
 const PLAN_MAP = {
   solar: 'Solar Future',

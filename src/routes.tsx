@@ -151,7 +151,12 @@ const routes = createBrowserRouter([
   },
   {
     path: '/cabinet',
-    element: <CabinetLayout />,
+    element: (
+      <Suspense fallback={<SuspenseLoading />}>
+        <CabinetLayout />
+        {/*<SuspenseLoading />*/}
+      </Suspense>
+    ),
     children: [
       {
         path: 'admin-panel',

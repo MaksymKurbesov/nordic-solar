@@ -1,5 +1,6 @@
 import { serverTimestamp, Timestamp } from 'firebase/firestore'
 import AccrualTimer from '@/pages/Cabinet/MainCabinet/Deposits/AccrualTimer'
+import { parseTimestamp } from '@/utils/helpers/date.tsx'
 
 export const generateUserData = (nickname: string, email: string) => {
   return {
@@ -75,46 +76,6 @@ export const generateUserData = (nickname: string, email: string) => {
 
 export const generateSixDigitCode = () => {
   return Math.floor(100000 + Math.random() * 900000)
-}
-
-export const getNowTime = () => {
-  const date = new Date()
-  const day = String(date.getDate()).padStart(2, '0')
-  const month = String(date.getMonth() + 1).padStart(2, '0') // Месяцы начинаются с 0
-  const year = date.getFullYear()
-
-  return `${day}/${month}/${year}`
-}
-
-export const formatDate = (date: Date) => {
-  const day = String(date.getDate()).padStart(2, '0')
-  const month = String(date.getMonth() + 1).padStart(2, '0') // месяцы начинаются с 0
-  const year = date.getFullYear()
-
-  const hours = String(date.getHours()).padStart(2, '0')
-  const minutes = String(date.getMinutes()).padStart(2, '0')
-
-  return `${day}.${month}.${year} ${hours}:${minutes}`
-}
-
-export const parseTimestamp = (timestamp: Timestamp, short = false): string => {
-  // Преобразуем timestamp в объект Date
-  if (!timestamp) return ''
-
-  const date = timestamp.toDate()
-
-  // Форматируем дату в строку, например, "12.07.2024 15:34"
-  const day = String(date.getDate()).padStart(2, '0')
-  const month = String(date.getMonth() + 1).padStart(2, '0') // месяцы начинаются с 0
-  const year = date.getFullYear()
-  const hours = String(date.getHours()).padStart(2, '0')
-  const minutes = String(date.getMinutes()).padStart(2, '0')
-
-  if (short) {
-    return `${day}.${month}.${year}`
-  }
-
-  return `${day}.${month}.${year} ${hours}:${minutes}`
 }
 
 export const transformTransaction = (transaction) => {
@@ -217,4 +178,33 @@ export const sortByAvailable = (obj) => {
 
 export const logError = (message: string, error: unknown): void => {
   console.error(`[UserService] ${message}`, error)
+}
+
+export const fetchUserIP = async () => {
+  try {
+    // Получаем текущий IP-адрес пользователя
+    const ipResponse = await fetch('https://api.ipify.org?format=json')
+    const ipData = await ipResponse.json()
+    const ip = ipData.ip
+
+    // Получаем информацию о геолокации IP
+    const locationResponse = await fetch(`http://ip-api.com/json/${ip}`)
+    const locationData = await locationResponse.json()
+
+    // Возвращаем IP-адрес и данные о геолокации
+    return { ip, location: locationData }
+  } catch (error) {
+    console.error('Ошибка при получении IP-адреса:', error)
+    throw error // Пробрасываем ошибку, чтобы её можно было обработать
+  }
+}
+
+export const formatTimeLeft = (ms: number) => {
+  const totalSeconds = Math.floor(ms / 1000)
+  const days = Math.floor(totalSeconds / (60 * 60 * 24))
+  const hours = Math.floor((totalSeconds % (60 * 60 * 24)) / (60 * 60))
+  const minutes = Math.floor((totalSeconds % (60 * 60)) / 60)
+  const seconds = totalSeconds % 60
+
+  return { days, hours, minutes, seconds }
 }

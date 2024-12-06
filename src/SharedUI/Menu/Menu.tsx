@@ -1,23 +1,14 @@
 import Logo from '@assets/logo.svg?react'
 import styles from './Menu.module.scss'
-import { NavLink, useLocation } from 'react-router-dom'
-import { useEffect, useState } from 'react'
+import { NavLink } from 'react-router-dom'
+import useIsHomePage from '@/hooks/useIsHomePage.ts'
 
 const Menu = () => {
-  const [isIndexPage, setIsIndexPage] = useState(false)
-  const location = useLocation()
-
-  useEffect(() => {
-    if (location.pathname === '/') {
-      setIsIndexPage(true)
-    } else {
-      setIsIndexPage(false)
-    }
-  }, [location])
+  const isHomePage = useIsHomePage()
 
   return (
     <div
-      className={`${styles.menu} ${isIndexPage ? styles.menuIndex : ''} container`}
+      className={`${styles.menu} ${isHomePage ? styles.menuIndex : ''} container`}
     >
       <NavLink className={styles['logotype']} to={'/'}>
         <Logo width={120} />

@@ -1,7 +1,8 @@
 import styles from './Deposits.module.scss'
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs'
-import { transformDeposit } from '@/utils/helpers'
 import DepositsList from '@/pages/Cabinet/MainCabinet/Deposits/DepositsList/DepositsList.tsx'
+import { useEffect, useState } from 'react'
+import { Skeleton } from '@mui/material'
 
 const DEPOSIT_COLUMNS = [
   {
@@ -44,9 +45,20 @@ const DEPOSIT_COLUMNS = [
 ]
 
 const Deposits = ({ deposits }) => {
-  const modifiedDeposits = deposits.map(transformDeposit)
-  const activeDeposits = modifiedDeposits.filter((item) => item.isActive)
-  const completedDeposits = modifiedDeposits.filter((item) => !item.isActive)
+  const [loading, setLoading] = useState(true)
+  const [activeDeposits, setActiveDeposits] = useState([])
+  const [completedDeposits, setCompletedDeposits] = useState([])
+
+  useEffect(() => {
+    if (!deposits) return
+
+    const active = deposits.filter((item) => item.isActive)
+    const completed = deposits.filter((item) => !item.isActive)
+
+    setActiveDeposits(active)
+    setCompletedDeposits(completed)
+    setLoading(false)
+  }, [deposits])
 
   return (
     <div className={styles['deposits']}>
@@ -77,6 +89,7 @@ const Deposits = ({ deposits }) => {
             />
           )}
         </TabPanel>
+
         <TabPanel>
           {completedDeposits.length === 0 ? (
             'У вас нет завершенных депозитов'
@@ -84,6 +97,7 @@ const Deposits = ({ deposits }) => {
             <DepositsList
               deposits={completedDeposits}
               columns={DEPOSIT_COLUMNS}
+              isActive={false}
             />
           )}
         </TabPanel>

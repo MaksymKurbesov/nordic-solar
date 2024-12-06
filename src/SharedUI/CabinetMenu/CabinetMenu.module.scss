@@ -68,134 +68,11 @@
 
 // BOTTOM ROW //
 
-.slider-buttons {
-  display: none;
-  position: absolute;
-  gap: 15px;
-  top: 96px;
-  right: 20px;
-  z-index: 55;
-  height: 30px;
-  opacity: 0;
-  transition: 0.35s ease all;
-}
 
-.slider-buttons.opened {
-  opacity: 1;
-}
-
-.slider-buttons button:first-child {
-  transform: rotateZ(90deg);
-  //width: 35px;
-  //height: 35px;
-  //padding: 45px;
-}
-
-.slider-buttons button:last-child {
-  transform: rotateZ(-90deg);
-}
-
-.slider-buttons svg {
-  background: white;
-  width: 30px;
-  height: 30px;
-  padding: 9px;
-  border-radius: 50%;
-}
-
-.slider-buttons svg path {
-  fill: $black;
-}
-
-.bottom-row {
-  position: relative;
-  padding-top: 0px;
-  max-width: 1720px;
-  margin: 0 auto;
-
-  height: 0;
-  overflow: hidden;
-  transition: 0.35s ease all;
-  //padding: 15px 40px;
-  //padding-bottom: 40px;
-}
-
-.bottom-row.opened {
-  height: 155px;
-  padding-top: 15px;
-}
-
-.statistic-button {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  color: $black;
-  margin-top: 15px;
-}
-
-.statistic-button.opened svg {
-  transform: rotateZ(180deg);
-  transition: 0.35s ease all;
-}
-
-.statistic-button svg {
-  background: white;
-  width: 30px;
-  height: 30px;
-  padding: 9px;
-  border-radius: 50%;
-  transition: 0.35s ease all;
-}
-
-.statistic-button svg path {
-  fill: #222;
-}
-
-.statistic-list li {
-  padding: 20px;
-  background: white;
-  border-radius: 8px;
-}
-
-.header {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 20px;
-}
-
-.header svg {
-  width: 40px;
-  height: 40px;
-  background: $green;
-  padding: 10px;
-  border-radius: 50%;
-}
-
-.values {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 5px;
-  font-family: GilroySemiBold;
-}
-
-.values p {
-  font-size: 14px;
-  color: rgba(0, 0, 0, 0.5);
-}
-
-.values span {
-  font-size: 20px;
-}
 
 @media screen and (max-width: 1200px) {
   .navigation {
     display: none;
-  }
-
-  .slider-buttons {
-    display: flex;
   }
 
   .user {
@@ -236,7 +113,4 @@
     font-size: 14px;
   }
 
-  .slider-buttons {
-    top: 86px;
-  }
 }

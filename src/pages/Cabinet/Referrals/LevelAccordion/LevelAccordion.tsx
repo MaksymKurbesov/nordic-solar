@@ -1,7 +1,7 @@
 import { Accordion, AccordionDetails, AccordionSummary } from '@mui/material'
 import { DataGrid } from '@mui/x-data-grid'
-import { parseTimestamp } from '@/utils/helpers'
 import styles from './LevelAccordion.module.scss'
+import { parseTimestamp } from '@/utils/helpers/date.tsx'
 
 const columns = [
   {

@@ -3,7 +3,7 @@ import CopyIcon from '@assets/icons/copy.svg?react'
 import ConnectionSecured from '@assets/icons/connection-secured.svg?react'
 import SFCIcon from '@assets/icons/sfc-energy.svg?react'
 import WideButton from '@SharedUI/WideButton/WideButton.tsx'
-import { formatDate, generateSixDigitCode } from '@/utils/helpers.tsx'
+import { generateSixDigitCode } from '@/utils/helpers.tsx'
 import { ScrollRestoration, useLocation, useNavigate } from 'react-router-dom'
 import { telegramService, transactionService } from '@/main.tsx'
 import { useUser } from '@/hooks/useUser.ts'
@@ -13,6 +13,7 @@ import { OUR_WALLETS } from '@/utils/OUR_WALLETS.tsx'
 import toast from 'react-hot-toast'
 import IconCircleCheckFilled from '@/assets/icons/circle-check.svg?react'
 import md5 from 'crypto-js/md5'
+import { formatDate } from '@/utils/helpers/date.tsx'
 
 console.log(md5('bonyklade@gmail.com').toString())
 

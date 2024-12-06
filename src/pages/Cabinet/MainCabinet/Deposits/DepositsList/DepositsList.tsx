@@ -8,12 +8,13 @@ import ReceivedIcon from '@assets/icons/deposit-icons/received.svg?react'
 import WillReceivedIcon from '@assets/icons/deposit-icons/willReceived.svg?react'
 import OpenDateIcon from '@assets/icons/deposit-icons/openDate.svg?react'
 import CloseDateIcon from '@assets/icons/deposit-icons/closeDate.svg?react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import SolarFutureImage from '@assets/images/investments/solar-future-hero.webp'
 import WindProsperityImage from '@assets/images/investments/wind-prosperity-hero.webp'
 import HydroImage from '@assets/images/investments/hydro-hero.webp'
 import HydrogenImage from '@assets/images/investments/hydrogen-hero.webp'
 import MiningFarmsImage from '@assets/images/investments/mining-farm-hero.webp'
+import { transformDeposit } from '@/utils/helpers.tsx'
 
 const PLANS_IMAGE_MAP = {
   solar: SolarFutureImage,
@@ -68,6 +69,14 @@ const COLUMNS_ICON = {
 
 const DepositsList = ({ deposits, columns, isActive }) => {
   const [openedDeposits, setOpenedDeposits] = useState([])
+  const [userDeposits, setUserDeposits] = useState([])
+
+  useEffect(() => {
+    // if (deposits) {
+    //   console.log(deposits.map(transformDeposit), 'deposits')
+    // }
+    // setUserDeposits(deposits.map(transformDeposit))
+  }, [deposits])
 
   const toggleItem = (index) => {
     setOpenedDeposits((prev) => {

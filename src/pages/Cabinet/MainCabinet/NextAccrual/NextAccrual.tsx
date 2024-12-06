@@ -1,14 +1,19 @@
 import styles from './NextAccrual.module.scss'
 import { Timestamp } from 'firebase/firestore'
 import { useState, useEffect } from 'react'
+import { formatTimeLeft } from '@/utils/helpers.tsx'
 
-const NextAccrual = ({ nextAccrual }) => {
-  const getNextAccrualTime = () => {
-    const nextAccrualTimestamp = Timestamp.fromMillis(nextAccrual) // Добавляем 24 часа
-    return nextAccrualTimestamp.toMillis() - Date.now() // Вычисляем разницу в миллисекундах
-  }
+const NextAccrual = ({ lastAccrual }) => {
+  const [nextAccrual, setNextAccrual] = useState(null)
+  const [timeLeft, setTimeLeft] = useState(0)
 
-  const [timeLeft, setTimeLeft] = useState(getNextAccrualTime())
+  useEffect(() => {
+    if (!lastAccrual) return
+
+    const dayInMillis = 24 * 60 * 60 * 1000
+    const accrual = lastAccrual.toMillis() + dayInMillis
+    setNextAccrual(accrual)
+  }, [])
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -18,15 +23,11 @@ const NextAccrual = ({ nextAccrual }) => {
     return () => clearInterval(interval) // Чистим таймер при размонтировании
   }, [nextAccrual])
 
-  // Функция для преобразования миллисекунд в дни, часы, минуты и секунды
-  const formatTimeLeft = (ms) => {
-    const totalSeconds = Math.floor(ms / 1000)
-    const days = Math.floor(totalSeconds / (60 * 60 * 24))
-    const hours = Math.floor((totalSeconds % (60 * 60 * 24)) / (60 * 60))
-    const minutes = Math.floor((totalSeconds % (60 * 60)) / 60)
-    const seconds = totalSeconds % 60
+  const getNextAccrualTime = () => {
+    if (!nextAccrual) return
 
-    return { days, hours, minutes, seconds }
+    const nextAccrualTimestamp = Timestamp.fromMillis(nextAccrual) // Добавляем 24 часа
+    return nextAccrualTimestamp.toMillis() - Date.now() // Вычисляем разницу в миллисекундах
   }
 
   const { days, hours, minutes, seconds } = formatTimeLeft(timeLeft)
