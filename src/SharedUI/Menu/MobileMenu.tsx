@@ -34,7 +34,7 @@ const MobileMenu = () => {
                 <NavLink to={'/investments'}>Инвестиции</NavLink>
               </li>
               <li>
-                <NavLink to={'/partners'}>Партнёрская программа</NavLink>
+                <NavLink to={'/partner-program'}>Партнёрская программа</NavLink>
               </li>
               <li>
                 <NavLink to={'/about-us'}>О нас</NavLink>

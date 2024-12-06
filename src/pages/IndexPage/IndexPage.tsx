@@ -13,6 +13,7 @@ import Image1 from '@assets/images/features-image1.webp'
 import Image2 from '@assets/images/features-image2.webp'
 import Image3 from '@assets/images/features-image3.webp'
 import Image4 from '@assets/images/features-image4.webp'
+import { useRef } from 'react'
 
 const FEATURES = [
   {
@@ -57,10 +58,22 @@ const IndexPage = () => {
   const windowSize = useWindowSize()
   const isMobile = windowSize.width < 900
 
+  const scrollableRef = useRef(null)
+
+  const handleScrollDown = () => {
+    if (scrollableRef.current) {
+      console.log(scrollableRef.current.clientHeight, 'scrollableRef.current')
+      window.scrollTo({
+        top: scrollableRef.current.scrollHeight,
+        behavior: 'smooth', // Для плавной прокрутки
+      })
+    }
+  }
+
   return (
     <>
-      <div className={styles.heroContainer}>
-        <Hero />
+      <div className={styles.heroContainer} ref={scrollableRef}>
+        <Hero handleScrollDown={handleScrollDown} />
       </div>
       <div className={'container'}>
         <WeBelieve />

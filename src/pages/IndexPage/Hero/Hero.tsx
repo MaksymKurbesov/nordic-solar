@@ -1,27 +1,12 @@
 import styles from './Hero.module.scss'
-
 import { CircleButton } from '@SharedUI/CirlceButton/CircleButton.tsx'
 import ArrowIcon from '@assets/icons/arrow.svg?react'
 import { NavLink } from 'react-router-dom'
-import { useRef } from 'react'
 
-const Hero = () => {
-  const scrollableRef = useRef(null)
-
-  const handleScrollDown = () => {
-    if (scrollableRef.current) {
-      console.log(scrollableRef, 'scrollableRef')
-      console.log(scrollableRef.current, 'scrollableRef.current')
-      window.scrollTo({
-        top: scrollableRef.current.scrollHeight,
-        behavior: 'smooth', // Для плавной прокрутки
-      })
-    }
-  }
-
+const Hero = ({ handleScrollDown }) => {
   return (
     <>
-      <div className={'container'} ref={scrollableRef}>
+      <div className={'container'}>
         <h1 className={styles.title}>
           Инвестируем в <p className={styles['green']}>зеленую</p> энергетику,
           <br />

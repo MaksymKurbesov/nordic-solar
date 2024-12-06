@@ -39,13 +39,14 @@ const routes = createBrowserRouter([
         element: (
           <Suspense fallback={<SuspenseLoading />}>
             <IndexPage />
+            {/*<SuspenseLoading />*/}
           </Suspense>
         ),
       },
       {
         path: '/products',
         element: (
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense fallback={<SuspenseLoading />}>
             <ProductsPage />
           </Suspense>
         ),
@@ -53,7 +54,7 @@ const routes = createBrowserRouter([
       {
         path: '/products/:product',
         element: (
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense fallback={<SuspenseLoading />}>
             <ProductPage />
           </Suspense>
         ),
@@ -61,7 +62,7 @@ const routes = createBrowserRouter([
       {
         path: '/investments',
         element: (
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense fallback={<SuspenseLoading />}>
             <InvestmentsPage />
           </Suspense>
         ),
@@ -69,7 +70,7 @@ const routes = createBrowserRouter([
       {
         path: '/investments/:investment',
         element: (
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense fallback={<SuspenseLoading />}>
             <InvestmentPage />
           </Suspense>
         ),
@@ -77,7 +78,7 @@ const routes = createBrowserRouter([
       {
         path: '/partner-program',
         element: (
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense fallback={<SuspenseLoading />}>
             <Partners />
           </Suspense>
         ),
@@ -85,7 +86,7 @@ const routes = createBrowserRouter([
       {
         path: '/about-us',
         element: (
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense fallback={<SuspenseLoading />}>
             <AboutUsPage />
           </Suspense>
         ),
@@ -93,7 +94,7 @@ const routes = createBrowserRouter([
       {
         path: '/faq',
         element: (
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense fallback={<SuspenseLoading />}>
             <FAQPage />
           </Suspense>
         ),
@@ -101,7 +102,7 @@ const routes = createBrowserRouter([
       {
         path: '/contacts',
         element: (
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense fallback={<SuspenseLoading />}>
             <ContactsPage />
           </Suspense>
         ),
@@ -109,7 +110,7 @@ const routes = createBrowserRouter([
       {
         path: '/sign-in',
         element: (
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense fallback={<SuspenseLoading />}>
             <SignInPage />
           </Suspense>
         ),
@@ -117,7 +118,7 @@ const routes = createBrowserRouter([
       {
         path: '/sign-up',
         element: (
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense fallback={<SuspenseLoading />}>
             <SignUpPage />
           </Suspense>
         ),
@@ -125,7 +126,7 @@ const routes = createBrowserRouter([
       {
         path: '/company-documents',
         element: (
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense fallback={<SuspenseLoading />}>
             <DocumentsPage />
           </Suspense>
         ),
@@ -133,7 +134,7 @@ const routes = createBrowserRouter([
       {
         path: '/privacy-policy',
         element: (
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense fallback={<SuspenseLoading />}>
             <PrivacyPolicy />
           </Suspense>
         ),
@@ -141,7 +142,7 @@ const routes = createBrowserRouter([
       {
         path: '/terms-of-use',
         element: (
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense fallback={<SuspenseLoading />}>
             <TermsOfUse />
           </Suspense>
         ),
@@ -155,7 +156,7 @@ const routes = createBrowserRouter([
       {
         path: 'admin-panel',
         element: (
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense fallback={<SuspenseLoading />}>
             <AdminPanelPage />
           </Suspense>
         ),
@@ -163,7 +164,7 @@ const routes = createBrowserRouter([
       {
         path: 'main',
         element: (
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense fallback={<SuspenseLoading />}>
             <MainCabinetPage />
           </Suspense>
         ),
@@ -171,7 +172,7 @@ const routes = createBrowserRouter([
       {
         path: 'open-plan/plans',
         element: (
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense fallback={<SuspenseLoading />}>
             <OpenPlanPage />
           </Suspense>
         ),
@@ -179,7 +180,7 @@ const routes = createBrowserRouter([
       {
         path: 'make-deposit',
         element: (
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense fallback={<SuspenseLoading />}>
             <MakeDepositPage />
           </Suspense>
         ),
@@ -187,7 +188,7 @@ const routes = createBrowserRouter([
       {
         path: 'make-deposit/confirm-transaction',
         element: (
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense fallback={<SuspenseLoading />}>
             <ConfirmTransactionPage />
           </Suspense>
         ),
@@ -195,7 +196,7 @@ const routes = createBrowserRouter([
       {
         path: 'withdrawn',
         element: (
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense fallback={<SuspenseLoading />}>
             <WithdrawnPage />
           </Suspense>
         ),
@@ -203,7 +204,7 @@ const routes = createBrowserRouter([
       {
         path: 'withdrawn/confirm-transaction',
         element: (
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense fallback={<SuspenseLoading />}>
             <ConfirmTransactionPage />
           </Suspense>
         ),
@@ -211,7 +212,7 @@ const routes = createBrowserRouter([
       {
         path: 'transactions',
         element: (
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense fallback={<SuspenseLoading />}>
             <TransactionsPage />
           </Suspense>
         ),
@@ -219,7 +220,7 @@ const routes = createBrowserRouter([
       {
         path: 'referrals',
         element: (
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense fallback={<SuspenseLoading />}>
             <ReferralsPage />
           </Suspense>
         ),
@@ -227,7 +228,7 @@ const routes = createBrowserRouter([
       {
         path: 'settings',
         element: (
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense fallback={<SuspenseLoading />}>
             <SettingsPage />
           </Suspense>
         ),
