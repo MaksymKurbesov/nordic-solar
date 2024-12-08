@@ -1,36 +1,33 @@
 import styles from './NextAccrual.module.scss'
 import { Timestamp } from 'firebase/firestore'
 import { useState, useEffect } from 'react'
-import { formatTimeLeft } from '@/utils/helpers.tsx'
+import { getClosestDeposit } from '@/utils/helpers.tsx'
+import { useTimer } from 'react-timer-hook'
 
-const NextAccrual = ({ lastAccrual }) => {
-  const [nextAccrual, setNextAccrual] = useState(null)
-  const [timeLeft, setTimeLeft] = useState(0)
+const NextAccrual = ({ deposits }) => {
+  const [closestDeposit, setClosestDeposit] = useState(null)
 
-  useEffect(() => {
-    if (!lastAccrual) return
-
-    const dayInMillis = 24 * 60 * 60 * 1000
-    const accrual = lastAccrual.toMillis() + dayInMillis
-    setNextAccrual(accrual)
-  }, [])
+  const { seconds, minutes, hours, days, restart } = useTimer({
+    expiryTimestamp: new Date(),
+    onExpire: () => console.warn('onExpire called'),
+  })
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setTimeLeft(getNextAccrualTime()) // Обновляем каждую секунду
-    }, 1000)
+    if (!deposits) return
 
-    return () => clearInterval(interval) // Чистим таймер при размонтировании
-  }, [nextAccrual])
+    const deposit = getClosestDeposit(deposits)
+    setClosestDeposit(deposit)
+  }, [deposits])
 
-  const getNextAccrualTime = () => {
-    if (!nextAccrual) return
+  useEffect(() => {
+    if (closestDeposit) {
+      const newExpiry = Timestamp.fromMillis(
+        closestDeposit.deposit.lastAccrual.toMillis() + 24 * 60 * 60 * 1000,
+      ).toDate()
 
-    const nextAccrualTimestamp = Timestamp.fromMillis(nextAccrual) // Добавляем 24 часа
-    return nextAccrualTimestamp.toMillis() - Date.now() // Вычисляем разницу в миллисекундах
-  }
-
-  const { days, hours, minutes, seconds } = formatTimeLeft(timeLeft)
+      restart(newExpiry) // Перезапускаем таймер с новым значением
+    }
+  }, [closestDeposit, restart])
 
   return (
     <div className={styles['next-accrual']}>
@@ -41,19 +38,19 @@ const NextAccrual = ({ lastAccrual }) => {
         </p>
         <div className={styles['timer']}>
           <div className={styles['days']}>
-            <span>{nextAccrual ? String(days).padStart(2, '0') : '00'}</span>
+            <span>{String(days).padStart(2, '0')}</span>
             <p>Дней</p>
           </div>
           <div className={styles['hours']}>
-            <span>{nextAccrual ? String(hours).padStart(2, '0') : '00'}</span>
+            <span>{String(hours).padStart(2, '0')}</span>
             <p>Часов</p>
           </div>
           <div className={styles['minutes']}>
-            <span>{nextAccrual ? String(minutes).padStart(2, '0') : '00'}</span>
+            <span>{String(minutes).padStart(2, '0')}</span>
             <p>Минут</p>
           </div>
           <div className={styles['seconds']}>
-            <span>{nextAccrual ? String(seconds).padStart(2, '0') : '00'}</span>
+            <span>{String(seconds).padStart(2, '0')}</span>
             <p>Секунд</p>
           </div>
         </div>

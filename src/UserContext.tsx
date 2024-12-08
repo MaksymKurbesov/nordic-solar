@@ -12,6 +12,7 @@ interface User {
   nickname: string
   registrationDate: any
   deposits?: []
+  transactions?: []
 }
 
 export interface UserState {
@@ -23,6 +24,7 @@ type Action =
   | { type: 'SET_THEME'; payload: 'light' | 'dark' }
   | { type: 'SET_DEPOSITS'; payload: any }
   | { type: 'SET_WALLETS'; payload: any }
+  | { type: 'SET_TRANSACTIONS'; payload: any }
 
 const initialState = {
   user: null,
@@ -36,6 +38,8 @@ const reducer = (state: UserState, action: Action): UserState => {
       return { ...state, user: { ...state.user, deposits: action.payload } }
     case 'SET_WALLETS':
       return { ...state, user: { ...state.user, wallets: action.payload } }
+    case 'SET_TRANSACTIONS':
+      return { ...state, user: { ...state.user, transactions: action.payload } }
     default:
       return state
   }

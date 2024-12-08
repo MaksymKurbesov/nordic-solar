@@ -7,7 +7,6 @@ import {
   doc,
   query,
   where,
-  getDocs,
   updateDoc,
   increment,
   orderBy,
@@ -16,6 +15,7 @@ import {
 } from 'firebase/firestore'
 import { v4 as uuidv4 } from 'uuid'
 import { referralService, userService } from '@/main.tsx'
+import { transformTransaction } from '@/utils/helpers/transformData.tsx'
 
 interface ITransactionService {
   db: Firestore
@@ -112,7 +112,7 @@ class TransactionService implements ITransactionService {
     })
   }
 
-  subscribeToLastTenTransactions(nickname, callback) {
+  async subscribeToTransactions(setTransactions, nickname) {
     try {
       const transactionQuery = query(
         this.transactionCollection,
@@ -121,17 +121,16 @@ class TransactionService implements ITransactionService {
         limit(10),
       )
 
-      const unsubscribe = onSnapshot(transactionQuery, (querySnapshot) => {
+      onSnapshot(transactionQuery, (querySnapshot) => {
         const transactions = querySnapshot.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(), // Приводим данные документа к типу Transaction
         }))
 
-        // Вызываем callback с обновленными данными
-        callback(transactions)
-      })
+        const transformedTransactions = transactions.map(transformTransaction)
 
-      return () => unsubscribe()
+        setTransactions(transformedTransactions)
+      })
     } catch (e) {
       console.error(e)
       alert(e)

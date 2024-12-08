@@ -10,20 +10,22 @@ const Wallets = ({ wallets }) => {
 
   return (
     <div className={styles['wallets']}>
-      <h3>Кошельки</h3>
-      <div className={`${styles['slider-buttons']} `}>
-        <button
-          onClick={() => sliderRef.current.slidePrev()}
-          className={styles['prev-button']}
-        >
-          <ArrowIcon />
-        </button>
-        <button
-          onClick={() => sliderRef.current.slideNext()}
-          className={styles['next-button']}
-        >
-          <ArrowIcon />
-        </button>
+      <div className={styles['wallets-header']}>
+        <h3>Кошельки</h3>
+        <div className={`${styles['slider-buttons']} `}>
+          <button
+            onClick={() => sliderRef.current.slidePrev()}
+            className={styles['prev-button']}
+          >
+            <ArrowIcon />
+          </button>
+          <button
+            onClick={() => sliderRef.current.slideNext()}
+            className={styles['next-button']}
+          >
+            <ArrowIcon />
+          </button>
+        </div>
       </div>
       <Swiper
         breakpoints={{
@@ -40,6 +42,7 @@ const Wallets = ({ wallets }) => {
         spaceBetween={10}
         slidesPerView={1}
         onSwiper={(swiper) => (sliderRef.current = swiper)}
+        className={styles['swiper-padding']}
       >
         {Object.entries(wallets).map((wallet, index) => {
           const walletName = wallet[0]

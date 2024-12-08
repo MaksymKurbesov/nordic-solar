@@ -42,14 +42,12 @@
   overflow: hidden;
   border-bottom: 1px solid #777;
   transition: all 0.3s ease;
-  padding-right: 80px;
-
 }
-
 
 .question-title {
   font-size: 34px;
   margin-bottom: 43px;
+  padding-right: 50px;
 }
 
 .question-title span {
@@ -116,7 +114,6 @@
 
   .question-title {
     font-size: 24px;
-    //margin-bottom: 30px;
   }
 }
 
@@ -125,7 +122,16 @@
     font-size: 18px;
   }
 
+  .toggle-button {
+    width: 35px;
+    height: 35px;
+  }
+
+  .toggle-button span {
+    width: 10px;
+  }
+
   .answer {
-    max-width: 100%
+    max-width: 100%;
   }
 }

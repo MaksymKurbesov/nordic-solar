@@ -1,126 +1,140 @@
 .bottom-row {
-    position: relative;
-    padding-top: 0px;
-    max-width: 1720px;
-    margin: 0 auto;
-    height: 0;
-    overflow: hidden;
-    transition: 0.35s ease all;
+  position: relative;
+  padding-top: 0px;
+  max-width: 1720px;
+  margin: 0 auto;
+  height: 0;
+  overflow: hidden;
+  transition: 0.35s ease all;
 }
 
 .bottom-row.opened {
-    height: 155px;
-    padding-top: 15px;
+  height: 155px;
+  padding-top: 15px;
 }
 
 .statistic-list li {
-    padding: 20px;
-    background: white;
-    border-radius: 8px;
+  padding: 20px;
+  background: white;
+  border-radius: 8px;
 }
 
 .header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
 }
 
 .header svg {
-    width: 40px;
-    height: 40px;
-    background: $green;
-    padding: 10px;
-    border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  background: $green;
+  padding: 10px;
+  border-radius: 50%;
 }
 
 .values {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 5px;
-    font-family: GilroySemiBold;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5px;
+  font-family: GilroySemiBold;
 }
 
 .values p {
-    font-size: 14px;
-    color: rgba(0, 0, 0, 0.5);
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.5);
 }
 
 .values span {
-    font-size: 20px;
+  font-size: 20px;
+}
+
+.statistic-header {
+  display: flex;
+  align-items: center;
+  margin-top: 15px;
 }
 
 .statistic-button {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    color: $black;
-    margin-top: 15px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: $black;
 }
 
 .statistic-button.opened svg {
-    transform: rotateZ(180deg);
-    transition: 0.35s ease all;
+  transform: rotateZ(180deg);
+  transition: 0.35s ease all;
 }
 
 .statistic-button svg {
-    background: white;
-    width: 30px;
-    height: 30px;
-    padding: 9px;
-    border-radius: 50%;
-    transition: 0.35s ease all;
+  background: white;
+  width: 30px;
+  height: 30px;
+  padding: 9px;
+  border-radius: 50%;
+  transition: 0.35s ease all;
 }
 
 .statistic-button svg path {
-    fill: #222;
+  fill: #222;
 }
 
 .slider-buttons {
-    display: none;
-    position: absolute;
-    gap: 15px;
-    top: 96px;
-    right: 20px;
-    z-index: 55;
-    height: 30px;
-    opacity: 0;
-    transition: 0.35s ease all;
+  display: none;
+  gap: 15px;
+  z-index: 55;
+  height: 30px;
+  opacity: 0;
+  transition: 0.35s ease all;
 }
 
 .slider-buttons.opened {
-    opacity: 1;
+  opacity: 1;
 }
 
 .slider-buttons button:first-child {
-    transform: rotateZ(90deg);
+  transform: rotateZ(90deg);
 }
 
 .slider-buttons button:last-child {
-    transform: rotateZ(-90deg);
+  transform: rotateZ(-90deg);
 }
 
 .slider-buttons svg {
-    background: white;
-    width: 30px;
-    height: 30px;
-    padding: 9px;
-    border-radius: 50%;
+  background: white;
+  width: 30px;
+  height: 30px;
+  padding: 9px;
+  border-radius: 50%;
 }
 
 .slider-buttons svg path {
-    fill: $black;
+  fill: $black;
 }
 
 @media screen and (max-width: 1200px) {
-    .slider-buttons {
-        display: flex;
-    }
+  .slider-buttons {
+    display: flex;
+  }
 }
 
 @media screen and (max-width: 767px) {
-    .slider-buttons {
-        top: 86px;
-    }
+  .slider-buttons {
+    top: 86px;
+  }
+
+  .slider-buttons svg {
+    width: 25px;
+    height: 25px;
+    padding: 8px;
+  }
+
+  .statistic-button svg {
+    width: 25px;
+    height: 25px;
+    padding: 8px;
+  }
 }

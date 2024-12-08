@@ -1,51 +1,77 @@
 import Logo from '@assets/logo.svg?react'
 import styles from './CabinetMenu.module.scss'
 import { NavLink, useLocation } from 'react-router-dom'
-import { useEffect, useState } from 'react'
 import UserAvatar from '@assets/images/user.png'
-
 import { userService } from '@/main.tsx'
 import { useUser } from '@/hooks/useUser.ts'
 import MenuStatistic from '@SharedUI/CabinetMenu/MenuStatistic/MenuStatistic.tsx'
-import useIsHomePage from '@/hooks/useIsHomePage.ts'
+import { useEffect, useState } from 'react'
+import DrawerMobileMenu from '@SharedUI/CabinetMenu/DrawerMobileMenu/DrawerMobileMenu.tsx'
+import CabinetIcon from '@assets/icons/mobile-menu/cabinet.svg?react'
+import OpenDepositIcon from '@assets/icons/mobile-menu/open-deposit.svg?react'
+import CashInIcon from '@assets/icons/mobile-menu/cash-in.svg?react'
+import WithdrawnIcon from '@assets/icons/mobile-menu/withdrawn.svg?react'
+import TransactionsIcon from '@assets/icons/mobile-menu/transactions.svg?react'
+import ReferralsIcon from '@assets/icons/mobile-menu/referrals.svg?react'
 
 export const LINKS = [
   {
     text: 'Кабинет',
     link: '/cabinet/main',
+    icon: <CabinetIcon />,
   },
   {
     text: 'Открыть план',
     link: '/cabinet/open-plan/plans',
+    icon: <OpenDepositIcon />,
   },
   {
     text: 'Пополнить счет',
     link: '/cabinet/make-deposit',
+    icon: <CashInIcon />,
   },
   {
     text: 'Вывод средств',
     link: '/cabinet/withdrawn',
+    icon: <WithdrawnIcon />,
   },
   {
     text: 'Транзакции',
     link: '/cabinet/transactions',
+    icon: <TransactionsIcon />,
   },
   {
     text: 'Рефералы',
     link: '/cabinet/referrals',
+    icon: <ReferralsIcon />,
   },
 ]
 
-const Menu = () => {
-  const isHomePage = useIsHomePage()
+const CabinetMenu = () => {
   const { user } = useUser()
+  const [mobileMenuDrawerIsOpen, setMobileMenuDrawerIsOpen] = useState(false)
+  const location = useLocation()
+
+  useEffect(() => {
+    setMobileMenuDrawerIsOpen(false)
+  }, [location.pathname])
 
   if (!user) return null
 
   return (
-    <div className={`${styles.menu} ${isHomePage ? styles['menuIndex'] : ''}`}>
+    <div className={`${styles.menu}`}>
       <div className={styles['top-row']}>
-        <NavLink to={'/'} className={styles['logotype']}>
+        <div
+          className={styles['mobile-hamburger']}
+          onClick={() => {
+            setMobileMenuDrawerIsOpen(true)
+          }}
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <NavLink to={'/cabinet/main'} className={styles['logotype']}>
           <Logo width={120} />
         </NavLink>
         <nav className={styles.navigation}>
@@ -87,8 +113,12 @@ const Menu = () => {
         </button>
       </div>
       <MenuStatistic />
+      <DrawerMobileMenu
+        open={mobileMenuDrawerIsOpen}
+        setOpen={setMobileMenuDrawerIsOpen}
+      />
     </div>
   )
 }
 
-export default Menu
+export default CabinetMenu

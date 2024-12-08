@@ -1,6 +1,4 @@
-import { serverTimestamp, Timestamp } from 'firebase/firestore'
-import AccrualTimer from '@/pages/Cabinet/MainCabinet/Deposits/AccrualTimer'
-import { parseTimestamp } from '@/utils/helpers/date.tsx'
+import { serverTimestamp } from 'firebase/firestore'
 
 export const generateUserData = (nickname: string, email: string) => {
   return {
@@ -78,61 +76,6 @@ export const generateSixDigitCode = () => {
   return Math.floor(100000 + Math.random() * 900000)
 }
 
-export const transformTransaction = (transaction) => {
-  return {
-    ...transaction,
-    id: transaction.id.slice(0, 6),
-    executor: transaction.executor.toUpperCase(),
-    amount: `$${transaction.amount.toLocaleString()}`,
-    date: parseTimestamp(transaction.date),
-  }
-}
-
-export const transformDeposit = (deposit) => {
-  const nextAccrual = Timestamp.fromMillis(
-    deposit.lastAccrual.toMillis() + 24 * 60 * 60 * 1000,
-  )
-
-  return {
-    ...deposit,
-    wallet: deposit.wallet.toUpperCase(),
-    amount: `$${deposit.amount.toLocaleString()}`,
-    openDate: parseTimestamp(deposit.openDate),
-    closeDate: parseTimestamp(deposit.closeDate),
-    willReceived: `$${deposit.willReceived}`,
-    received: `$${deposit.received.toFixed(2)}`,
-    variant: deposit.variant,
-    nextAccrual: deposit.isActive ? (
-      <AccrualTimer nextAccrual={nextAccrual} />
-    ) : (
-      'Завершено'
-    ),
-    progress: (
-      <p>
-        {deposit.charges} / {deposit.days}
-      </p>
-    ),
-  }
-}
-
-export const daysPassedSince = (someDate) => {
-  const now = new Date(Timestamp.now().seconds * 1000)
-  const updatedSomeDate = new Date(someDate.seconds * 1000)
-
-  const oneDayMilliseconds = 24 * 60 * 60 * 1000
-
-  const difference = now - updatedSomeDate
-
-  return Math.floor(difference / oneDayMilliseconds)
-}
-
-export const addDays = (date, days) => {
-  const result = new Date(date.seconds * 1000)
-  result.setDate(result.getDate() + days)
-
-  return new Date(result.getTime())
-}
-
 export const calculateTotalIncome = (initialAmount, dailyPercentage, days) => {
   if (isNaN(initialAmount)) {
     return 0
@@ -197,14 +140,4 @@ export const fetchUserIP = async () => {
     console.error('Ошибка при получении IP-адреса:', error)
     throw error // Пробрасываем ошибку, чтобы её можно было обработать
   }
-}
-
-export const formatTimeLeft = (ms: number) => {
-  const totalSeconds = Math.floor(ms / 1000)
-  const days = Math.floor(totalSeconds / (60 * 60 * 24))
-  const hours = Math.floor((totalSeconds % (60 * 60 * 24)) / (60 * 60))
-  const minutes = Math.floor((totalSeconds % (60 * 60)) / 60)
-  const seconds = totalSeconds % 60
-
-  return { days, hours, minutes, seconds }
 }

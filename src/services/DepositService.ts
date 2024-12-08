@@ -3,7 +3,6 @@ import {
   CollectionReference,
   doc,
   Firestore,
-  getDocs,
   onSnapshot,
   orderBy,
   query,
@@ -14,9 +13,10 @@ import {
   increment,
 } from 'firebase/firestore'
 import { v4 as uuidv4 } from 'uuid'
-import { addDays, daysPassedSince, transformDeposit } from '@/utils/helpers'
 import { transactionService, userService } from '@/main'
 import { PLAN_VARIANT } from '@/utils/const.tsx'
+import { addDays, daysPassedSince } from '@/utils/helpers/date.tsx'
+import { transformDeposit } from '@/utils/helpers/transformData.tsx'
 
 interface IDepositService {
   db: Firestore

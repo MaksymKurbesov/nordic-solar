@@ -48,8 +48,6 @@ const OpenPlan = () => {
 
   const [activeStep, setActiveStep] = useState(0)
 
-  const [error, setError] = useState(null)
-
   const form = useForm({
     defaultValues: {
       plan: '',

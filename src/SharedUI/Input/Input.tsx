@@ -4,13 +4,15 @@ import { UseFormRegister } from 'react-hook-form'
 import { FC } from 'react'
 
 interface InputProps {
-  name: keyof IUserData // Это укажет, что имя должно соответствовать ключам интерфейса IUserData
+  name: keyof IUserData
   label: string
   type?: string
-  register: UseFormRegister<IUserData> // Правильная типизация для register
+  register: UseFormRegister<IUserData>
   validation?: object
   trigger: (name: keyof IUserData) => Promise<boolean>
   referralNickname?: string
+  placeholder?: string
+  disabled?: boolean
 }
 
 const Input: FC<InputProps> = ({
@@ -21,13 +23,17 @@ const Input: FC<InputProps> = ({
   validation,
   trigger,
   referralNickname = '',
+  placeholder,
+  disabled = false,
 }) => {
   return (
     <div className={styles['input']}>
       {label && <label htmlFor={name}>{label}</label>}
       <input
+        placeholder={placeholder}
         id={name}
         type={type}
+        disabled={disabled}
         {...(referralNickname ? { value: referralNickname } : {})}
         {...register(name, {
           ...validation,

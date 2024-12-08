@@ -9,6 +9,9 @@ import {
   CollectionReference,
   increment,
   arrayUnion,
+  query,
+  where,
+  onSnapshot,
 } from 'firebase/firestore'
 import { generateUserData, logError } from '@/utils/helpers.tsx'
 import {
@@ -74,6 +77,22 @@ class UserService implements IUserService {
 
   async logout() {
     await signOut(auth)
+  }
+
+  async subscribeOnUser(nickname: string, setUser) {
+    try {
+      const q = doc(this.userCollection, nickname)
+
+      // Подписываемся на изменения
+      onSnapshot(q, (querySnapshot) => {
+        if (querySnapshot.exists()) {
+          setUser(querySnapshot.data())
+        }
+      })
+    } catch (e) {
+      console.log(e, 'error in get pending transactions')
+      return () => {} // Возвращаем пустую функцию на случай ошибок
+    }
   }
 
   async getUser(nickname: string) {

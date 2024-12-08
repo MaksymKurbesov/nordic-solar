@@ -18,3 +18,7 @@
   font-family: inherit;
   font-size: 20px;
 }
+
+.input input:disabled {
+  color: $gray;
+}

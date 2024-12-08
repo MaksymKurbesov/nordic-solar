@@ -1,16 +1,13 @@
 import styles from './OpenPlanConfirm.module.scss'
 import { useFormContext } from 'react-hook-form'
-import {
-  addDays,
-  calculateDailyIncome,
-  calculateTotalIncome,
-} from '@/utils/helpers'
+import { calculateDailyIncome, calculateTotalIncome } from '@/utils/helpers'
 import { PLAN_VARIANT } from '@/utils/const.tsx'
 import IconCircleCheckFilled from '@/assets/icons/circle-check.svg?react'
 import QuestionIcon from '@/assets/icons/help-octagon.svg?react'
 import IconChevronRight from '@/assets/icons/chevron-right.svg?react'
 import { Link } from 'react-router-dom'
-import { formatDate } from '@/utils/helpers/date.tsx'
+import { addDaysToTimestamp, parseTimestamp } from '@/utils/helpers/date.tsx'
+import { Timestamp } from 'firebase/firestore'
 
 const PLAN_MAP = {
   solar: 'Solar Future',
@@ -67,15 +64,12 @@ const OpenPlanConfirm = () => {
           </span>
         </p>
         <p>
-          <span>Дата открытия:</span> <span>{formatDate(new Date())}</span>
+          <span>Дата открытия:</span>{' '}
+          <span>{parseTimestamp(Timestamp.now())}</span>
         </p>
         <p>
           <span>Дата закрытия:</span>{' '}
-          <span>
-            {formatDate(
-              addDays({ seconds: new Date().getTime() / 1000 }, variant.days),
-            )}
-          </span>
+          <span>{parseTimestamp(addDaysToTimestamp(variant.days))}</span>
         </p>
       </div>
       <Link to={'https://t.me/nordic_solar'} target={'_blank'}>

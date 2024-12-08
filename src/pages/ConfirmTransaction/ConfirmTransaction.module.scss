@@ -1,3 +1,10 @@
+.wallet-field p {
+  text-transform: lowercase;
+}
+.wallet-field p:first-letter {
+  text-transform: uppercase;
+}
+
 .row {
   display: flex;
   flex-direction: column;
@@ -51,7 +58,6 @@
   margin-bottom: 15px;
 }
 
-
 .private-key > div p {
   margin-bottom: 10px;
   color: $gray;
@@ -60,7 +66,6 @@
 .private-key > div p:first-child {
   color: $green;
 }
-
 
 .completed {
   color: $green;
@@ -77,7 +82,7 @@
 
 .instruction h2 {
   margin-bottom: 15px;
-  font-family: GilroySemiBold, "sans-serif";
+  font-family: GilroySemiBold, 'sans-serif';
 }
 
 .instruction ul {
@@ -90,7 +95,8 @@
   margin-bottom: 5px;
 }
 
-.instruction ul li:nth-child(3) > p, .instruction ul li:nth-child(4) > p {
+.instruction ul li:nth-child(3) > p,
+.instruction ul li:nth-child(4) > p {
   margin-bottom: 10px;
 }
 
@@ -98,13 +104,14 @@
   fill: $green;
 }
 
-.instruction input, .private-key input {
+.instruction input,
+.private-key input {
   width: 100%;
   background: none;
   padding: 12px 24px;
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 8px;
-  font-family: GilroyRegular, "sans-serif";
+  font-family: GilroyRegular, 'sans-serif';
   font-size: clamp(1rem, 1em + 0.5vw, 1.875rem);
 }
 
@@ -304,7 +311,8 @@
     padding: 20px 15px;
   }
 
-  .instruction input, .private-key input {
+  .instruction input,
+  .private-key input {
     padding: 10px;
     font-size: 14px;
   }

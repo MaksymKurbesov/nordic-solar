@@ -12,5 +12,8 @@ export const useUser = () => {
   const setWallets = (wallets) =>
     dispatch({ type: 'SET_WALLETS', payload: wallets })
 
-  return { user: state.user, setUser, setDeposits, setWallets }
+  const setTransactions = (transactions) =>
+    dispatch({ type: 'SET_TRANSACTIONS', payload: transactions })
+
+  return { user: state.user, setUser, setDeposits, setWallets, setTransactions }
 }

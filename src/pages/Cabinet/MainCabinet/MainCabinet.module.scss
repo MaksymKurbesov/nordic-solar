@@ -1,8 +1,8 @@
 .accrual-wrapper {
-    display: grid;
-    gap: 20px;
-    grid-template-columns: 1fr 1fr;
-    margin-bottom: 50px;
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 1fr 1fr;
+  margin-bottom: 50px;
 }
 
 @media screen and (max-width: 900px) {

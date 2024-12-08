@@ -1,5 +1,4 @@
 import styles from './LastTransactions.module.scss'
-import Table from '@SharedUI/Table/Table.tsx'
 import { TRANSACTION_COLUMNS } from '@/utils/const.tsx'
 
 const STYLES_MAP = {
@@ -9,6 +8,10 @@ const STYLES_MAP = {
 }
 
 const LastTransactions = ({ transactions }) => {
+  if (!transactions) {
+    return <div>Нет транзакций</div>
+  }
+
   return (
     <div className={styles['last-transactions']}>
       <h3>Последние транзакции</h3>
@@ -17,7 +20,7 @@ const LastTransactions = ({ transactions }) => {
       ) : (
         // <Table columns={TRANSACTION_COLUMNS} data={transactions} />
         <ul className={styles['last-transactions-list']}>
-          {transactions.map((transaction, index) => {
+          {transactions.slice(0, 4).map((transaction, index) => {
             return (
               <li key={index} className={transaction.status}>
                 {TRANSACTION_COLUMNS.map((column, index) => (

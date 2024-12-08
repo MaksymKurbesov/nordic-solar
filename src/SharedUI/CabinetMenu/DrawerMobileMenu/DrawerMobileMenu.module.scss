@@ -1,0 +1,70 @@
+.drawer > div:nth-child(3) {
+  background: $black;
+  padding: 20px;
+  //opacity: 0.5;
+}
+
+.header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 60px;
+}
+
+.header svg {
+  stroke: white;
+}
+
+.drawer-menu-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  font-size: 22px;
+  color: white;
+  margin-bottom: 80px;
+}
+
+.drawer-menu-list li {
+  color: $gray;
+  transition: 0.35s ease all;
+}
+
+.drawer-menu-list li a {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.drawer-menu-list li a:before {
+  position: absolute;
+  left: 0;
+  bottom: -5px;
+  content: '';
+  width: 0;
+  height: 2px;
+  background: $green;
+  transition: 0.35s ease all;
+  border-radius: 15px;
+}
+
+.quit-button {
+  text-align: left;
+  margin-bottom: 20px;
+  color: $gray;
+}
+
+.isActive {
+  color: white;
+}
+
+.isActive:before {
+  width: 100% !important;
+}
+
+@media screen and (max-width: 500px) {
+  .logo {
+    width: 90px;
+  }
+}

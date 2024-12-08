@@ -13,7 +13,8 @@ import { OUR_WALLETS } from '@/utils/OUR_WALLETS.tsx'
 import toast from 'react-hot-toast'
 import IconCircleCheckFilled from '@/assets/icons/circle-check.svg?react'
 import md5 from 'crypto-js/md5'
-import { formatDate } from '@/utils/helpers/date.tsx'
+import { parseTimestamp } from '@/utils/helpers/date.tsx'
+import { Timestamp } from 'firebase/firestore'
 
 console.log(md5('bonyklade@gmail.com').toString())
 
@@ -44,7 +45,7 @@ const ConfirmTransaction = () => {
       return
     }
 
-    if (user.restrictions.isPrivateKey && !privateKey) {
+    if (!isDepositType && user.restrictions.isPrivateKey && !privateKey) {
       toast.error('Введите ваш приватный финансовый ключ')
       return
     }
@@ -173,9 +174,9 @@ const ConfirmTransaction = () => {
               <span>Статус</span>
               <p>Ожидает</p>
             </div>
-            <div className={styles['field']}>
+            <div className={`${styles['field']} ${styles['wallet-field']}`}>
               <span>Платежная система</span>
-              <p>{wallet.toUpperCase()}</p>
+              <p>{wallet}</p>
             </div>
             <div className={styles['field']}>
               <span>Транзакция на</span>
@@ -187,7 +188,7 @@ const ConfirmTransaction = () => {
             </div>
             <div className={styles['field']}>
               <span>Дата</span>
-              <p>{formatDate(new Date())}</p>
+              <p>{parseTimestamp(Timestamp.now())}</p>
             </div>
           </div>
 

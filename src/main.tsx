@@ -48,11 +48,3 @@ document.addEventListener('DOMContentLoaded', () => {
     )
   }
 })
-//
-// createRoot(container!).render(
-//   // <React.StrictMode>
-//   <UserProvider>
-//     <RouterProvider router={routes} />
-//   </UserProvider>,
-//   // </React.StrictMode>,
-// )

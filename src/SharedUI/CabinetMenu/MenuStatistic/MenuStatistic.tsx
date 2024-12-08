@@ -38,34 +38,36 @@ const MenuStatistic = () => {
 
   return (
     <>
-      <button
-        className={`${styles['statistic-button']} ${
-          menuIsOpened ? styles['opened'] : ''
-        }`}
-        onClick={() => {
-          setMenuIsOpened((prevState) => !prevState)
-        }}
-      >
-        <ArrowIcon />
-        Статистика кабинета
-      </button>
-      <div
-        className={`${styles['slider-buttons']} ${
-          menuIsOpened ? styles['opened'] : ''
-        }`}
-      >
+      <div className={styles['statistic-header']}>
         <button
-          onClick={() => sliderRef.current.slidePrev()}
-          className={styles['prev-button']}
+          className={`${styles['statistic-button']} ${
+            menuIsOpened ? styles['opened'] : ''
+          }`}
+          onClick={() => {
+            setMenuIsOpened((prevState) => !prevState)
+          }}
         >
           <ArrowIcon />
+          Статистика кабинета
         </button>
-        <button
-          onClick={() => sliderRef.current.slideNext()}
-          className={styles['next-button']}
+        <div
+          className={`${styles['slider-buttons']} ${
+            menuIsOpened ? styles['opened'] : ''
+          }`}
         >
-          <ArrowIcon />
-        </button>
+          <button
+            onClick={() => sliderRef.current.slidePrev()}
+            className={styles['prev-button']}
+          >
+            <ArrowIcon />
+          </button>
+          <button
+            onClick={() => sliderRef.current.slideNext()}
+            className={styles['next-button']}
+          >
+            <ArrowIcon />
+          </button>
+        </div>
       </div>
       <div
         className={`${styles['bottom-row']} ${

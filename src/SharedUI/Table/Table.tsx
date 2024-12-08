@@ -15,6 +15,8 @@ const Table = ({ columns, data, isDeposit }) => {
   const columnsLength = isMobile && isDeposit ? 7 : columns.length
   const gridColumns = `repeat(${columnsLength}, 1fr)`
 
+  if (!data) return
+
   return (
     <ul className={styles['table-list']}>
       <li
