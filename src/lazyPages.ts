@@ -45,3 +45,11 @@ export const ReferralsPage = lazy(
 export const SettingsPage = lazy(
   () => import('@/pages/Cabinet/Settings/Settings'),
 )
+
+export const TermsOfUsePage = lazy(
+  () => import('@/pages/TermsOfUse/TermsOfUse'),
+)
+
+export const PrivacyPolicyPage = lazy(
+  () => import('@/pages/PrivacyPolicy/PrivacyPolicy'),
+)

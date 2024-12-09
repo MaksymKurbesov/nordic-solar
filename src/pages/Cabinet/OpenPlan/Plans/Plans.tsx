@@ -2,6 +2,7 @@ import styles from './Plans.module.scss'
 import { useFormContext } from 'react-hook-form'
 import { NavLink } from 'react-router-dom'
 import { INVESTMENTS } from '@/utils/INVESTMENTS.tsx'
+import SuspenseImage from '@/utils/SuspenseImage.tsx'
 
 const Plans = () => {
   const { register, watch } = useFormContext()
@@ -25,7 +26,7 @@ const Plans = () => {
                 })}
               />
               <label htmlFor={plan.value} className={styles['plan-text']}>
-                <img src={plan.thumbImage} alt={''} />
+                <SuspenseImage src={plan.thumbImage} alt={''} />
                 <p>{plan.title}</p>
                 <NavLink
                   target={'_blank'}

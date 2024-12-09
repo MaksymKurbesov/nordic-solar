@@ -1,6 +1,7 @@
 import styles from './Partners.module.scss'
 import HeroImage from '@assets/images/partners-program.webp'
 import { ScrollRestoration } from 'react-router-dom'
+import SuspenseImage from '@/utils/SuspenseImage.tsx'
 
 const Partners = () => {
   return (
@@ -10,7 +11,7 @@ const Partners = () => {
         Присоединяйтесь к партнерской программе Nordic Solar <br /> и получайте
         до 8% с каждого пополнения, сделанного привлеченным Вами человеком.
       </p>
-      <img src={HeroImage} alt={''} width={'100%'} />
+      <SuspenseImage src={HeroImage} alt={''} width={'100%'} />
       <p className={styles['our-referral-text']}>
         <span>Наша реферальная программа</span> создана, чтобы вы могли получать
         дополнительный доход, <span>просто приглашая своих друзей.</span> Чем

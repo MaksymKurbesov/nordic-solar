@@ -7,6 +7,7 @@ import { referralService, userService } from '@/main.tsx'
 import { useEffect, useState } from 'react'
 import SuccessModal from '@/pages/SignUp/SuccessModal/SuccessModal'
 import axios from 'axios'
+import Rules from '@/pages/SignUp/Rules/Rules.tsx'
 
 export interface IUserData {
   nickname: string
@@ -23,41 +24,56 @@ const SignUp = () => {
     handleSubmit,
     trigger,
     formState: { errors },
+    setValue,
   } = methods
-  const [isSuccessModalVisible, setIsSuccessModalVisible] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
   const { search } = useLocation()
-
-  const [referralNickname, setReferralNickname] = useState<string | null>('')
+  const [state, setState] = useState({
+    isSuccessModalVisible: false,
+    isLoading: false,
+    referralNickname: '',
+    rulesIsOpen: false,
+  })
 
   useEffect(() => {
     const searchQuery = new URLSearchParams(search)
-    setReferralNickname(searchQuery.get('referral'))
+    setState((prevState) => ({
+      ...prevState,
+      referralNickname: searchQuery.get('referral') || '',
+    }))
 
     return () => {
       document.body.style.overflow = 'visible'
     }
-  }, [])
+  }, [search])
+
+  console.log('signup')
 
   const openModal = () => {
-    setIsSuccessModalVisible(true)
+    setState((prevState) => ({ ...prevState, isSuccessModalVisible: true }))
     document.body.style.overflow = 'hidden'
     window.scrollTo(0, 0)
   }
 
   const onSubmit = async (data: IUserData) => {
-    setIsLoading(true)
+    setState((prevState) => ({ ...prevState, isLoading: true }))
 
-    const trimmedNickname = data.nickname.trim()
-    const trimmedEmail = data.email.trim()
+    const trimmedData = {
+      nickname: data.nickname.trim(),
+      email: data.email.trim(),
+      password: data.password,
+    }
 
-    await userService.registerUser(trimmedNickname, trimmedEmail, data.password)
+    await userService.registerUser(
+      trimmedData.nickname,
+      trimmedData.email,
+      trimmedData.password,
+    )
 
     await axios.post('https://apate-backend.com/send-welcome-email', {
-      to: trimmedEmail,
+      to: trimmedData.email,
       subject: 'Вы с нами! Спасибо за регистрацию на Nordic Solar!',
-      name: trimmedNickname,
-      email: trimmedEmail,
+      name: trimmedData.nickname,
+      email: trimmedData.email,
       password: data.password,
       action_url: 'https://nordic-solar.tech/sign-in',
     })
@@ -65,12 +81,12 @@ const SignUp = () => {
     if (data.referral) {
       await referralService.addReferralToAllLevels(
         data.referral,
-        trimmedNickname,
+        trimmedData.nickname,
       )
     }
 
     openModal()
-    setIsLoading(false)
+    setState((prevState) => ({ ...prevState, isLoading: false }))
   }
 
   return (
@@ -160,7 +176,7 @@ const SignUp = () => {
               label={'Ник реферала'}
               register={register}
               trigger={trigger}
-              referralNickname={referralNickname}
+              referralNickname={state.referralNickname}
             />
 
             <div className={styles['input-wrapper']}>
@@ -172,7 +188,19 @@ const SignUp = () => {
                   })}
                 />
                 <span className={styles['checkmark']}></span>Я согласен с
-                правилами сайта
+                правилами сайта{' '}
+                <button
+                  onClick={(e) => {
+                    e.preventDefault()
+                    setState((prevState) => ({
+                      ...prevState,
+                      rulesIsOpen: true,
+                    }))
+                  }}
+                  className={styles['read-rules']}
+                >
+                  Читать правила
+                </button>
               </label>
               {errors.agreement && (
                 <p className={styles['error']}>{errors.agreement.message}</p>
@@ -182,12 +210,19 @@ const SignUp = () => {
             <WideButton
               text={'Регистрация'}
               type={'submit'}
-              isDisabled={isLoading}
+              isDisabled={state.isLoading}
             />
           </form>
+          <Rules
+            setValue={setValue}
+            open={state.rulesIsOpen}
+            handleClose={() =>
+              setState((prevState) => ({ ...prevState, rulesIsOpen: false }))
+            }
+          />
         </FormProvider>
       </div>
-      {isSuccessModalVisible && <SuccessModal />}
+      {state.isSuccessModalVisible && <SuccessModal />}
     </div>
   )
 }

@@ -112,6 +112,13 @@
   color: $red;
 }
 
+.read-rules {
+  color: white;
+  opacity: 0.5;
+  margin-left: 20px;
+  cursor: pointer;
+}
+
 @media screen and (max-width: 767px) {
   .sign-up {
     flex-direction: column;

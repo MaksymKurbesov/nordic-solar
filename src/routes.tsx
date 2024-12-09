@@ -14,19 +14,19 @@ import {
   MainCabinetPage,
   MakeDepositPage,
   OpenPlanPage,
+  PrivacyPolicyPage,
   ProductPage,
   ProductsPage,
   ReferralsPage,
   SettingsPage,
   SignInPage,
   SignUpPage,
+  TermsOfUsePage,
   TransactionsPage,
   WithdrawnPage,
 } from '@/lazyPages.ts'
 import { Suspense } from 'react'
 import Partners from '@/pages/Partners/Partners.tsx'
-import PrivacyPolicy from '@/pages/PrivacyPolicy/PrivacyPolicy.tsx'
-import TermsOfUse from '@/pages/TermsOfUse/TermsOfUse.tsx'
 import SuspenseLoading from '@SharedUI/SuspenseLoading/SuspenseLoading.tsx'
 
 const routes = createBrowserRouter([
@@ -135,7 +135,7 @@ const routes = createBrowserRouter([
         path: '/privacy-policy',
         element: (
           <Suspense fallback={<SuspenseLoading />}>
-            <PrivacyPolicy />
+            <PrivacyPolicyPage />
           </Suspense>
         ),
       },
@@ -143,7 +143,7 @@ const routes = createBrowserRouter([
         path: '/terms-of-use',
         element: (
           <Suspense fallback={<SuspenseLoading />}>
-            <TermsOfUse />
+            <TermsOfUsePage />
           </Suspense>
         ),
       },

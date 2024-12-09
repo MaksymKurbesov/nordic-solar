@@ -8,6 +8,7 @@ import ArrowButton from '@SharedUI/ArrowButton/ArrowButton.tsx'
 import Instruction from '@/pages/Investments/Instruction/Instruction.tsx'
 import ContactUs from '@SharedUI/ContactUs/ContactUs.tsx'
 import { NavLink, ScrollRestoration } from 'react-router-dom'
+import SuspenseImage from '@/utils/SuspenseImage.tsx'
 
 const PLANS = [
   {
@@ -60,7 +61,7 @@ const Investments = () => {
           return (
             <li key={plan.name}>
               <NavLink to={`/investments/${plan.link}`}>
-                <img src={plan.image} alt={''} />
+                <SuspenseImage src={plan.image} alt={''} />
                 <div className={styles['info']}>
                   <h3>{plan.name}</h3>
                   <p>{plan.description}</p>
