@@ -180,7 +180,9 @@ const SignUp = () => {
             />
 
             <div className={styles['input-wrapper']}>
-              <label className={styles['container']}>
+              <label
+                className={`${styles['container']} ${styles['agreement']}`}
+              >
                 <input
                   type="checkbox"
                   {...register('agreement', {
