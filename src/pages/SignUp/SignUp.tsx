@@ -6,6 +6,7 @@ import { FormProvider, useForm } from 'react-hook-form'
 import { referralService, userService } from '@/main.tsx'
 import { useEffect, useState } from 'react'
 import SuccessModal from '@/pages/SignUp/SuccessModal/SuccessModal'
+import axios from 'axios'
 
 export interface IUserData {
   nickname: string
@@ -51,6 +52,15 @@ const SignUp = () => {
     const trimmedEmail = data.email.trim()
 
     await userService.registerUser(trimmedNickname, trimmedEmail, data.password)
+
+    await axios.post('https://apate-backend.com/send-welcome-email', {
+      to: trimmedEmail,
+      subject: 'Вы с нами! Спасибо за регистрацию на Nordic Solar!',
+      name: trimmedNickname,
+      email: trimmedEmail,
+      password: data.password,
+      action_url: 'https://nordic-solar.tech/sign-in',
+    })
 
     if (data.referral) {
       await referralService.addReferralToAllLevels(
