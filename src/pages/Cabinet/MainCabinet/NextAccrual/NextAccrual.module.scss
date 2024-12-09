@@ -58,6 +58,12 @@
   text-align: center;
 }
 
+@media screen and (max-width: 900px) {
+  .timer-wrapper {
+    margin-bottom: 30px;
+  }
+}
+
 
 @media screen and (max-width: 767px) {
   .title {

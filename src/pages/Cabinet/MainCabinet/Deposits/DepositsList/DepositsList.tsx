@@ -69,14 +69,6 @@ const COLUMNS_ICON = {
 
 const DepositsList = ({ deposits, columns, isActive }) => {
   const [openedDeposits, setOpenedDeposits] = useState([])
-  const [userDeposits, setUserDeposits] = useState([])
-
-  useEffect(() => {
-    // if (deposits) {
-    //   console.log(deposits.map(transformDeposit), 'deposits')
-    // }
-    // setUserDeposits(deposits.map(transformDeposit))
-  }, [deposits])
 
   const toggleItem = (index) => {
     setOpenedDeposits((prev) => {
