@@ -8,6 +8,7 @@ import { useState } from 'react'
 import toast from 'react-hot-toast'
 import { userService } from '@/main.tsx'
 import Personal from '@/pages/Cabinet/Settings/Personal/Personal.tsx'
+import { ScrollRestoration } from 'react-router-dom'
 
 const TABS = ['personal', 'wallets', 'password', 'safe']
 
@@ -186,6 +187,7 @@ const Settings = () => {
           onClickHandler={submitSettings}
         />
       </FormProvider>
+      <ScrollRestoration />
     </div>
   )
 }

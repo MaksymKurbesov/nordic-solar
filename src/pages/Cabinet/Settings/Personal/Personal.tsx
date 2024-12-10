@@ -14,6 +14,8 @@ const Personal = () => {
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
+    if (!auth.currentUser) return
+
     if (auth.currentUser.photoURL) {
       setUserAvatar(auth.currentUser.photoURL)
     } else {
@@ -24,7 +26,7 @@ const Personal = () => {
   return (
     <>
       <div className={styles['avatar']}>
-        <img src={UserAvatar} alt={''} />
+        <img src={userAvatar} alt={''} />
         <div>
           <p className={styles['nickname']}>{user.nickname}</p>
           <div className={styles['avatar-buttons']}>

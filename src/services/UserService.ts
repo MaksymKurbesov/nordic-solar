@@ -13,7 +13,12 @@ import {
   where,
   onSnapshot,
 } from 'firebase/firestore'
-import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
+import {
+  ref,
+  uploadBytes,
+  getDownloadURL,
+  uploadBytesResumable,
+} from 'firebase/storage'
 import { generateUserData, logError } from '@/utils/helpers.tsx'
 import {
   signInWithEmailAndPassword,
@@ -96,15 +101,17 @@ class UserService implements IUserService {
         `userAvatars/${auth.currentUser.displayName}`,
       )
 
-      await uploadBytes(userAvatarRef, avatar).then(async (uploadedAvatar) => {
-        const photoURL = await getDownloadURL(uploadedAvatar.ref)
+      await uploadBytesResumable(userAvatarRef, avatar)
+        .then((data) => console.log(data, 'data'))
+        .catch((e) => console.log(e, 'errrrrrooooooor'))
 
-        await updateProfile(auth.currentUser, {
-          photoURL,
-        })
+      const photoURL = await getDownloadURL(userAvatarRef)
 
-        setUserAvatar(photoURL)
+      await updateProfile(auth.currentUser, {
+        photoURL,
       })
+
+      setUserAvatar(photoURL)
     } catch (e) {
       alert(e)
       console.error(e)
