@@ -2,7 +2,7 @@ import Logo from '@assets/logo.svg?react'
 import styles from './CabinetMenu.module.scss'
 import { NavLink, useLocation } from 'react-router-dom'
 import UserAvatar from '@assets/images/user.png'
-import { userService } from '@/main.tsx'
+import { auth, userService } from '@/main.tsx'
 import { useUser } from '@/hooks/useUser.ts'
 import MenuStatistic from '@SharedUI/CabinetMenu/MenuStatistic/MenuStatistic.tsx'
 import { useEffect, useState } from 'react'
@@ -51,6 +51,17 @@ const CabinetMenu = () => {
   const { user } = useUser()
   const [mobileMenuDrawerIsOpen, setMobileMenuDrawerIsOpen] = useState(false)
   const location = useLocation()
+  const [userAvatar, setUserAvatar] = useState('')
+
+  useEffect(() => {
+    if (!auth.currentUser) return
+
+    if (auth.currentUser.photoURL) {
+      setUserAvatar(auth.currentUser.photoURL)
+    } else {
+      setUserAvatar(UserAvatar)
+    }
+  }, [auth.currentUser])
 
   useEffect(() => {
     setMobileMenuDrawerIsOpen(false)
@@ -97,7 +108,7 @@ const CabinetMenu = () => {
           </ul>
         </nav>
         <div className={styles['user']}>
-          <img src={UserAvatar} alt={''} />
+          <img src={userAvatar} alt={''} />
           <div className={styles['user-wrapper']}>
             <p>{user.nickname}</p>
             <NavLink to={'/cabinet/settings'}>Настройки</NavLink>

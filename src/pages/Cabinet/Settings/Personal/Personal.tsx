@@ -26,7 +26,13 @@ const Personal = () => {
   return (
     <>
       <div className={styles['avatar']}>
-        <img src={userAvatar} alt={''} />
+        {loading ? (
+          // <div className={styles['loader-wrapper']}>
+          <div className={styles['loader']}></div>
+        ) : (
+          // </div>
+          <img src={userAvatar} alt={''} />
+        )}
         <div>
           <p className={styles['nickname']}>{user.nickname}</p>
           <div className={styles['avatar-buttons']}>
