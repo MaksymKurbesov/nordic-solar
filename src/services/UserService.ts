@@ -13,6 +13,7 @@ import {
   where,
   onSnapshot,
 } from 'firebase/firestore'
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 import { generateUserData, logError } from '@/utils/helpers.tsx'
 import {
   signInWithEmailAndPassword,
@@ -21,7 +22,7 @@ import {
   updateProfile,
   User,
 } from 'firebase/auth'
-import { auth } from '@/main.tsx'
+import { auth, storage } from '@/main.tsx'
 
 interface IUserService {
   db: Firestore
@@ -58,43 +59,6 @@ class UserService implements IUserService {
     }
   }
 
-  async logIn(email: string, password: string, setError) {
-    try {
-      await signInWithEmailAndPassword(auth, email, password)
-      setError('')
-    } catch (error) {
-      logError('logIn: ', error)
-
-      if (error.code === 'auth/invalid-credential') {
-        setError('Неправильный пароль. Пожалуйста, попробуйте снова.')
-      } else if (error.code === 'auth/invalid-email') {
-        setError('Пользователь не найден.')
-      } else if (error.code === 'auth/too-many-requests') {
-        setError('Слишком частые запросы. Попробуйте попозже.')
-      }
-    }
-  }
-
-  async logout() {
-    await signOut(auth)
-  }
-
-  async subscribeOnUser(nickname: string, setUser) {
-    try {
-      const q = doc(this.userCollection, nickname)
-
-      // Подписываемся на изменения
-      onSnapshot(q, (querySnapshot) => {
-        if (querySnapshot.exists()) {
-          setUser(querySnapshot.data())
-        }
-      })
-    } catch (e) {
-      console.log(e, 'error in get pending transactions')
-      return () => {} // Возвращаем пустую функцию на случай ошибок
-    }
-  }
-
   async getUser(nickname: string) {
     try {
       const userDocRef = doc(this.userCollection, nickname) // Предположим, что у вас есть коллекция 'users'
@@ -120,6 +84,30 @@ class UserService implements IUserService {
       console.log('UserService updated successfully')
     } catch (error) {
       logError('Error updating user ', error)
+    }
+  }
+
+  async updateUserAvatar(avatar, setUserAvatar) {
+    try {
+      if (!auth.currentUser) return
+
+      const userAvatarRef = ref(
+        storage,
+        `userAvatars/${auth.currentUser.displayName}`,
+      )
+
+      await uploadBytes(userAvatarRef, avatar).then(async (uploadedAvatar) => {
+        const photoURL = await getDownloadURL(uploadedAvatar.ref)
+
+        await updateProfile(auth.currentUser, {
+          photoURL,
+        })
+
+        setUserAvatar(photoURL)
+      })
+    } catch (e) {
+      alert(e)
+      console.error(e)
     }
   }
 
@@ -187,6 +175,27 @@ class UserService implements IUserService {
     } catch (error) {
       console.error('Error deleting user: ', error)
     }
+  }
+
+  async logIn(email: string, password: string, setError) {
+    try {
+      await signInWithEmailAndPassword(auth, email, password)
+      setError('')
+    } catch (error) {
+      logError('logIn: ', error)
+
+      if (error.code === 'auth/invalid-credential') {
+        setError('Неправильный пароль. Пожалуйста, попробуйте снова.')
+      } else if (error.code === 'auth/invalid-email') {
+        setError('Пользователь не найден.')
+      } else if (error.code === 'auth/too-many-requests') {
+        setError('Слишком частые запросы. Попробуйте попозже.')
+      }
+    }
+  }
+
+  async logout() {
+    await signOut(auth)
   }
 }
 

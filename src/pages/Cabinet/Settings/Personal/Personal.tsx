@@ -4,10 +4,22 @@ import { useFormContext } from 'react-hook-form'
 import UserAvatar from '@assets/images/user.png'
 import { useUser } from '@/hooks/useUser.ts'
 import UploadIcon from '@assets/icons/upload.svg?react'
+import { useEffect, useState } from 'react'
+import { auth, userService } from '@/main.tsx'
 
 const Personal = () => {
   const { register, trigger } = useFormContext()
   const { user } = useUser()
+  const [userAvatar, setUserAvatar] = useState('')
+  const [loading, setLoading] = useState(false)
+
+  useEffect(() => {
+    if (auth.currentUser.photoURL) {
+      setUserAvatar(auth.currentUser.photoURL)
+    } else {
+      setUserAvatar(UserAvatar)
+    }
+  }, [])
 
   return (
     <>
@@ -16,10 +28,28 @@ const Personal = () => {
         <div>
           <p className={styles['nickname']}>{user.nickname}</p>
           <div className={styles['avatar-buttons']}>
-            <button>
+            <input
+              {...register('avatar', {
+                onChange: async (e) => {
+                  setLoading(true)
+                  await userService.updateUserAvatar(
+                    e.target.files[0],
+                    setUserAvatar,
+                  )
+                  setLoading(false)
+                },
+              })}
+              type={'file'}
+              id={'upload-avatar'}
+              hidden
+            />
+            <label
+              htmlFor={'upload-avatar'}
+              className={styles['upload-button']}
+            >
               <UploadIcon width={15} /> Изменить
-            </button>
-            <button>Удалить</button>
+            </label>
+            <button className={styles['delete-button']}>Удалить</button>
           </div>
         </div>
       </div>

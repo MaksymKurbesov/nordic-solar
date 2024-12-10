@@ -5,6 +5,7 @@ import routes from './routes.tsx'
 import { initializeApp } from 'firebase/app'
 import { getFirestore } from 'firebase/firestore'
 import { getAuth } from 'firebase/auth'
+import { getStorage } from 'firebase/storage'
 import UserService from '@/services/UserService.ts'
 import 'swiper/css'
 import TransactionService from '@/services/TransactionService.ts'
@@ -26,6 +27,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig)
 export const db = getFirestore()
 export const auth = getAuth(app)
+export const storage = getStorage(app)
 
 export const userService = new UserService(db)
 export const transactionService = new TransactionService(db)
