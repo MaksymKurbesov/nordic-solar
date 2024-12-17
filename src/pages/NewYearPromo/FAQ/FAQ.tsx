@@ -3,6 +3,7 @@ import styles from './FAQ.module.scss'
 const Faq = () => {
   return (
     <div className={styles['faq']}>
+      <h2>FAQ</h2>
       <ul>
         <li>
           <h3>Как начисляется бонус?</h3>

@@ -1,0 +1,23 @@
+.cta-banner {
+    background: $green;
+    padding: 25px;
+    border-radius: 8px;
+    margin-bottom: 5vw;
+}
+
+.cta-banner h2 {
+    font-size: 40px;
+    font-family: GilroySemiBold, "sans-serif";
+}
+
+.cta-banner p {
+    margin-bottom: 40px;
+    opacity: 0.7;
+}
+
+.cta-banner button {
+    background: white;
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+}

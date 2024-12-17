@@ -16,9 +16,16 @@
 }
 
 .why-participate ul li {
+    display: flex;
+    align-items: center;
+    gap: 20px;
     border-radius: 10px;
     border: 1px solid rgba(255, 255, 255, 0.1);
     padding: 20px;
+}
+
+.why-participate ul li svg {
+    opacity: 0.2;
 }
 
 .why-participate ul li h3 {

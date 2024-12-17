@@ -1,6 +1,50 @@
+.calculator-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10vw;
+}
+
+.calculator-wrapper h2 {
+    font-size: 30px;
+    color: $gray;
+    margin-bottom: 20px;
+}
+
 .calculator {
-    background: $green;
+    max-width: 500px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    //background: $green;
     border-radius: 8px;
-    padding: 25px;
+    //padding: 25px;
     margin-bottom: 5vw;
+}
+
+.calculator p {
+    margin-bottom: 60px;
+}
+
+
+.calculator input {
+    //max-width: 400px;
+    width: 100%;
+    border: none;
+    border-bottom: 2px solid $gray;
+    background: none;
+    font-size: 40px;
+    outline: none;
+    margin-bottom: 25px;
+}
+
+.calculator button {
+    background: $green;
+    border: none;
+    padding: 10px 35px;
+    border-radius: 8px;
+    color: white;
+}
+
+.reward span {
+    font-size: 100px;
 }

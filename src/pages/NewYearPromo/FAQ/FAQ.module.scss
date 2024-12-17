@@ -1,0 +1,23 @@
+.faq {
+    margin-bottom: 5vw;
+}
+
+.faq h2 {
+    font-size: 30px;
+    color: $gray;
+    margin-bottom: 20px;
+}
+
+.faq ul {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.faq ul h3 {
+    font-size: 34px;
+}
+
+.faq ul p {
+    color: $gray;
+}
