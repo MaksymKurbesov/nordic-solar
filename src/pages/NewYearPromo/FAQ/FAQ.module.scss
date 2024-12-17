@@ -1,23 +1,47 @@
 .faq {
-    margin-bottom: 5vw;
+  margin-bottom: 10vw;
 }
 
 .faq h2 {
-    font-size: 30px;
-    color: $gray;
-    margin-bottom: 20px;
+  font-size: 30px;
+  color: $gray;
+  margin-bottom: 20px;
 }
 
 .faq ul {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .faq ul h3 {
-    font-size: 34px;
+  font-size: 34px;
 }
 
 .faq ul p {
-    color: $gray;
+  color: $gray;
+}
+
+@media screen and (max-width: 1200px) {
+  .faq h2 {
+    font-size: 20px;
+  }
+
+  .faq ul h3 {
+    font-size: 24px;
+  }
+
+  .faq ul p {
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .faq ul h3 {
+    font-size: 20px;
+  }
+
+  .faq ul p {
+    font-size: 12px;
+  }
 }

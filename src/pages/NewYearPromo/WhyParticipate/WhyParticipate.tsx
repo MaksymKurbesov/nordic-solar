@@ -3,6 +3,7 @@ import ParticipateIcon1 from '../icons/participate1.svg?react'
 import ParticipateIcon2 from '../icons/participate2.svg?react'
 import ParticipateIcon3 from '../icons/participate3.svg?react'
 import ParticipateIcon4 from '../icons/participate4.svg?react'
+import SnowImage from '@assets/images/snow.webp'
 
 const WhyParticipate = () => {
   return (
@@ -16,7 +17,8 @@ const WhyParticipate = () => {
             <p>Получайте до +15% к сумме пополнения на ваш личный счёт.</p>
           </div>
         </li>
-        <li>
+        <li className={styles['snow-box']}>
+          {/*<img src={SnowImage} alt={''} />*/}
           <ParticipateIcon2 width={50} height={50} />
           <div>
             <h3>Экологически чистое будущее</h3>
@@ -39,7 +41,7 @@ const WhyParticipate = () => {
           <div>
             <h3>Ограниченное предложение </h3>
             <p>
-              Акция действует до 31 января 2024 года — не упустите возможность!
+              Акция действует до 5 января 2025 года — не упустите возможность!
             </p>
           </div>
         </li>

@@ -12,10 +12,10 @@
 .contacts {
   display: flex;
   flex-direction: column;
-  font-size: clamp(1rem, 1rem + 3vw, 4.75rem);
+  font-size: clamp(1rem, 1rem + 1.5vw, 4.75rem);
   margin-left: auto;
   line-height: 1;
-  align-self: flex-start;
+  //align-self: flex-start;
 }
 
 .circleButton {
@@ -83,6 +83,10 @@
   .contacts {
     margin-left: initial;
     line-height: 1.2;
+  }
+
+  .logo {
+    width: 150px;
   }
 
   .circleButton {
