@@ -53,3 +53,7 @@ export const TermsOfUsePage = lazy(
 export const PrivacyPolicyPage = lazy(
   () => import('@/pages/PrivacyPolicy/PrivacyPolicy'),
 )
+
+export const NewYearPromoPage = lazy(
+  () => import('@/pages/NewYearPromo/NewYearPromo'),
+)

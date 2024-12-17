@@ -1,0 +1,34 @@
+.header {
+    //display: flex;
+    //align-items: center;
+    //justify-content: center;
+    padding: 10vw 0;
+    flex-direction: column;
+    text-align: center;
+    //margin-bottom: 150px;
+    height: 100vh;
+}
+
+.header h1 {
+    font-size: 60px;
+    line-height: 1;
+    margin-bottom: 20px;
+    font-family: GilroySemiBold, "sans-serif";
+}
+
+.header h1 span {
+    color: $green;
+}
+
+.header p {
+    color: $gray;
+    margin-bottom: 100px;
+}
+
+.header button {
+    background: $green;
+    padding: 20px 35px;
+    border-radius: 10px;
+    font-size: 20px;
+    cursor: pointer;
+}

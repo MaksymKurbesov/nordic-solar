@@ -67,13 +67,20 @@ const Footer = ({ isFullFooter }) => {
           <h3>Мы в соцсетях</h3>
           <ul>
             <li>
-              <a href={'#'}>Facebook</a>
+              <a
+                href={'https://www.instagram.com/nordic.solar_official/'}
+                target={'_blank'}
+              >
+                Instagram
+              </a>
             </li>
             <li>
-              <a href={'#'}>Twitter</a>
+              <a href={'https://t.me/nordic_solar_news'} target={'_blank'}>
+                Telegram
+              </a>
             </li>
             <li>
-              <a href={'#'}>Linkedin</a>
+              <a href={'https://x.com/nordic_solar'}>X (twitter)</a>
             </li>
           </ul>
         </nav>

@@ -1,0 +1,15 @@
+.instruction {
+    margin-bottom: 5vw;
+}
+
+.instruction h2 {
+    font-size: 30px;
+    color: $gray;
+    margin-bottom: 20px;
+}
+
+.instruction ul {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
