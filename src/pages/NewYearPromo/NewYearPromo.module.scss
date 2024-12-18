@@ -1,12 +1,20 @@
+.new-year-promo-wrapper {
+  //background-image: url('@assets/images/new-year-promo/hero-bg.webp');
+  //background-repeat: no-repeat;
+  //background-position: top center;
+  //background-size: contain;
+  //z-index: -1;
+}
+
 .header {
-  //display: flex;
-  //align-items: center;
-  //justify-content: center;
-  padding: 10vw 0 15vw 0;
+  padding: 10vw 10px 15vw 10px;
   flex-direction: column;
   text-align: center;
-  //margin-bottom: 150px;
-  //height: 90vh;
+  background-image: url('@assets/images/new-year-promo/hero-bg.webp');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  z-index: -1;
 }
 
 .header h1 {
@@ -38,6 +46,7 @@
 .disclaimer {
   font-size: 12px;
   margin-bottom: 100px;
+  color: $gray;
 }
 
 @media screen and (max-width: 1200px) {
@@ -58,7 +67,11 @@
 
 @media screen and (max-width: 800px) {
   .header {
-    padding: 100px 0 150px 0;
+    padding: 100px 10px 150px 10px;
+    flex-direction: column;
+    text-align: center;
+    background-image: url('@assets/images/new-year-promo/hero-bg-mobile.webp');
+    //background-size: 100%;
   }
 
   .header h1 {
