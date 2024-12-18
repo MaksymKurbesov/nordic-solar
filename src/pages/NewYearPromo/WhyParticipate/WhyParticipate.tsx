@@ -3,7 +3,6 @@ import ParticipateIcon1 from '../icons/participate1.svg?react'
 import ParticipateIcon2 from '../icons/participate2.svg?react'
 import ParticipateIcon3 from '../icons/participate3.svg?react'
 import ParticipateIcon4 from '../icons/participate4.svg?react'
-import SnowImage from '@assets/images/snow.webp'
 
 const WhyParticipate = () => {
   return (
