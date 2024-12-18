@@ -82,7 +82,7 @@ const CabinetMenu = () => {
           <span></span>
           <span></span>
         </div>
-        <NavLink to={'/cabinet/main'} className={styles['logotype']}>
+        <NavLink to={'/'} className={styles['logotype']}>
           <Logo width={120} />
         </NavLink>
         <nav className={styles.navigation}>
