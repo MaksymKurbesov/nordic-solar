@@ -1,8 +1,8 @@
 import styles from './WhyParticipate.module.scss'
-import ParticipateIcon1 from '../icons/participate1.svg?react'
-import ParticipateIcon2 from '../icons/participate2.svg?react'
-import ParticipateIcon3 from '../icons/participate3.svg?react'
-import ParticipateIcon4 from '../icons/participate4.svg?react'
+// import ParticipateIcon1 from '../icons/participate1.svg?react'
+// import ParticipateIcon2 from '../icons/participate2.svg?react'
+// import ParticipateIcon3 from '../icons/participate3.svg?react'
+// import ParticipateIcon4 from '../icons/participate4.svg?react'
 
 const WhyParticipate = () => {
   return (
@@ -10,7 +10,7 @@ const WhyParticipate = () => {
       <h2>Почему стоит участвовать в акции?</h2>
       <ul>
         <li>
-          <ParticipateIcon1 width={50} height={50} />
+          {/*<ParticipateIcon1 width={50} height={50} />*/}
           <div>
             <h3>Дополнительная прибыль</h3>
             <p>Получайте до +15% к сумме пополнения на ваш личный счёт.</p>
@@ -18,7 +18,7 @@ const WhyParticipate = () => {
         </li>
         <li className={styles['snow-box']}>
           {/*<img src={SnowImage} alt={''} />*/}
-          <ParticipateIcon2 width={50} height={50} />
+          {/*<ParticipateIcon2 width={50} height={50} />*/}
           <div>
             <h3>Экологически чистое будущее</h3>
             <p>
@@ -27,7 +27,7 @@ const WhyParticipate = () => {
           </div>
         </li>
         <li>
-          <ParticipateIcon3 width={50} height={50} />
+          {/*<ParticipateIcon3 width={50} height={50} />*/}
           <div>
             <h3>Простые условия участия</h3>
             <p>
@@ -36,7 +36,7 @@ const WhyParticipate = () => {
           </div>
         </li>
         <li>
-          <ParticipateIcon4 width={50} height={50} />
+          {/*<ParticipateIcon4 width={50} height={50} />*/}
           <div>
             <h3>Ограниченное предложение </h3>
             <p>
