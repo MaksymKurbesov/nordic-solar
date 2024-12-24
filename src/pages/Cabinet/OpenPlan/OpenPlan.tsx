@@ -76,7 +76,7 @@ const OpenPlan = () => {
     )
 
     const depositData = {
-      amount,
+      amount: +amount,
       plan,
       variant: selectedVariant,
       days: variant.days,
@@ -107,6 +107,11 @@ const OpenPlan = () => {
 
     if (activeStep === 2 && !wallet) {
       toast.error('Выберите кошелёк')
+    }
+
+    if (activeStep === 2 && isNaN(amount)) {
+      toast.error('Некорректная сумма')
+      return
     }
 
     if (activeStep === 2 && wallet) {
