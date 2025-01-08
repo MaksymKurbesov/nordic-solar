@@ -27,10 +27,8 @@ const Personal = () => {
     <>
       <div className={styles['avatar']}>
         {loading ? (
-          // <div className={styles['loader-wrapper']}>
           <div className={styles['loader']}></div>
         ) : (
-          // </div>
           <img src={userAvatar} alt={''} />
         )}
         <div>

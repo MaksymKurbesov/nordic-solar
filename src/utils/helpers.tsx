@@ -55,6 +55,7 @@ export const generateUserData = (nickname: string, email: string) => {
     nickname,
     email,
     restrictions: {
+      isCheaterInReferral: false,
       isFinancialGateway: false,
       isMultiAcc: {
         isActive: false,
@@ -140,4 +141,44 @@ export const fetchUserIP = async () => {
     console.error('Ошибка при получении IP-адреса:', error)
     throw error // Пробрасываем ошибку, чтобы её можно было обработать
   }
+}
+
+export const getActiveRestriction = (restrictions) => {
+  for (let key in restrictions) {
+    if (
+      typeof restrictions[key] === 'boolean' &&
+      restrictions[key] &&
+      key !== 'isPrivateKey'
+    ) {
+      return key
+    }
+
+    if (
+      typeof restrictions[key] === 'object' &&
+      restrictions[key].isActive
+      // key !== "isMoneyLaundering"
+    ) {
+      console.log('this if ')
+      return key
+    }
+  }
+  return null
+}
+
+export const hasActiveRestrictions = (restrictions) => {
+  if (!restrictions) return
+
+  return Object.keys(restrictions).some((key) => {
+    if (typeof restrictions[key] === 'boolean' && key !== 'isPrivateKey') {
+      return restrictions[key]
+    }
+    if (
+      typeof restrictions[key] === 'object' &&
+      restrictions[key].isActive !== undefined &&
+      key !== 'isMoneyLaundering'
+    ) {
+      return restrictions[key].isActive
+    }
+    return false
+  })
 }

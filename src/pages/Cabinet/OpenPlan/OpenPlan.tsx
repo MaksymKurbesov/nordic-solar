@@ -4,14 +4,13 @@ import { ScrollRestoration } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { depositService } from '@/main.tsx'
 import ConfirmedPopup from '@SharedUI/ConfirmedPopup/ConfirmedPopup'
-import { calculateTotalIncome } from '@/utils/helpers'
+import { calculateTotalIncome, hasActiveRestrictions } from '@/utils/helpers'
 import { useUser } from '@/hooks/useUser'
 import { Box } from '@mui/material'
 import Plans from '@/pages/Cabinet/OpenPlan/Plans/Plans'
 import WalletAmount from '@/pages/Cabinet/OpenPlan/WalletAmount/WalletAmount'
 import Variants from '@/pages/Cabinet/OpenPlan/Variants/Variants'
 import OpenPlanConfirm from '@/pages/Cabinet/OpenPlan/OpenPlanConfirm/OpenPlanConfirm'
-
 import MyStepper from '@/pages/Cabinet/OpenPlan/Stepper/Stepper.tsx'
 import NavigationButtons from '@/pages/Cabinet/OpenPlan/NavigationButtons'
 import { createPortal } from 'react-dom'
@@ -45,8 +44,8 @@ const steps = [
 const OpenPlan = () => {
   const { user } = useUser()
   const [confirmPopupIsOpen, setConfirmPopupIsOpen] = useState(false)
-
   const [activeStep, setActiveStep] = useState(0)
+  const userHasRestriction = hasActiveRestrictions(user?.restrictions)
 
   const form = useForm({
     defaultValues: {
@@ -151,6 +150,7 @@ const OpenPlan = () => {
         handleBack={handleBack}
         handleNext={handleNext}
         steps={steps}
+        userHasRestriction={userHasRestriction}
       />
     </Box>
   )

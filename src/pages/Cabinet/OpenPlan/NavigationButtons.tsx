@@ -5,6 +5,7 @@ const NavigationButtons = ({
   handleBack,
   handleNext,
   steps,
+  userHasRestriction,
 }: any) => (
   <Box sx={{ display: 'flex', flexDirection: 'row', marginBottom: '20px' }}>
     <Button
@@ -31,6 +32,7 @@ const NavigationButtons = ({
         fontSize: 12,
         fontFamily: 'inherit',
       }}
+      disabled={userHasRestriction}
     >
       {activeStep === steps.length - 1 ? 'Выполнить' : 'Дальше'}
     </Button>

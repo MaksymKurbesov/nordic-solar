@@ -249,6 +249,10 @@ const routes = createBrowserRouter([
       },
     ],
   },
+  {
+    path: '*',
+    element: <div>Что-то пошло не так, перезагрузите страницу</div>,
+  },
 ])
 
 export default routes
