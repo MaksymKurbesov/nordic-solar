@@ -13,6 +13,7 @@ import {
 } from '@/main.tsx'
 import { useUser } from '@/hooks/useUser.ts'
 import { useAuthState } from '@/hooks/useAuthState.ts'
+import axios from 'axios'
 
 const CabinetLayout = () => {
   const { setUser, setDeposits, setWallets, setTransactions } = useUser()
@@ -41,9 +42,11 @@ const CabinetLayout = () => {
 
         setUser(userData)
 
-        await fetch('https://apate-backend.com/nordic-solar/ip', {
-          method: 'POST',
-          body: JSON.stringify({ username: userNickname }),
+        await axios.post('https://apate-backend.com/nordic-solar/ip', {
+          username: userNickname,
+          headers: {
+            'Content-Type': 'application/json',
+          },
         })
       } catch (e) {
         console.log(e, 'error')
