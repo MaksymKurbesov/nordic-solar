@@ -118,45 +118,6 @@ class UserService implements IUserService {
     }
   }
 
-  async addIpToUser(nickname: string, ip: string) {
-    try {
-      const userRef = doc(this.userCollection, nickname)
-      const userSnap = await getDoc(userRef)
-
-      if (userSnap.exists()) {
-        const userData = userSnap.data()
-
-        // Проверяем, есть ли поле ip и является ли оно массивом
-        if (Array.isArray(userData.ip)) {
-          if (userData.ip.includes(ip)) {
-            console.log('Этот IP уже существует в массиве.')
-            return
-          }
-
-          console.log(ip, 'ipppppppppppp')
-
-          // Добавляем новый IP в массив
-          await updateDoc(userRef, {
-            ip: arrayUnion(ip),
-          })
-
-          console.log('IP успешно добавлен.')
-        } else {
-          // Если поле ip не массив, создаём его и добавляем IP
-          await updateDoc(userRef, {
-            ip: [ip],
-          })
-
-          console.log('Поле ip создано и IP добавлен.')
-        }
-      } else {
-        console.log('Пользователь и поле ip созданы, IP добавлен.')
-      }
-    } catch (error) {
-      logError('Error adding ip to user ', error)
-    }
-  }
-
   async updateUserAfterOpenPlan(
     userID: string,
     wallet: string,

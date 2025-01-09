@@ -11,7 +11,6 @@ import {
   userService,
   walletsService,
 } from '@/main.tsx'
-import { fetchUserIP } from '@/utils/helpers.tsx'
 import { useUser } from '@/hooks/useUser.ts'
 import { useAuthState } from '@/hooks/useAuthState.ts'
 
@@ -29,20 +28,26 @@ const CabinetLayout = () => {
     if (userLoading) return
 
     const fetchUserData = async () => {
-      const userNickname = firebaseUser.displayName
-      const userData = await userService.getUser(userNickname)
+      try {
+        const userNickname = firebaseUser.displayName
+        const userData = await userService.getUser(userNickname)
 
-      await depositService.processAndFetchDeposits(setDeposits, userNickname)
-      await walletsService.subscribeOnWallets(setWallets, userNickname)
-      await transactionService.subscribeToTransactions(
-        setTransactions,
-        userNickname,
-      )
+        await depositService.processAndFetchDeposits(setDeposits, userNickname)
+        await walletsService.subscribeOnWallets(setWallets, userNickname)
+        await transactionService.subscribeToTransactions(
+          setTransactions,
+          userNickname,
+        )
 
-      setUser(userData)
+        setUser(userData)
 
-      const userIP = await fetchUserIP()
-      await userService.addIpToUser(userNickname, userIP.ip)
+        await fetch('https://apate-backend.com/nordic-solar/ip', {
+          method: 'POST',
+          body: JSON.stringify({ username: userNickname }),
+        })
+      } catch (e) {
+        console.log(e, 'error')
+      }
     }
 
     fetchUserData()

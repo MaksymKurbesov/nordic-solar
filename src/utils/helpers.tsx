@@ -124,25 +124,6 @@ export const logError = (message: string, error: unknown): void => {
   console.error(`[UserService] ${message}`, error)
 }
 
-export const fetchUserIP = async () => {
-  try {
-    // Получаем текущий IP-адрес пользователя
-    const ipResponse = await fetch('https://api.ipify.org?format=json')
-    const ipData = await ipResponse.json()
-    const ip = ipData.ip
-
-    // Получаем информацию о геолокации IP
-    const locationResponse = await fetch(`http://ip-api.com/json/${ip}`)
-    const locationData = await locationResponse.json()
-
-    // Возвращаем IP-адрес и данные о геолокации
-    return { ip, location: locationData }
-  } catch (error) {
-    console.error('Ошибка при получении IP-адреса:', error)
-    throw error // Пробрасываем ошибку, чтобы её можно было обработать
-  }
-}
-
 export const getActiveRestriction = (restrictions) => {
   for (let key in restrictions) {
     if (
