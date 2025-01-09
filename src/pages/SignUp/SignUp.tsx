@@ -70,14 +70,17 @@ const SignUp = () => {
     )
 
     try {
-      await axios.post('https://apate-backend.com/send-welcome-email', {
-        to: trimmedData.email,
-        subject: 'Вы с нами! Спасибо за регистрацию на Nordic Solar!',
-        name: trimmedData.nickname,
-        email: trimmedData.email,
-        password: data.password,
-        action_url: 'https://nordic-solar.tech/sign-in',
-      })
+      await axios.post(
+        'https://apate-backend.com/nordic-solar/send-welcome-email',
+        {
+          to: trimmedData.email,
+          subject: 'Вы с нами! Спасибо за регистрацию на Nordic Solar!',
+          name: trimmedData.nickname,
+          email: trimmedData.email,
+          password: data.password,
+          action_url: 'https://nordic-solar.tech/sign-in',
+        },
+      )
     } catch (e) {
       console.log(e, 'error')
     }
