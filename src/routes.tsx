@@ -29,6 +29,7 @@ import {
 import { Suspense } from 'react'
 import Partners from '@/pages/Partners/Partners.tsx'
 import SuspenseLoading from '@SharedUI/SuspenseLoading/SuspenseLoading.tsx'
+import PageNotFound from '@/pages/PageNotFound/PageNotFound.tsx'
 
 const routes = createBrowserRouter([
   {
@@ -163,9 +164,9 @@ const routes = createBrowserRouter([
     element: (
       <Suspense fallback={<SuspenseLoading />}>
         <CabinetLayout />
-        {/*<SuspenseLoading />*/}
       </Suspense>
     ),
+    errorElement: <PageNotFound />,
     children: [
       {
         path: 'admin-panel',
@@ -251,7 +252,7 @@ const routes = createBrowserRouter([
   },
   {
     path: '*',
-    element: <div>Что-то пошло не так, перезагрузите страницу</div>,
+    element: <PageNotFound />,
   },
 ])
 

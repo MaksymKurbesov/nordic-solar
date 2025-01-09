@@ -25,7 +25,6 @@ class ReferralService implements IReferralService {
       const userDoc = await getDoc(doc(this.db, 'users', username))
       if (userDoc.exists()) {
         const userData = userDoc.data()
-        console.log(userData, 'FETCH REFERRAL DATA')
         const referrals = userData?.referredTo || {} // Проверяем, есть ли у пользователя поле referral
 
         let referralData = {
@@ -41,8 +40,6 @@ class ReferralService implements IReferralService {
 
           // Массив для хранения данных пользователей на текущем уровне
           referralData[level] = []
-
-          console.log(referralIds, 'referralIds')
 
           // Получаем данные по каждому рефералу на данном уровне
           const userPromises = referralIds.map(async (referralPath) => {

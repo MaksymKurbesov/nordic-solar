@@ -34,7 +34,14 @@ const Referrals = () => {
       )
       const activeRefsCount = Object.values(currentUserReferrals).reduce(
         (acc, array) => {
-          return acc + array.filter((item) => item.invested > 0).length
+          return (
+            acc +
+            array.filter((item) => {
+              if (!item) return
+
+              return item.invested > 0
+            }).length
+          )
         },
         0,
       )
@@ -43,14 +50,14 @@ const Referrals = () => {
           return (
             acc +
             array.reduce((sum, item) => {
+              if (!item) return
+
               return sum + item.invested // Добавляем только если есть поле deposited
             }, 0)
           )
         },
         0,
       )
-
-      console.log(currentUserReferrals, 'currentUserReferrals')
 
       setReferralsCount(refsCount)
       setReferrals(currentUserReferrals)
