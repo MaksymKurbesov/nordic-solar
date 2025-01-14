@@ -13,7 +13,6 @@ import {
   InvestmentsPage,
   MainCabinetPage,
   MakeDepositPage,
-  NewYearPromoPage,
   OpenPlanPage,
   PrivacyPolicyPage,
   ProductPage,
@@ -146,14 +145,6 @@ const routes = createBrowserRouter([
         element: (
           <Suspense fallback={<SuspenseLoading />}>
             <TermsOfUsePage />
-          </Suspense>
-        ),
-      },
-      {
-        path: '/new-year-promo-2025',
-        element: (
-          <Suspense fallback={<SuspenseLoading />}>
-            <NewYearPromoPage />
           </Suspense>
         ),
       },

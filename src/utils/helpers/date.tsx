@@ -1,6 +1,6 @@
 import { Timestamp } from 'firebase/firestore'
 
-export const addDays = (date, days) => {
+export const addDays = (date: Timestamp, days: number) => {
   const result = new Date(date.seconds * 1000)
   result.setDate(result.getDate() + days)
 
@@ -34,13 +34,10 @@ export const parseTimestamp = (timestamp: Timestamp, short = false): string => {
   return `${day}.${month}.${year} ${hours}:${minutes}`
 }
 
-export const daysPassedSince = (someDate) => {
+export const daysPassedSince = (someDate: Timestamp): number => {
   const now = new Date(Timestamp.now().seconds * 1000)
   const updatedSomeDate = new Date(someDate.seconds * 1000)
-
   const oneDayMilliseconds = 24 * 60 * 60 * 1000
-
-  const difference = now - updatedSomeDate
-
+  const difference = now.getTime() - updatedSomeDate.getTime()
   return Math.floor(difference / oneDayMilliseconds)
 }

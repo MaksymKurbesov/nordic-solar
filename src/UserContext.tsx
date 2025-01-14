@@ -1,32 +1,28 @@
 import { createContext, ReactNode, FC, useReducer, Dispatch } from 'react'
+import {
+  IDeposit,
+  IExtendedUser,
+  ITransaction,
+  ITransformedTransaction,
+  IUser,
+  IWallets,
+} from '@/interfaces/IUser.ts'
 
-interface User {
-  id: string
-  name: string
-  email: string
-  wallets?: any
-  earned: number
-  invested: number
-  withdrawn: number
-  referrals: number
-  nickname: string
-  registrationDate: any
-  deposits?: []
-  transactions?: []
-}
-
-export interface UserState {
-  user: User | null
+interface UserState {
+  user: IExtendedUser | null
 }
 
 type Action =
-  | { type: 'SET_USER'; payload: any }
+  | { type: 'SET_USER'; payload: IUser }
   | { type: 'SET_THEME'; payload: 'light' | 'dark' }
-  | { type: 'SET_DEPOSITS'; payload: any }
-  | { type: 'SET_WALLETS'; payload: any }
-  | { type: 'SET_TRANSACTIONS'; payload: any }
+  | { type: 'SET_DEPOSITS'; payload: IDeposit[] }
+  | { type: 'SET_WALLETS'; payload: IWallets }
+  | {
+      type: 'SET_TRANSACTIONS'
+      payload: ITransaction[] | ITransformedTransaction[]
+    }
 
-const initialState = {
+const initialState: UserState = {
   user: null,
 }
 
@@ -35,11 +31,38 @@ const reducer = (state: UserState, action: Action): UserState => {
     case 'SET_USER':
       return { ...state, user: action.payload }
     case 'SET_DEPOSITS':
-      return { ...state, user: { ...state.user, deposits: action.payload } }
+      if (state.user) {
+        return {
+          ...state,
+          user: {
+            ...state.user,
+            deposits: action.payload,
+          },
+        }
+      }
+      return state
     case 'SET_WALLETS':
-      return { ...state, user: { ...state.user, wallets: action.payload } }
+      if (state.user) {
+        return {
+          ...state,
+          user: {
+            ...state.user,
+            wallets: action.payload,
+          },
+        }
+      }
+      return state
     case 'SET_TRANSACTIONS':
-      return { ...state, user: { ...state.user, transactions: action.payload } }
+      if (state.user) {
+        return {
+          ...state,
+          user: {
+            ...state.user,
+            transactions: action.payload,
+          },
+        }
+      }
+      return state
     default:
       return state
   }

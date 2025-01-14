@@ -1,33 +1,22 @@
 import {
   collection,
   doc,
-  setDoc,
   updateDoc,
   deleteDoc,
   Firestore,
   getDoc,
   CollectionReference,
-  increment,
-  arrayUnion,
-  query,
-  where,
-  onSnapshot,
 } from 'firebase/firestore'
-import {
-  ref,
-  uploadBytes,
-  getDownloadURL,
-  uploadBytesResumable,
-} from 'firebase/storage'
-import { generateUserData, logError } from '@/utils/helpers.tsx'
+import { ref, getDownloadURL, uploadBytesResumable } from 'firebase/storage'
+import { logError } from '@/utils/helpers.tsx'
 import {
   signInWithEmailAndPassword,
   signOut,
-  createUserWithEmailAndPassword,
   updateProfile,
-  User,
+  AuthError,
 } from 'firebase/auth'
 import { auth, storage } from '@/main.tsx'
+import { Dispatch, SetStateAction } from 'react'
 
 interface IUserService {
   db: Firestore
@@ -43,34 +32,13 @@ class UserService implements IUserService {
     this.userCollection = collection(db, 'users') as CollectionReference<any>
   }
 
-  // async addUser(user: IUser): Promise<void> {
-  async registerUser(
-    nickname: string,
-    email: string,
-    password: string,
-  ): Promise<void> {
-    try {
-      await createUserWithEmailAndPassword(auth, email.trim(), password)
-
-      await updateProfile(auth.currentUser as User, {
-        displayName: nickname,
-      }).catch((err) => console.log(err))
-
-      const user = generateUserData(nickname, email)
-      const userRef = doc(this.userCollection, nickname)
-      await setDoc(userRef, user)
-    } catch (error) {
-      logError('Error adding user: ', error)
-    }
-  }
-
   async getUser(nickname: string) {
     try {
-      const userDocRef = doc(this.userCollection, nickname) // Предположим, что у вас есть коллекция 'users'
+      const userDocRef = doc(this.userCollection, nickname)
       const userDoc = await getDoc(userDocRef)
 
       if (userDoc.exists()) {
-        return userDoc.data() // Возвращаем данные пользователя
+        return userDoc.data()
       } else {
         console.log('No such document!')
         return null
@@ -92,7 +60,10 @@ class UserService implements IUserService {
     }
   }
 
-  async updateUserAvatar(avatar, setUserAvatar) {
+  async updateUserAvatar(
+    avatar: File,
+    setUserAvatar: Dispatch<SetStateAction<string | null>>,
+  ) {
     try {
       if (!auth.currentUser) return
 
@@ -103,7 +74,7 @@ class UserService implements IUserService {
 
       await uploadBytesResumable(userAvatarRef, avatar)
         .then((data) => console.log(data, 'data'))
-        .catch((e) => console.log(e, 'errrrrrooooooor'))
+        .catch((e) => console.log(e, 'update user avatar error'))
 
       const photoURL = await getDownloadURL(userAvatarRef)
 
@@ -118,23 +89,6 @@ class UserService implements IUserService {
     }
   }
 
-  async updateUserAfterOpenPlan(
-    userID: string,
-    wallet: string,
-    amount: number,
-  ) {
-    try {
-      const userRef = doc(this.userCollection, userID)
-      await updateDoc(userRef, {
-        [`wallets.${wallet}.available`]: increment(-amount),
-        invested: increment(amount),
-      })
-      console.log('Balance updated!')
-    } catch (error) {
-      console.error('Error updating balance: ', error)
-    }
-  }
-
   async deleteUser(userId: string): Promise<void> {
     try {
       const userRef = doc(this.userCollection, userId)
@@ -145,12 +99,18 @@ class UserService implements IUserService {
     }
   }
 
-  async logIn(email: string, password: string, setError) {
+  async logIn(
+    email: string,
+    password: string,
+    setError: Dispatch<SetStateAction<string | null>>,
+  ) {
     try {
       await signInWithEmailAndPassword(auth, email, password)
       setError('')
     } catch (error) {
       logError('logIn: ', error)
+
+      if (!isFirebaseError(error)) return
 
       if (error.code === 'auth/invalid-credential') {
         setError('Неправильный пароль. Пожалуйста, попробуйте снова.')
@@ -165,6 +125,10 @@ class UserService implements IUserService {
   async logout() {
     await signOut(auth)
   }
+}
+
+function isFirebaseError(error: unknown): error is AuthError {
+  return (error as AuthError).code !== undefined
 }
 
 export default UserService

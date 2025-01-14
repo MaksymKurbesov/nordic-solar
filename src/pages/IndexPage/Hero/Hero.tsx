@@ -2,8 +2,13 @@ import styles from './Hero.module.scss'
 import { CircleButton } from '@SharedUI/CirlceButton/CircleButton.tsx'
 import ArrowIcon from '@assets/icons/arrow.svg?react'
 import { NavLink } from 'react-router-dom'
+import { FC } from 'react'
 
-const Hero = ({ handleScrollDown }) => {
+interface IHeroProps {
+  handleScrollDown: () => void
+}
+
+const Hero: FC<IHeroProps> = ({ handleScrollDown }) => {
   return (
     <>
       <div className={'container'}>

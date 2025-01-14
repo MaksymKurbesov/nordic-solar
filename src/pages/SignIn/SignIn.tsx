@@ -3,17 +3,19 @@ import Input from '@SharedUI/Input/Input.tsx'
 import WideButton from '@SharedUI/WideButton/WideButton.tsx'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
-import { auth, userService } from '@/main.tsx'
-import { useAuthState } from '@/hooks/useAuthState.ts'
+import { userService } from '@/main.tsx'
 import { useEffect, useState } from 'react'
+import { useFirebaseUser } from '@/context/AuthContext.tsx'
 
 const SignIn = () => {
   const methods = useForm()
   const { register, handleSubmit, trigger } = methods
-  const [user, userLoading] = useAuthState(auth)
+  const { user, isLoading } = useFirebaseUser()
   const navigate = useNavigate()
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
+
+  console.log(user, 'user')
 
   useEffect(() => {
     if (user) navigate('/cabinet/main')
@@ -25,7 +27,7 @@ const SignIn = () => {
     setLoading(false)
   }
 
-  if (userLoading) {
+  if (isLoading) {
     return <div>Loading...</div>
   }
 

@@ -1,18 +1,13 @@
 import { useTimer } from 'react-timer-hook'
+import { Timestamp } from 'firebase/firestore'
+import { FC } from 'react'
 
-const AccrualTimer = ({ nextAccrual }) => {
-  const {
-    totalSeconds,
-    seconds,
-    minutes,
-    hours,
-    days,
-    isRunning,
-    start,
-    pause,
-    resume,
-    restart,
-  } = useTimer({
+interface IAccrualTimer {
+  nextAccrual: Timestamp
+}
+
+const AccrualTimer: FC<IAccrualTimer> = ({ nextAccrual }) => {
+  const { seconds, minutes, hours } = useTimer({
     expiryTimestamp: nextAccrual.toDate(),
     onExpire: () => console.warn('onExpire called'),
   })

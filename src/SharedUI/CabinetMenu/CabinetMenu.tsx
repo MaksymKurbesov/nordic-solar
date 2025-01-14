@@ -1,6 +1,6 @@
 import Logo from '@assets/logo.svg?react'
 import styles from './CabinetMenu.module.scss'
-import { NavLink, useLocation } from 'react-router-dom'
+import { NavLink, useLocation, useNavigate } from 'react-router-dom'
 import UserAvatar from '@assets/images/user.png'
 import { auth, userService } from '@/main.tsx'
 import { useUser } from '@/hooks/useUser.ts'
@@ -51,6 +51,7 @@ const CabinetMenu = () => {
   const { user } = useUser()
   const [mobileMenuDrawerIsOpen, setMobileMenuDrawerIsOpen] = useState(false)
   const location = useLocation()
+  const navigate = useNavigate()
   const [userAvatar, setUserAvatar] = useState('')
 
   useEffect(() => {
@@ -115,8 +116,9 @@ const CabinetMenu = () => {
           </div>
         </div>
         <button
-          onClick={() => {
-            userService.logout()
+          onClick={async () => {
+            await userService.logout()
+            navigate('/')
           }}
           className={styles['quit-button']}
         >

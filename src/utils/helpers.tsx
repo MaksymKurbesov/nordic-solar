@@ -1,4 +1,5 @@
 import { serverTimestamp } from 'firebase/firestore'
+import { IDeposit, IRestrictions, IWallets } from '@/interfaces/IUser.ts'
 
 export const generateUserData = (nickname: string, email: string) => {
   return {
@@ -77,7 +78,11 @@ export const generateSixDigitCode = () => {
   return Math.floor(100000 + Math.random() * 900000)
 }
 
-export const calculateTotalIncome = (initialAmount, dailyPercentage, days) => {
+export const calculateTotalIncome = (
+  initialAmount: number,
+  dailyPercentage: number,
+  days: number,
+) => {
   if (isNaN(initialAmount)) {
     return 0
   }
@@ -85,17 +90,25 @@ export const calculateTotalIncome = (initialAmount, dailyPercentage, days) => {
   return +(((initialAmount * dailyPercentage) / 100) * days).toFixed(2)
 }
 
-export const calculateDailyIncome = (initialAmount, dailyRate) => {
+export const calculateDailyIncome = (
+  initialAmount: number,
+  dailyRate: number,
+) => {
   return ((initialAmount * dailyRate) / 100).toFixed(2)
 }
 
-export const getClosestDeposit = (deposits) => {
-  if (!deposits) return
+export const getClosestDeposit = (
+  deposits: IDeposit[],
+): { deposit: IDeposit; timeToAccrual: number } | null => {
+  if (!deposits || deposits.length === 0) return null
 
   const currentTime = new Date().getTime() / 1000
 
-  return deposits.reduce((closest, deposit) => {
-    if (!deposit.lastAccrual) return
+  return deposits.reduce<{
+    deposit: IDeposit
+    timeToAccrual: number
+  } | null>((closest, deposit) => {
+    if (!deposit.lastAccrual) return closest
 
     const timeToAccrual =
       deposit.lastAccrual.seconds + deposit.days * 86400 - currentTime
@@ -111,10 +124,10 @@ export const getClosestDeposit = (deposits) => {
   }, null)
 }
 
-export const sortByAvailable = (obj) => {
-  return Object.entries(obj)
+export const sortByAvailable = (wallets: IWallets): IWallets => {
+  return Object.entries(wallets)
     .sort(([, a], [, b]) => b.available - a.available)
-    .reduce((sortedObj, [key, value]) => {
+    .reduce<IWallets>((sortedObj, [key, value]) => {
       sortedObj[key] = value
       return sortedObj
     }, {})
@@ -124,42 +137,50 @@ export const logError = (message: string, error: unknown): void => {
   console.error(`[UserService] ${message}`, error)
 }
 
-export const getActiveRestriction = (restrictions) => {
-  for (let key in restrictions) {
+export const getActiveRestriction = (
+  restrictions: IRestrictions,
+): keyof IRestrictions | null => {
+  for (const key in restrictions) {
+    const restrictionKey = key as keyof IRestrictions // Явное приведение key
+
     if (
-      typeof restrictions[key] === 'boolean' &&
-      restrictions[key] &&
-      key !== 'isPrivateKey'
+      typeof restrictions[restrictionKey] === 'boolean' &&
+      restrictions[restrictionKey] &&
+      restrictionKey !== 'isPrivateKey'
     ) {
-      return key
+      return restrictionKey
     }
 
     if (
-      typeof restrictions[key] === 'object' &&
-      restrictions[key].isActive
-      // key !== "isMoneyLaundering"
+      typeof restrictions[restrictionKey] === 'object' &&
+      restrictions[restrictionKey]?.isActive
     ) {
-      console.log('this if ')
-      return key
+      return restrictionKey
     }
   }
   return null
 }
 
-export const hasActiveRestrictions = (restrictions) => {
-  if (!restrictions) return
+export const hasActiveRestrictions = (restrictions: IRestrictions): boolean => {
+  if (!restrictions) return false
 
   return Object.keys(restrictions).some((key) => {
-    if (typeof restrictions[key] === 'boolean' && key !== 'isPrivateKey') {
-      return restrictions[key]
-    }
+    const restrictionKey = key as keyof IRestrictions // Приведение key к типу keyof IRestrictions
+
     if (
-      typeof restrictions[key] === 'object' &&
-      restrictions[key].isActive !== undefined &&
-      key !== 'isMoneyLaundering'
+      typeof restrictions[restrictionKey] === 'boolean' &&
+      restrictionKey !== 'isPrivateKey'
     ) {
-      return restrictions[key].isActive
+      return restrictions[restrictionKey]
     }
+
+    if (
+      typeof restrictions[restrictionKey] === 'object' &&
+      restrictions[restrictionKey]?.isActive !== undefined
+    ) {
+      return restrictions[restrictionKey].isActive
+    }
+
     return false
   })
 }

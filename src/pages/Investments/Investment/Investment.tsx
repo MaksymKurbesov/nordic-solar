@@ -5,17 +5,19 @@ import ContactUs from '@SharedUI/ContactUs/ContactUs'
 import { ScrollRestoration, useLocation, useNavigate } from 'react-router-dom'
 import { INVESTMENTS } from '@/utils/INVESTMENTS'
 
-const getPlanValue = (value) => {
+const getInvestmentShortName = (value: string) => {
   return value.split('-')[0]
 }
 
 const Investment = () => {
   const location = useLocation()
   const navigate = useNavigate()
-  const productName = location.pathname.split('/')[2]
-  const investment = INVESTMENTS.find((product) => product.link === productName)
+  const investmentName = location.pathname.split('/')[2]
+  const investment = INVESTMENTS.find(
+    (product) => product.link === investmentName,
+  )!
   const { title, subtitle, heroImage, mainText, subText } = investment
-  const planValue = getPlanValue(productName)
+  const shortInvestmentName = getInvestmentShortName(investmentName)
 
   return (
     <div className={`${styles['investment']} container`}>
@@ -40,7 +42,7 @@ const Investment = () => {
       </div>
       <div className={styles['plans']}>
         <h4>Варианты доступных планов</h4>
-        <PlanVariants selectedPlan={planValue} />
+        <PlanVariants selectedPlan={shortInvestmentName} />
       </div>
       <ContactUs />
       <ScrollRestoration />

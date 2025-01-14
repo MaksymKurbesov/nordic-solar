@@ -6,7 +6,6 @@ import { PLAN_VARIANT } from '@/utils/const.tsx'
 
 const PlanVariants = ({ register, selectedPlan, selectedVariant }) => {
   const [variants, setVariants] = useState(null)
-  console.log(selectedPlan, 'selectedPlan')
 
   useEffect(() => {
     setVariants(PLAN_VARIANT[selectedPlan])

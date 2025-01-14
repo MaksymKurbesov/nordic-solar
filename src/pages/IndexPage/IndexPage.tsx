@@ -15,7 +15,13 @@ import Image3 from '@assets/images/features-image3.webp'
 import Image4 from '@assets/images/features-image4.webp'
 import { useRef } from 'react'
 
-const FEATURES = [
+export interface IFeature {
+  title: string
+  description: string[]
+  image: string
+}
+
+const FEATURES: IFeature[] = [
   {
     title: 'Финансирование проектов',
     description: [
@@ -58,11 +64,10 @@ const IndexPage = () => {
   const windowSize = useWindowSize()
   const isMobile = windowSize.width < 900
 
-  const scrollableRef = useRef(null)
+  const scrollableRef = useRef<HTMLDivElement>(null)
 
   const handleScrollDown = () => {
     if (scrollableRef.current) {
-      console.log(scrollableRef.current.clientHeight, 'scrollableRef.current')
       window.scrollTo({
         top: scrollableRef.current.scrollHeight,
         behavior: 'smooth', // Для плавной прокрутки

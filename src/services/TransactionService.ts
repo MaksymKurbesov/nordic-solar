@@ -16,6 +16,7 @@ import {
 import { v4 as uuidv4 } from 'uuid'
 import { referralService, userService } from '@/main.tsx'
 import { transformTransaction } from '@/utils/helpers/transformData.tsx'
+import { ITransaction, ITransformedTransaction } from '@/interfaces/IUser.ts'
 
 interface ITransactionService {
   db: Firestore
@@ -34,7 +35,13 @@ class TransactionService implements ITransactionService {
     ) as CollectionReference<any>
   }
 
-  async addTransaction({ type, amount, executor, nickname, status }) {
+  async addTransaction({
+    type,
+    amount,
+    executor,
+    nickname,
+    status,
+  }: ITransaction) {
     const id = uuidv4()
     const transactionsDoc = doc(this.transactionCollection, id)
 
@@ -64,23 +71,27 @@ class TransactionService implements ITransactionService {
       const unsubscribe = onSnapshot(q, (querySnapshot) => {
         const transactions = querySnapshot.docs.map((doc) => ({
           id: doc.id,
-          ...doc.data(), // Приводим данные документа к типу Transaction
+          ...doc.data(),
         }))
 
-        // Вызываем коллбек для передачи обновленных данных
         onUpdate(transactions)
       })
 
-      // Возвращаем функцию отписки для остановки слушателя
       return unsubscribe
     } catch (e) {
       console.log(e, 'error in get pending transactions')
-      return () => {} // Возвращаем пустую функцию на случай ошибок
+      return () => {}
     }
   }
 
-  async confirmTransaction({ id, type, nickname, executor, amount }) {
-    const transactionRef = doc(this.transactionCollection, id)
+  async confirmTransaction({
+    id,
+    type,
+    nickname,
+    executor,
+    amount,
+  }: ITransaction) {
+    const transactionRef = doc(this.transactionCollection, String(id))
 
     if (type === 'Пополнение') {
       await userService.updateUser(nickname, {
@@ -104,37 +115,12 @@ class TransactionService implements ITransactionService {
     })
   }
 
-  async declineTransaction({ id }) {
-    const transactionRef = doc(this.transactionCollection, id)
+  async declineTransaction({ id }: ITransaction) {
+    const transactionRef = doc(this.transactionCollection, String(id))
 
     await updateDoc(transactionRef, {
       status: 'Отмена',
     })
-  }
-
-  async subscribeToTransactions(setTransactions, nickname) {
-    try {
-      const transactionQuery = query(
-        this.transactionCollection,
-        where('nickname', '==', nickname),
-        orderBy('date', 'desc'),
-        limit(10),
-      )
-
-      onSnapshot(transactionQuery, (querySnapshot) => {
-        const transactions = querySnapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(), // Приводим данные документа к типу Transaction
-        }))
-
-        const transformedTransactions = transactions.map(transformTransaction)
-
-        setTransactions(transformedTransactions)
-      })
-    } catch (e) {
-      console.error(e)
-      alert(e)
-    }
   }
 }
 

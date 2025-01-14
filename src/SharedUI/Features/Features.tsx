@@ -1,8 +1,14 @@
 import styles from './Features.module.scss'
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs'
-import { useState } from 'react'
+import { FC, useState } from 'react'
+import { IFeature } from '@/pages/IndexPage/IndexPage.tsx'
 
-const Features = ({ features, images }) => {
+interface IFeaturesProps {
+  features: IFeature[]
+  images: string[]
+}
+
+const Features: FC<IFeaturesProps> = ({ features, images }) => {
   const [tabIndex, setTabIndex] = useState(0)
 
   return (

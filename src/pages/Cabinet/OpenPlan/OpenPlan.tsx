@@ -16,6 +16,7 @@ import NavigationButtons from '@/pages/Cabinet/OpenPlan/NavigationButtons'
 import { createPortal } from 'react-dom'
 import { PLAN_VARIANT } from '@/utils/const.tsx'
 import toast from 'react-hot-toast'
+import axios from 'axios'
 
 const steps = [
   {
@@ -40,6 +41,11 @@ const steps = [
     type: 'final',
   },
 ]
+
+const ACCRUALS_TYPE_MAP = {
+  Ежедневно: 'everyday',
+  'В конце срока': 'one_time',
+}
 
 const OpenPlan = () => {
   const { user } = useUser()
@@ -70,8 +76,10 @@ const OpenPlan = () => {
     wallet,
     selectedVariant,
   }) => {
-    const willReceived = Number(
-      calculateTotalIncome(amount, variant.inDay, variant.days),
+    const willReceived = calculateTotalIncome(
+      amount,
+      variant.inDay,
+      variant.days,
     )
 
     const depositData = {
@@ -79,14 +87,17 @@ const OpenPlan = () => {
       plan,
       variant: selectedVariant,
       days: variant.days,
-      inDay: variant.inDay,
       wallet,
       willReceived,
+      username: user!.nickname,
+      accruals: ACCRUALS_TYPE_MAP[variant.accruals],
     }
     window.scrollTo(0, 0)
     setConfirmPopupIsOpen(true)
     document.body.style.overflow = 'hidden'
-    return await depositService.openPlan(user.nickname, depositData)
+
+    await axios.post('http://localhost:3000/deposits/open-deposit', depositData)
+    // return await depositService.openPlan(user.nickname, depositData)
   }
 
   const handleNext = () => {

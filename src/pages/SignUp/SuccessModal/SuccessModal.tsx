@@ -27,8 +27,8 @@ const SuccessModal = () => {
             Добро пожаловать в нашу платформу. Ваша поддержка — это вклад в
             будущее возобновляемых источников энергии.
           </span>
-          <NavLink to={'/cabinet/main'} className={styles['cabinet-button']}>
-            В кабинет
+          <NavLink to={'/sign-in'} className={styles['cabinet-button']}>
+            Войти в личный кабинет
           </NavLink>
         </div>
       </div>

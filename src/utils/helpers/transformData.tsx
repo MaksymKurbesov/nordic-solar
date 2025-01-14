@@ -1,8 +1,15 @@
 import { parseTimestamp } from '@/utils/helpers/date.tsx'
 import { Timestamp } from 'firebase/firestore'
 import AccrualTimer from '@/pages/Cabinet/MainCabinet/Deposits/AccrualTimer.tsx'
+import {
+  IDeposit,
+  ITransaction,
+  ITransformedTransaction,
+} from '@/interfaces/IUser.ts'
 
-export const transformTransaction = (transaction) => {
+export const transformTransaction = (
+  transaction: ITransaction,
+): ITransformedTransaction => {
   return {
     ...transaction,
     id: transaction.id.slice(0, 6),
@@ -12,7 +19,7 @@ export const transformTransaction = (transaction) => {
   }
 }
 
-export const transformDeposit = (deposit) => {
+export const transformDeposit = (deposit: IDeposit) => {
   const nextAccrual = Timestamp.fromMillis(
     deposit.lastAccrual.toMillis() + 24 * 60 * 60 * 1000,
   )

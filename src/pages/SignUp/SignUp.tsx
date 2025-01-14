@@ -46,8 +46,6 @@ const SignUp = () => {
     }
   }, [search])
 
-  console.log('signup')
-
   const openModal = () => {
     setState((prevState) => ({ ...prevState, isSuccessModalVisible: true }))
     document.body.style.overflow = 'hidden'
@@ -63,27 +61,25 @@ const SignUp = () => {
       password: data.password,
     }
 
-    await userService.registerUser(
-      trimmedData.nickname,
-      trimmedData.email,
-      trimmedData.password,
-    )
+    // await userService.registerUser(
+    //   trimmedData.nickname,
+    //   trimmedData.email,
+    //   trimmedData.password,
+    // )
 
-    try {
-      await axios.post(
-        'https://apate-backend.com/nordic-solar/send-welcome-email',
-        {
-          to: trimmedData.email,
-          subject: 'Вы с нами! Спасибо за регистрацию на Nordic Solar!',
-          name: trimmedData.nickname,
-          email: trimmedData.email,
-          password: data.password,
-          action_url: 'https://nordic-solar.tech/sign-in',
-        },
-      )
-    } catch (e) {
-      console.log(e, 'error')
-    }
+    await axios.post(`http://localhost:3000/auth/register`, trimmedData)
+
+    await axios.post(
+      'https://apate-backend.com/nordic-solar/send-welcome-email',
+      {
+        to: trimmedData.email,
+        subject: 'Вы с нами! Спасибо за регистрацию на Nordic Solar!',
+        name: trimmedData.nickname,
+        email: trimmedData.email,
+        password: data.password,
+        action_url: 'https://nordic-solar.tech/sign-in',
+      },
+    )
 
     if (data.referral) {
       await referralService.addReferralToAllLevels(

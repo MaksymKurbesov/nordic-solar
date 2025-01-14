@@ -8,7 +8,8 @@ const Product = () => {
   const location = useLocation()
   const navigate = useNavigate()
   const productName = location.pathname.split('/')[2]
-  const product = PRODUCTS.find((product) => product.link === productName)
+  const product = PRODUCTS.find((product) => product.link === productName)!
+
   const { title, subtitle, heroImage, mainText, subText, galleryImages } =
     product
 

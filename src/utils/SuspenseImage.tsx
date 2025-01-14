@@ -90,7 +90,7 @@ function loadImage(source: string): Resource<string> {
 function SuspenseImage(
   props: ImgHTMLAttributes<HTMLImageElement>,
 ): ReactElement {
-  loadImage(props.src).read()
+  loadImage(props.src || '').read()
   return <img {...props} alt={''} />
 }
 

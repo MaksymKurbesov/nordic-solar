@@ -15,6 +15,7 @@
 .last-transactions-list {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  grid-template-rows: max-content;
   gap: 10px;
   flex-grow: 1;
 }
@@ -63,7 +64,6 @@
   text-transform: uppercase;
 }
 
-
 @media screen and (max-width: 900px) {
   .opened {
     height: 125px !important;
@@ -74,12 +74,14 @@
     grid-template-columns: 1fr 1fr 1fr;
   }
 
-  .transaction-wrapper p:nth-child(2), .transaction-wrapper p:nth-child(5) {
+  .transaction-wrapper p:nth-child(2),
+  .transaction-wrapper p:nth-child(5) {
     align-items: center;
     text-align: center;
   }
 
-  .transaction-wrapper p:nth-child(3), .transaction-wrapper p:nth-child(6) {
+  .transaction-wrapper p:nth-child(3),
+  .transaction-wrapper p:nth-child(6) {
     align-items: flex-end;
   }
 
@@ -87,8 +89,6 @@
     height: 65px;
     overflow: hidden;
   }
-
-
 }
 
 @media screen and (max-width: 550px) {

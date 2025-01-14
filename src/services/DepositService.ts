@@ -6,14 +6,11 @@ import {
   onSnapshot,
   orderBy,
   query,
-  serverTimestamp,
-  setDoc,
-  Timestamp,
   runTransaction,
   increment,
 } from 'firebase/firestore'
 import { v4 as uuidv4 } from 'uuid'
-import { transactionService, userService } from '@/main'
+import { transactionService } from '@/main'
 import { PLAN_VARIANT } from '@/utils/const.tsx'
 import { addDays, daysPassedSince } from '@/utils/helpers/date.tsx'
 import { transformDeposit } from '@/utils/helpers/transformData.tsx'
@@ -30,45 +27,6 @@ class DepositService implements IDepositService {
   constructor(db: Firestore) {
     this.db = db
     this.depositCollection = collection(db, 'users') as CollectionReference<any>
-  }
-
-  async openPlan(nickname: string, deposit: any) {
-    const { amount, days, wallet, variant, willReceived, plan } = deposit
-    const id = uuidv4()
-
-    await userService.updateUserAfterOpenPlan(nickname, wallet, amount)
-
-    const depositDoc = doc(
-      this.db,
-      'users',
-      nickname,
-      'deposits',
-      `${deposit.amount}-${id}`,
-    )
-
-    await transactionService.addTransaction({
-      amount,
-      executor: wallet,
-      id,
-      type: 'Депозит',
-      nickname: nickname,
-      status: 'Выполнено',
-    })
-
-    await setDoc(depositDoc, {
-      amount,
-      days,
-      wallet,
-      variant,
-      openDate: serverTimestamp(),
-      closeDate: Timestamp.fromMillis(Date.now() + days * 24 * 60 * 60 * 1000),
-      received: 0,
-      lastAccrual: serverTimestamp(),
-      willReceived,
-      charges: 0,
-      isActive: true,
-      plan,
-    })
   }
 
   async processAndFetchDeposits(setDeposits, nickname: string) {

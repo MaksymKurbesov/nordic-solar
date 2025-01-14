@@ -1,12 +1,14 @@
 import styles from './DrawerMobileMenu.module.scss'
 import { Drawer } from '@mui/material'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import { LINKS } from '@SharedUI/CabinetMenu/CabinetMenu.tsx'
 import Logo from '@assets/logo.svg?react'
 import XIcon from '@assets/icons/x.svg?react'
 import { userService } from '@/main.tsx'
 
 const DrawerMobileMenu = ({ open, setOpen }) => {
+  const navigate = useNavigate()
+
   return (
     <Drawer
       anchor={'top'}
@@ -36,8 +38,9 @@ const DrawerMobileMenu = ({ open, setOpen }) => {
         })}
       </ul>
       <button
-        onClick={() => {
-          userService.logout()
+        onClick={async () => {
+          await userService.logout()
+          navigate('/')
         }}
         className={styles['quit-button']}
       >

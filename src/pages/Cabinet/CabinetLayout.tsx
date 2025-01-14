@@ -1,69 +1,96 @@
 import styles from './CabinetLayout.module.scss'
-import { Outlet, useNavigate } from 'react-router-dom'
+import { Outlet } from 'react-router-dom'
 import Footer from '@SharedUI/Footer/Footer.tsx'
 import CabinetMenu from '@SharedUI/CabinetMenu/CabinetMenu.tsx'
 import { Toaster } from 'react-hot-toast'
 import { useEffect } from 'react'
-import {
-  auth,
-  depositService,
-  transactionService,
-  userService,
-  walletsService,
-} from '@/main.tsx'
-import { useUser } from '@/hooks/useUser.ts'
-import { useAuthState } from '@/hooks/useAuthState.ts'
+import { db, depositService } from '@/main.tsx'
+
 import axios from 'axios'
+import {
+  collection,
+  doc,
+  limit,
+  onSnapshot,
+  orderBy,
+  query,
+  where,
+} from 'firebase/firestore'
+import { useFirebaseUser } from '@/context/AuthContext.tsx'
+import { useUser } from '@/hooks/useUser.ts'
+import { transformTransaction } from '@/utils/helpers/transformData.tsx'
 
 const CabinetLayout = () => {
   const { setUser, setDeposits, setWallets, setTransactions } = useUser()
-
-  const navigate = useNavigate()
-  const [firebaseUser, userLoading] = useAuthState(auth, {
-    onUserChanged: true,
-  })
+  const { user: firebaseUser } = useFirebaseUser()
 
   useEffect(() => {
-    if (!firebaseUser && !userLoading) navigate('/')
+    if (!firebaseUser?.displayName) return
 
-    if (userLoading) return
+    const userNickname = firebaseUser.displayName
+    const userRef = doc(db, 'users', userNickname)
+    const transactionQuery = query(
+      collection(db, 'transactions'),
+      where('nickname', '==', userNickname),
+      orderBy('date', 'desc'),
+      limit(10),
+    )
+
+    const unsubscribeUser = onSnapshot(userRef, (doc) => {
+      if (doc.exists()) {
+        setWallets(doc.data().wallets || [])
+      }
+    })
+
+    const unsubscribeTransactions = onSnapshot(
+      transactionQuery,
+      (querySnapshot) => {
+        const transactions = querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }))
+
+        const transformedTransactions = transactions.map(transformTransaction)
+        console.log(transformedTransactions, 'transformedTransactions')
+        setTransactions(transformedTransactions)
+      },
+    )
 
     const fetchUserData = async () => {
       try {
-        const userNickname = firebaseUser.displayName
-        const userData = await userService.getUser(userNickname)
+        const [userResponse] = await Promise.all([
+          axios.post('http://localhost:3000/user/get-user', {
+            username: userNickname,
+          }),
+          axios.post('https://apate-backend.com/nordic-solar/ip', {
+            username: userNickname,
+          }),
+        ])
 
-        await depositService.processAndFetchDeposits(setDeposits, userNickname)
-        await walletsService.subscribeOnWallets(setWallets, userNickname)
-        await transactionService.subscribeToTransactions(
-          setTransactions,
-          userNickname,
-        )
-
-        setUser(userData)
-
-        await axios.post('https://apate-backend.com/nordic-solar/ip', {
-          username: userNickname,
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        })
-      } catch (e) {
-        console.log(e, 'error')
+        setUser(userResponse.data)
+      } catch (error) {
+        console.error('Error fetching user data:', error)
       }
     }
 
     fetchUserData()
-  }, [firebaseUser])
+
+    depositService.processAndFetchDeposits(setDeposits, userNickname)
+
+    // Cleanup on unmount
+    return () => {
+      unsubscribeUser()
+      unsubscribeTransactions()
+    }
+  }, [firebaseUser, setUser, setDeposits, setWallets, setTransactions])
 
   return (
     <div className={styles['cabinet']}>
       <CabinetMenu />
-      <div className={'container'}>
+      <div className="container">
         <Outlet />
       </div>
       <Footer />
-      {/*<MobileCabinetMenu />*/}
       <Toaster />
     </div>
   )

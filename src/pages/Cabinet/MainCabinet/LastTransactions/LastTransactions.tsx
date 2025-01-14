@@ -31,7 +31,6 @@ const LastTransactions = ({ transactions }) => {
       {transactions.length === 0 ? (
         'У вас нет транзакций'
       ) : (
-        // <Table columns={TRANSACTION_COLUMNS} data={transactions} />
         <ul className={styles['last-transactions-list']}>
           {transactions.slice(0, 4).map((transaction, index) => {
             return (
