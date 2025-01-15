@@ -1,78 +1,4 @@
-import { serverTimestamp } from 'firebase/firestore'
 import { IDeposit, IRestrictions, IWallets } from '@/interfaces/IUser.ts'
-
-export const generateUserData = (nickname: string, email: string) => {
-  return {
-    settings: {
-      name: '',
-      surname: '',
-      phone: '',
-      social: '',
-      country: '',
-    },
-    earned: 0,
-    invested: 0,
-    withdrawn: 0,
-    referrals: 0,
-    wallets: {
-      bitcoin: {
-        available: 0,
-        deposited: 0,
-        referrals: 0,
-        withdrawn: 0,
-        number: '',
-      },
-      ton: {
-        available: 0,
-        deposited: 0,
-        referrals: 0,
-        withdrawn: 0,
-        number: '',
-      },
-      trc20: {
-        available: 0,
-        deposited: 0,
-        referrals: 0,
-        withdrawn: 0,
-        number: '',
-      },
-      ethereum: {
-        available: 0,
-        deposited: 0,
-        referrals: 0,
-        withdrawn: 0,
-        number: '',
-      },
-      solana: {
-        available: 0,
-        deposited: 0,
-        referrals: 0,
-        withdrawn: 0,
-        number: '',
-      },
-    },
-    referredBy: '',
-    privateKey: '',
-    nickname,
-    email,
-    restrictions: {
-      isCheaterInReferral: false,
-      isFinancialGateway: false,
-      isMultiAcc: {
-        isActive: false,
-        users: [],
-      },
-      isPrivateKey: false,
-      isPrivateKeyInvalid: false,
-      isReferralCheater: {
-        isActive: false,
-        users: [],
-      },
-      isWithdrawnLimit: false,
-    },
-    registrationDate: serverTimestamp(),
-  }
-}
 
 export const generateSixDigitCode = () => {
   return Math.floor(100000 + Math.random() * 900000)
@@ -80,10 +6,14 @@ export const generateSixDigitCode = () => {
 
 export const calculateTotalIncome = (
   initialAmount: number,
-  dailyPercentage: number,
-  days: number,
+  dailyPercentage: number | null,
+  days: number | null,
 ) => {
   if (isNaN(initialAmount)) {
+    return 0
+  }
+
+  if (!dailyPercentage || !days) {
     return 0
   }
 

@@ -3,6 +3,7 @@ import TonIcon from '@assets/icons/crypto-wallets/ton.svg?react'
 import BitcoinIcon from '@assets/icons/crypto-wallets/bitcoin.svg?react'
 import EthereumIcon from '@assets/icons/crypto-wallets/ethereum.svg?react'
 import SolanaIcon from '@assets/icons/crypto-wallets/solana.svg?react'
+import { IPlanTypes } from '@/interfaces/IPlanVariant.ts'
 
 export const REFERRAL_REWARDS_BY_LEVEL = {
   1: 10,
@@ -66,7 +67,7 @@ export const TRANSACTION_COLUMNS = [
   },
 ]
 
-export const PLAN_VARIANT = {
+export const PLAN_VARIANT: IPlanTypes = {
   solar: {
     beginner: {
       type: 'Sunlight Start',

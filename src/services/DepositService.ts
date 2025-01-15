@@ -31,6 +31,8 @@ class DepositService implements IDepositService {
 
   async processAndFetchDeposits(setDeposits, nickname: string) {
     try {
+      console.log('processAndFetchDeposits')
+
       const allDepositsQuery = query(
         collection(this.db, 'users', nickname, 'deposits'),
         orderBy('openDate', 'desc'),

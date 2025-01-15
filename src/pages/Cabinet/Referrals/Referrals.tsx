@@ -1,15 +1,9 @@
 import styles from './Referrals.module.scss'
-import LinkIcon from '@assets/icons/link.svg?react'
-import PartnersIcon from '@assets/icons/partners.svg?react'
-import ActivePartnersIcon from '@assets/icons/active-partners.svg?react'
-import StructureAmountIcon from '@assets/icons/structure-amount.svg?react'
-import DateIcon from '@assets/icons/date.svg?react'
-import CopyIcon from '@assets/icons/copy.svg?react'
 import { useUser } from '@/hooks/useUser'
 import { useEffect, useState } from 'react'
 import { referralService } from '@/main'
 import LevelAccordion from '@/pages/Cabinet/Referrals/LevelAccordion/LevelAccordion'
-import toast from 'react-hot-toast'
+import Statistic from '@/pages/Cabinet/Referrals/Statistic/Statistic.tsx'
 
 const Referrals = () => {
   const { user } = useUser()
@@ -68,63 +62,16 @@ const Referrals = () => {
     fetchActiveReferrals()
   }, [user])
 
-  const CopyNotify = () => toast.success('Скопировано!')
-
   if (!user) return
 
   return (
     <>
       <h1 className={styles['title']}>Рефералы</h1>
-      <div className={styles['referrals']}>
-        <div className={styles['referral-link']}>
-          <div className={styles['icon-wrapper']}>
-            <span className={styles['icon']}>
-              <LinkIcon />
-            </span>
-            <p>Ссылка для приглашений</p>
-          </div>
-          <p
-            className={styles['link']}
-            onClick={() => {
-              CopyNotify()
-              navigator.clipboard.writeText(
-                `https://nordic-solar.tech/sign-up?referral=${user.nickname}`,
-              )
-            }}
-          >
-            {`https://nordic-solar.tech/sign-up?referral=${user.nickname}`}{' '}
-            <CopyIcon />
-          </p>
-        </div>
-        <div className={styles['statistic']}>
-          <span className={styles['icon']}>
-            <PartnersIcon />
-          </span>
-          <p>Количество партнеров</p>
-          <p className={styles['value']}>{referralsCount}</p>
-        </div>
-        <div className={styles['statistic']}>
-          <span className={styles['icon']}>
-            <ActivePartnersIcon />
-          </span>
-          <p>Количество активных партнеров</p>
-          <p className={styles['value']}>{activeReferralsCount}</p>
-        </div>
-        <div className={styles['statistic']}>
-          <span className={styles['icon']}>
-            <StructureAmountIcon />
-          </span>
-          <p>Оборот вашей структуры</p>
-          <p className={styles['value']}>${totalIncome}</p>
-        </div>
-        <div className={styles['statistic']}>
-          <span className={styles['icon']}>
-            <DateIcon />
-          </span>
-          <p>Вас пригласил</p>
-          <p className={styles['value']}>{user.referredBy}</p>
-        </div>
-      </div>
+      <Statistic
+        referralsCount={referralsCount}
+        activeReferralsCount={activeReferralsCount}
+        totalIncome={totalIncome}
+      />
       <div className={styles['referral-levels']}>
         <div className={styles['table-header']}>
           <span>Уровень</span>

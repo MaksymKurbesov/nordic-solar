@@ -1,8 +1,6 @@
 import styles from './OpenPlan.module.scss'
 import { FormProvider, useForm } from 'react-hook-form'
-import { ScrollRestoration } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import { depositService } from '@/main.tsx'
 import ConfirmedPopup from '@SharedUI/ConfirmedPopup/ConfirmedPopup'
 import { calculateTotalIncome, hasActiveRestrictions } from '@/utils/helpers'
 import { useUser } from '@/hooks/useUser'
@@ -17,11 +15,15 @@ import { createPortal } from 'react-dom'
 import { PLAN_VARIANT } from '@/utils/const.tsx'
 import toast from 'react-hot-toast'
 import axios from 'axios'
+import {
+  IPlanGroup,
+  IPlanOption,
+  IPlanTypes,
+} from '@/interfaces/IPlanVariant.ts'
 
 const steps = [
   {
     title: 'Тип плана',
-    // component: <Plans />,
     component: <Plans />,
     type: 'plan',
   },
@@ -47,98 +49,115 @@ const ACCRUALS_TYPE_MAP = {
   'В конце срока': 'one_time',
 }
 
+export interface IPlanForm {
+  plan: keyof IPlanTypes
+  variant: keyof IPlanGroup
+  amount: number
+  wallet: string
+}
+
+export interface IPlanData {
+  plan: keyof IPlanTypes
+  variant: keyof IPlanGroup
+  amount: number
+  wallet: string
+  planData: IPlanOption
+}
+
 const OpenPlan = () => {
   const { user } = useUser()
   const [confirmPopupIsOpen, setConfirmPopupIsOpen] = useState(false)
   const [activeStep, setActiveStep] = useState(0)
   const userHasRestriction = hasActiveRestrictions(user?.restrictions)
 
-  const form = useForm({
+  const form = useForm<IPlanForm>({
     defaultValues: {
-      plan: '',
-      variant: '',
+      plan: '' as keyof IPlanTypes,
+      variant: '' as keyof IPlanGroup,
       amount: 0,
       wallet: '',
     },
     mode: 'onChange',
   })
 
-  useEffect(() => {
-    return () => {
-      document.body.style.overflow = 'visible'
-    }
-  }, [])
+  const openPopup = () => {
+    window.scrollTo(0, 0)
+    setConfirmPopupIsOpen(true)
+    document.body.style.overflow = 'hidden'
+  }
 
-  const submitHandler = async ({
-    amount,
-    variant,
-    plan,
-    wallet,
-    selectedVariant,
-  }) => {
+  const submitHandler = async (data: IPlanData) => {
+    const { amount, variant, plan, wallet, planData } = data
+
     const willReceived = calculateTotalIncome(
       amount,
-      variant.inDay,
-      variant.days,
+      planData.inDay,
+      planData.days,
     )
 
     const depositData = {
       amount: +amount,
       plan,
-      variant: selectedVariant,
-      days: variant.days,
+      variant,
+      days: planData.days,
       wallet,
       willReceived,
-      username: user!.nickname,
-      accruals: ACCRUALS_TYPE_MAP[variant.accruals],
+      username: user?.nickname,
+      accruals: ACCRUALS_TYPE_MAP[planData.accruals],
     }
-    window.scrollTo(0, 0)
-    setConfirmPopupIsOpen(true)
-    document.body.style.overflow = 'hidden'
+
+    openPopup()
 
     await axios.post('http://localhost:3000/deposits/open-deposit', depositData)
-    // return await depositService.openPlan(user.nickname, depositData)
   }
 
   const handleNext = () => {
-    const stepType = steps[activeStep].type
-    const currentValue = form.watch(stepType)
     const plan = form.watch('plan')
-    const selectedVariant = form.watch('variant')
+    const variant = form.watch('variant')
     const wallet = form.watch('wallet')
     const amount = form.watch('amount')
+    const lastStep = activeStep === steps.length - 1
+
+    const isVariantPlanEmpty = activeStep === 1 && !variant
+    const isWalletEmpty = activeStep === 2 && !wallet
+    const isIncorrectAmount = activeStep === 2 && isNaN(amount)
 
     if (!plan) {
-      toast.error('Выберите тип плана', { autoClose: 3000 })
+      toast.error('Выберите тип плана')
+      return
     }
 
-    if (!selectedVariant && activeStep === 1)
-      toast.error('Выберите вариант плана', { autoClose: 3000 })
+    if (isVariantPlanEmpty) {
+      toast.error('Выберите вариант плана')
+      return
+    }
 
-    if (activeStep === 2 && !wallet) {
+    if (isWalletEmpty) {
       toast.error('Выберите кошелёк')
+      return
     }
 
-    if (activeStep === 2 && isNaN(amount)) {
+    if (isIncorrectAmount) {
       toast.error('Некорректная сумма')
       return
     }
 
     if (activeStep === 2 && wallet) {
-      const variant = PLAN_VARIANT[plan][selectedVariant]
-      const userBalance = user?.wallets[wallet].available
-      if (userBalance < amount || amount < variant.minDeposit) {
+      if (!user) return
+      const planData = PLAN_VARIANT[plan][variant]
+
+      const userBalance = user.wallets[wallet].available
+      if (userBalance < amount || amount < planData.minDeposit) {
         toast.error('Недостаточно средств')
         return
       }
     }
 
-    if (activeStep === steps.length - 1) {
-      const variant = PLAN_VARIANT[plan][selectedVariant]
-      submitHandler({ amount, variant, plan, wallet, selectedVariant })
+    if (lastStep) {
+      const planData = PLAN_VARIANT[plan][variant]
+      submitHandler({ amount, planData, plan, wallet, variant })
+      return
     }
-
-    if (!currentValue) return
 
     setActiveStep((prevActiveStep) => prevActiveStep + 1)
     window.scrollTo(0, 0)
@@ -147,6 +166,12 @@ const OpenPlan = () => {
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1)
   }
+
+  useEffect(() => {
+    return () => {
+      document.body.style.overflow = 'visible'
+    }
+  }, [])
 
   return (
     <Box sx={{ width: '100%' }}>
