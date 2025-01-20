@@ -31,8 +31,6 @@ const MainCabinet = () => {
         nickname: firebaseUser.displayName,
       });
 
-      console.log(deposits.data, "deposits.data");
-
       setDeposits(deposits.data.map(transformDeposit));
     };
 

@@ -10,7 +10,6 @@ import UserService from "@/services/UserService.ts";
 import "swiper/css";
 import TransactionService from "@/services/TransactionService.ts";
 import { UserProvider } from "./UserContext";
-// import DepositService from '@/services/DepositService.ts'
 import { UserDataProvider } from "@/context/AuthContext.tsx";
 
 const firebaseConfig = {
@@ -30,7 +29,6 @@ export const storage = getStorage(app);
 
 export const userService = new UserService(db);
 export const transactionService = new TransactionService(db);
-// export const depositService = new DepositService(db)
 
 let container: HTMLElement | null = null;
 
