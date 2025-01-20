@@ -2,9 +2,11 @@ import styles from './AdminPanel.module.scss'
 import { transactionService } from '@/main.tsx'
 import { useEffect, useState } from 'react'
 import { parseTimestamp } from '@/utils/helpers/date.tsx'
+import axios from 'axios'
+import { ITransaction } from '@/interfaces/IUser.ts'
 
 const AdminPanel = () => {
-  const [transactions, setTransactions] = useState(null)
+  const [transactions, setTransactions] = useState<ITransaction[] | null>(null)
 
   useEffect(() => {
     const unsubscribe = transactionService.getPendingTransactions(
@@ -19,12 +21,19 @@ const AdminPanel = () => {
     }
   }, [])
 
-  const confirmTransaction = (transaction) => {
-    transactionService.confirmTransaction(transaction)
+  const confirmTransaction = async (transaction: ITransaction) => {
+    await axios.post(
+      'http://localhost:3010/transaction/confirm-transaction',
+      transaction,
+    )
+    // transactionService.confirmTransaction(transaction)
   }
 
-  const cancelTransaction = (transaction) => {
-    transactionService.declineTransaction(transaction)
+  const cancelTransaction = async (transaction: ITransaction) => {
+    await axios.post(
+      'http://localhost:3010/transaction/decline-transaction',
+      transaction,
+    )
   }
 
   if (!transactions) return null
@@ -33,7 +42,7 @@ const AdminPanel = () => {
     <div className={styles['admin-panel']}>
       <h2>Adminka</h2>
       <ul>
-        {transactions.map((transaction) => {
+        {transactions.map((transaction: ITransaction) => {
           return (
             <li key={transaction.id}>
               <div>

@@ -12,7 +12,7 @@ const WalletAmount = () => {
   return (
     <div className={styles['wallet-amount']}>
       <TransactionForm
-        wallets={sortByAvailable(user.wallets)}
+        wallets={sortByAvailable(user?.wallets)}
         selectedWallet={selectedWallet}
         register={register}
         inputText={'Введите сумму'}

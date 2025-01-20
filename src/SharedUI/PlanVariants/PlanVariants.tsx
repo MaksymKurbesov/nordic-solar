@@ -1,11 +1,23 @@
 import styles from './PlanVariants.module.scss'
 import GeoIcon from '@assets/icons/geo.svg?react'
 import MoneyIcon from '@assets/icons/money.svg?react'
-import { useEffect, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { PLAN_VARIANT } from '@/utils/const.tsx'
+import { FieldValues, UseFormRegister } from 'react-hook-form'
+import { IPlanGroup, PlanType, PlanVariant } from '@/interfaces/IPlanVariant.ts'
 
-const PlanVariants = ({ register, selectedPlan, selectedVariant }) => {
-  const [variants, setVariants] = useState(null)
+interface IPlanVariants {
+  register: UseFormRegister<FieldValues>
+  selectedPlan: PlanType
+  selectedVariant: PlanVariant
+}
+
+const PlanVariants: FC<IPlanVariants> = ({
+  register,
+  selectedPlan,
+  selectedVariant,
+}) => {
+  const [variants, setVariants] = useState<IPlanGroup | null>(null)
 
   useEffect(() => {
     setVariants(PLAN_VARIANT[selectedPlan])

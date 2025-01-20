@@ -6,9 +6,16 @@ import ReferralsIcon from '@assets/icons/referrals.svg?react'
 import WithdrawnIcon from '@assets/icons/withdrawn.svg?react'
 import ArrowIcon from '@assets/icons/arrow.svg?react'
 import { useUser } from '@/hooks/useUser.ts'
-import { useRef, useState } from 'react'
+import { ReactElement, useRef, useState } from 'react'
+import { Swiper as SwiperClass } from 'swiper'
 
-const STATISTIC = [
+interface IStatistic {
+  icon: ReactElement
+  name: string
+  db: string
+}
+
+const STATISTIC: IStatistic[] = [
   {
     icon: <InvestedIcon width={24} height={24} />,
     name: 'Инвестировано',
@@ -34,7 +41,7 @@ const STATISTIC = [
 const MenuStatistic = () => {
   const { user } = useUser()
   const [menuIsOpened, setMenuIsOpened] = useState(false)
-  const sliderRef = useRef(null)
+  const sliderRef = useRef<SwiperClass | null>(null)
 
   return (
     <>
@@ -56,13 +63,13 @@ const MenuStatistic = () => {
           }`}
         >
           <button
-            onClick={() => sliderRef.current.slidePrev()}
+            onClick={() => sliderRef.current?.slidePrev()}
             className={styles['prev-button']}
           >
             <ArrowIcon />
           </button>
           <button
-            onClick={() => sliderRef.current.slideNext()}
+            onClick={() => sliderRef.current?.slideNext()}
             className={styles['next-button']}
           >
             <ArrowIcon />

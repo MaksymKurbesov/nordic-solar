@@ -5,8 +5,8 @@ import {
   ITransaction,
   ITransformedTransaction,
   IUser,
-  IWallets,
 } from '@/interfaces/IUser.ts'
+import { IWallets } from '@/interfaces/IWallets.ts'
 
 interface UserState {
   user: IExtendedUser | null

@@ -22,7 +22,7 @@ const Input: FC<InputProps> = ({
   register = () => {},
   validation,
   trigger,
-  referralNickname = '',
+  // referralNickname = '',
   placeholder,
   disabled = false,
 }) => {
@@ -34,12 +34,13 @@ const Input: FC<InputProps> = ({
         id={name}
         type={type}
         disabled={disabled}
-        {...(referralNickname ? { value: referralNickname } : {})}
+        /*{...(referralNickname ? { value: referralNickname } : {})}*/
         {...register(name, {
           ...validation,
           onBlur: () => {
-            console.log('triggered')
-            trigger(name)
+            if (trigger) {
+              trigger(name)
+            }
           },
         })}
       />

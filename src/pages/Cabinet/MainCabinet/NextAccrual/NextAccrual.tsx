@@ -3,9 +3,13 @@ import { Timestamp } from 'firebase/firestore'
 import { useState, useEffect } from 'react'
 import { getClosestDeposit } from '@/utils/helpers.tsx'
 import { useTimer } from 'react-timer-hook'
+import { IDeposit } from '@/interfaces/IUser.ts'
 
-const NextAccrual = ({ deposits }) => {
-  const [closestDeposit, setClosestDeposit] = useState(null)
+const NextAccrual = ({ deposits }: { deposits: IDeposit[] }) => {
+  const [closestDeposit, setClosestDeposit] = useState<{
+    deposit: IDeposit
+    timeToAccrual: number
+  } | null>(null)
 
   const { seconds, minutes, hours, days, restart } = useTimer({
     expiryTimestamp: new Date(),

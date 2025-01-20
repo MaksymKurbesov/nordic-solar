@@ -7,16 +7,10 @@ import {
   doc,
   query,
   where,
-  updateDoc,
-  increment,
-  orderBy,
-  limit,
   onSnapshot,
 } from 'firebase/firestore'
 import { v4 as uuidv4 } from 'uuid'
-import { referralService, userService } from '@/main.tsx'
-import { transformTransaction } from '@/utils/helpers/transformData.tsx'
-import { ITransaction, ITransformedTransaction } from '@/interfaces/IUser.ts'
+import { ITransaction } from '@/interfaces/IUser.ts'
 
 interface ITransactionService {
   db: Firestore
@@ -82,45 +76,6 @@ class TransactionService implements ITransactionService {
       console.log(e, 'error in get pending transactions')
       return () => {}
     }
-  }
-
-  async confirmTransaction({
-    id,
-    type,
-    nickname,
-    executor,
-    amount,
-  }: ITransaction) {
-    const transactionRef = doc(this.transactionCollection, String(id))
-
-    if (type === 'Пополнение') {
-      await userService.updateUser(nickname, {
-        [`wallets.${executor}.available`]: increment(amount),
-        [`wallets.${executor}.deposited`]: increment(amount),
-      })
-
-      await referralService.addReferralRewards(nickname, amount, executor)
-    }
-
-    if (type === 'Вывод') {
-      await userService.updateUser(nickname, {
-        [`wallets.${executor}.available`]: increment(-amount),
-        [`wallets.${executor}.withdrawn`]: increment(amount),
-        withdrawn: increment(amount),
-      })
-    }
-
-    await updateDoc(transactionRef, {
-      status: 'Выполнено',
-    })
-  }
-
-  async declineTransaction({ id }: ITransaction) {
-    const transactionRef = doc(this.transactionCollection, String(id))
-
-    await updateDoc(transactionRef, {
-      status: 'Отмена',
-    })
   }
 }
 

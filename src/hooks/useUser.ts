@@ -44,11 +44,14 @@ export const useUser = (userId?: string) => {
       transactionQuery,
       (querySnapshot) => {
         const transactions = querySnapshot.docs.map((doc) => ({
-          id: doc.id,
+          id: String(doc.id),
           ...doc.data(),
-        }))
+        })) as ITransaction[] | ITransformedTransaction[]
 
         const transformedTransactions = transactions.map(transformTransaction)
+
+        console.log(transformedTransactions, 'transformedTransactions')
+
         dispatch({ type: 'SET_TRANSACTIONS', payload: transformedTransactions })
       },
     )

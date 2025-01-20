@@ -1,7 +1,16 @@
 import styles from './Rules.module.scss'
 import { Box, Modal, Typography } from '@mui/material'
+import { useFormContext } from 'react-hook-form'
+import { FC } from 'react'
 
-const Rules = ({ open, handleClose, setValue }) => {
+interface IRules {
+  open: boolean
+  handleClose: () => void
+}
+
+const Rules: FC<IRules> = ({ open, handleClose }) => {
+  const { setValue } = useFormContext()
+
   return (
     <Modal
       open={open}

@@ -1,3 +1,5 @@
+import { AccrualKey } from '@/pages/Cabinet/OpenPlan/OpenPlan.tsx'
+
 export interface IPlanOption {
   type: string
   days: number | null
@@ -5,15 +7,15 @@ export interface IPlanOption {
   maxDeposit: number
   inDay: number | null
   region: string
-  accruals: 'Ежедневно' | 'В конце срока'
+  accruals: AccrualKey
 }
 
 // Интерфейс для группы планов
 export interface IPlanGroup {
   beginner: IPlanOption
-  available?: IPlanOption
-  optimal?: IPlanOption
-  maximum?: IPlanOption
+  available: IPlanOption
+  optimal: IPlanOption
+  maximum: IPlanOption
 }
 
 export type PlanType = keyof IPlanTypes

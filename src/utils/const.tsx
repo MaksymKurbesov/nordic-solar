@@ -4,6 +4,9 @@ import BitcoinIcon from '@assets/icons/crypto-wallets/bitcoin.svg?react'
 import EthereumIcon from '@assets/icons/crypto-wallets/ethereum.svg?react'
 import SolanaIcon from '@assets/icons/crypto-wallets/solana.svg?react'
 import { IPlanTypes } from '@/interfaces/IPlanVariant.ts'
+import { IShortWallets } from '@/interfaces/IWallets.ts'
+
+export const BACKEND_URL = `https://apate-backend.com/nordic-solar`
 
 export const REFERRAL_REWARDS_BY_LEVEL = {
   1: 10,
@@ -12,7 +15,7 @@ export const REFERRAL_REWARDS_BY_LEVEL = {
   4: 3,
 }
 
-export const WALLETS = {
+export const WALLETS: IShortWallets = {
   trc20: {
     icon: <TRC20Icon />,
     name: 'TRC20 Tether',

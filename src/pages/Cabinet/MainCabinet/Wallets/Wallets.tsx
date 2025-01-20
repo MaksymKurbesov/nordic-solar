@@ -1,28 +1,35 @@
 import styles from './Wallets.module.scss'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import Wallet from '@SharedUI/Wallet/Wallet.tsx'
+import { Swiper as SwiperClass } from 'swiper'
 import { WALLETS } from '@/utils/const.tsx'
-import { useRef } from 'react'
+import { FC, useRef } from 'react'
 import ArrowIcon from '@assets/icons/arrow.svg?react'
+import { IWallets } from '@/interfaces/IWallets.ts'
 
-const Wallets = ({ wallets }) => {
-  const sliderRef = useRef(null)
+interface IWalletsProps {
+  wallets: IWallets
+}
+
+const Wallets: FC<IWalletsProps> = ({ wallets }) => {
+  const sliderRef = useRef<SwiperClass | null>(null)
+
+  const goToPrevSlide = (): void => {
+    sliderRef.current?.slidePrev()
+  }
+
+  const goToNextSlide = (): void => {
+    sliderRef.current?.slideNext()
+  }
 
   return (
     <div className={styles['wallets']}>
       <div className={styles['wallets-header']}>
         <h3>Кошельки</h3>
         <div className={`${styles['slider-buttons']} `}>
-          <button
-            onClick={() => sliderRef.current.slidePrev()}
-            className={styles['prev-button']}
-          >
+          <button onClick={goToPrevSlide} className={styles['prev-button']}>
             <ArrowIcon />
           </button>
-          <button
-            onClick={() => sliderRef.current.slideNext()}
-            className={styles['next-button']}
-          >
+          <button onClick={goToNextSlide} className={styles['next-button']}>
             <ArrowIcon />
           </button>
         </div>

@@ -1,9 +1,14 @@
 import styles from './Wallet.module.scss'
+import { IShortWalletData } from '@/interfaces/IWallets.ts'
+import { FC, ReactNode } from 'react'
 
-const Wallet = ({ wallet, children }) => {
+interface IWalletProps {
+  wallet: IShortWalletData
+  children: ReactNode
+}
+
+const Wallet: FC<IWalletProps> = ({ wallet, children }) => {
   if (!wallet) return
-
-  console.log(wallet.currency, 'wallet.currency')
 
   return (
     <div className={`${styles['wallet-slide']} ${wallet.currency}`}>

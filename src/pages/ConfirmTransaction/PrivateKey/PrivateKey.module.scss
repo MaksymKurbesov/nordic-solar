@@ -1,0 +1,39 @@
+.private-key {
+  padding: 25px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+}
+
+.private-key > p {
+  margin-bottom: 15px;
+}
+
+.private-key > div p {
+  margin-bottom: 10px;
+  color: $gray;
+}
+
+.private-key > div p:first-child {
+  color: $green;
+}
+
+.private-key input {
+  width: 100%;
+  background: none;
+  padding: 12px 24px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  font-family: GilroyRegular, 'sans-serif';
+  font-size: clamp(1rem, 1em + 0.5vw, 1.875rem);
+}
+
+.private-key input::placeholder {
+  opacity: 0.2;
+}
+
+@media screen and (max-width: 767px) {
+  .private-key {
+    font-size: 12px;
+    padding: 10px;
+  }
+}

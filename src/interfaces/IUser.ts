@@ -1,4 +1,6 @@
 import { Timestamp } from 'firebase/firestore'
+import { IWallets } from '@/interfaces/IWallets.ts'
+import { ReactNode } from 'react'
 
 export interface IRestrictions {
   isCheaterInReferral: boolean
@@ -14,6 +16,7 @@ export interface IRestrictions {
     users: string[]
   }
   isWithdrawnLimit: boolean
+  isMoneyLaundering: boolean
 }
 
 interface ISettings {
@@ -22,14 +25,6 @@ interface ISettings {
   phone: string
   social: string
   surname: string
-}
-
-interface IWallet {
-  available: number
-  deposited: number
-  number: string
-  referrals: number
-  withdrawn: number
 }
 
 export interface IDeposit {
@@ -47,24 +42,24 @@ export interface IDeposit {
   willReceived: number
 }
 
-export type IWallets = Record<string, IWallet>
-
 export interface ITransaction {
-  id?: number
+  id: string
   amount: number
-  date?: Timestamp
+  date: Timestamp
   executor: string
   nickname: string
   status: string
   type: string
 }
 
-export interface ITransformedTransaction
-  extends Omit<ITransaction, 'id' | 'executor' | 'amount' | 'date'> {
-  id: number // Ограничим до числа длиной 6 символов
-  executor: string // В верхнем регистре
-  amount: string // В формате строки с валютой
-  date: string // Парсинг возвращает строку
+export interface ITransformedTransaction {
+  id: string
+  amount: string
+  date: ReactNode
+  executor: string
+  nickname: string
+  status: string
+  type: string
 }
 
 export interface IUser {
@@ -83,6 +78,6 @@ export interface IUser {
 }
 
 export interface IExtendedUser extends IUser {
-  deposits?: IDeposit[]
-  transactions?: ITransaction[] | ITransformedTransaction
+  deposits: IDeposit[]
+  transactions: ITransaction[] | ITransformedTransaction
 }

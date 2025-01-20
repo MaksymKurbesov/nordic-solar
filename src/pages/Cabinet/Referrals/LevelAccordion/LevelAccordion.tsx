@@ -2,6 +2,9 @@ import { Accordion, AccordionDetails, AccordionSummary } from '@mui/material'
 import { DataGrid } from '@mui/x-data-grid'
 import styles from './LevelAccordion.module.scss'
 import { parseTimestamp } from '@/utils/helpers/date.tsx'
+import { IReferral } from '@/pages/Cabinet/Referrals/Referrals.tsx'
+import { FC } from 'react'
+import { getReferralsCount } from '@/utils/helpers.tsx'
 
 const columns = [
   {
@@ -36,14 +39,17 @@ const columns = [
   },
 ]
 
-const LevelAccordion = ({ level, referrals }) => {
+interface ILevelAccordionProps {
+  level: number
+  referrals: IReferral[]
+}
+
+const LevelAccordion: FC<ILevelAccordionProps> = ({ level, referrals }) => {
   const activeReferrals = referrals.filter((referral) => referral.invested > 0)
   const totalIncome = referrals.reduce(
     (accum, currentValue) => accum + currentValue.invested,
     0,
   )
-
-  console.log(referrals, 'referrals')
 
   return (
     <Accordion
@@ -90,11 +96,15 @@ const LevelAccordion = ({ level, referrals }) => {
             // '& .MuiDataGrid-columnHeaderTitleContainer': {color: "white"}
           }}
           rows={referrals.map((item, index) => {
+            if (!item) return
+            console.log(item.nickname, 'item.registrationDate')
+
             return {
               ...item,
               id: index,
               registrationDate: parseTimestamp(item.registrationDate),
-              referrals: `${referrals.length} шт.`,
+              // referrals: `${referrals.length} шт.`,
+              referrals: `${getReferralsCount(item.referredTo)} шт.`,
               invested: `$${item.invested}`,
             }
           })}

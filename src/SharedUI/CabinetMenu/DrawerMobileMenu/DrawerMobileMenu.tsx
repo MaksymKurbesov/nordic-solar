@@ -5,8 +5,20 @@ import { LINKS } from '@SharedUI/CabinetMenu/CabinetMenu.tsx'
 import Logo from '@assets/logo.svg?react'
 import XIcon from '@assets/icons/x.svg?react'
 import { userService } from '@/main.tsx'
+import { Dispatch, FC, ReactElement, SetStateAction } from 'react'
 
-const DrawerMobileMenu = ({ open, setOpen }) => {
+interface IDrawerMobileMenuProps {
+  open: boolean
+  setOpen: Dispatch<SetStateAction<boolean>>
+}
+
+export interface ILink {
+  link: string
+  text: string
+  icon: ReactElement
+}
+
+const DrawerMobileMenu: FC<IDrawerMobileMenuProps> = ({ open, setOpen }) => {
   const navigate = useNavigate()
 
   return (
@@ -21,7 +33,7 @@ const DrawerMobileMenu = ({ open, setOpen }) => {
         <XIcon onClick={() => setOpen(false)} width={18} />
       </div>
       <ul className={styles['drawer-menu-list']}>
-        {LINKS.map((link, index) => {
+        {LINKS.map((link: ILink, index: number) => {
           return (
             <li key={index}>
               <NavLink

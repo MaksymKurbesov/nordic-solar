@@ -1,6 +1,9 @@
 import styles from './Restrictions.module.scss'
+import { useState } from 'react'
 
 const MoneyLaundering = () => {
+  const [isOpen, setIsOpen] = useState(false)
+
   return (
     <div
       className={`${

@@ -1,4 +1,6 @@
 import { Timestamp } from 'firebase/firestore'
+import { IRegistrationDate } from '@/pages/Cabinet/Referrals/Referrals.tsx'
+import { ReactNode } from 'react'
 
 export const addDays = (date: Timestamp, days: number) => {
   const result = new Date(date.seconds * 1000)
@@ -14,11 +16,17 @@ export const addDaysToTimestamp = (days: number) => {
   return Timestamp.fromDate(now)
 }
 
-export const parseTimestamp = (timestamp: Timestamp, short = false): string => {
-  // Преобразуем timestamp в объект Date
-  if (!timestamp) return ''
+export const parseTimestamp = (
+  timestamp: Timestamp | IRegistrationDate,
+  short = false,
+): ReactNode | string => {
+  let date
 
-  const date = timestamp.toDate()
+  if (timestamp instanceof Timestamp) {
+    date = timestamp.toDate()
+  } else {
+    date = new Date(timestamp._seconds * 1000)
+  }
 
   // Форматируем дату в строку, например, "12.07.2024 15:34"
   const day = String(date.getDate()).padStart(2, '0')

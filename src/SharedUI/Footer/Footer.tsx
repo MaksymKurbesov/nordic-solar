@@ -1,10 +1,9 @@
 import styles from './Footer.module.scss'
 import Logo from '@assets/logo.svg?react'
 import { CircleButton } from '../CirlceButton/CircleButton.tsx'
-import React from 'react'
 import { NavLink } from 'react-router-dom'
 
-const Footer = ({ isFullFooter }) => {
+const Footer = ({ isFullFooter }: { isFullFooter?: boolean }) => {
   return (
     <div className={`${styles.footer} container`}>
       {isFullFooter && (

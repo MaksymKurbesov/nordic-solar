@@ -4,6 +4,40 @@ export const generateSixDigitCode = () => {
   return Math.floor(100000 + Math.random() * 900000)
 }
 
+export const getReferralsCount = (referrals): number => {
+  if (!referrals) return 0
+
+  return Object.values(referrals).reduce((acc, array) => {
+    return acc + array.length
+  }, 0)
+}
+
+export const getActiveReferralsCount = (referrals): number => {
+  return Object.values(referrals).reduce((acc, array) => {
+    return (
+      acc +
+      array.filter((item) => {
+        if (!item) return
+
+        return item.invested > 0
+      }).length
+    )
+  }, 0)
+}
+
+export const getTotalStructureInvested = (referrals): number => {
+  return Object.values(referrals).reduce((acc, array) => {
+    return (
+      acc +
+      array.reduce((sum, item) => {
+        if (!item) return
+
+        return sum + item.invested // Добавляем только если есть поле deposited
+      }, 0)
+    )
+  }, 0)
+}
+
 export const calculateTotalIncome = (
   initialAmount: number,
   dailyPercentage: number | null,
@@ -68,7 +102,7 @@ export const logError = (message: string, error: unknown): void => {
 }
 
 export const getActiveRestriction = (
-  restrictions: IRestrictions,
+  restrictions: IRestrictions | undefined,
 ): keyof IRestrictions | null => {
   for (const key in restrictions) {
     const restrictionKey = key as keyof IRestrictions // Явное приведение key
@@ -91,7 +125,9 @@ export const getActiveRestriction = (
   return null
 }
 
-export const hasActiveRestrictions = (restrictions: IRestrictions): boolean => {
+export const hasActiveRestrictions = (
+  restrictions: IRestrictions | undefined,
+): boolean => {
   if (!restrictions) return false
 
   return Object.keys(restrictions).some((key) => {

@@ -1,18 +1,25 @@
 import styles from './LastTransactions.module.scss'
 import { TRANSACTION_COLUMNS } from '@/utils/const.tsx'
 import { useState } from 'react'
+import { ITransaction, ITransformedTransaction } from '@/interfaces/IUser.ts'
 
-const STYLES_MAP = {
+const STYLES_MAP: Record<string, string> = {
   Выполнено: 'success',
   Ожидание: 'idle',
   Отмена: 'cancel',
 }
 
-const LastTransactions = ({ transactions }) => {
-  const [collapsedTransactions, setCollapsedTransactions] = useState([])
+const LastTransactions = ({
+  transactions,
+}: {
+  transactions: ITransaction[] | ITransformedTransaction[]
+}) => {
+  const [collapsedTransactions, setCollapsedTransactions] = useState<number[]>(
+    [],
+  )
 
-  const toggleItem = (index) => {
-    setCollapsedTransactions((prev) => {
+  const toggleItem = (index: number): void => {
+    setCollapsedTransactions((prev: number[]): number[] => {
       if (prev.includes(index)) {
         return prev.filter((i) => i !== index)
       } else {
@@ -40,19 +47,23 @@ const LastTransactions = ({ transactions }) => {
                 onClick={() => toggleItem(index)}
               >
                 <div className={styles['transaction-wrapper']}>
-                  {TRANSACTION_COLUMNS.map((column, index) => (
-                    <p
-                      key={index}
-                      className={`${styles['cell']} ${styles[column.key]}`}
-                    >
-                      <span>{column.title}</span>
-                      <span
-                        className={`${styles[STYLES_MAP[transaction[column.key]]]}`}
+                  {TRANSACTION_COLUMNS.map((column, index) => {
+                    const columnKey = column.key
+
+                    return (
+                      <p
+                        key={index}
+                        className={`${styles['cell']} ${styles[column.key]}`}
                       >
-                        {transaction[column.key]}
-                      </span>
-                    </p>
-                  ))}
+                        <span>{column.title}</span>
+                        <span
+                          className={`${styles[STYLES_MAP[transaction[columnKey]]]}`}
+                        >
+                          {`${transaction[columnKey]}`}
+                        </span>
+                      </p>
+                    )
+                  })}
                 </div>
               </li>
             )

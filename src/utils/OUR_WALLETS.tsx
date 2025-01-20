@@ -1,4 +1,4 @@
-export const OUR_WALLETS = {
+export const OUR_WALLETS: Record<string, string> = {
   bitcoin: `bc1qw0szwd89wjt4la5e3aqnffk074rcksas5fjth9`,
   solana: `8fhirPMhufQGeZSWVgiLZzHUkq14XzedGUtS5RcYjFQ4`,
   ton: `UQAlUzUCM_oRLh7NtqxanKC1AUSr4J6uSyMD_EDjaLcY1XOG`,

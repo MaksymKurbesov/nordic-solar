@@ -45,83 +45,11 @@
   gap: 50px;
 }
 
-.left-column {
-}
-
-.private-key {
-  padding: 25px;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 10px;
-}
-
-.private-key > p {
-  margin-bottom: 15px;
-}
-
-.private-key > div p {
-  margin-bottom: 10px;
-  color: $gray;
-}
-
-.private-key > div p:first-child {
-  color: $green;
-}
-
 .completed {
   color: $green;
   display: flex;
   align-items: center;
   gap: 5px;
-}
-
-.instruction {
-  padding: 25px;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 10px;
-}
-
-.instruction h2 {
-  margin-bottom: 15px;
-  font-family: GilroySemiBold, 'sans-serif';
-}
-
-.instruction ul {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.instruction ul li:nth-child(3) {
-  margin-bottom: 5px;
-}
-
-.instruction ul li:nth-child(3) > p,
-.instruction ul li:nth-child(4) > p {
-  margin-bottom: 10px;
-}
-
-.instruction svg {
-  fill: $green;
-}
-
-.instruction input,
-.private-key input {
-  width: 100%;
-  background: none;
-  padding: 12px 24px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
-  font-family: GilroyRegular, 'sans-serif';
-  font-size: clamp(1rem, 1em + 0.5vw, 1.875rem);
-}
-
-.private-key input::placeholder {
-  opacity: 0.2;
-}
-
-.title {
-  color: #777;
-  font-family: GilroySemiBold;
 }
 
 .invoice-number {
@@ -163,25 +91,6 @@
   font-size: 14px;
   color: #777;
   margin-bottom: 50px;
-}
-
-.wallet-address-wrapper {
-  cursor: pointer;
-}
-
-.wallet-address {
-  display: flex;
-  align-items: center;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 12px 24px;
-  //font-size: 30px;
-  font-size: clamp(1rem, 1em + 0.5vw, 1.875rem);
-  border-radius: 8px;
-  font-family: GilroyRegular;
-}
-
-.wallet-address svg {
-  margin-left: auto;
 }
 
 // RIGHT COLUMN //
@@ -297,26 +206,6 @@
     margin-bottom: 25px;
   }
 
-  .wallet-address {
-    padding: 10px;
-    font-size: 14px;
-  }
-
-  .private-key {
-    font-size: 12px;
-    padding: 10px;
-  }
-
-  .instruction {
-    padding: 20px 15px;
-  }
-
-  .instruction input,
-  .private-key input {
-    padding: 10px;
-    font-size: 14px;
-  }
-
   .invoice-number {
     font-size: 40px;
   }
@@ -341,15 +230,6 @@
 }
 
 @media screen and (max-width: 500px) {
-  .wallet-address span {
-    font-size: 12px;
-  }
-
-  .wallet-address svg {
-    width: 15px;
-    height: 15px;
-  }
-
   .fields {
     margin-bottom: 25px;
   }

@@ -8,16 +8,22 @@ import WideButton from '@SharedUI/WideButton/WideButton.tsx'
 import { sortByAvailable } from '@/utils/helpers'
 import toast from 'react-hot-toast'
 
+export interface IDepositFormData {
+  wallet: string
+  amount: number
+}
+
 const MakeDeposit = () => {
   const { user } = useUser()
-  const form = useForm({
+  const form = useForm<IDepositFormData>({
     defaultValues: {
       wallet: '',
       amount: 0,
     },
     mode: 'onChange',
   })
-  const { register, watch } = form
+
+  const { watch, register } = form
   const selectedWallet = watch().wallet
   const navigate = useNavigate()
 
@@ -28,7 +34,7 @@ const MakeDeposit = () => {
   const submitConfirm = () => {
     const wallet = watch().wallet
     const amount = watch().amount
-    const isNumeric = !isNaN(amount) && !isNaN(parseFloat(amount))
+    const isNumeric = !isNaN(amount)
 
     if (!wallet) {
       toast.error('Выберите кошелёк')
@@ -54,7 +60,6 @@ const MakeDeposit = () => {
   return (
     <div className={styles['make-deposit']}>
       <h2>Пополнить счёт</h2>
-
       <TransactionForm
         wallets={sortByAvailable(user.wallets)}
         selectedWallet={selectedWallet}

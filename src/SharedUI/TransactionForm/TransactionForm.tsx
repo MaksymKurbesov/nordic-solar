@@ -2,8 +2,21 @@ import styles from './TransactionForm.module.scss'
 import Wallet from '@SharedUI/Wallet/Wallet.tsx'
 import { WALLETS } from '@/utils/const.tsx'
 import Input from '@SharedUI/Input/Input.tsx'
+import { IWallets } from '@/interfaces/IWallets.ts'
+import { FC } from 'react'
+import { UseFormRegister, UseFormTrigger } from 'react-hook-form'
+import { IWithdrawnFormData } from '@/pages/Cabinet/Withdrawn/Withdrawn.tsx'
+import { IDepositFormData } from '@/pages/Cabinet/MakeDeposit/MakeDeposit.tsx'
 
-const TransactionForm = ({
+interface ITransactionForm {
+  wallets: IWallets
+  selectedWallet: string
+  register: UseFormRegister<IWithdrawnFormData | IDepositFormData>
+  inputText: string
+  trigger?: UseFormTrigger<IWithdrawnFormData | IDepositFormData>
+}
+
+const TransactionForm: FC<ITransactionForm> = ({
   wallets,
   selectedWallet,
   register,

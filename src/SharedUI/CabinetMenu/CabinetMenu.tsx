@@ -5,7 +5,7 @@ import UserAvatar from '@assets/images/user.png'
 import { auth, userService } from '@/main.tsx'
 import { useUser } from '@/hooks/useUser.ts'
 import MenuStatistic from '@SharedUI/CabinetMenu/MenuStatistic/MenuStatistic.tsx'
-import { useEffect, useState } from 'react'
+import { ReactElement, useEffect, useState } from 'react'
 import DrawerMobileMenu from '@SharedUI/CabinetMenu/DrawerMobileMenu/DrawerMobileMenu.tsx'
 import CabinetIcon from '@assets/icons/mobile-menu/cabinet.svg?react'
 import OpenDepositIcon from '@assets/icons/mobile-menu/open-deposit.svg?react'
@@ -14,7 +14,13 @@ import WithdrawnIcon from '@assets/icons/mobile-menu/withdrawn.svg?react'
 import TransactionsIcon from '@assets/icons/mobile-menu/transactions.svg?react'
 import ReferralsIcon from '@assets/icons/mobile-menu/referrals.svg?react'
 
-export const LINKS = [
+export interface ILink {
+  text: string
+  link: string
+  icon: ReactElement
+}
+
+export const LINKS: ILink[] = [
   {
     text: 'Кабинет',
     link: '/cabinet/main',
