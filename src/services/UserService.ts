@@ -53,7 +53,7 @@ class UserService implements IUserService {
     }
   }
 
-  async logIn(email: string, password: string, setError: Dispatch<SetStateAction<string | null>>) {
+  async logIn(email: string, password: string, setError: Dispatch<SetStateAction<string>>) {
     try {
       await signInWithEmailAndPassword(auth, email, password);
       setError("");

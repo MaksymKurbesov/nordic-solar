@@ -1,6 +1,6 @@
 import styles from "./OpenPlan.module.scss";
 import { FormProvider, useForm } from "react-hook-form";
-import { useEffect, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import ConfirmedPopup from "@SharedUI/ConfirmedPopup/ConfirmedPopup";
 import { calculateTotalIncome, hasActiveRestrictions } from "@/utils/helpers";
 import { useUser } from "@/hooks/useUser";
@@ -17,7 +17,13 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import { IPlanGroup, IPlanOption, IPlanTypes, PlanType, PlanVariant } from "@/interfaces/IPlanVariant.ts";
 
-const steps = [
+export interface IStep {
+  title: string;
+  component: ReactNode;
+  type: string;
+}
+
+const steps: IStep[] = [
   {
     title: "Тип плана",
     component: <Plans />,
