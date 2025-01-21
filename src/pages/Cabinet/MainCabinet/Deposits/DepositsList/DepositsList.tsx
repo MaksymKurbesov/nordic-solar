@@ -16,6 +16,7 @@ import HydrogenImage from "@assets/images/investments/hydrogen-thumb.webp";
 import MiningFarmsImage from "@assets/images/investments/mining-farm-thumb.webp";
 import { IDeposit } from "@/interfaces/IUser.ts";
 import { IDepositColumn } from "@/pages/Cabinet/MainCabinet/Deposits/Deposits.tsx";
+import { sortByDate } from "@/utils/helpers/date.tsx";
 
 const PLANS_IMAGE_MAP: Record<string, string> = {
   solar: SolarFutureImage,
@@ -90,7 +91,7 @@ const DepositsList: FC<IDepositsList> = ({ deposits, columns, isActive }) => {
   return (
     <div className={`${styles["deposits-list-wrapper"]} ${isActive ? styles["active-deposits"] : ""}`}>
       <ul className={styles["deposits-list"]}>
-        {deposits.map((deposit, index) => {
+        {sortByDate(deposits).map((deposit: IDeposit, index: number) => {
           const { plan, variant } = deposit;
 
           return (

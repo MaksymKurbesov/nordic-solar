@@ -29,6 +29,11 @@
   content: none;
 }
 
+.skeletons {
+  display: flex;
+  gap: 10px;
+}
+
 @media screen and (max-width: 600px) {
   .tab {
     font-size: 12px;

@@ -1,49 +1,40 @@
-import { onAuthStateChanged, User } from 'firebase/auth'
-import {
-  createContext,
-  ReactNode,
-  useContext,
-  useEffect,
-  useState,
-} from 'react'
-import { auth } from '@/main.tsx'
+import { onAuthStateChanged, User } from "firebase/auth";
+import { createContext, ReactNode, useContext, useEffect, useState } from "react";
+import { auth } from "@/main.tsx";
 
 export const UserDataContext = createContext<{
-  user: User | null
-  isLoading: boolean
+  user: User | null;
+  isLoading: boolean;
 }>({
   user: null,
   isLoading: true,
-})
+});
 
 export const useFirebaseUser = () => {
-  const context = useContext(UserDataContext)
+  const context = useContext(UserDataContext);
   if (!context) {
-    throw new Error('useUserData must be used within a UserDataProvider')
+    throw new Error("useUserData must be used within a UserDataProvider");
   }
-  return context
-}
+  return context;
+};
 
-type Props = { children: ReactNode }
+type Props = { children: ReactNode };
 export const UserDataProvider = ({ children }: Props) => {
-  const [user, setUser] = useState<User | null>(null)
-  const [isLoading, setIsLoading] = useState(true)
+  const [user, setUser] = useState<User | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const authStateListener = onAuthStateChanged(auth, async (user) => {
-      setUser(user)
-      setIsLoading(false)
-      console.log('on auth state changed')
-    })
+      setUser(user);
+      setIsLoading(false);
+    });
 
     return () => {
-      authStateListener()
-    }
-  }, [auth])
+      authStateListener();
+    };
+  }, [auth]);
 
-  return (
-    <UserDataContext.Provider value={{ user, isLoading }}>
-      {children}
-    </UserDataContext.Provider>
-  )
-}
+  console.log(isLoading, "isLoading");
+
+  return <UserDataContext.Provider value={{ user, isLoading }}>{children}</UserDataContext.Provider>;
+};
