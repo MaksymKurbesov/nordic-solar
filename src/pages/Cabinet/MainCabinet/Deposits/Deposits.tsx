@@ -3,7 +3,6 @@ import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import DepositsList from "@/pages/Cabinet/MainCabinet/Deposits/DepositsList/DepositsList.tsx";
 import { useEffect, useState } from "react";
 import { IDeposit } from "@/interfaces/IUser.ts";
-import { Skeleton } from "@mui/material";
 
 export interface IDepositColumn {
   title: string;
@@ -75,30 +74,20 @@ const Deposits = ({ deposits }: { deposits: IDeposit[] }) => {
             Завершенные депозиты
           </Tab>
         </TabList>
-
-        {!deposits ? (
-          <div className={styles["skeletons"]}>
-            <Skeleton animation={"wave"} variant="rectangular" width={800} height={210} />
-            <Skeleton animation={"wave"} variant="rectangular" width={800} height={210} />
-          </div>
-        ) : (
-          <>
-            <TabPanel>
-              {activeDeposits.length === 0 ? (
-                "У вас нет открытых депозитов"
-              ) : (
-                <DepositsList isActive deposits={activeDeposits} columns={DEPOSIT_COLUMNS} />
-              )}
-            </TabPanel>
-            <TabPanel>
-              {completedDeposits.length === 0 ? (
-                "У вас нет завершенных депозитов"
-              ) : (
-                <DepositsList deposits={completedDeposits} columns={DEPOSIT_COLUMNS} isActive={false} />
-              )}
-            </TabPanel>
-          </>
-        )}
+        <TabPanel>
+          {activeDeposits.length === 0 ? (
+            "У вас нет открытых депозитов"
+          ) : (
+            <DepositsList isActive deposits={activeDeposits} columns={DEPOSIT_COLUMNS} />
+          )}
+        </TabPanel>
+        <TabPanel>
+          {completedDeposits.length === 0 ? (
+            "У вас нет завершенных депозитов"
+          ) : (
+            <DepositsList deposits={completedDeposits} columns={DEPOSIT_COLUMNS} isActive={false} />
+          )}
+        </TabPanel>
       </Tabs>
     </div>
   );

@@ -77,6 +77,10 @@ export const getClosestDeposit = (deposits: IDeposit[]): { deposit: IDeposit; ti
   }, null);
 };
 
+export const isObjectEmpty = (objectName) => {
+  return Object.keys(objectName).length === 0;
+};
+
 export const sortByAvailable = (wallets: IWallets): IWallets => {
   return Object.entries(wallets)
     .sort(([, a], [, b]) => b.available - a.available)

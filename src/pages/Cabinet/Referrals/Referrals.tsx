@@ -5,6 +5,7 @@ import LevelAccordion from "@/pages/Cabinet/Referrals/LevelAccordion/LevelAccord
 import Statistic from "@/pages/Cabinet/Referrals/Statistic/Statistic.tsx";
 import axios from "axios";
 import { BACKEND_URL } from "@/utils/const.tsx";
+import { isObjectEmpty } from "@/utils/helpers.tsx";
 
 export interface IReferrals {
   1: IReferral[];
@@ -60,11 +61,15 @@ const Referrals = () => {
           <span>Активных</span>
           <span>Общий доход</span>
         </div>
-        {Object.entries(referrals).map((item) => {
-          const level = item[0] as keyof IReferral;
+        {isObjectEmpty(referrals) ? (
+          <p>Загрузка...</p>
+        ) : (
+          Object.entries(referrals).map((item) => {
+            const level = item[0] as keyof IReferral;
 
-          return <LevelAccordion key={level} level={+level} referrals={referrals[level]} />;
-        })}
+            return <LevelAccordion key={level} level={+level} referrals={referrals[level]} />;
+          })
+        )}
       </div>
     </>
   );

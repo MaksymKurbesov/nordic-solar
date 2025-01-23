@@ -1,45 +1,36 @@
-import styles from './AdminPanel.module.scss'
-import { transactionService } from '@/main.tsx'
-import { useEffect, useState } from 'react'
-import { parseTimestamp } from '@/utils/helpers/date.tsx'
-import axios from 'axios'
-import { ITransaction } from '@/interfaces/IUser.ts'
+import styles from "./AdminPanel.module.scss";
+import { transactionService } from "@/main.tsx";
+import { useEffect, useState } from "react";
+import { parseTimestamp } from "@/utils/helpers/date.tsx";
+import axios from "axios";
+import { ITransaction } from "@/interfaces/IUser.ts";
+import { BACKEND_URL } from "@/utils/const.tsx";
 
 const AdminPanel = () => {
-  const [transactions, setTransactions] = useState<ITransaction[] | null>(null)
+  const [transactions, setTransactions] = useState<ITransaction[] | null>(null);
 
   useEffect(() => {
-    const unsubscribe = transactionService.getPendingTransactions(
-      (transactions) => {
-        console.log('Обновленные транзакции:', transactions)
-        setTransactions(transactions)
-      },
-    )
+    const unsubscribe = transactionService.getPendingTransactions((transactions) => {
+      setTransactions(transactions);
+    });
 
     return () => {
-      unsubscribe()
-    }
-  }, [])
+      unsubscribe();
+    };
+  }, []);
 
   const confirmTransaction = async (transaction: ITransaction) => {
-    await axios.post(
-      'http://localhost:3010/transaction/confirm-transaction',
-      transaction,
-    )
-    // transactionService.confirmTransaction(transaction)
-  }
+    await axios.post(`${BACKEND_URL}/transaction/confirm-transaction`, transaction);
+  };
 
   const cancelTransaction = async (transaction: ITransaction) => {
-    await axios.post(
-      'http://localhost:3010/transaction/decline-transaction',
-      transaction,
-    )
-  }
+    await axios.post(`${BACKEND_URL}/transaction/decline-transaction`, transaction);
+  };
 
-  if (!transactions) return null
+  if (!transactions) return null;
 
   return (
-    <div className={styles['admin-panel']}>
+    <div className={styles["admin-panel"]}>
       <h2>Adminka</h2>
       <ul>
         {transactions.map((transaction: ITransaction) => {
@@ -51,9 +42,7 @@ const AdminPanel = () => {
               </div>
               <div>
                 <span>Сумма</span>
-                <span>
-                  {transaction.amount ? transaction.amount : 'Ошибка'}
-                </span>
+                <span>{transaction.amount ? transaction.amount : "Ошибка"}</span>
               </div>
               <div>
                 <span>Тип</span>
@@ -71,20 +60,16 @@ const AdminPanel = () => {
                 <span>Дата</span>
                 <span>{parseTimestamp(transaction.date)}</span>
               </div>
-              <div className={styles['buttons']}>
-                <button onClick={() => cancelTransaction(transaction)}>
-                  Отмена
-                </button>
-                <button onClick={() => confirmTransaction(transaction)}>
-                  Подтвердить
-                </button>
+              <div className={styles["buttons"]}>
+                <button onClick={() => cancelTransaction(transaction)}>Отмена</button>
+                <button onClick={() => confirmTransaction(transaction)}>Подтвердить</button>
               </div>
             </li>
-          )
+          );
         })}
       </ul>
     </div>
-  )
-}
+  );
+};
 
-export default AdminPanel
+export default AdminPanel;

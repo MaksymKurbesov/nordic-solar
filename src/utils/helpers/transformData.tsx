@@ -14,7 +14,14 @@ export const transformTransaction = (transaction: ITransaction | ITransformedTra
 };
 
 export const transformDeposit = (deposit: IDeposit) => {
-  const nextAccrual = Timestamp.fromMillis(deposit.lastAccrual._seconds * 1000 + 24 * 60 * 60 * 1000);
+  let nextAccrual;
+
+  if (deposit.accruals === "one_time") {
+    nextAccrual = Timestamp.fromMillis(deposit.lastAccrual._seconds * 1000 + deposit.days * 86400000);
+    console.log(deposit.days, "deposit.days");
+  } else {
+    nextAccrual = Timestamp.fromMillis(deposit.lastAccrual._seconds * 1000 + 24 * 60 * 60 * 1000);
+  }
 
   return {
     ...deposit,
@@ -26,10 +33,13 @@ export const transformDeposit = (deposit: IDeposit) => {
     received: `$${deposit.received.toFixed(2)}`,
     variant: deposit.variant,
     nextAccrual: deposit.isActive ? <AccrualTimer nextAccrual={nextAccrual} /> : "Завершено",
-    progress: (
-      <p>
-        {deposit.charges} / {deposit.days}
-      </p>
-    ),
+    progress:
+      deposit.accruals === "everyday" ? (
+        <p>
+          {deposit.charges} / {deposit.days}
+        </p>
+      ) : (
+        <p>{deposit.charges} / 1</p>
+      ),
   };
 };
