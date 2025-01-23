@@ -54,8 +54,7 @@ const CabinetLayout = () => {
           dispatch({ type: "SET_TRANSACTIONS", payload: transformedTransactions });
         });
 
-        // const depositsResponse = await axios.post(`${BACKEND_URL}/deposits/get-deposits`, {
-        const depositsResponse = await axios.post(`http://localhost:3010/deposits/get-deposits`, {
+        const depositsResponse = await axios.post(`${BACKEND_URL}/deposits/get-deposits`, {
           nickname: userData.nickname,
         });
 
