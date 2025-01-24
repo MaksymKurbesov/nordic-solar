@@ -1,5 +1,5 @@
 import styles from "./CabinetLayout.module.scss";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import Footer from "@SharedUI/Footer/Footer.tsx";
 import CabinetMenu from "@SharedUI/CabinetMenu/CabinetMenu.tsx";
 import { Toaster } from "react-hot-toast";
@@ -16,8 +16,17 @@ import SuspenseLoading from "@SharedUI/SuspenseLoading/SuspenseLoading.tsx";
 
 const CabinetLayout = () => {
   const { state, dispatch } = useContext(UserContext);
-  const { user: firebaseUser } = useFirebaseUser();
+  const { user: firebaseUser, isLoading } = useFirebaseUser();
   const [userIsFetched, setUserIsFetched] = useState(false);
+  const navigate = useNavigate();
+
+  console.log(isLoading, "isLoading");
+
+  useEffect(() => {
+    if (!isLoading && !firebaseUser) {
+      navigate("/");
+    }
+  }, [isLoading, firebaseUser]);
 
   useEffect(() => {
     if (!firebaseUser) return;
@@ -73,7 +82,7 @@ const CabinetLayout = () => {
     };
   }, [firebaseUser]);
 
-  if (!state.user) {
+  if (!state.user && isLoading) {
     return <SuspenseLoading />;
   }
 

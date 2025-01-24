@@ -34,7 +34,5 @@ export const UserDataProvider = ({ children }: Props) => {
     };
   }, [auth]);
 
-  console.log(isLoading, "isLoading");
-
   return <UserDataContext.Provider value={{ user, isLoading }}>{children}</UserDataContext.Provider>;
 };
