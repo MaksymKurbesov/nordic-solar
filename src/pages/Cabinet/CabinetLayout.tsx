@@ -19,8 +19,7 @@ const CabinetLayout = () => {
   const { user: firebaseUser, isLoading } = useFirebaseUser();
   const [userIsFetched, setUserIsFetched] = useState(false);
   const navigate = useNavigate();
-
-  console.log(isLoading, "isLoading");
+  const [isDepositsLoading, setIsDepositsLoading] = useState(false);
 
   useEffect(() => {
     if (!isLoading && !firebaseUser) {
@@ -63,9 +62,11 @@ const CabinetLayout = () => {
           dispatch({ type: "SET_TRANSACTIONS", payload: transformedTransactions });
         });
 
+        setIsDepositsLoading(true);
         const depositsResponse = await axios.post(`${BACKEND_URL}/deposits/get-deposits`, {
           nickname: userData.nickname,
         });
+        setIsDepositsLoading(false);
 
         const deposits = depositsResponse.data.map(transformDeposit);
 
@@ -90,7 +91,7 @@ const CabinetLayout = () => {
     <div className={styles["cabinet"]}>
       <CabinetMenu />
       <div className="container">
-        <Outlet context={[firebaseUser]} />
+        <Outlet context={[isDepositsLoading]} />
       </div>
       <Footer />
       <Toaster />

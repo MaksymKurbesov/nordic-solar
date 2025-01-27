@@ -3,6 +3,8 @@ import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import DepositsList from "@/pages/Cabinet/MainCabinet/Deposits/DepositsList/DepositsList.tsx";
 import { useEffect, useState } from "react";
 import { IDeposit } from "@/interfaces/IUser.ts";
+import { useOutletContext } from "react-router-dom";
+import { Skeleton } from "@mui/material";
 
 export interface IDepositColumn {
   title: string;
@@ -52,6 +54,7 @@ const DEPOSIT_COLUMNS: IDepositColumn[] = [
 const Deposits = ({ deposits }: { deposits: IDeposit[] }) => {
   const [activeDeposits, setActiveDeposits] = useState<IDeposit[]>([]);
   const [completedDeposits, setCompletedDeposits] = useState<IDeposit[]>([]);
+  const [isDepositLoading] = useOutletContext();
 
   useEffect(() => {
     if (!deposits) return;
@@ -75,7 +78,12 @@ const Deposits = ({ deposits }: { deposits: IDeposit[] }) => {
           </Tab>
         </TabList>
         <TabPanel>
-          {activeDeposits.length === 0 ? (
+          {isDepositLoading ? (
+            <div className={styles["skeletons"]}>
+              <Skeleton height={210} />
+              <Skeleton height={210} />
+            </div>
+          ) : activeDeposits.length === 0 ? (
             "У вас нет открытых депозитов"
           ) : (
             <DepositsList isActive deposits={activeDeposits} columns={DEPOSIT_COLUMNS} />

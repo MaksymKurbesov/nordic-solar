@@ -30,12 +30,26 @@
 }
 
 .skeletons {
-  display: flex;
+  display: grid;
+  grid-template-columns: 50% 50%;
   gap: 10px;
+  //height: 100%;
+}
+
+.skeletons span {
+  transform: scale(1) !important;
 }
 
 @media screen and (max-width: 600px) {
   .tab {
     font-size: 12px;
+  }
+
+  .skeletons {
+    grid-template-columns: 1fr;
+  }
+
+  .skeletons span {
+    height: 90px !important;
   }
 }

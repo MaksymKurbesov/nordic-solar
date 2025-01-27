@@ -11,7 +11,6 @@ import FinancialGateway from "@/pages/Cabinet/MainCabinet/Restrictions/Financial
 import MultiAcc from "@/pages/Cabinet/MainCabinet/Restrictions/MultiAcc.tsx";
 import MoneyLaundering from "@/pages/Cabinet/MainCabinet/Restrictions/MoneyLaundering.tsx";
 import { UserContext } from "@/UserContext.tsx";
-import { Skeleton } from "@mui/material";
 
 const MainCabinet = () => {
   const { state } = useContext(UserContext);
@@ -51,8 +50,12 @@ const MainCabinet = () => {
     <div className={styles["main-cabinet"]}>
       {restrictionMessage}
       <Wallets wallets={sortByAvailable(state.user.wallets)} />
-      <Deposits deposits={state.user.deposits} />
+      {/*<div className={styles["skeletons"]}>*/}
+      {/*  <Skeleton height={210} />*/}
+      {/*  <Skeleton height={210} />*/}
+      {/*</div>*/}
 
+      <Deposits deposits={state.user.deposits} />
       <div className={styles["accrual-wrapper"]}>
         <NextAccrual deposits={state.user.deposits} />
         <LastTransactions transactions={state.user.transactions} />
