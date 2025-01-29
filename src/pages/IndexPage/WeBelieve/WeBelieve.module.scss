@@ -6,10 +6,13 @@
 }
 
 .weBelieve h2 {
-  font-size: clamp(1.875rem, 0.2rem + 3vw, 3.5rem);
+  font-size: clamp(1.475rem, 0.2rem + 3vw, 3.5rem);
   margin-right: 30px;
 }
 
+.weBelieve h2 span {
+  //display: block;
+}
 
 .gray {
   color: $gray;

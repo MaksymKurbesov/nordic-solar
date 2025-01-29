@@ -3,6 +3,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Mousewheel, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
+import { motion, useInView } from "motion/react";
+import { useRef } from "react";
 
 const ROADMAP = [
   {
@@ -108,8 +110,17 @@ const ROADMAP = [
 ];
 
 const Roadmap = () => {
+  const ref = useRef(null);
+  const isInView = useInView(ref);
+
   return (
-    <div className={`${styles["roadmap"]}`}>
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, x: -20 }}
+      animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
+      transition={{ delay: 0.5, duration: 0.35 }}
+      className={`${styles["roadmap"]}`}
+    >
       <Swiper
         direction={"vertical"}
         slidesPerView={1}
@@ -143,7 +154,7 @@ const Roadmap = () => {
           );
         })}
       </Swiper>
-    </div>
+    </motion.div>
   );
 };
 
