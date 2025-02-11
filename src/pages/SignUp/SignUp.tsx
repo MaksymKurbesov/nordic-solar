@@ -1,69 +1,71 @@
-import styles from './SignUp.module.scss'
-import { NavLink, useLocation } from 'react-router-dom'
-import { FormProvider, SubmitHandler, useForm } from 'react-hook-form'
-import { useEffect, useState } from 'react'
-import SuccessModal from '@/pages/SignUp/SuccessModal/SuccessModal'
-import axios from 'axios'
-import Rules from '@/pages/SignUp/Rules/Rules.tsx'
-import SignUpForm from '@/pages/SignUp/SignUpForm/SignUpForm.tsx'
-import { BACKEND_URL } from '@/utils/const.tsx'
+import styles from "./SignUp.module.scss";
+import { NavLink, useLocation } from "react-router-dom";
+import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { useEffect, useState } from "react";
+import SuccessModal from "@/pages/SignUp/SuccessModal/SuccessModal";
+import axios from "axios";
+import Rules from "@/pages/SignUp/Rules/Rules.tsx";
+import SignUpForm from "@/pages/SignUp/SignUpForm/SignUpForm.tsx";
+import { BACKEND_URL } from "@/utils/const.tsx";
+import { useTranslation } from "react-i18next";
 
 export type IUserData = {
-  nickname: string
-  email: string
-  referredBy: string
-  password: string
-  agreement: boolean
-}
+  nickname: string;
+  email: string;
+  referredBy: string;
+  password: string;
+  agreement: boolean;
+};
 
 const SignUp = () => {
-  const { search } = useLocation()
+  const { t } = useTranslation("login");
+  const { search } = useLocation();
   const methods = useForm<IUserData>({
     defaultValues: {
-      referredBy: new URLSearchParams(search).get('referral') || '',
+      referredBy: new URLSearchParams(search).get("referral") || "",
     },
-  })
+  });
 
-  const [isAgreementOpen, setIsAgreementOpen] = useState(false)
-  const [isFormLoading, setIsFormLoading] = useState(false)
-  const [isSuccessModalVisible, setIsSuccessModalVisible] = useState(false)
+  const [isAgreementOpen, setIsAgreementOpen] = useState(false);
+  const [isFormLoading, setIsFormLoading] = useState(false);
+  const [isSuccessModalVisible, setIsSuccessModalVisible] = useState(true);
 
   const openModal = () => {
-    setIsSuccessModalVisible(true)
-    document.body.style.overflow = 'hidden'
-    window.scrollTo(0, 0)
-  }
+    setIsSuccessModalVisible(true);
+    document.body.style.overflow = "hidden";
+    window.scrollTo(0, 0);
+  };
 
   const onSubmitHandler: SubmitHandler<IUserData> = async (data) => {
-    setIsFormLoading(true)
+    setIsFormLoading(true);
 
     const trimmedData = {
       nickname: data.nickname.trim(),
       email: data.email.trim(),
       password: data.password,
-      referredBy: methods.getValues('referredBy'),
-    }
+      referredBy: methods.getValues("referredBy"),
+    };
 
-    await axios.post(`${BACKEND_URL}/auth/register`, trimmedData)
+    await axios.post(`${BACKEND_URL}/auth/register`, trimmedData);
 
-    openModal()
-    setIsFormLoading(false)
-  }
+    openModal();
+    setIsFormLoading(false);
+  };
 
   useEffect(() => {
     return () => {
-      document.body.style.overflow = 'visible'
-    }
-  }, [search])
+      document.body.style.overflow = "visible";
+    };
+  }, [search]);
 
   return (
-    <div className={`${styles['sign-up']} container`}>
-      <h2>Регистрация</h2>
-      <div className={styles['form-wrapper']}>
-        <div className={styles['new-user']}>
-          <p>Уже зарегистрированы?</p>
-          <NavLink className={styles['sign-in-link']} to={'/sign-in'}>
-            Войти
+    <div className={`${styles["sign-up"]} container`}>
+      <h2>{t("register")}</h2>
+      <div className={styles["form-wrapper"]}>
+        <div className={styles["new-user"]}>
+          <p>{t("already_registered")}</p>
+          <NavLink className={styles["sign-in-link"]} to={"/sign-in"}>
+            {t("login")}
           </NavLink>
         </div>
         <FormProvider {...methods}>
@@ -72,15 +74,12 @@ const SignUp = () => {
             handleOpenAgreement={() => setIsAgreementOpen(true)}
             isLoading={isFormLoading}
           />
-          <Rules
-            open={isAgreementOpen}
-            handleClose={() => setIsAgreementOpen(false)}
-          />
+          <Rules open={isAgreementOpen} handleClose={() => setIsAgreementOpen(false)} />
         </FormProvider>
       </div>
       {isSuccessModalVisible && <SuccessModal />}
     </div>
-  )
-}
+  );
+};
 
-export default SignUp
+export default SignUp;

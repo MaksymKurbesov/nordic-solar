@@ -30,11 +30,11 @@ interface ISettings {
 export interface IDeposit {
   amount: number;
   charges: number;
-  closeDate: Timestamp;
+  closeDate: string;
   days: number;
   isActive: boolean;
   lastAccrual: IRegistrationDate | Timestamp;
-  openDate: Timestamp;
+  openDate: string;
   plan: string;
   received: number;
   variant: string;

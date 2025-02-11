@@ -5,56 +5,61 @@ import { useEffect, useState } from "react";
 import { IDeposit } from "@/interfaces/IUser.ts";
 import { useOutletContext } from "react-router-dom";
 import { Skeleton } from "@mui/material";
+import { useTranslation } from "react-i18next";
 
 export interface IDepositColumn {
   title: string;
   key: string;
 }
 
-const DEPOSIT_COLUMNS: IDepositColumn[] = [
-  {
-    title: "Вариант",
-    key: "variant",
-  },
-  {
-    title: "Прогресс",
-    key: "progress",
-  },
-  {
-    title: "Начисление",
-    key: "nextAccrual",
-  },
-  {
-    title: "Сумма",
-    key: "amount",
-  },
-  {
-    title: "Будет получено",
-    key: "willReceived",
-  },
+const getDepositColumns = (t): IDepositColumn[] => {
+  return [
+    {
+      title: t("variant"),
+      key: "variant",
+    },
+    {
+      title: t("progress"),
+      key: "progress",
+    },
+    {
+      title: t("accrual"),
+      key: "nextAccrual",
+    },
+    {
+      title: t("amount"),
+      key: "amount",
+    },
+    {
+      title: t("will_received"),
+      key: "willReceived",
+    },
 
-  {
-    title: "Получено",
-    key: "received",
-  },
-  {
-    title: "Способ оплаты",
-    key: "wallet",
-  },
-  {
-    title: "Дата открытия",
-    key: "openDate",
-  },
-  {
-    title: "Дата закрытия",
-    key: "closeDate",
-  },
-];
+    {
+      title: t("received"),
+      key: "received",
+    },
+    {
+      title: t("method_pay"),
+      key: "wallet",
+    },
+    {
+      title: t("openDate"),
+      key: "openDate",
+    },
+    {
+      title: t("closeDate"),
+      key: "closeDate",
+    },
+  ];
+};
 
 const Deposits = ({ deposits }: { deposits: IDeposit[] }) => {
+  const { t } = useTranslation("cabinet");
   const [activeDeposits, setActiveDeposits] = useState<IDeposit[]>([]);
   const [completedDeposits, setCompletedDeposits] = useState<IDeposit[]>([]);
-  const [isDepositLoading] = useOutletContext();
+  const [isDepositLoading] = useOutletContext<[isDepositLoading: boolean]>();
+  const depositColumns = getDepositColumns(t);
 
   useEffect(() => {
     if (!deposits) return;
@@ -71,29 +76,29 @@ const Deposits = ({ deposits }: { deposits: IDeposit[] }) => {
       <Tabs defaultFocus>
         <TabList className={styles["deposits-buttons"]}>
           <Tab className={styles["tab"]} selectedClassName={styles["selected-tab"]}>
-            Активные депозиты
+            {t("active_deposits")}
           </Tab>
           <Tab className={styles["tab"]} selectedClassName={styles["selected-tab"]}>
-            Завершенные депозиты
+            {t("ended_deposits")}
           </Tab>
         </TabList>
         <TabPanel>
           {isDepositLoading ? (
             <div className={styles["skeletons"]}>
-              <Skeleton height={210} />
-              <Skeleton height={210} />
+              <Skeleton animation="wave" height={210} />
+              <Skeleton animation="wave" height={210} />
             </div>
           ) : activeDeposits.length === 0 ? (
-            "У вас нет открытых депозитов"
+            t("no_active_deposits")
           ) : (
-            <DepositsList isActive deposits={activeDeposits} columns={DEPOSIT_COLUMNS} />
+            <DepositsList isActive deposits={activeDeposits} columns={depositColumns} />
           )}
         </TabPanel>
         <TabPanel>
           {completedDeposits.length === 0 ? (
-            "У вас нет завершенных депозитов"
+            t("no_ended_deposits")
           ) : (
-            <DepositsList deposits={completedDeposits} columns={DEPOSIT_COLUMNS} isActive={false} />
+            <DepositsList deposits={completedDeposits} columns={depositColumns} isActive={false} />
           )}
         </TabPanel>
       </Tabs>

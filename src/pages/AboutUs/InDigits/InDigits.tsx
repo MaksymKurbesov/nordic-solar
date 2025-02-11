@@ -3,34 +3,39 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Mousewheel, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
+import { useTranslation } from "react-i18next";
 
-const DIGITS = [
-  {
-    digits: "10 лет+",
-    description: "опыта в сфере инвестиций в зеленую энергетику."
-  },
-  {
-    digits: "100+",
-    description: "успешных проектов в солнечной и ветроэнергетике."
-  },
-  {
-    digits: "500 млн+",
-    description: "евро инвестиций в устойчивое будущее."
-  },
-  {
-    digits: "20 стран+",
-    description: "охвачено нашими инициативами."
-  },
-  {
-    digits: "80%",
-    description: "возврат инвестиций для наших партнеров."
-  },
-];
+const getDigits = (t) => {
+  return [
+    {
+      digits: `10 ${t("year")}+`,
+      description: t("digits1_descr"),
+    },
+    {
+      digits: "100+",
+      description: t("digits2_descr"),
+    },
+    {
+      digits: `500 ${t("million")}+`,
+      description: t("digits3_descr"),
+    },
+    {
+      digits: `20 ${t("countries")}+`,
+      description: t("digits4_descr"),
+    },
+    {
+      digits: "80%",
+      description: t("digits5_descr"),
+    },
+  ];
+};
 
 const InDigits = () => {
+  const { t } = useTranslation("aboutUs");
+
   return (
     <div className={`${styles["roadmap"]}`}>
-      <span className={styles['title']}>Мы в цифрах</span>
+      <span className={styles["title"]}>{t("digits")}</span>
       <Swiper
         direction={"vertical"}
         slidesPerView={1}
@@ -42,11 +47,11 @@ const InDigits = () => {
         modules={[Mousewheel, Pagination]}
         className="mySwiper"
       >
-        {DIGITS.map((slide, index) => {
+        {getDigits(t).map((slide, index) => {
           return (
             <SwiperSlide className={styles["roadmap-slide"]} key={index}>
-              <p className={styles['digits']}>{slide.digits}</p>
-              <p className={styles['description']}>{slide.description}</p>
+              <p className={styles["digits"]}>{slide.digits}</p>
+              <p className={styles["description"]}>{slide.description}</p>
             </SwiperSlide>
           );
         })}

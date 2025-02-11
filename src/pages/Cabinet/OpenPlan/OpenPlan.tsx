@@ -16,6 +16,7 @@ import { BACKEND_URL, PLAN_VARIANT } from "@/utils/const.tsx";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { IPlanGroup, IPlanOption, IPlanTypes, PlanType, PlanVariant } from "@/interfaces/IPlanVariant.ts";
+import { I18nextProvider, useTranslation } from "react-i18next";
 
 export interface IStep {
   title: string;
@@ -23,28 +24,30 @@ export interface IStep {
   type: string;
 }
 
-const steps: IStep[] = [
-  {
-    title: "Тип плана",
-    component: <Plans />,
-    type: "plan",
-  },
-  {
-    title: "Вариант плана",
-    component: <Variants />,
-    type: "variant",
-  },
-  {
-    title: "Сумма и кошелёк",
-    component: <WalletAmount />,
-    type: "wallet",
-  },
-  {
-    title: "Подтверждение",
-    component: <OpenPlanConfirm />,
-    type: "final",
-  },
-];
+const getSteps = (t): IStep[] => {
+  return [
+    {
+      title: t("step1_title"),
+      component: <Plans />,
+      type: "plan",
+    },
+    {
+      title: t("step2_title"),
+      component: <Variants />,
+      type: "variant",
+    },
+    {
+      title: t("step3_title"),
+      component: <WalletAmount />,
+      type: "wallet",
+    },
+    {
+      title: t("step4_title"),
+      component: <OpenPlanConfirm />,
+      type: "final",
+    },
+  ];
+};
 
 export type AccrualKey = keyof typeof ACCRUALS_TYPE_MAP;
 
@@ -69,6 +72,7 @@ export interface IPlanData {
 }
 
 const OpenPlan = () => {
+  const { t, i18n } = useTranslation("openPlan");
   const { user } = useUser();
   const [confirmPopupIsOpen, setConfirmPopupIsOpen] = useState(false);
   const [activeStep, setActiveStep] = useState(0);
@@ -116,29 +120,29 @@ const OpenPlan = () => {
     const variant = form.watch("variant") as PlanVariant;
     const wallet = form.watch("wallet");
     const amount = form.watch("amount");
-    const lastStep = activeStep === steps.length - 1;
+    const lastStep = activeStep === getSteps(t).length - 1;
 
     const isVariantPlanEmpty = activeStep === 1 && !variant;
     const isWalletEmpty = activeStep === 2 && !wallet;
     const isIncorrectAmount = activeStep === 2 && isNaN(amount);
 
     if (!plan) {
-      toast.error("Выберите тип плана");
+      toast.error(t("plan_type_error"));
       return;
     }
 
     if (isVariantPlanEmpty) {
-      toast.error("Выберите вариант плана");
+      toast.error(t("plan_variant_error"));
       return;
     }
 
     if (isWalletEmpty) {
-      toast.error("Выберите кошелёк");
+      toast.error(t("wallet_error"));
       return;
     }
 
     if (isIncorrectAmount) {
-      toast.error("Некорректная сумма");
+      toast.error(t("incorrect_amount"));
       return;
     }
 
@@ -149,7 +153,7 @@ const OpenPlan = () => {
 
       const userBalance = user.wallets[wallet].available;
       if (userBalance < amount || amount < planData.minDeposit) {
-        toast.error("Недостаточно средств");
+        toast.error(t("no_amount"));
         return;
       }
     }
@@ -176,21 +180,23 @@ const OpenPlan = () => {
   }, []);
 
   return (
-    <Box sx={{ width: "100%" }}>
-      <h2>Открыть план</h2>
-      <MyStepper steps={steps} activeStep={activeStep} />
-      <div className={styles["open-plan"]}>
-        <FormProvider {...form}>{steps[activeStep].component}</FormProvider>
-        {confirmPopupIsOpen && createPortal(<ConfirmedPopup />, document.body)}
-      </div>
-      <NavigationButtons
-        activeStep={activeStep}
-        handleBack={handleBack}
-        handleNext={handleNext}
-        steps={steps}
-        userHasRestriction={userHasRestriction}
-      />
-    </Box>
+    <I18nextProvider i18n={i18n} defaultNS={"openPlan"}>
+      <Box sx={{ width: "100%" }} className={styles["open-plan-box"]}>
+        <h2>{t("open_plan")}</h2>
+        <MyStepper steps={getSteps(t)} activeStep={activeStep} />
+        <div className={styles["open-plan"]}>
+          <FormProvider {...form}>{getSteps(t)[activeStep].component}</FormProvider>
+          {confirmPopupIsOpen && createPortal(<ConfirmedPopup />, document.body)}
+        </div>
+        <NavigationButtons
+          activeStep={activeStep}
+          handleBack={handleBack}
+          handleNext={handleNext}
+          steps={getSteps(t)}
+          userHasRestriction={userHasRestriction}
+        />
+      </Box>
+    </I18nextProvider>
   );
 };
 

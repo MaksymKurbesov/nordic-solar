@@ -14,6 +14,7 @@ import Image2 from "@assets/images/features-image2.webp";
 import Image3 from "@assets/images/features-image3.webp";
 import Image4 from "@assets/images/features-image4.webp";
 import { useRef } from "react";
+import { useTranslation } from "react-i18next";
 
 export interface IFeature {
   title: string;
@@ -21,48 +22,37 @@ export interface IFeature {
   image: string;
 }
 
-const FEATURES: IFeature[] = [
-  {
-    title: "Финансирование проектов",
-    description: [
-      "Прямые инвестиции в проекты по возобновляемым источникам энергии",
-      "Поддержка стартапов и инновационных технологий в сфере зеленой энергетики.",
-      "Помощь в привлечении внешнего финансирования и грантов.",
-    ],
-    image: Image1,
-  },
-  {
-    title: "Консультации и анализ",
-    description: [
-      "Анализ рынка зеленой энергетики и оценка перспективных проектов.",
-      "Консультации по инвестиционным стратегиям и выбору оптимальных проектов для вложений.",
-    ],
-    image: Image2,
-  },
-  {
-    title: "Управление проектами",
-    description: [
-      "Полный цикл управления проектами от начальной идеи до завершения строительства и ввода в эксплуатацию",
-      "Мониторинг и отчетность по ходу выполнения проектов.",
-      "Обеспечение соответствия проектов экологическим и регуляторным требованиям.",
-    ],
-    image: Image3,
-  },
-  {
-    title: "Разработка решений",
-    description: [
-      "Исследования и разработки новых технологий в области возобновляемой энергии.",
-      "Консультации по внедрению энергоэффективных решений и снижению углеродного следа.",
-    ],
-    image: Image4,
-  },
-];
+const getFeatures = (t): IFeature[] => {
+  return [
+    {
+      title: t("feature1_title"),
+      description: [t("feature1_descr1"), t("feature1_descr2"), t("feature1_descr3")],
+      image: Image1,
+    },
+    {
+      title: t("feature2_title"),
+      description: [t("feature2_descr1"), t("feature2_descr2")],
+      image: Image2,
+    },
+    {
+      title: t("feature3_title"),
+      description: [t("feature3_descr1"), t("feature3_descr2"), t("feature3_descr3")],
+      image: Image3,
+    },
+    {
+      title: t("feature4_title"),
+      description: [t("feature4_descr1"), t("feature4_descr2")],
+      image: Image4,
+    },
+  ];
+};
 
 const IMAGES = [Image1, Image2, Image3, Image4];
 
 const IndexPage = () => {
   const windowSize = useWindowSize();
   const isMobile = windowSize.width < 900;
+  const { t } = useTranslation("indexPage");
 
   const scrollableRef = useRef<HTMLDivElement>(null);
 
@@ -82,7 +72,11 @@ const IndexPage = () => {
       </div>
       <div className={"container"}>
         <WeBelieve />
-        {isMobile ? <MobileFeatures features={FEATURES} /> : <Features features={FEATURES} images={IMAGES} />}
+        {isMobile ? (
+          <MobileFeatures features={getFeatures(t)} />
+        ) : (
+          <Features features={getFeatures(t)} images={IMAGES} />
+        )}
         <Advantages />
         <OfferBanner />
         <Roadmap />

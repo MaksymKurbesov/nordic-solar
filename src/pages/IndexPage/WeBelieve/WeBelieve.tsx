@@ -2,10 +2,11 @@ import styles from "./WeBelieve.module.scss";
 import Image from "@assets/images/weBelieve.png";
 import { useRef } from "react";
 import { motion, useInView } from "motion/react";
+import { useTranslation } from "react-i18next";
 
 const textVariants = {
   hidden: { opacity: 0, x: -20 },
-  visible: (delay) => ({
+  visible: (delay: number) => ({
     opacity: 1,
     x: 0,
     transition: { delay, duration: 0.5 },
@@ -15,6 +16,7 @@ const textVariants = {
 const WeBelieve = () => {
   const ref = useRef(null);
   const isInView = useInView(ref);
+  const { t } = useTranslation("indexPage");
 
   return (
     <div ref={ref} id={"we-believe"} className={styles.weBelieve}>
@@ -26,7 +28,7 @@ const WeBelieve = () => {
           animate={isInView ? "visible" : "hidden"}
           className={styles.gray}
         >
-          Мы верим в мир, в котором
+          {t("we_believe1")}
         </motion.span>{" "}
         <motion.span
           variants={textVariants}
@@ -35,15 +37,25 @@ const WeBelieve = () => {
           animate={isInView ? "visible" : "hidden"}
           className={styles.green}
         >
-          чистая, <br />
-          возобновляемая
+          {t("we_believe2")}
         </motion.span>{" "}
-        <motion.span variants={textVariants} custom={0.8} initial="hidden" animate={isInView ? "visible" : "hidden"}>
-          энергия питает <br />
-          наши дома и предприятия
+        <motion.span
+          variants={textVariants}
+          custom={0.8}
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
+        >
+          {t("we_believe3")}
         </motion.span>
       </h2>
-      <motion.img variants={textVariants} custom={0.8} initial="hidden" animate={isInView ? "visible" : "hidden"} src={Image} alt={""} />
+      <motion.img
+        variants={textVariants}
+        custom={0.8}
+        initial="hidden"
+        animate={isInView ? "visible" : "hidden"}
+        src={Image}
+        alt={""}
+      />
     </div>
   );
 };

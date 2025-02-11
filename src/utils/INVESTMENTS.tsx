@@ -1,139 +1,66 @@
-import SolarFutureHero from '@assets/images/investments/solar-future-hero.webp'
-import SolarFuture from '@assets/images/investments/solar-future.webp'
-import WindProsperityHero from '@assets/images/investments/wind-prosperity-hero.webp'
-import WindProsperity from '@assets/images/investments/wind-prosperity.webp'
-import HydroPowerEdgeHero from '@assets/images/investments/hydro-hero.webp'
-import HydroPowerEdge from '@assets/images/investments/hydro.webp'
-import HydrogenHero from '@assets/images/investments/hydrogen-hero.webp'
-import Hydrogen from '@assets/images/investments/hydrogen.webp'
-import MiningHero from '@assets/images/investments/mining-farm-hero.webp'
-import Mining from '@assets/images/investments/mining-farm.webp'
+import SolarFutureHero from "@assets/images/investments/solar-future-hero.webp";
+import SolarFuture from "@assets/images/investments/solar-future.webp";
+import WindProsperityHero from "@assets/images/investments/wind-prosperity-hero.webp";
+import WindProsperity from "@assets/images/investments/wind-prosperity.webp";
+import HydroPowerEdgeHero from "@assets/images/investments/hydro-hero.webp";
+import HydroPowerEdge from "@assets/images/investments/hydro.webp";
+import HydrogenHero from "@assets/images/investments/hydrogen-hero.webp";
+import Hydrogen from "@assets/images/investments/hydrogen.webp";
+import MiningHero from "@assets/images/investments/mining-farm-hero.webp";
+import Mining from "@assets/images/investments/mining-farm.webp";
+import { Trans } from "react-i18next";
 
-export const INVESTMENTS = [
-  {
-    title: 'Solar Future',
-    subtitle: (
-      <>
-        <span> Индивидуальные</span> инвестиционные стратегии для солнечной
-        энергетики, <br /> основанные на ваших целях.
-      </>
-    ),
-    heroImage: SolarFutureHero,
-    thumbImage: SolarFuture,
-    mainText: (
-      <>
-        <span>Поддержите проекты,</span> преобразующие солнечную энергию <br />{' '}
-        в устойчивый доход.
-      </>
-    ),
-    subText: (
-      <>
-        Инвестируйте в экологически чистое будущее <br /> с помощью
-        персонализированных решений.
-      </>
-    ),
-    link: 'solar-future',
-    value: 'solar',
-  },
-  {
-    title: 'Wind Prosperity',
-    subtitle: (
-      <>
-        <span>Стратегии</span>, направленные на развитие <br /> устойчивых
-        ветроэнергетических проектов.
-      </>
-    ),
-    heroImage: WindProsperityHero,
-    thumbImage: WindProsperity,
-    mainText: (
-      <>
-        <span>Ваше участие</span> в проектах ветроэнергетики – <br />
-        шаг к глобальной экологической стабильности.
-      </>
-    ),
-    subText: (
-      <>
-        Регулярные консультации и подробный анализ <br /> помогут вам управлять
-        инвестициями уверенно.
-      </>
-    ),
-    link: 'wind-prosperity',
-    value: 'wind',
-  },
-  {
-    title: 'Hydro PowerEdge',
-    subtitle: (
-      <>
-        <span>Решения для развития </span> гидроэлектростанций, <br />{' '}
-        основанные на коллективных инвестициях.
-      </>
-    ),
-    heroImage: HydroPowerEdgeHero,
-    thumbImage: HydroPowerEdge,
-    mainText: (
-      <>
-        <span>Инвестируйте в проекты,</span> которые создают стабильные <br /> и
-        надежные источники энергии
-      </>
-    ),
-    subText: (
-      <>
-        Получите доступ к инновациям в гидроэнергетике <br /> через детально
-        разработанные планы.
-      </>
-    ),
-    link: 'hydro-poweredge',
-    value: 'hydro',
-  },
-  {
-    title: 'Hydrogen Horizons',
-    subtitle: (
-      <>
-        <span>Инвестируйте</span> в проекты водородной энергетики <br /> для
-        устойчивого будущего.
-      </>
-    ),
-    heroImage: HydrogenHero,
-    thumbImage: Hydrogen,
-    mainText: (
-      <>
-        <span>Индивидуальные инвестиционные планы,</span> <br />
-        нацеленные на развитие водородных технологий.
-      </>
-    ),
-    subText: (
-      <>
-        Станьте частью новой эры энергетики <br /> с поддержкой инновационных
-        решений.
-      </>
-    ),
-    link: 'hydrogen-horizons',
-    value: 'hydrogen',
-  },
-  {
-    title: 'Mining Farms',
-    subtitle: (
-      <>
-        <span>Получите доступ</span> к передовым технологиям добычи <br />{' '}
-        криптовалют с гарантированной поддержкой.
-      </>
-    ),
-    heroImage: MiningHero,
-    thumbImage: Mining,
-    mainText: (
-      <>
-        <span>Регулярные отчеты</span> и{' '}
-        <span>персонализированные консультации</span> <br /> помогут
-        максимизировать прибыль
-      </>
-    ),
-    subText: (
-      <>
-        Эффективное управление портфелем и <br />
-        стратегии для стабильного роста доходов от майнинга.
-      </>
-    ),
-    link: 'mining-farms',
-    value: 'mining',
-  },
-]
+export const getInvestments = (t) => {
+  return [
+    {
+      title: "Solar Future",
+      subtitle: <Trans i18nKey="solar_future_subtitle" components={{ span: <span />, br: <br /> }} />,
+      heroImage: SolarFutureHero,
+      thumbImage: SolarFuture,
+      mainText: <Trans i18nKey="solar_future_maintext" components={{ span: <span />, br: <br /> }} />,
+      subText: <Trans i18nKey="solar_future_subtext" components={{ br: <br /> }} />,
+      link: "solar-future",
+      value: "solar",
+    },
+    {
+      title: "Wind Prosperity",
+      subtitle: <Trans i18nKey="wind_prosperity_subtitle" components={{ span: <span />, br: <br /> }} />,
+      heroImage: WindProsperityHero,
+      thumbImage: WindProsperity,
+      mainText: <Trans i18nKey="wind_prosperity_maintext" components={{ span: <span />, br: <br /> }} />,
+      subText: <Trans i18nKey="wind_prosperity_subtext" components={{ br: <br /> }} />,
+      link: "wind-prosperity",
+      value: "wind",
+    },
+    {
+      title: "Hydro PowerEdge",
+      subtitle: <Trans i18nKey="hydro_poweredge_subtitle" components={{ span: <span />, br: <br /> }} />,
+      heroImage: HydroPowerEdgeHero,
+      thumbImage: HydroPowerEdge,
+      mainText: <Trans i18nKey="hydro_poweredge_maintext" components={{ span: <span />, br: <br /> }} />,
+      subText: <Trans i18nKey="hydro_poweredge_subtext" components={{ br: <br /> }} />,
+      link: "hydro-poweredge",
+      value: "hydro",
+    },
+    {
+      title: "Hydrogen Horizons",
+      subtitle: <Trans i18nKey="hydrogen_horizons_subtitle" components={{ span: <span />, br: <br /> }} />,
+      heroImage: HydrogenHero,
+      thumbImage: Hydrogen,
+      mainText: <Trans i18nKey="hydrogen_horizons_maintext" components={{ span: <span />, br: <br /> }} />,
+      subText: <Trans i18nKey="hydrogen_horizons_subtext" components={{ br: <br /> }} />,
+      link: "hydrogen-horizons",
+      value: "hydrogen",
+    },
+    {
+      title: "Mining Farms",
+      subtitle: <Trans i18nKey="mining_farms_subtitle" components={{ span: <span />, br: <br /> }} />,
+      heroImage: MiningHero,
+      thumbImage: Mining,
+      mainText: <Trans i18nKey="mining_farms_maintext" components={{ span: <span />, br: <br /> }} />,
+      subText: <Trans i18nKey="mining_farms_subtext" components={{ br: <br /> }} />,
+      link: "mining-farms",
+      value: "mining",
+    },
+  ];
+};

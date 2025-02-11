@@ -73,9 +73,10 @@
   font-size: 14px;
 }
 
-.wallet {
+.wallet .value {
   text-transform: lowercase;
 }
+
 .wallet .value:first-letter {
   text-transform: uppercase;
 }

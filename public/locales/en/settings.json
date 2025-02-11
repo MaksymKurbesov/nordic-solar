@@ -1,0 +1,23 @@
+{
+  "settings": "My settings",
+  "personal_info": "Personal information",
+  "payments": "Payment details",
+  "password": "Password",
+  "safety": "Security",
+  "old_password": "Old password",
+  "new_password": "New password",
+  "confirm_password": "Confirm password",
+  "UTC": "Your time zone (from UTC)",
+  "ip": "IP control",
+  "quit": "Logout after",
+  "GA_code": "Enter GA code",
+  "save": "Save settings",
+  "settings_saved": "Settings saved",
+  "edit": "Edit",
+  "delete": "Delete",
+  "name": "First name",
+  "surname": "Last name",
+  "phone": "Phone",
+  "social": "Social network",
+  "country": "Country"
+}

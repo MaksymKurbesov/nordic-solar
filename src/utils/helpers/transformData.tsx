@@ -3,9 +3,15 @@ import { Timestamp } from "firebase/firestore";
 import AccrualTimer from "@/pages/Cabinet/MainCabinet/Deposits/AccrualTimer.tsx";
 import { IDeposit, ITransaction, ITransformedTransaction } from "@/interfaces/IUser.ts";
 
-export const transformTransaction = (transaction: ITransaction | ITransformedTransaction): ITransformedTransaction => {
+export const transformTransaction = (
+  transaction: ITransaction | ITransformedTransaction,
+  t,
+): ITransformedTransaction => {
   return {
     ...transaction,
+    type: t(transaction.type),
+    status: t(transaction.status),
+    color: transaction.status,
     id: transaction.id.slice(0, 6),
     executor: transaction.executor.toUpperCase(),
     amount: `$${transaction.amount.toLocaleString()}`,

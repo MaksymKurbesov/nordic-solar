@@ -31,15 +31,19 @@
   padding: 15px 0;
 }
 
-.success {
+//.table-row > div:last-child {
+//  color: $green;
+//}
+
+.success, .Выполнено {
   color: $green;
 }
 
-.pending {
+.pending, .Ожидание {
   color: $yellow;
 }
 
-.canceled {
+.canceled, .Отмена, .Отменено {
   color: $red;
 }
 

@@ -16,8 +16,10 @@ import PaymentInstruction from "@/pages/ConfirmTransaction/PaymentInstruction/Pa
 import PrivateKey from "@/pages/ConfirmTransaction/PrivateKey/PrivateKey.tsx";
 import axios from "axios";
 import { BACKEND_URL } from "@/utils/const.tsx";
+import { I18nextProvider, Trans, useTranslation } from "react-i18next";
 
 const ConfirmTransaction = () => {
+  const { t, i18n } = useTranslation("confirmTransaction");
   const location = useLocation();
   const navigate = useNavigate();
   const formData = location.state;
@@ -42,12 +44,12 @@ const ConfirmTransaction = () => {
     if (!user) return;
 
     if (isDepositType && !transactionHash) {
-      toast.error("Укажите номер/хеш транзакции");
+      toast.error(t("enter_hash"));
       return;
     }
 
     if (!isDepositType && user.restrictions.isPrivateKey && !privateKey) {
-      toast.error("Введите ваш приватный финансовый ключ");
+      toast.error(t("enter_private_key"));
       return;
     }
 
@@ -68,7 +70,7 @@ const ConfirmTransaction = () => {
   };
 
   const copyWallet = () => {
-    toast.success("Скопировано!");
+    toast.success(t("copy"));
     navigator.clipboard.writeText(OUR_WALLETS[wallet]);
   };
 
@@ -81,86 +83,88 @@ const ConfirmTransaction = () => {
   if (!user) return null;
 
   return (
-    <div className={styles["transaction-confirmation"]}>
-      <span className={styles["invoice-number"]}>#{transactionId}</span>
-      <div className={styles["row"]}>
-        <span className={styles["icon"]}>
-          <IconCircleCheckFilled width={35} height={35} color={"#14CC74"} />
-        </span>
-        <p className={styles["title"]}>{isDepositType ? `Вам был выставлен счет на оплату` : `Запрос на вывод средств`}</p>
-        <p className={styles["amount"]}>USD {Number(amount).toFixed(2)}</p>
-      </div>
-      <div className={styles["columns-wrapper"]}>
-        <div className={styles["left-column"]}>
-          {user.restrictions.isPrivateKey && !isDepositType && <PrivateKey privateKey={privateKey} setPrivateKey={setPrivateKey} />}
-          {isDepositType && (
-            <PaymentInstruction
-              wallet={wallet}
-              transactionHash={transactionHash}
-              setTransactionHash={setTransactionHash}
-              copyWalletHandler={copyWallet}
-            />
-          )}
+    <I18nextProvider i18n={i18n} defaultNS={"confirmTransaction"}>
+      <div className={styles["transaction-confirmation"]}>
+        <span className={styles["invoice-number"]}>#{transactionId}</span>
+        <div className={styles["row"]}>
+          <span className={styles["icon"]}>
+            <IconCircleCheckFilled width={35} height={35} color={"#14CC74"} />
+          </span>
+          <p className={styles["title"]}>{isDepositType ? t("invoiced") : t("withdrawn_invoice")}</p>
+          <p className={styles["amount"]}>USD {Number(amount).toFixed(2)}</p>
         </div>
-        <div className={styles["right-column"]}>
-          <div className={styles["fields"]}>
-            <div className={styles["field"]}>
-              <span>Статус</span>
-              <p>Ожидает</p>
-            </div>
-            <div className={`${styles["field"]} ${styles["wallet-field"]}`}>
-              <span>Платежная система</span>
-              <p>{wallet}</p>
-            </div>
-            <div className={styles["field"]}>
-              <span>Транзакция на</span>
-              <p>{OUR_WALLETS[wallet]}</p>
-            </div>
-            <div className={styles["field"]}>
-              <span>Сумма</span>
-              <p>{amount} USDT</p>
-            </div>
-            <div className={styles["field"]}>
-              <span>Дата</span>
-              <p>{parseTimestamp(Timestamp.now())}</p>
-            </div>
+        <div className={styles["columns-wrapper"]}>
+          <div className={styles["left-column"]}>
+            {user.restrictions.isPrivateKey && !isDepositType && (
+              <PrivateKey privateKey={privateKey} setPrivateKey={setPrivateKey} />
+            )}
+            {isDepositType && (
+              <PaymentInstruction
+                wallet={wallet}
+                transactionHash={transactionHash}
+                setTransactionHash={setTransactionHash}
+                copyWalletHandler={copyWallet}
+              />
+            )}
           </div>
+          <div className={styles["right-column"]}>
+            <div className={styles["fields"]}>
+              <div className={styles["field"]}>
+                <span>{t("status")}</span>
+                <p>{t("pending")}</p>
+              </div>
+              <div className={`${styles["field"]} ${styles["wallet-field"]}`}>
+                <span>{t("method_pay")}</span>
+                <p>{wallet}</p>
+              </div>
+              <div className={styles["field"]}>
+                <span>{t("transaction_on")}</span>
+                <p>{OUR_WALLETS[wallet]}</p>
+              </div>
+              <div className={styles["field"]}>
+                <span>{t("amount")}</span>
+                <p>{amount} USDT</p>
+              </div>
+              <div className={styles["field"]}>
+                <span>{t("date")}</span>
+                <p>{parseTimestamp(Timestamp.now())}</p>
+              </div>
+            </div>
 
-          <div className={`${styles["secure-connection"]} ${!isDepositType ? styles["secure-connection-withdrawn"] : ""}`}>
-            <p>
-              <ConnectionSecuredIcon />
-              Соединение <br />
-              защищено
+            <div
+              className={`${styles["secure-connection"]} ${!isDepositType ? styles["secure-connection-withdrawn"] : ""}`}
+            >
+              <p>
+                <ConnectionSecuredIcon />
+                <Trans i18nKey={"secured_connection"} components={{ br: <br /> }} />
+              </p>
+              <SFCIcon />
+            </div>
+
+            <p className={styles["disclaimer"]}>
+              {isDepositType ? t("topup_disclaimer") : t("withdrawn_disclaimer")}
             </p>
-            <SFCIcon />
-          </div>
-
-          <p className={styles["disclaimer"]}>
-            {isDepositType
-              ? `Убедитесь что вы отправляете именно то количество средств, которое
-              указано. Обратите внимание что это уникальный адрес кошелька, После
-              завершения операции не используйте этот адрес для последующих
-              платежей.`
-              : `Проверьте, что вы вводите правильную сумму для вывода.
-              Пожалуйста, удостоверьтесь, что все данные верны перед
-              подтверждением транзакции.`}
-          </p>
-          <div className={styles["buttons"]}>
-            <WideButton
-              onClickHandler={() => {
-                navigate(-1);
-              }}
-              text={"Отмена"}
-              isTransparent
-              isCancelButton
-            />
-            <WideButton onClickHandler={onSubmitTransaction} text={isDepositType ? "Я заплатил" : "Подтвердить"} isCheckButton />
+            <div className={styles["buttons"]}>
+              <WideButton
+                onClickHandler={() => {
+                  navigate(-1);
+                }}
+                text={t("cancel")}
+                isTransparent
+                isCancelButton
+              />
+              <WideButton
+                onClickHandler={onSubmitTransaction}
+                text={isDepositType ? t("paid") : t("confirm")}
+                isCheckButton
+              />
+            </div>
           </div>
         </div>
+        {confirmedPopupIsOpen && <ConfirmedPopup />}
+        <ScrollRestoration />
       </div>
-      {confirmedPopupIsOpen && <ConfirmedPopup />}
-      <ScrollRestoration />
-    </div>
+    </I18nextProvider>
   );
 };
 

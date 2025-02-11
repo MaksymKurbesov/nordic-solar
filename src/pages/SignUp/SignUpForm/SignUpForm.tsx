@@ -2,6 +2,7 @@ import styles from "./SignUpForm.module.scss";
 import Input from "@SharedUI/Input/Input.tsx";
 import { FieldValues, SubmitHandler, useFormContext } from "react-hook-form";
 import WideButton from "@SharedUI/WideButton/WideButton.tsx";
+import { useTranslation } from "react-i18next";
 
 type ISignUpFormProps<T extends FieldValues> = {
   onSubmit: SubmitHandler<T>;
@@ -9,7 +10,12 @@ type ISignUpFormProps<T extends FieldValues> = {
   isLoading: boolean;
 };
 
-const SignUpForm = <T extends FieldValues>({ onSubmit, handleOpenAgreement, isLoading }: ISignUpFormProps<T>) => {
+const SignUpForm = <T extends FieldValues>({
+  onSubmit,
+  handleOpenAgreement,
+  isLoading,
+}: ISignUpFormProps<T>) => {
+  const { t } = useTranslation("login");
   const methods = useFormContext<T>();
   const {
     handleSubmit,
@@ -23,12 +29,12 @@ const SignUpForm = <T extends FieldValues>({ onSubmit, handleOpenAgreement, isLo
       <div className={styles["input-wrapper"]}>
         <Input
           name={"nickname"}
-          label={"Никнейм*"}
+          label={`${t("nickname")}*`}
           register={register}
           trigger={trigger}
           validation={{
-            required: "Никнейм обязателен",
-            minLength: { value: 5, message: "Минимум 5 символов" },
+            required: t("nickname_error"),
+            minLength: { value: 5, message: t("min_5") },
           }}
         />
         {errors.nickname && <p className={styles["error"]}>{`${errors.nickname.message}`}</p>}
@@ -38,11 +44,11 @@ const SignUpForm = <T extends FieldValues>({ onSubmit, handleOpenAgreement, isLo
         <Input
           type={"password"}
           name={"password"}
-          label={"Пароль*"}
+          label={`${t("password")}*`}
           register={register}
           validation={{
-            required: "Пароль обязателен",
-            minLength: { value: 6, message: "Минимум 6 символов" },
+            required: t("password_error"),
+            minLength: { value: 6, message: t("min_6") },
           }}
           trigger={trigger}
         />
@@ -52,15 +58,17 @@ const SignUpForm = <T extends FieldValues>({ onSubmit, handleOpenAgreement, isLo
         <Input
           type={"password"}
           name={"confirm-password"}
-          label={"Повторите пароль*"}
+          label={`${t("confirm_pass")}*`}
           register={register}
           trigger={trigger}
           validation={{
-            required: "Подтверждение пароля обязательно",
-            validate: (value: string) => value === methods.getValues("password") || "Пароли не совпадают",
+            required: t("confirm_pass_error"),
+            validate: (value: string) => value === methods.getValues("password") || t("password_dont_match"),
           }}
         />
-        {errors["confirm-password"] && <p className={styles["error"]}>{`${errors["confirm-password"].message}`}</p>}
+        {errors["confirm-password"] && (
+          <p className={styles["error"]}>{`${errors["confirm-password"].message}`}</p>
+        )}
       </div>
       <div className={styles["input-wrapper"]}>
         <Input
@@ -69,26 +77,27 @@ const SignUpForm = <T extends FieldValues>({ onSubmit, handleOpenAgreement, isLo
           register={register}
           trigger={trigger}
           validation={{
-            required: "E-mail обязателен",
+            required: t("email_error"),
             pattern: {
               value: /^\s*[^@ ]+@[^@ ]+\.[^@ .]{2,}\s*$/,
-              message: "Неверный формат E-mail",
+              message: t("wrong_email"),
             },
           }}
         />
         {errors.email && <p className={styles["error"]}>{`${errors.email.message}`}</p>}
       </div>
-      <Input name={"referredBy"} label={"Ник реферала"} register={register} trigger={trigger} />
+      <Input name={"referredBy"} label={t("referral")} register={register} trigger={trigger} />
 
       <div className={styles["input-wrapper"]}>
         <label className={`${styles["container"]} ${styles["agreement"]}`}>
           <input
             type="checkbox"
             {...register("agreement", {
-              required: "Вы должны согласиться с правилами сайта",
+              required: t("rules_error"),
             })}
           />
-          <span className={styles["checkmark"]}></span>Я согласен с правилами сайта{" "}
+          <span className={styles["checkmark"]}></span>
+          {t("agree")}{" "}
           <button
             onClick={(e) => {
               e.preventDefault();
@@ -96,12 +105,12 @@ const SignUpForm = <T extends FieldValues>({ onSubmit, handleOpenAgreement, isLo
             }}
             className={styles["read-rules"]}
           >
-            Читать правила
+            {t("read_rules")}
           </button>
         </label>
         {errors.agreement && <p className={styles["error"]}>{`${errors.agreement.message}`}</p>}
       </div>
-      <WideButton text={"Регистрация"} type={"submit"} isDisabled={isLoading} />
+      <WideButton text={t("register")} type={"submit"} isDisabled={isLoading} />
     </form>
   );
 };

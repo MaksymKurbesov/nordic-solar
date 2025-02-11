@@ -6,6 +6,7 @@ import Statistic from "@/pages/Cabinet/Referrals/Statistic/Statistic.tsx";
 import axios from "axios";
 import { BACKEND_URL } from "@/utils/const.tsx";
 import { isObjectEmpty } from "@/utils/helpers.tsx";
+import { useTranslation } from "react-i18next";
 
 export interface IReferrals {
   1: IReferral[];
@@ -29,6 +30,7 @@ export interface IReferral {
 }
 
 const Referrals = () => {
+  const { t } = useTranslation("referrals");
   const { user } = useUser();
   const [referrals, setReferrals] = useState<IReferrals | {}>({});
 
@@ -52,17 +54,17 @@ const Referrals = () => {
 
   return (
     <>
-      <h1 className={styles["title"]}>Рефералы</h1>
+      <h1 className={styles["title"]}>{t("referrals")}</h1>
       <Statistic referrals={referrals} />
       <div className={styles["referral-levels"]}>
         <div className={styles["table-header"]}>
-          <span>Уровень</span>
-          <span>Рефералов</span>
-          <span>Активных</span>
-          <span>Общий доход</span>
+          <span>{t("level")}</span>
+          <span>{t("referrals_count")}</span>
+          <span>{t("active")}</span>
+          <span>{t("total_income")}</span>
         </div>
         {isObjectEmpty(referrals) ? (
-          <p>Загрузка...</p>
+          <p>{t("loading")}</p>
         ) : (
           Object.entries(referrals).map((item) => {
             const level = item[0] as keyof IReferral;

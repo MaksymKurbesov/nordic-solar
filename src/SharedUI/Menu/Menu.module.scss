@@ -52,7 +52,13 @@
   cursor: pointer;
 }
 
-@media screen and (max-width: 1050px) {
+.sign-in-buttons {
+  display: flex;
+  align-items: center;
+}
+
+
+@media screen and (max-width: 1200px) {
   .logotype {
     height: 28px;
   }
@@ -72,5 +78,15 @@
   .contactUsButton {
     margin-left: 40px;
     display: none;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .sign-in-buttons {
+    font-size: 14px;
+  }
+
+  .signInButton {
+    margin-left: 50px;
   }
 }

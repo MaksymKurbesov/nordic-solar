@@ -11,6 +11,7 @@ import "swiper/css";
 import TransactionService from "@/services/TransactionService.ts";
 import { UserProvider } from "./UserContext";
 import { UserDataProvider } from "@/context/AuthContext.tsx";
+import "./i18n";
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_API_KEY,

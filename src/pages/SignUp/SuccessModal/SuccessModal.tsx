@@ -1,39 +1,40 @@
-import styles from './SuccessModal.module.scss'
-import Image from '@assets/images/registration.webp'
-import CheckIcon from '@assets/icons/check.svg?react'
-import { NavLink } from 'react-router-dom'
+import styles from "./SuccessModal.module.scss";
+import Image from "@assets/images/registration.webp";
+import CheckIcon from "@assets/icons/check.svg?react";
+import { NavLink } from "react-router-dom";
+import { I18nextProvider, Trans, useTranslation } from "react-i18next";
 
 const SuccessModal = () => {
+  const { t, i18n } = useTranslation("login");
+
   return (
-    <div className={styles['success-modal']}>
-      <div className={styles['modal-content']}>
-        <img src={Image} alt={''} width={'100%'} height={200} />
-        <div className={styles['text']}>
-          <h2>
-            <span className={styles['check-icon']}>
-              <CheckIcon />
-            </span>
-            Успешная регистрация!
-          </h2>
-          <p>
-            Ваш аккаунт на инвестиционной платформе Nordic Solar <br />
-            <span className={styles['green']}>успешно создан</span>.
-          </p>
-          <p>
-            Теперь у вас есть доступ к возможностям инвестирования в проекты,
-            способствующие развитию устойчивых и экологически чистых технологий.
-          </p>
-          <span>
-            Добро пожаловать в нашу платформу. Ваша поддержка — это вклад в
-            будущее возобновляемых источников энергии.
-          </span>
-          <NavLink to={'/sign-in'} className={styles['cabinet-button']}>
-            Войти в личный кабинет
-          </NavLink>
+    <I18nextProvider i18n={i18n} defaultNS={"login"}>
+      <div className={styles["success-modal"]}>
+        <div className={styles["modal-content"]}>
+          <img src={Image} alt={""} width={"100%"} height={200} />
+          <div className={styles["text"]}>
+            <h2>
+              <span className={styles["check-icon"]}>
+                <CheckIcon />
+              </span>
+              {t("success_register")}
+            </h2>
+            <p>
+              <Trans
+                i18nKey={"modal_title"}
+                components={{ 0: <br />, 1: <span className={styles["green"]} /> }}
+              />
+            </p>
+            <p>{t("modal_text1")}</p>
+            <span>{t("modal_text2")}</span>
+            <NavLink to={"/sign-in"} className={styles["cabinet-button"]}>
+              {t("login")}
+            </NavLink>
+          </div>
         </div>
       </div>
-    </div>
-  )
-}
+    </I18nextProvider>
+  );
+};
 
-export default SuccessModal
+export default SuccessModal;

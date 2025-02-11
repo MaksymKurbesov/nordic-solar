@@ -1,0 +1,18 @@
+{
+  "region": "Region",
+  "accruals": "Accruals",
+  "Ежедневно": "Daily",
+  "В конце срока": "At the end of the term",
+  "in_day": "Per day",
+  "days": "Days",
+  "min_deposit": "Min. deposit",
+  "max_deposit": "Max. deposit",
+  "individual": "Individually",
+  "Европа": "Europe",
+  "Северная Америка": "North America",
+  "Южная Америка": "South America",
+  "Азия": "Asia",
+  "Ближний Восток": "Middle East",
+  "Африка": "Africa",
+  "Австралия": "Australia"
+}

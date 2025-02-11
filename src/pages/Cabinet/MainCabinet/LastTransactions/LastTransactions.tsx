@@ -1,7 +1,8 @@
 import styles from "./LastTransactions.module.scss";
-import { TRANSACTION_COLUMNS } from "@/utils/const.tsx";
+import { getTransactionColumns } from "@/utils/const.tsx";
 import { useState } from "react";
 import { ITransaction, ITransformedTransaction } from "@/interfaces/IUser.ts";
+import { useTranslation } from "react-i18next";
 
 const STYLES_MAP: Record<string, string> = {
   Выполнено: "success",
@@ -10,6 +11,7 @@ const STYLES_MAP: Record<string, string> = {
 };
 
 const LastTransactions = ({ transactions }: { transactions: ITransaction[] | ITransformedTransaction[] }) => {
+  const { t } = useTranslation("cabinet");
   const [collapsedTransactions, setCollapsedTransactions] = useState<number[]>([]);
 
   const toggleItem = (index: number): void => {
@@ -28,26 +30,28 @@ const LastTransactions = ({ transactions }: { transactions: ITransaction[] | ITr
 
   return (
     <div className={styles["last-transactions"]}>
-      <h3>Последние транзакции</h3>
+      <h3>{t("last_transactions")}</h3>
       {transactions.length === 0 ? (
-        "У вас нет транзакций"
+        t("no_transactions")
       ) : (
         <ul className={styles["last-transactions-list"]}>
           {transactions.slice(0, 4).map((transaction, index) => {
             return (
               <li
                 key={index}
-                className={`${transaction.status} ${collapsedTransactions.includes(index) ? styles["opened"] : ""}`}
+                className={`${transaction.color} ${collapsedTransactions.includes(index) ? styles["opened"] : ""}`}
                 onClick={() => toggleItem(index)}
               >
                 <div className={styles["transaction-wrapper"]}>
-                  {TRANSACTION_COLUMNS.map((column, index) => {
+                  {getTransactionColumns(t).map((column, index) => {
                     const columnKey = column.key as keyof ITransaction;
 
                     return (
                       <p key={index} className={`${styles["cell"]} ${styles[column.key]}`}>
                         <span>{column.title}</span>
-                        <span className={`${styles[STYLES_MAP[transaction[columnKey]]]}`}>{`${transaction[columnKey]}`}</span>
+                        <span className={`${styles[STYLES_MAP[transaction[columnKey]]]}`}>
+                          {`${columnKey === "type" || columnKey === "status" ? t(transaction[columnKey]) : transaction[columnKey]}`}
+                        </span>
                       </p>
                     );
                   })}

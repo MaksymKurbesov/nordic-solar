@@ -1,170 +1,94 @@
-import styles from './FAQ.module.scss'
-import WideButton from '@SharedUI/WideButton/WideButton.tsx'
-import ContactUs from '@SharedUI/ContactUs/ContactUs.tsx'
-import { useEffect, useRef, useState } from 'react'
-import useWindowSize from '@/hooks/useWindowSize'
-import { ScrollRestoration } from 'react-router-dom'
+import styles from "./FAQ.module.scss";
+import WideButton from "@SharedUI/WideButton/WideButton.tsx";
+import ContactUs from "@SharedUI/ContactUs/ContactUs.tsx";
+import { useEffect, useRef, useState } from "react";
+import useWindowSize from "@/hooks/useWindowSize";
+import { ScrollRestoration } from "react-router-dom";
+import { I18nextProvider, Trans, useTranslation } from "react-i18next";
 
-const QUESTIONS = [
-  {
-    question: 'Что такое инвестиции в зеленую энергетику?',
-    answer:
-      'Инвестиции в зеленую энергетику — это вложение средств в проекты, которые используют возобновляемые источники энергии, такие как солнце, ветер, вода и биотопливо. Это не только экологически ответственное решение, но и возможность получить стабильную доходность.',
-  },
-  {
-    question: 'Почему стоит инвестировать в зеленую энергетику?',
-    answer:
-      '• Растущий спрос на экологически чистую энергию. • Правительственные субсидии и налоговые льготы. • Стабильность и долгосрочный потенциал прибыли. • Вклад в снижение углеродного следа.',
-  },
-  {
-    question: 'Какие виды проектов доступны для инвестиций?',
-    answer:
-      'Мы предлагаем инвестиции в: • Солнечные фермы • Майнинговые фермы • Водородные технологии • Ветровые турбины • Гидроэлектростанции',
-  },
-  {
-    question: 'Какую доходность я могу ожидать?',
-    answer:
-      'Доходность зависит от выбранного проекта и срока вложений. В среднем, наши проекты предлагают доходность от 25% до 55% годовых.',
-  },
-  {
-    question: 'Какие риски связаны с инвестициями?',
-    answer:
-      'Хотя зеленая энергетика считается относительно безопасной отраслью, существуют риски, связанные с изменениями государственной политики, погодными условиями и колебаниями рыночного спроса на энергию. Мы подробно анализируем проекты, чтобы минимизировать риски для инвесторов.',
-  },
-  {
-    question: 'Как вы защищаете инвестиции?',
-    answer:
-      'Мы работаем только с проверенными партнерами, используем страхование проектов и проводим тщательную финансовую и экологическую экспертизу перед запуском любого проекта.',
-  },
-  {
-    question: 'Как выбрать проект для инвестиций?',
-    answer:
-      'На нашем сайте доступен каталог проектов с подробным описанием, прогнозами доходности и рисков. Вы также можете воспользоваться консультацией наших экспертов для выбора подходящего проекта.',
-  },
-  {
-    question: 'Какие минимальные и максимальные суммы инвестиций?',
-    answer:
-      'Минимальная сумма инвестиций составляет 50$. Верхняя граница зависит от конкретного проекта и согласовывается индивидуально.',
-  },
-  {
-    question: 'Как быстро я могу начать зарабатывать?',
-    answer:
-      'В большинстве проектов первые выплаты начинаются сразу же на следующий день после начала инвестирования.',
-  },
-  {
-    question: 'Как мои инвестиции помогают окружающей среде?',
-    answer:
-      'Ваши средства используются для разработки и запуска проектов, которые снижают выбросы углекислого газа, минимизируют использование ископаемого топлива и способствуют созданию устойчивой энергетической инфраструктуры.',
-  },
-  {
-    question: 'Могу ли я следить за экологическим эффектом своих инвестиций?',
-    answer:
-      'Да! Мы предоставляем регулярные отчеты, где указаны результаты проектов, включая количество сэкономленных выбросов CO₂.',
-  },
-  {
-    question: 'Нужно ли мне платить налоги с дохода?',
-    answer:
-      'Да, доход от инвестиций облагается налогом. Мы предоставляем всю необходимую документацию для отчетности.',
-  },
-  {
-    question: 'Как я могу вывести свои средства?',
-    answer:
-      'Вы можете подать заявку на вывод средств через личный кабинет. Средства поступят на ваш счет в течение 3–5 рабочих дней.',
-  },
-  {
-    question: 'Как вы выбираете партнеров для реализации проектов?',
-    answer:
-      'Мы сотрудничаем только с компаниями, которые прошли строгий аудит и доказали свою репутацию в области зеленой энергетики.',
-  },
-  {
-    question: 'Как я могу быть уверен в вашей надежности?',
-    answer:
-      'Мы зарегистрированы как официальная инвестиционная платформа, наша деятельность регулируется законодательством, а все проекты проходят независимую финансовую и экологическую экспертизу.',
-  },
-  {
-    question: 'Где я могу узнать больше о зеленой энергетике?',
-    answer:
-      'Мы ведем блог, где публикуем статьи о трендах в отрасли, интервью с экспертами и анализ новых технологий.',
-  },
-  {
-    question:
-      'Что делать, если у меня возникли проблемы с доступом к кабинету?',
-    answer:
-      'Обратитесь в нашу службу поддержки. Мы оперативно восстановим доступ и обеспечим безопасность ваших данных.',
-  },
-]
+const getFAQ = (t) => {
+  const totalQuestions = 17; // Общее количество вопросов
+  const faq = [];
+
+  for (let i = 1; i <= totalQuestions; i++) {
+    faq.push({
+      question: t(`question${i}`),
+      answer: t(`question${i}_answer`),
+    });
+  }
+
+  return faq;
+};
 
 const FAQ = () => {
-  const [openedQuestion, setOpenedQuestion] = useState<number | null>(null)
-  const windowSize = useWindowSize()
-  const isMobile = windowSize.width < 1200
+  const [openedQuestion, setOpenedQuestion] = useState<number | null>(null);
+  const windowSize = useWindowSize();
+  const isMobile = windowSize.width < 1200;
+  const { t, i18n } = useTranslation("faq");
 
-  const contentRefs = useRef<HTMLElement[]>([])
-  const questionHeight = isMobile ? 70 : 87
+  const contentRefs = useRef<HTMLElement[]>([]);
+  const questionHeight = isMobile ? 70 : 87;
 
   useEffect(() => {
     // Обновляем maxHeight после рендера, когда вопрос открыт
     contentRefs.current.forEach((ref, index) => {
       if (ref && index === openedQuestion) {
-        ref.style.height = ref.scrollHeight + 'px'
+        ref.style.height = ref.scrollHeight + "px";
       }
-    })
-  }, [openedQuestion])
+    });
+  }, [openedQuestion]);
 
   return (
-    <div className={`${styles['faq']} container`}>
-      <h2 className={'page-title'}>Популярные вопросы</h2>
-      <WideButton text={'Нужна консультация?'} />
-      <p className={styles['subtitle']}>
-        Остались вопросы или вы не нашли решение? <br />
-        <span>Обратитесь через форму и мы вас проконсультируем</span>
-      </p>
-      <div className={styles['questions']}>
-        <h4>Наиболее популярные вопросы</h4>
-        <ul className={styles['questions-list']}>
-          {QUESTIONS.map((question, index) => {
-            const isOpenedQuestion = openedQuestion === index
+    <I18nextProvider i18n={i18n} defaultNS={"faq"}>
+      <div className={`${styles["faq"]} container`}>
+        <h2 className={"page-title"}>{t("faq")}</h2>
+        <WideButton text={t("consultation")} />
+        <p className={styles["subtitle"]}>
+          <Trans i18nKey={"have_question"} components={{ span: <span />, br: <br /> }} />
+        </p>
+        <div className={styles["questions"]}>
+          <h4>{t("most_popular")}</h4>
+          <ul className={styles["questions-list"]}>
+            {getFAQ(t).map((question, index) => {
+              const isOpenedQuestion = openedQuestion === index;
 
-            return (
-              <li
-                key={question.question}
-                ref={(el) => (contentRefs.current[index] = el as HTMLLIElement)}
-                className={`${styles['question']}`}
-                style={{
-                  height: isOpenedQuestion
-                    ? 'none'
-                    : isMobile
-                      ? questionHeight
-                      : 87,
-                }}
-                onClick={() => {
-                  if (isOpenedQuestion) {
-                    setOpenedQuestion(null)
-                  } else {
-                    setOpenedQuestion(index)
-                  }
-                }}
-              >
-                <p className={styles['question-title']}>
-                  <span>{index + 1}</span>
-                  {question.question}
-                </p>
-                <p className={styles['answer']}>{question.answer}</p>
-                <button
-                  className={`${styles['toggle-button']} ${isOpenedQuestion ? styles['opened'] : ''}`}
+              return (
+                <li
+                  key={question.question}
+                  ref={(el) => (contentRefs.current[index] = el as HTMLLIElement)}
+                  className={`${styles["question"]}`}
+                  style={{
+                    height: isOpenedQuestion ? "none" : isMobile ? questionHeight : 87,
+                  }}
+                  onClick={() => {
+                    if (isOpenedQuestion) {
+                      setOpenedQuestion(null);
+                    } else {
+                      setOpenedQuestion(index);
+                    }
+                  }}
                 >
-                  <span />
-                  <span />
-                </button>
-              </li>
-            )
-          })}
-        </ul>
+                  <p className={styles["question-title"]}>
+                    <span>{index + 1}</span>
+                    {question.question}
+                  </p>
+                  <p className={styles["answer"]}>{question.answer}</p>
+                  <button
+                    className={`${styles["toggle-button"]} ${isOpenedQuestion ? styles["opened"] : ""}`}
+                  >
+                    <span />
+                    <span />
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+        <ContactUs />
+        <ScrollRestoration />
       </div>
-      <ContactUs />
-      <ScrollRestoration />
-    </div>
-  )
-}
+    </I18nextProvider>
+  );
+};
 
-export default FAQ
+export default FAQ;

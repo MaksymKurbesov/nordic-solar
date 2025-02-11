@@ -3,6 +3,7 @@ import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import { FC, useRef, useState } from "react";
 import { IFeature } from "@/pages/IndexPage/IndexPage.tsx";
 import { AnimatePresence, motion, useInView } from "motion/react";
+import { useTranslation } from "react-i18next";
 
 interface IFeaturesProps {
   features: IFeature[];
@@ -11,7 +12,7 @@ interface IFeaturesProps {
 
 const featuresVariants = {
   hidden: { opacity: 0, x: -20 },
-  visible: (delay) => ({
+  visible: (delay: number) => ({
     opacity: 1,
     x: 0,
     transition: { delay: delay + 0.5, duration: 0.5 },
@@ -22,6 +23,7 @@ const Features: FC<IFeaturesProps> = ({ features, images }) => {
   const ref = useRef(null);
   const isInView = useInView(ref);
   const [tabIndex, setTabIndex] = useState(0);
+  const { t } = useTranslation("indexPage");
 
   return (
     <div className={`${styles.features}`} ref={ref}>
@@ -41,14 +43,28 @@ const Features: FC<IFeaturesProps> = ({ features, images }) => {
           />
         </AnimatePresence>
         <div className={styles["features-wrapper"]}>
-          <motion.h3 variants={featuresVariants} custom={0} initial="hidden" animate={isInView ? "visible" : "hidden"}>
-            Основные функции и услуги
+          <motion.h3
+            variants={featuresVariants}
+            custom={0}
+            initial="hidden"
+            animate={isInView ? "visible" : "hidden"}
+          >
+            {t("features_title")}
           </motion.h3>
           <TabList className={styles["features-list"]}>
             {features.map((feature, index) => {
               return (
-                <Tab key={feature.title} selectedClassName={styles["selected-tab"]} className={`${styles["tab"]}`}>
-                  <motion.p variants={featuresVariants} custom={index * 0.2} initial="hidden" animate={isInView ? "visible" : "hidden"}>
+                <Tab
+                  key={feature.title}
+                  selectedClassName={styles["selected-tab"]}
+                  className={`${styles["tab"]}`}
+                >
+                  <motion.p
+                    variants={featuresVariants}
+                    custom={index * 0.2}
+                    initial="hidden"
+                    animate={isInView ? "visible" : "hidden"}
+                  >
                     {feature.title}
                   </motion.p>
                 </Tab>

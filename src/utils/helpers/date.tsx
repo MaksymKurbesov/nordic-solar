@@ -1,8 +1,9 @@
 import { Timestamp } from "firebase/firestore";
 import { IRegistrationDate } from "@/pages/Cabinet/Referrals/Referrals.tsx";
 import { ReactNode } from "react";
+import { IDeposit } from "@/interfaces/IUser.ts";
 
-export const sortByDate = (data) => {
+export const sortByDate = (data: IDeposit[]) => {
   if (!data) return;
 
   return data.sort((a, b) => {
@@ -33,7 +34,10 @@ export const addDaysToTimestamp = (days: number) => {
   return Timestamp.fromDate(now);
 };
 
-export const parseTimestamp = (timestamp: Timestamp | IRegistrationDate, short = false): ReactNode | string => {
+export const parseTimestamp = (
+  timestamp: Timestamp | IRegistrationDate,
+  short = false,
+): ReactNode | string => {
   let date;
 
   if (timestamp instanceof Timestamp) {

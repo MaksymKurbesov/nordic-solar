@@ -1,0 +1,31 @@
+{
+  "login": "Log in",
+  "new_user": "New user?",
+  "create_user": "Create an account",
+  "password": "Password",
+
+  "register": "Registration",
+  "already_registered": "Already registered?",
+  "nickname": "Nickname",
+  "confirm_pass": "Repeat the password",
+  "referral": "Referral nickname",
+  "agree": "I agree to the site rules",
+  "read_rules": "Read the rules",
+
+  "nickname_error": "Nickname required",
+  "password_error": "Password required",
+  "confirm_pass_error": "Password confirmation is required",
+  "email_error": "E-mail is required",
+  "rules_error": "You must agree to the site rules",
+  "min_5": "Minimum of 5 characters",
+  "min_6": "Minimum of 6 characters",
+  "password_dont_match": "The passwords don't match",
+  "wrong_email": "Invalid E-mail format.",
+  "Пользователь не найден.": "User not found.",
+  "Неправильный пароль. Пожалуйста, попробуйте снова.": "Incorrect password. Please try again",
+
+  "success_register": "Successful registration!",
+  "modal_title": "Your account on the Nordic Solar investment platform <0 /> <1>successfully established</1>.",
+  "modal_text1": "You now have access to opportunities to invest in projects that promote sustainable and environmentally friendly technologies.",
+  "modal_text2": "Welcome to our platform. Your support is a contribution to the future of renewable energy. of renewable energy."
+}

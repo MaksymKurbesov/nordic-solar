@@ -13,8 +13,10 @@ import { ITransaction, IUser } from "@/interfaces/IUser.ts";
 import { UserContext } from "@/UserContext.tsx";
 import { transformDeposit, transformTransaction } from "@/utils/helpers/transformData.tsx";
 import SuspenseLoading from "@SharedUI/SuspenseLoading/SuspenseLoading.tsx";
+import { useTranslation } from "react-i18next";
 
 const CabinetLayout = () => {
+  const { t } = useTranslation("cabinet");
   const { state, dispatch } = useContext(UserContext);
   const { user: firebaseUser, isLoading } = useFirebaseUser();
   const [userIsFetched, setUserIsFetched] = useState(false);
@@ -30,7 +32,7 @@ const CabinetLayout = () => {
   useEffect(() => {
     if (!firebaseUser) return;
 
-    const userQuery = doc(db, "users", firebaseUser.displayName);
+    const userQuery = doc(db, "users", firebaseUser.displayName || "");
 
     const unsubscribeUser = onSnapshot(userQuery, async (doc) => {
       if (doc.exists()) {
@@ -56,7 +58,7 @@ const CabinetLayout = () => {
           })) as ITransaction[];
 
           const transformedTransactions = transactions.map((transaction) => {
-            return transformTransaction(transaction);
+            return transformTransaction(transaction, t);
           });
 
           dispatch({ type: "SET_TRANSACTIONS", payload: transformedTransactions });

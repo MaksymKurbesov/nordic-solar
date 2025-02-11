@@ -1,0 +1,25 @@
+{
+  "products": "Продукты",
+  "investments": "Инвестиции",
+  "partner-program": "Партнёрская программа",
+  "about-us": "О нас",
+  "faq": "FAQ",
+  "contacts": "Контакты",
+  "login": "Войти",
+  "contact-us": "Связаться с нами",
+  "navigation": "Навигация",
+  "documents": "Документы компании",
+  "policy": "Политика конфиденциальности",
+  "terms": "Условия эксплуатации",
+  "socials": "Мы в соцсетях",
+  "office": "Офис",
+
+  "cabinet": "Кабинет",
+  "open_plan": "Открыть план",
+  "topup_balance": "Пополнить счёт",
+  "withdrawn": "Вывод средств",
+  "transactions": "Транзакции",
+  "referrals": "Рефералы",
+  "settings": "Настройки",
+  "logout": "Выйти"
+}

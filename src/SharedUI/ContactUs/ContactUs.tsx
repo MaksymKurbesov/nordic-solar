@@ -3,6 +3,7 @@ import WideButton from "@SharedUI/WideButton/WideButton.tsx";
 import { NavLink } from "react-router-dom";
 import { useRef } from "react";
 import { motion, useInView } from "motion/react";
+import { Trans, useTranslation } from "react-i18next";
 
 const contactVariants = {
   hidden: { opacity: 0, y: 10 },
@@ -13,11 +14,12 @@ const contactVariants = {
   }),
 };
 
-const MotionNavLink = motion(NavLink);
+const MotionNavLink = motion.create(NavLink);
 
 const ContactUs = () => {
   const ref = useRef(null);
   const isInView = useInView(ref);
+  const { t } = useTranslation("indexPage");
 
   return (
     <motion.div
@@ -34,7 +36,12 @@ const ContactUs = () => {
         animate={isInView ? "visible" : "hidden"}
         custom={0.7}
       >
-        Мы вас <br /> заинтересовали?
+        <Trans
+          i18nKey="indexPage:banner_title"
+          components={{
+            br: <br />,
+          }}
+        />
       </motion.h2>
       <MotionNavLink
         variants={contactVariants}
@@ -44,7 +51,7 @@ const ContactUs = () => {
         target="_blank"
         to={"/contacts"}
       >
-        <WideButton text={"Связаться с нами"} />
+        <WideButton text={t("contact_us")} />
       </MotionNavLink>
       <motion.p
         variants={contactVariants}
@@ -53,8 +60,9 @@ const ContactUs = () => {
         custom={1.3}
         className={styles.subtitle}
       >
-        Эксперты в солнечной энергетике, и сфере альтернативного питания <br />
-        <span>Мы верим в мир, в котором чистая, возобновляемая энергия питает наши дома и предприятия</span>
+        <Trans i18nKey={"indexPage:experts"} components={{ br: <br />, span: <span /> }} />
+        {/*Эксперты в солнечной энергетике, и сфере альтернативного питания <br />*/}
+        {/*<span>Мы верим в мир, в котором чистая, возобновляемая энергия питает наши дома и предприятия</span>*/}
       </motion.p>
     </motion.div>
   );

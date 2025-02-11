@@ -4,6 +4,8 @@ import { NavLink } from "react-router-dom";
 import useIsHomePage from "@/hooks/useIsHomePage.ts";
 import { motion, useInView } from "motion/react";
 import { useRef } from "react";
+import { useTranslation } from "react-i18next";
+import CustomSelect from "@SharedUI/CustomSelect/CustomSelect.tsx";
 
 const logoVariants = {
   hidden: { opacity: 0 },
@@ -28,20 +30,21 @@ const buttonVariants = {
   }),
 };
 
-const MotionNavLink = motion(NavLink);
+const MotionNavLink = motion.create(NavLink);
 
 const Menu = () => {
   const isHomePage = useIsHomePage();
   const ref = useRef(null);
   const isInView = useInView(ref);
+  const { t } = useTranslation("menu");
 
   const menuItems = [
-    { path: "/products", label: "Продукты" },
-    { path: "/investments", label: "Инвестиции" },
-    { path: "/partner-program", label: "Партнёрская программа" },
-    { path: "/about-us", label: "О нас" },
-    { path: "/faq", label: "FAQ" },
-    { path: "/contacts", label: "Контакты" },
+    { path: "/products", label: t("products") },
+    { path: "/investments", label: t("investments") },
+    { path: "/partner-program", label: t("partner-program") },
+    { path: "/about-us", label: t("about-us") },
+    { path: "/faq", label: t("FAQ") },
+    { path: "/contacts", label: t("Contacts") },
   ];
 
   return (
@@ -58,10 +61,18 @@ const Menu = () => {
       <nav className={styles.navigation} ref={ref}>
         <ul className={styles["navigation-list"]}>
           {menuItems.map((item, index) => (
-            <motion.li key={item.path} custom={index} variants={menuVariants} initial="hidden" animate={isInView ? "visible" : "hidden"}>
+            <motion.li
+              key={item.path}
+              custom={index}
+              variants={menuVariants}
+              initial="hidden"
+              animate={isInView ? "visible" : "hidden"}
+            >
               <NavLink
                 to={item.path}
-                className={({ isActive, isPending }) => (isPending ? styles["pending"] : isActive ? styles["active"] : "")}
+                className={({ isActive, isPending }) =>
+                  isPending ? styles["pending"] : isActive ? styles["active"] : ""
+                }
               >
                 {item.label}
               </NavLink>
@@ -73,7 +84,8 @@ const Menu = () => {
         initial="hidden"
         animate={isInView ? "visible" : "hidden"}
         variants={buttonVariants}
-        custom={menuItems.length * 0.1} // Задержка после списка
+        custom={menuItems.length * 0.1}
+        className={styles["sign-in-buttons"]}
       >
         <MotionNavLink
           to={"/sign-in"}
@@ -81,7 +93,7 @@ const Menu = () => {
           variants={buttonVariants}
           custom={menuItems.length * 0.1 + 0.2} // Чуть позже после меню
         >
-          Войти
+          {t("login")}
         </MotionNavLink>
 
         <MotionNavLink
@@ -89,8 +101,9 @@ const Menu = () => {
           variants={buttonVariants}
           custom={menuItems.length * 0.1 + 0.4} // Еще чуть позже
         >
-          <motion.button className={styles.contactUsButton}>Связаться с нами</motion.button>
+          <motion.button className={styles.contactUsButton}> {t("contact-us")}</motion.button>
         </MotionNavLink>
+        <CustomSelect />
       </motion.div>
     </div>
   );

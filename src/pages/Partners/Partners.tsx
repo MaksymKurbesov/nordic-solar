@@ -1,114 +1,100 @@
-import styles from './Partners.module.scss'
-import HeroImage from '@assets/images/partners-program.webp'
-import { ScrollRestoration } from 'react-router-dom'
-import SuspenseImage from '@/utils/SuspenseImage.tsx'
+import styles from "./Partners.module.scss";
+import HeroImage from "@assets/images/partners-program.webp";
+import { ScrollRestoration } from "react-router-dom";
+import SuspenseImage from "@/utils/SuspenseImage.tsx";
+import { I18nextProvider, Trans, useTranslation } from "react-i18next";
 
 const Partners = () => {
-  return (
-    <div className={`${styles['partners']} container`}>
-      <h2 className={'page-title'}>Партнёрская программа</h2>
-      <p className={styles['subtitle']}>
-        Присоединяйтесь к партнерской программе Nordic Solar <br /> и получайте
-        до 8% с каждого пополнения, сделанного привлеченным Вами человеком.
-      </p>
-      <SuspenseImage src={HeroImage} alt={''} width={'100%'} />
-      <p className={styles['our-referral-text']}>
-        <span>Наша реферальная программа</span> создана, чтобы вы могли получать
-        дополнительный доход, <span>просто приглашая своих друзей.</span> Чем
-        больше людей вы привлечёте, тем выше ваши{' '}
-        <span className={styles['green']}>заработки!</span>
-      </p>
-      <div className={styles['levels']}>
-        <h3>Уровни реферальной программы</h3>
-        <ul>
-          <li className={'TON'}>
-            <span>1 уровень</span>
-            <p>Друзья, которых пригласили вы</p>
-            <p>
-              <span>8%</span> вознаграждение
-            </p>
-          </li>
-          <li className={'BTC'}>
-            <span>2 уровень</span>
-            <p> Люди, приглашённые вашими друзьями</p>
-            <p>
-              <span>6%</span> вознаграждение
-            </p>
-          </li>
-          <li className={'USDT'}>
-            <span>3 уровень</span>
-            <p>Рефералы третьего уровня</p>
-            <p>
-              <span>4%</span> вознаграждение
-            </p>
-          </li>
-          <li className={'SOL'}>
-            <span>4 уровень</span>
-            <p>Рефералы четвёртого уровня</p>
-            <p>
-              <span>2%</span> вознаграждение
-            </p>
-          </li>
-        </ul>
-      </div>
-      <div className={styles['how-its-work']}>
-        <h3>Как это работает?</h3>
-        <ul>
-          <li>
-            <span>1</span>
-            <h4>Регистрация на платформе</h4>
-            <p>
-              Заполните необходимые поля и создайте аккаунт на платформе Nordic
-              Solar, чтобы получить доступ к реферальной программе.
-            </p>
-          </li>
-          <li>
-            <span>2</span>
-            <h4>Получение реферальной ссылки</h4>
-            <p>
-              Перейдите в личный кабинет, найдите раздел 'Реферальная программа'
-              и получите свою уникальную реферальную ссылку.
-            </p>
-          </li>
-          <li>
-            <span>3</span>
-            <h4>Распространение ссылки</h4>
-            <p>
-              Разместите вашу реферальную ссылку в социальных сетях, блогах,
-              отправьте друзьям по электронной почте или даже расскажите о ней в
-              личной беседе.
-            </p>
-          </li>
-          <li>
-            <span>4</span>
-            <h4>Поддержка и консультация</h4>
-            <p>
-              Помогайте вашим рефералам понимать особенности платформы и
-              ответьте на возникающие вопросы, чтобы облегчить их начало работы.
-            </p>
-          </li>
-          <li>
-            <span>5</span>
-            <h4>Анализ и мониторинг результатов</h4>
-            <p>
-              Посещайте свой личный кабинет регулярно, чтобы отслеживать
-              активность приглашенных людей, количество новых регистраций и
-              полученные вами комиссии.
-            </p>
-          </li>
-        </ul>
-      </div>
-      <p className={styles['footer-text']}>
-        Наша партнёрская программа — это <span>простой</span> и{' '}
-        <span>эффективный</span> способ получать пассивный доход.{' '}
-        <span>Приглашай</span> друзей, помогай им стать частью нашего
-        сообщества, и <span>зарабатывай</span> на каждом их шаге. Чем{' '}
-        <span>активнее</span> твоя сеть, тем больше твой <span>доход</span>.
-        Присоединяйся прямо сейчас и начни зарабатывать уже сегодня!
-      </p>
-      <ScrollRestoration />
-    </div>
-  )
-}
+  const { t, i18n } = useTranslation("partners");
 
-export default Partners
+  return (
+    <I18nextProvider i18n={i18n} defaultNS={"partners"}>
+      <div className={`${styles["partners"]} container`}>
+        <h2 className={"page-title"}>{t("partner_program")}</h2>
+        <p className={styles["subtitle"]}>
+          <Trans i18nKey={"subtitle"} component={{ br: <br /> }} />
+        </p>
+        <SuspenseImage src={HeroImage} alt={""} width={"100%"} />
+        <p className={styles["our-referral-text"]}>
+          <Trans
+            i18nKey={"our_referral"}
+            components={{
+              0: <span />,
+              1: <span />,
+              2: <span className={styles.green} />,
+            }}
+          />
+        </p>
+        <div className={styles["levels"]}>
+          <h3>{t("levels")}</h3>
+          <ul>
+            <li className={"TON"}>
+              <span>1 {t("level")}</span>
+              <p>{t("level1_descr")}</p>
+              <p>
+                <span>8%</span> {t("reward")}
+              </p>
+            </li>
+            <li className={"BTC"}>
+              <span>2 {t("level")}</span>
+              <p>{t("level2_descr")}</p>
+              <p>
+                <span>6%</span> {t("reward")}
+              </p>
+            </li>
+            <li className={"USDT"}>
+              <span>3 {t("level")}</span>
+              <p>{t("level3_descr")}</p>
+              <p>
+                <span>4%</span> {t("reward")}
+              </p>
+            </li>
+            <li className={"SOL"}>
+              <span>4 {t("level")}</span>
+              <p>{t("level4_descr")}</p>
+              <p>
+                <span>2%</span> {t("reward")}
+              </p>
+            </li>
+          </ul>
+        </div>
+        <div className={styles["how-its-work"]}>
+          <h3>{t("how_it_work")}</h3>
+          <ul>
+            <li>
+              <span>1</span>
+              <h4>{t("how1")}</h4>
+              <p>{t("how1_descr")}</p>
+            </li>
+            <li>
+              <span>2</span>
+              <h4>{t("how2")}</h4>
+              <p>{t("how2_descr")}</p>
+            </li>
+            <li>
+              <span>3</span>
+              <h4>{t("how3")}</h4>
+              <p>{t("how3_descr")}</p>
+            </li>
+            <li>
+              <span>4</span>
+              <h4>{t("how4")}</h4>
+              <p>{t("how4_descr")}</p>
+            </li>
+            <li>
+              <span>5</span>
+              <h4>{t("how5")}</h4>
+              <p>{t("how5_descr")}</p>
+            </li>
+          </ul>
+        </div>
+        <p className={styles["footer-text"]}>
+          <Trans i18nKey={"footer_text"} components={{ span: <span /> }} />
+        </p>
+        <ScrollRestoration />
+      </div>
+    </I18nextProvider>
+  );
+};
+
+export default Partners;

@@ -3,6 +3,7 @@ import { CircleButton } from "@SharedUI/CirlceButton/CircleButton.tsx";
 import { NavLink } from "react-router-dom";
 import { useRef } from "react";
 import { motion, useInView } from "motion/react";
+import { Trans, useTranslation } from "react-i18next";
 
 const bannerVariants = {
   hidden: { opacity: 0, y: 10 },
@@ -13,11 +14,12 @@ const bannerVariants = {
   }),
 };
 
-const MotionNavLink = motion(NavLink);
+const MotionNavLink = motion.create(NavLink);
 
 const OfferBanner = () => {
   const ref = useRef(null);
   const isInView = useInView(ref);
+  const { t } = useTranslation("indexPage");
 
   return (
     <motion.div
@@ -35,7 +37,14 @@ const OfferBanner = () => {
           animate={isInView ? "visible" : "hidden"}
           custom={1.2}
         >
-          Прямые инвестиции в проекты по <br /> <span>возобновляемым источникам энергии</span>
+          <Trans
+            i18nKey="direct_investment"
+            components={{
+              // Название ключа должно совпадать с тегом в переводе, например <green>
+              span: <span />,
+            }}
+          />
+          {/*Прямые инвестиции в проекты по <br /> <span>возобновляемым источникам энергии</span>*/}
         </motion.h2>
         <MotionNavLink
           target="_blank"
@@ -44,7 +53,7 @@ const OfferBanner = () => {
           animate={isInView ? "visible" : "hidden"}
           custom={1.5}
         >
-          <CircleButton text={"Смотреть предложения"} cn={"offer-button"} />
+          <CircleButton text={t("view_offer")} cn={"offer-button"} />
         </MotionNavLink>
       </div>
     </motion.div>

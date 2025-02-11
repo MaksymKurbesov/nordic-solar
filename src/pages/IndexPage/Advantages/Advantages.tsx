@@ -1,6 +1,32 @@
 import { motion, useInView } from "motion/react";
 import styles from "./Advantages.module.scss";
 import { useRef } from "react";
+import { useTranslation } from "react-i18next";
+
+const getAdvantages = (t) => {
+  return [
+    {
+      number: "01",
+      title: t("advantage_title1"),
+      description: t("advantage_descr1"),
+    },
+    {
+      number: "02",
+      title: t("advantage_title2"),
+      description: t("advantage_descr2"),
+    },
+    {
+      number: "03",
+      title: t("advantage_title3"),
+      description: t("advantage_descr3"),
+    },
+    {
+      number: "04",
+      title: t("advantage_title4"),
+      description: t("advantage_descr4"),
+    },
+  ];
+};
 
 const advantagesData = [
   {
@@ -41,6 +67,7 @@ const advantageVariants = {
 const Advantages = () => {
   const ref = useRef(null);
   const isInView = useInView(ref);
+  const { t } = useTranslation("indexPage");
 
   return (
     <motion.div
@@ -51,9 +78,9 @@ const Advantages = () => {
       ref={ref}
       className={styles.advantages}
     >
-      <motion.h3>Преимущества</motion.h3>
+      <motion.h3>{t("advantages")}</motion.h3>
       <motion.ul className={styles.advantagesList}>
-        {advantagesData.map(({ number, title, description }, index) => (
+        {getAdvantages(t).map(({ number, title, description }, index) => (
           <motion.li
             key={number}
             variants={advantageVariants}

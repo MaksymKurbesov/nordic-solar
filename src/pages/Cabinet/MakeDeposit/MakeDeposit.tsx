@@ -1,75 +1,77 @@
-import { useForm } from 'react-hook-form'
-import { ScrollRestoration, useNavigate } from 'react-router-dom'
-import { useEffect } from 'react'
-import { useUser } from '@/hooks/useUser.ts'
-import TransactionForm from '@SharedUI/TransactionForm/TransactionForm.tsx'
-import styles from './MakeDeposit.module.scss'
-import WideButton from '@SharedUI/WideButton/WideButton.tsx'
-import { sortByAvailable } from '@/utils/helpers'
-import toast from 'react-hot-toast'
+import { useForm } from "react-hook-form";
+import { ScrollRestoration, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { useUser } from "@/hooks/useUser.ts";
+import TransactionForm from "@SharedUI/TransactionForm/TransactionForm.tsx";
+import styles from "./MakeDeposit.module.scss";
+import WideButton from "@SharedUI/WideButton/WideButton.tsx";
+import { sortByAvailable } from "@/utils/helpers";
+import toast from "react-hot-toast";
+import { useTranslation } from "react-i18next";
 
 export interface IDepositFormData {
-  wallet: string
-  amount: number
+  wallet: string;
+  amount: number;
 }
 
 const MakeDeposit = () => {
-  const { user } = useUser()
+  const { t } = useTranslation("topup");
+  const { user } = useUser();
   const form = useForm<IDepositFormData>({
     defaultValues: {
-      wallet: '',
+      wallet: "",
       amount: 0,
     },
-    mode: 'onChange',
-  })
+    mode: "onChange",
+  });
 
-  const { watch, register } = form
-  const selectedWallet = watch().wallet
-  const navigate = useNavigate()
+  const { watch, register } = form;
+  const selectedWallet = watch().wallet;
+  const navigate = useNavigate();
 
   useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [])
+    window.scrollTo(0, 0);
+  }, []);
 
   const submitConfirm = () => {
-    const wallet = watch().wallet
-    const amount = watch().amount
-    const isNumeric = !isNaN(amount)
+    const wallet = watch().wallet;
+    const amount = watch().amount;
+    const isNumeric = !isNaN(amount);
 
     if (!wallet) {
-      toast.error('Выберите кошелёк')
-      return
+      toast.error(t("choose_wallet"));
+      return;
     }
 
     if (!isNumeric || amount < 1) {
-      toast.error('Некорректная сумма')
-      return
+      toast.error(t("incorrect_amount"));
+      return;
     }
 
-    navigate('/cabinet/make-deposit/confirm-transaction', {
+    navigate("/cabinet/make-deposit/confirm-transaction", {
       state: {
         wallet,
         amount,
-        type: 'deposit',
+        type: "deposit",
       },
-    })
-  }
+    });
+  };
 
-  if (!user) return
+  if (!user) return;
 
   return (
-    <div className={styles['make-deposit']}>
-      <h2>Пополнить счёт</h2>
+    <div className={styles["make-deposit"]}>
+      <h2>{t("topup")}</h2>
       <TransactionForm
         wallets={sortByAvailable(user.wallets)}
         selectedWallet={selectedWallet}
         register={register}
-        inputText={'Введите сумму пополнения'}
+        inputText={t("enter_topup_amount")}
       />
-      <WideButton text={'Пополнить баланс'} onClickHandler={submitConfirm} />
+      <WideButton text={t("topup")} onClickHandler={submitConfirm} />
       <ScrollRestoration />
     </div>
-  )
-}
+  );
+};
 
-export default MakeDeposit
+export default MakeDeposit;

@@ -4,6 +4,7 @@ import ArrowIcon from "@assets/icons/arrow.svg?react";
 import { NavLink } from "react-router-dom";
 import { FC, useRef } from "react";
 import { motion, useInView } from "motion/react";
+import { Trans, useTranslation } from "react-i18next";
 
 interface IHeroProps {
   handleScrollDown: () => void;
@@ -12,6 +13,7 @@ interface IHeroProps {
 const Hero: FC<IHeroProps> = ({ handleScrollDown }) => {
   const ref = useRef(null);
   const isInView = useInView(ref);
+  const { t } = useTranslation("indexPage");
 
   return (
     <motion.div ref={ref}>
@@ -22,9 +24,14 @@ const Hero: FC<IHeroProps> = ({ handleScrollDown }) => {
           initial={{ opacity: 0 }}
           animate={{ opacity: isInView ? 1 : 0 }}
         >
-          Инвестируем в <p className={styles["green"]}>зеленую</p> энергетику,
-          <br />
-          <span>создавая чистое и устойчивое будущее</span>
+          <Trans
+            i18nKey="investment"
+            components={{
+              green: <p className={styles.green} />,
+              br: <br />,
+              span: <span />,
+            }}
+          />
         </motion.h1>
       </div>
 
@@ -35,7 +42,7 @@ const Hero: FC<IHeroProps> = ({ handleScrollDown }) => {
           initial={{ opacity: 0 }}
           animate={{ opacity: isInView ? 1 : 0 }}
         >
-          <CircleButton text={"Наши решения"} cn={"hero-button"} />
+          <CircleButton text={t("main_button")} cn={"hero-button"} />
         </motion.div>
       </NavLink>
       <motion.p
@@ -44,10 +51,10 @@ const Hero: FC<IHeroProps> = ({ handleScrollDown }) => {
         initial={{ opacity: 0 }}
         animate={{ opacity: isInView ? 1 : 0 }}
       >
-        Эксперты в солнечной энергетике, <br /> и сфере альтернативного питания
+        {t("sub_text")}
       </motion.p>
       <a onClick={() => handleScrollDown()} className={styles.downButton}>
-        Вниз
+        {t("down")}
         <ArrowIcon />
       </a>
     </motion.div>

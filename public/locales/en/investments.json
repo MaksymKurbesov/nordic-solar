@@ -1,0 +1,34 @@
+{
+  "discuss": "Discuss plans",
+  "back": "Back",
+  "investments": "Investments",
+  "plan_error_message": "Choose a plan",
+  "more": "More",
+  "variants": "Options for affordable plans",
+  "subtitle": "We are ready to offer various investment plans to meet different needs",
+  "solar_descr": "Promising projects and investment solutions in the field of solar energy, aimed at utilizing renewable energy sources for a sustainable future.",
+  "wind_descr": "Development and implementation of comprehensive plans for creating efficient wind energy installations, ensuring reliable and eco-friendly power supply.",
+  "hydro_descr": "Programs for the development of hydroelectric power plants using advanced technologies, focused on increasing productivity and reducing environmental impact.",
+  "hydrogen_descr": "Investments and projects in the field of hydrogen energy, including technologies for production, storage, and extraction of hydrogen to transition to clean energy solutions.",
+  "mining_descr": "Projects and investments in mining farms aimed at developing, optimizing, and scaling equipment for efficient cryptocurrency mining and generating stable profits.",
+
+  "solar_future_subtitle": "<span>Customized</span> investment strategies for solar energy, <br /> based on your goals.",
+  "solar_future_maintext": "<span>Support projects,</span> transforming solar energy <br /> into sustainable income.",
+  "solar_future_subtext": "Invest in an eco-friendly future <br /> with personalized solutions.",
+
+  "wind_prosperity_subtitle": "<span>Strategies</span> aimed at developing <br /> sustainable wind energy projects.",
+  "wind_prosperity_maintext": "<span>Your participation</span> in wind energy projects is <br /> a step toward global environmental stability.",
+  "wind_prosperity_subtext": "Regular consultations and detailed analysis <br /> will help you manage investments with confidence.",
+
+  "hydro_poweredge_subtitle": "<span>Solutions for the development</span> of hydroelectric power plants, <br /> based on collective investments.",
+  "hydro_poweredge_maintext": "<span>Invest in projects,</span> that create stable <br /> and reliable energy sources",
+  "hydro_poweredge_subtext": "Gain access to innovations in hydroelectric power <br /> through meticulously crafted plans.",
+
+  "hydrogen_horizons_subtitle": "<span>Invest</span> in hydrogen energy projects <br /> for a sustainable future.",
+  "hydrogen_horizons_maintext": "<span>Customized investment plans,</span> <br /> tailored for the development of hydrogen technologies.",
+  "hydrogen_horizons_subtext": "Become part of the new energy era <br /> with the support of innovative solutions.",
+
+  "mining_farms_subtitle": "<span>Get access</span> to cutting-edge cryptocurrency mining technologies <br /> with guaranteed support.",
+  "mining_farms_maintext": "<span>Regular reports</span> and <span>personalized consultations</span> <br /> will help maximize profits.",
+  "mining_farms_subtext": "Effective portfolio management and <br /> strategies for steady growth of mining revenue."
+}

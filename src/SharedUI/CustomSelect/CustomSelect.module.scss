@@ -1,0 +1,39 @@
+.custom-select {
+    font-size: 12px;
+}
+
+.select-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.language-list {
+    list-style: "none";
+    margin: 0;
+    padding: 0;
+    border: 1px solid #ccc;
+    position: absolute;
+    background: white;
+    z-index: 100;
+}
+
+.language-list li {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    cursor: pointer;
+    color: black;
+}
+
+.language-list img {
+    border-right: 5px;
+}
+
+@media screen and (max-width: 1200px) {
+    .custom-select {
+        margin-left: auto;
+    }
+}

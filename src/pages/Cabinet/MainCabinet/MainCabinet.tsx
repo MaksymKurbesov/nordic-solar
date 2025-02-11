@@ -50,11 +50,6 @@ const MainCabinet = () => {
     <div className={styles["main-cabinet"]}>
       {restrictionMessage}
       <Wallets wallets={sortByAvailable(state.user.wallets)} />
-      {/*<div className={styles["skeletons"]}>*/}
-      {/*  <Skeleton height={210} />*/}
-      {/*  <Skeleton height={210} />*/}
-      {/*</div>*/}
-
       <Deposits deposits={state.user.deposits} />
       <div className={styles["accrual-wrapper"]}>
         <NextAccrual deposits={state.user.deposits} />
