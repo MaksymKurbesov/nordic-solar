@@ -28,6 +28,7 @@ i18n
       "withdrawn",
       "referrals",
       "settings",
+      "documents",
     ],
     backend: {
       loadPath: "/locales/{{lng}}/{{ns}}.json", // Путь к файлам перевода

@@ -1,29 +1,27 @@
-import styles from './Documents.module.scss'
-import { Button } from '@mui/material'
-import { Link, ScrollRestoration } from 'react-router-dom'
+import styles from "./Documents.module.scss";
+import { Button } from "@mui/material";
+import { Link, ScrollRestoration } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const Documents = () => {
+  const { t } = useTranslation("documents");
+
   return (
-    <div className={`${styles['documents']} container`}>
-      <h1>Документы</h1>
-      <p className={styles['subtitle']}>
-        Пожалуйста, внимательно ознакомтесь с документами компании.
-      </p>
-      <ul className={styles['documents-list']}>
+    <div className={`${styles["documents"]} container`}>
+      <h1>{t("documents")}</h1>
+      <p className={styles["subtitle"]}>{t("subtitle")}</p>
+      <ul className={styles["documents-list"]}>
         <li>
           <p>Organisasjonsnummer</p>
-          <span>
-            Регистрация компании в Бруннёйсундетском регистре
-            (Brønnøysundregistrene).
-          </span>
+          <span>{t("register_company")}</span>
           <Link to="/nordic-solar-documents.pdf" target="_blank" download>
-            <Button variant="contained">Скачать</Button>
+            <Button variant="contained">{t("download")}</Button>
           </Link>
         </li>
         <li>
-          <p>Сертификаты</p>
-          <span>Сертификаты соответствия экологическим стандартам</span>
-          <div className={styles['cert-buttons']}>
+          <p>{t("certificates")}</p>
+          <span>{t("certificate")}</span>
+          <div className={styles["cert-buttons"]}>
             <Link to="/ISO14001.pdf" target="_blank" download>
               <Button variant="contained">ISO-14001</Button>
             </Link>
@@ -38,7 +36,7 @@ const Documents = () => {
       </ul>
       <ScrollRestoration />
     </div>
-  )
-}
+  );
+};
 
-export default Documents
+export default Documents;
