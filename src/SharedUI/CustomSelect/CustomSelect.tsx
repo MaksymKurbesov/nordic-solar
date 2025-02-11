@@ -24,7 +24,7 @@ const selectVariants = {
 };
 
 const CustomSelect = () => {
-  const localStorageLanguage = localStorage.getItem("language");
+  const localStorageLanguage = localStorage.getItem("language") || "en";
   const [selectedLang, setSelectedLang] = useState(getLang(localStorageLanguage));
   const [isOpen, setIsOpen] = useState(false);
   const { i18n } = useTranslation();
