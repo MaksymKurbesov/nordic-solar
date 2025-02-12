@@ -1,10 +1,11 @@
-import { createBrowserRouter } from 'react-router-dom'
-import App from '@/App.tsx'
-import CabinetLayout from '@/pages/Cabinet/CabinetLayout.tsx'
+import { createBrowserRouter } from "react-router-dom";
+import App from "@/App.tsx";
+import CabinetLayout from "@/pages/Cabinet/CabinetLayout.tsx";
 import {
   AboutUsPage,
   AdminPanelPage,
-  ConfirmTransactionPage,
+  ConfirmDepositPage,
+  ConfirmWithdrawnPage,
   ContactsPage,
   DocumentsPage,
   FAQPage,
@@ -24,19 +25,19 @@ import {
   TermsOfUsePage,
   TransactionsPage,
   WithdrawnPage,
-} from '@/lazyPages.ts'
-import { Suspense } from 'react'
-import Partners from '@/pages/Partners/Partners.tsx'
-import SuspenseLoading from '@SharedUI/SuspenseLoading/SuspenseLoading.tsx'
-import PageNotFound from '@/pages/PageNotFound/PageNotFound.tsx'
+} from "@/lazyPages.ts";
+import { Suspense } from "react";
+import Partners from "@/pages/Partners/Partners.tsx";
+import SuspenseLoading from "@SharedUI/SuspenseLoading/SuspenseLoading.tsx";
+import PageNotFound from "@/pages/PageNotFound/PageNotFound.tsx";
 
 const routes = createBrowserRouter([
   {
-    path: '/',
+    path: "/",
     element: <App />,
     children: [
       {
-        path: '/',
+        path: "/",
         element: (
           <Suspense fallback={<SuspenseLoading />}>
             <IndexPage />
@@ -45,7 +46,7 @@ const routes = createBrowserRouter([
         ),
       },
       {
-        path: '/products',
+        path: "/products",
         element: (
           <Suspense fallback={<SuspenseLoading />}>
             <ProductsPage />
@@ -53,7 +54,7 @@ const routes = createBrowserRouter([
         ),
       },
       {
-        path: '/products/:product',
+        path: "/products/:product",
         element: (
           <Suspense fallback={<SuspenseLoading />}>
             <ProductPage />
@@ -61,7 +62,7 @@ const routes = createBrowserRouter([
         ),
       },
       {
-        path: '/investments',
+        path: "/investments",
         element: (
           <Suspense fallback={<SuspenseLoading />}>
             <InvestmentsPage />
@@ -69,7 +70,7 @@ const routes = createBrowserRouter([
         ),
       },
       {
-        path: '/investments/:investment',
+        path: "/investments/:investment",
         element: (
           <Suspense fallback={<SuspenseLoading />}>
             <InvestmentPage />
@@ -77,7 +78,7 @@ const routes = createBrowserRouter([
         ),
       },
       {
-        path: '/partner-program',
+        path: "/partner-program",
         element: (
           <Suspense fallback={<SuspenseLoading />}>
             <Partners />
@@ -85,7 +86,7 @@ const routes = createBrowserRouter([
         ),
       },
       {
-        path: '/about-us',
+        path: "/about-us",
         element: (
           <Suspense fallback={<SuspenseLoading />}>
             <AboutUsPage />
@@ -93,7 +94,7 @@ const routes = createBrowserRouter([
         ),
       },
       {
-        path: '/faq',
+        path: "/faq",
         element: (
           <Suspense fallback={<SuspenseLoading />}>
             <FAQPage />
@@ -101,7 +102,7 @@ const routes = createBrowserRouter([
         ),
       },
       {
-        path: '/contacts',
+        path: "/contacts",
         element: (
           <Suspense fallback={<SuspenseLoading />}>
             <ContactsPage />
@@ -109,7 +110,7 @@ const routes = createBrowserRouter([
         ),
       },
       {
-        path: '/sign-in',
+        path: "/sign-in",
         element: (
           <Suspense fallback={<SuspenseLoading />}>
             <SignInPage />
@@ -117,7 +118,7 @@ const routes = createBrowserRouter([
         ),
       },
       {
-        path: '/sign-up',
+        path: "/sign-up",
         element: (
           <Suspense fallback={<SuspenseLoading />}>
             <SignUpPage />
@@ -125,7 +126,7 @@ const routes = createBrowserRouter([
         ),
       },
       {
-        path: '/company-documents',
+        path: "/company-documents",
         element: (
           <Suspense fallback={<SuspenseLoading />}>
             <DocumentsPage />
@@ -133,7 +134,7 @@ const routes = createBrowserRouter([
         ),
       },
       {
-        path: '/privacy-policy',
+        path: "/privacy-policy",
         element: (
           <Suspense fallback={<SuspenseLoading />}>
             <PrivacyPolicyPage />
@@ -141,7 +142,7 @@ const routes = createBrowserRouter([
         ),
       },
       {
-        path: '/terms-of-use',
+        path: "/terms-of-use",
         element: (
           <Suspense fallback={<SuspenseLoading />}>
             <TermsOfUsePage />
@@ -151,7 +152,7 @@ const routes = createBrowserRouter([
     ],
   },
   {
-    path: '/cabinet',
+    path: "/cabinet",
     element: (
       <Suspense fallback={<SuspenseLoading />}>
         <CabinetLayout />
@@ -160,7 +161,7 @@ const routes = createBrowserRouter([
     errorElement: <PageNotFound />,
     children: [
       {
-        path: 'admin-panel',
+        path: "admin-panel",
         element: (
           <Suspense fallback={<SuspenseLoading />}>
             <AdminPanelPage />
@@ -168,7 +169,7 @@ const routes = createBrowserRouter([
         ),
       },
       {
-        path: 'main',
+        path: "main",
         element: (
           <Suspense fallback={<SuspenseLoading />}>
             <MainCabinetPage />
@@ -176,7 +177,7 @@ const routes = createBrowserRouter([
         ),
       },
       {
-        path: 'open-plan/plans',
+        path: "open-plan/plans",
         element: (
           <Suspense fallback={<SuspenseLoading />}>
             <OpenPlanPage />
@@ -184,7 +185,7 @@ const routes = createBrowserRouter([
         ),
       },
       {
-        path: 'make-deposit',
+        path: "make-deposit",
         element: (
           <Suspense fallback={<SuspenseLoading />}>
             <MakeDepositPage />
@@ -192,15 +193,15 @@ const routes = createBrowserRouter([
         ),
       },
       {
-        path: 'make-deposit/confirm-transaction',
+        path: "make-deposit/confirm-transaction",
         element: (
           <Suspense fallback={<SuspenseLoading />}>
-            <ConfirmTransactionPage />
+            <ConfirmDepositPage />
           </Suspense>
         ),
       },
       {
-        path: 'withdrawn',
+        path: "withdrawn",
         element: (
           <Suspense fallback={<SuspenseLoading />}>
             <WithdrawnPage />
@@ -208,15 +209,15 @@ const routes = createBrowserRouter([
         ),
       },
       {
-        path: 'withdrawn/confirm-transaction',
+        path: "withdrawn/confirm-transaction",
         element: (
           <Suspense fallback={<SuspenseLoading />}>
-            <ConfirmTransactionPage />
+            <ConfirmWithdrawnPage />
           </Suspense>
         ),
       },
       {
-        path: 'transactions',
+        path: "transactions",
         element: (
           <Suspense fallback={<SuspenseLoading />}>
             <TransactionsPage />
@@ -224,7 +225,7 @@ const routes = createBrowserRouter([
         ),
       },
       {
-        path: 'referrals',
+        path: "referrals",
         element: (
           <Suspense fallback={<SuspenseLoading />}>
             <ReferralsPage />
@@ -232,7 +233,7 @@ const routes = createBrowserRouter([
         ),
       },
       {
-        path: 'settings',
+        path: "settings",
         element: (
           <Suspense fallback={<SuspenseLoading />}>
             <SettingsPage />
@@ -242,9 +243,9 @@ const routes = createBrowserRouter([
     ],
   },
   {
-    path: '*',
+    path: "*",
     element: <PageNotFound />,
   },
-])
+]);
 
-export default routes
+export default routes;

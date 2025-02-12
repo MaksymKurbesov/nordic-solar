@@ -5,7 +5,7 @@ import styles from "./CustomSelect.module.scss";
 import { useTranslation } from "react-i18next";
 import { motion } from "motion/react";
 
-const getLang = (code) => {
+const getLang = (code: string) => {
   return languages.find((lang) => lang.code === code);
 };
 
@@ -48,21 +48,21 @@ const CustomSelect = () => {
         <img src={selectedLang.flag} alt={selectedLang.name} width="20" />
         <span style={{ marginLeft: "10px" }}>{selectedLang.name}</span>
       </div>
-      {isOpen && (
-        <ul className={styles["language-list"]}>
-          {languages.map((lang) => (
-            <li
-              key={lang.code}
-              onClick={() => {
-                handleChange(lang);
-              }}
-            >
-              <img src={lang.flag} alt={lang.name} width="20" />
-              <span style={{ marginLeft: "10px" }}>{lang.name}</span>
-            </li>
-          ))}
-        </ul>
-      )}
+      {/*{isOpen && (*/}
+      <ul className={`${styles["language-list"]} ${isOpen ? styles["is-open"] : ""}`}>
+        {languages.map((lang) => (
+          <li
+            key={lang.code}
+            onClick={() => {
+              handleChange(lang);
+            }}
+          >
+            <img src={lang.flag} alt={lang.name} width="20" />
+            <span style={{ marginLeft: "10px" }}>{lang.name}</span>
+          </li>
+        ))}
+      </ul>
+      {/*)}*/}
     </motion.div>
   );
 };

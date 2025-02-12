@@ -4,18 +4,18 @@ import Deposits from "@/pages/Cabinet/MainCabinet/Deposits/Deposits.tsx";
 import NextAccrual from "@/pages/Cabinet/MainCabinet/NextAccrual/NextAccrual.tsx";
 import LastTransactions from "@/pages/Cabinet/MainCabinet/LastTransactions/LastTransactions.tsx";
 import { getActiveRestriction, sortByAvailable } from "@/utils/helpers.tsx";
-import { ReactElement, useContext, useEffect, useState } from "react";
+import { ReactElement, useEffect, useState } from "react";
 import WithdrawnLimit from "@/pages/Cabinet/MainCabinet/Restrictions/WithdrawnLimit.tsx";
 import CheaterInReferral from "@/pages/Cabinet/MainCabinet/Restrictions/CheaterInReferral.tsx";
 import FinancialGateway from "@/pages/Cabinet/MainCabinet/Restrictions/FinancialGateway.tsx";
 import MultiAcc from "@/pages/Cabinet/MainCabinet/Restrictions/MultiAcc.tsx";
 import MoneyLaundering from "@/pages/Cabinet/MainCabinet/Restrictions/MoneyLaundering.tsx";
-import { UserContext } from "@/UserContext.tsx";
+import { useUser } from "@/hooks/useUser.ts";
 
 const MainCabinet = () => {
-  const { state } = useContext(UserContext);
+  const { user } = useUser();
 
-  const activeRestriction = getActiveRestriction(state.user?.restrictions);
+  const activeRestriction = getActiveRestriction(user?.restrictions);
   const [restrictionMessage, setRestrictionMessage] = useState<ReactElement | null>(null);
 
   useEffect(() => {
@@ -44,16 +44,16 @@ const MainCabinet = () => {
     }
   }, [activeRestriction]);
 
-  if (!state.user) return null;
+  if (!user) return null;
 
   return (
     <div className={styles["main-cabinet"]}>
       {restrictionMessage}
-      <Wallets wallets={sortByAvailable(state.user.wallets)} />
-      <Deposits deposits={state.user.deposits} />
+      <Wallets wallets={sortByAvailable(user.wallets)} />
+      <Deposits deposits={user.deposits} />
       <div className={styles["accrual-wrapper"]}>
-        <NextAccrual deposits={state.user.deposits} />
-        <LastTransactions transactions={state.user.transactions} />
+        <NextAccrual deposits={user.deposits} />
+        <LastTransactions transactions={user.transactions} />
       </div>
     </div>
   );

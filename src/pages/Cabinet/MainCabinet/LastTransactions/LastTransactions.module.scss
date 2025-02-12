@@ -45,15 +45,15 @@
   opacity: 0.35;
 }
 
-.success {
+.Success, .Выполнено {
   color: $green;
 }
 
-.idle {
+.Pending, .Ожидание {
   color: $yellow;
 }
 
-.cancel {
+.Canceled, .Отмена {
   color: $red;
 }
 

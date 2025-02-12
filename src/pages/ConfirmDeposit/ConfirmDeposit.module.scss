@@ -73,9 +73,9 @@
   border-radius: 50%;
 }
 
-.icon svg {
-  z-index: 55;
-}
+//.icon svg {
+//  z-index: 55;
+//}
 
 .amount {
   font-size: 40px;
@@ -148,6 +148,10 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 15px;
+}
+
+.pending {
+  color: $yellow;
 }
 
 @media screen and (max-width: 1500px) {

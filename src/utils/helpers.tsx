@@ -1,4 +1,4 @@
-import { IDeposit, IRestrictions, IWallets } from "@/interfaces/IUser.ts";
+import { IDeposit, IRestrictions } from "@/interfaces/IUser.ts";
 
 export const generateSixDigitCode = () => {
   return Math.floor(100000 + Math.random() * 900000);
@@ -38,7 +38,11 @@ export const getTotalStructureInvested = (referrals): number => {
   }, 0);
 };
 
-export const calculateTotalIncome = (initialAmount: number, dailyPercentage: number | null, days: number | null) => {
+export const calculateTotalIncome = (
+  initialAmount: number,
+  dailyPercentage: number | null,
+  days: number | null,
+) => {
   if (isNaN(initialAmount)) {
     return 0;
   }
@@ -54,7 +58,9 @@ export const calculateDailyIncome = (initialAmount: number, dailyRate: number) =
   return ((initialAmount * dailyRate) / 100).toFixed(2);
 };
 
-export const getClosestDeposit = (deposits: IDeposit[]): { deposit: IDeposit; timeToAccrual: number } | null => {
+export const getClosestDeposit = (
+  deposits: IDeposit[],
+): { deposit: IDeposit; timeToAccrual: number } | null => {
   if (!deposits || deposits.length === 0) return null;
 
   const currentTime = new Date().getTime() / 1000;
@@ -64,8 +70,6 @@ export const getClosestDeposit = (deposits: IDeposit[]): { deposit: IDeposit; ti
     timeToAccrual: number;
   } | null>((closest, deposit) => {
     if (!deposit.lastAccrual) return closest;
-
-    console.log(deposit, "deposit in helpers");
 
     const timeToAccrual = deposit.lastAccrual._seconds + deposit.days * 86400 - currentTime;
 
@@ -98,7 +102,11 @@ export const getActiveRestriction = (restrictions: IRestrictions | undefined): k
   for (const key in restrictions) {
     const restrictionKey = key as keyof IRestrictions; // Явное приведение key
 
-    if (typeof restrictions[restrictionKey] === "boolean" && restrictions[restrictionKey] && restrictionKey !== "isPrivateKey") {
+    if (
+      typeof restrictions[restrictionKey] === "boolean" &&
+      restrictions[restrictionKey] &&
+      restrictionKey !== "isPrivateKey"
+    ) {
       return restrictionKey;
     }
 
@@ -119,7 +127,10 @@ export const hasActiveRestrictions = (restrictions: IRestrictions | undefined): 
       return restrictions[restrictionKey];
     }
 
-    if (typeof restrictions[restrictionKey] === "object" && restrictions[restrictionKey]?.isActive !== undefined) {
+    if (
+      typeof restrictions[restrictionKey] === "object" &&
+      restrictions[restrictionKey]?.isActive !== undefined
+    ) {
       return restrictions[restrictionKey].isActive;
     }
 

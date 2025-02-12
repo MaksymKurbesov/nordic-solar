@@ -1,5 +1,9 @@
 {
   "withdrawn": "Withdrawal",
   "enter_amount": "Enter the amount of the withdrawal",
-  "withdraw": "Withdraw funds"
+  "withdraw": "Withdraw funds",
+  "choose_wallet": "Choose a wallet",
+  "no_amount": "Insufficient funds in the wallet",
+  "invalid_amount": "Invalid amount",
+  "min_amount": "Minimum withdrawal amount is $10"
 }

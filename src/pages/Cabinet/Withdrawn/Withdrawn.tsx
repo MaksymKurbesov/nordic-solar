@@ -15,7 +15,7 @@ export interface IWithdrawnFormData {
 }
 
 const Withdrawn = () => {
-  const { t, i18n } = useTranslation("withdrawn");
+  const { t } = useTranslation("withdrawn");
   const { user } = useUser();
   const form = useForm<IWithdrawnFormData>({
     defaultValues: {
@@ -37,22 +37,22 @@ const Withdrawn = () => {
     if (userHasRestriction) return;
 
     if (!wallet) {
-      toast.error("Выберите кошелёк");
+      toast.error(t("choose_wallet"));
       return;
     }
 
     if (user && user.wallets[wallet].available < amount) {
-      toast.error("Недостаточно средств на кошельке");
+      toast.error(t("no_amount"));
       return;
     }
 
     if (isNaN(amount)) {
-      toast.error("Некорректная сумма");
+      toast.error(t("invalid_amount"));
       return;
     }
 
     if (amount < 10) {
-      toast.error("Минимальная сумма вывода 10$");
+      toast.error(t("min_amount"));
       return;
     }
 

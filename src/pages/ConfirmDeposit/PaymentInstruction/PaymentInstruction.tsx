@@ -38,9 +38,9 @@ const PaymentInstruction: FC<IPaymentInstruction> = ({
             <p className={styles["wallet-address"]} onClick={copyWalletHandler}>
               <span>{OUR_WALLETS[wallet]}</span> <CopyIcon />
             </p>
-            <p className={styles["title"]}>
-              {t("wallet_address")} {wallet}
-            </p>
+            {/*<p className={styles["title"]}>*/}
+            {/*  {t("wallet_address")} {wallet}*/}
+            {/*</p>*/}
           </div>
         </li>
         <li>

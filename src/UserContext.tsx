@@ -1,6 +1,7 @@
 import { createContext, ReactNode, FC, useReducer, Dispatch } from "react";
 import { IDeposit, IExtendedUser, ITransaction, ITransformedTransaction, IUser } from "@/interfaces/IUser.ts";
 import { IWallets } from "@/interfaces/IWallets.ts";
+import { DocumentSnapshot } from "firebase/firestore";
 
 interface UserState {
   user: IExtendedUser | null;
@@ -14,6 +15,10 @@ type Action =
   | {
       type: "SET_TRANSACTIONS";
       payload: ITransaction[] | ITransformedTransaction[];
+    }
+  | {
+      type: "SET_LAST_TRANSACTION";
+      payload: DocumentSnapshot;
     };
 
 const initialState: UserState = {
@@ -42,6 +47,17 @@ const reducer = (state: UserState, action: Action): UserState => {
           user: {
             ...state.user,
             wallets: action.payload,
+          },
+        };
+      }
+      return state;
+    case "SET_LAST_TRANSACTION":
+      if (state.user) {
+        return {
+          ...state,
+          user: {
+            ...state.user,
+            lastTransaction: action.payload,
           },
         };
       }

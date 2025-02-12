@@ -24,7 +24,6 @@ export const transformDeposit = (deposit: IDeposit) => {
 
   if (deposit.accruals === "one_time") {
     nextAccrual = Timestamp.fromMillis(deposit.lastAccrual._seconds * 1000 + deposit.days * 86400000);
-    console.log(deposit.days, "deposit.days");
   } else {
     nextAccrual = Timestamp.fromMillis(deposit.lastAccrual._seconds * 1000 + 24 * 60 * 60 * 1000);
   }

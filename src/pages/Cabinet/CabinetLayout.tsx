@@ -3,21 +3,21 @@ import { Outlet, useNavigate } from "react-router-dom";
 import Footer from "@SharedUI/Footer/Footer.tsx";
 import CabinetMenu from "@SharedUI/CabinetMenu/CabinetMenu.tsx";
 import { Toaster } from "react-hot-toast";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { useFirebaseUser } from "@/context/AuthContext.tsx";
 import { BACKEND_URL } from "@/utils/const.tsx";
 import { collection, doc, limit, onSnapshot, orderBy, query, where } from "firebase/firestore";
 import { db } from "@/main.tsx";
 import { ITransaction, IUser } from "@/interfaces/IUser.ts";
-import { UserContext } from "@/UserContext.tsx";
 import { transformDeposit, transformTransaction } from "@/utils/helpers/transformData.tsx";
 import SuspenseLoading from "@SharedUI/SuspenseLoading/SuspenseLoading.tsx";
 import { useTranslation } from "react-i18next";
+import { useUser } from "@/hooks/useUser.ts";
 
 const CabinetLayout = () => {
   const { t } = useTranslation("cabinet");
-  const { state, dispatch } = useContext(UserContext);
+  const { user, dispatch } = useUser();
   const { user: firebaseUser, isLoading } = useFirebaseUser();
   const [userIsFetched, setUserIsFetched] = useState(false);
   const navigate = useNavigate();
@@ -62,6 +62,10 @@ const CabinetLayout = () => {
           });
 
           dispatch({ type: "SET_TRANSACTIONS", payload: transformedTransactions });
+          dispatch({
+            type: "SET_LAST_TRANSACTION",
+            payload: querySnapshot.docs[querySnapshot.docs.length - 1] || null,
+          });
         });
 
         setIsDepositsLoading(true);
@@ -85,7 +89,7 @@ const CabinetLayout = () => {
     };
   }, [firebaseUser]);
 
-  if (!state.user && isLoading) {
+  if (!user && isLoading) {
     return <SuspenseLoading />;
   }
 

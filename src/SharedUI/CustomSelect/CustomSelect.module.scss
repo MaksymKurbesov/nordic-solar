@@ -16,8 +16,16 @@
     padding: 0;
     border: 1px solid #ccc;
     position: absolute;
-    background: white;
+    background: rgba(255, 255, 255, 0.2);
     z-index: 100;
+    opacity: 0;
+    transition: 0.35s ease all;
+    visibility: hidden;
+}
+
+.is-open {
+    opacity: 1;
+    visibility: initial;
 }
 
 .language-list li {
@@ -25,7 +33,7 @@
     align-items: center;
     padding: 10px;
     cursor: pointer;
-    color: black;
+    color: white;
 }
 
 .language-list img {

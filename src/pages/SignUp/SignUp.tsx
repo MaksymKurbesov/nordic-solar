@@ -28,7 +28,7 @@ const SignUp = () => {
 
   const [isAgreementOpen, setIsAgreementOpen] = useState(false);
   const [isFormLoading, setIsFormLoading] = useState(false);
-  const [isSuccessModalVisible, setIsSuccessModalVisible] = useState(true);
+  const [isSuccessModalVisible, setIsSuccessModalVisible] = useState(false);
 
   const openModal = () => {
     setIsSuccessModalVisible(true);

@@ -30,6 +30,18 @@ class UserService implements IUserService {
     }
   }
 
+  async setUserRestriction(restriction: string, userID: string) {
+    const userDoc = doc(this.userCollection, userID);
+    try {
+      await updateDoc(userDoc, {
+        [`restrictions.${restriction}`]: true,
+      });
+    } catch (e) {
+      alert(e);
+      console.error(e);
+    }
+  }
+
   async updateUserAvatar(avatar: File, setUserAvatar: Dispatch<SetStateAction<string | null>>) {
     try {
       if (!auth.currentUser) return;

@@ -4,12 +4,6 @@ import { useState } from "react";
 import { ITransaction, ITransformedTransaction } from "@/interfaces/IUser.ts";
 import { useTranslation } from "react-i18next";
 
-const STYLES_MAP: Record<string, string> = {
-  Выполнено: "success",
-  Ожидание: "idle",
-  Отмена: "cancel",
-};
-
 const LastTransactions = ({ transactions }: { transactions: ITransaction[] | ITransformedTransaction[] }) => {
   const { t } = useTranslation("cabinet");
   const [collapsedTransactions, setCollapsedTransactions] = useState<number[]>([]);
@@ -25,7 +19,7 @@ const LastTransactions = ({ transactions }: { transactions: ITransaction[] | ITr
   };
 
   if (!transactions) {
-    return <div>Нет транзакций</div>;
+    return <div>{t("no_transactions")}</div>;
   }
 
   return (
@@ -49,7 +43,7 @@ const LastTransactions = ({ transactions }: { transactions: ITransaction[] | ITr
                     return (
                       <p key={index} className={`${styles["cell"]} ${styles[column.key]}`}>
                         <span>{column.title}</span>
-                        <span className={`${styles[STYLES_MAP[transaction[columnKey]]]}`}>
+                        <span className={`${styles[transaction[columnKey]]}`}>
                           {`${columnKey === "type" || columnKey === "status" ? t(transaction[columnKey]) : transaction[columnKey]}`}
                         </span>
                       </p>

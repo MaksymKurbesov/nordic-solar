@@ -1,4 +1,4 @@
-import { Timestamp } from "firebase/firestore";
+import { DocumentSnapshot, Timestamp } from "firebase/firestore";
 import { IWallets } from "@/interfaces/IWallets.ts";
 import { IRegistrationDate } from "@/pages/Cabinet/Referrals/Referrals.tsx";
 
@@ -75,9 +75,11 @@ export interface IUser {
   settings: ISettings;
   wallets: IWallets;
   withdrawn: number;
+  forcePrivateKey: boolean;
 }
 
 export interface IExtendedUser extends IUser {
   deposits: IDeposit[];
   transactions: ITransformedTransaction[];
+  lastTransaction: DocumentSnapshot;
 }
