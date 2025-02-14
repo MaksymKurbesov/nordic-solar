@@ -56,6 +56,26 @@
   //margin-left: auto;
 }
 
+
+.calculator-button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: fixed;
+  height: 56px;
+  bottom: 22px;
+  left: 10px;
+  background: linear-gradient(80deg, $green, #14cd37 130%);
+  border-radius: 9999px;
+  color: white;
+  font-size: 16px;
+  padding: 1.2rem;
+}
+
+.calculator-button img {
+  filter: invert(1);
+}
+
 @media screen and (max-width: 1000px) {
   .plans-list li a {
     grid-template-columns: 300px 1fr 60px;
@@ -95,5 +115,17 @@
 
   .info h3 {
     margin-bottom: 10px;
+  }
+
+  .calculator-button {
+    width: 55px;
+    height: 55px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .calculator-button span {
+    display: none;
   }
 }

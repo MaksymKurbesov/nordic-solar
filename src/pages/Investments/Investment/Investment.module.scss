@@ -72,16 +72,39 @@
   margin-bottom: 30px;
 }
 
+.calculator-button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: fixed;
+  height: 56px;
+  bottom: 22px;
+  left: 10px;
+  background: linear-gradient(80deg, $green, #14cd37 130%);
+  border-radius: 9999px;
+  color: white;
+  font-size: 16px;
+  padding: 1.2rem;
+}
+
+.calculator-button img {
+  filter: invert(1);
+}
+
 @media screen and (max-width: 767px) {
   .investment {
     padding-top: 30px;
+  }
+
+  .investment > button:nth-child(3) {
+    margin-bottom: 75px;
   }
 
   .investment > h2 {
     font-size: 40px;
   }
 
-  .investment > button {
+  .back-button {
     margin-bottom: 35px !important;
   }
 
@@ -104,5 +127,17 @@
 
   .individual-plans-text2 p {
     margin-left: initial;
+  }
+
+  .calculator-button {
+    width: 55px;
+    height: 55px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .calculator-button span {
+    display: none;
   }
 }

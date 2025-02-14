@@ -1,7 +1,7 @@
 import styles from "./DrawerMobileMenu.module.scss";
 import { Drawer } from "@mui/material";
 import { NavLink, useNavigate } from "react-router-dom";
-import { getLinks, LINKS } from "@SharedUI/CabinetMenu/CabinetMenu.tsx";
+import { getLinks } from "@SharedUI/CabinetMenu/CabinetMenu.tsx";
 import Logo from "@assets/logo.svg?react";
 import XIcon from "@assets/icons/x.svg?react";
 import { userService } from "@/main.tsx";

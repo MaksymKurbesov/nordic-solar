@@ -55,6 +55,8 @@ export const calculateTotalIncome = (
 };
 
 export const calculateDailyIncome = (initialAmount: number, dailyRate: number) => {
+  if (!dailyRate || !initialAmount) return 0;
+
   return ((initialAmount * dailyRate) / 100).toFixed(2);
 };
 
